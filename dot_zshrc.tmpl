@@ -45,7 +45,9 @@ plugins=(
   extract
   zsh-dircolors-solarized
   tmux
-  {{- if eq .chezmoi.os "darwin" }}mosh{{- end }}
+  {{- if eq .chezmoi.os "darwin" }}
+  mosh
+  {{- end }}
 )
 
 # User configuration

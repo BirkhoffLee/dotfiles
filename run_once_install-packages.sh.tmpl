@@ -76,6 +76,12 @@ if [ ! -f ~/.fzf.zsh ]; then
   ${BREW_PREFIX}/opt/fzf/install --all
 fi
 
+# Install Powerline compatible fonts
+echo Installing Powerline fonts.
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts && ./install.sh
+cd .. && rm -rf fonts
+
 ###################### macOS End #######################
 {{- end }}
 
@@ -105,6 +111,12 @@ fi
 
 echo Installing virtualenv.
 pip3 install virtualenv
+
+#############
+
+echo Installing prettyping.
+sudo wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+sudo chmod +x /usr/local/bin/prettyping
 
 #############
 
