@@ -3,10 +3,12 @@ My macOS/Linux dotfiles managed by Chezmoi.
 
 # Features
 * Zsh with oh-my-zsh and antibody.
+* Useful aliases/functions for network administrators.
+* Automatic installation of macOS apps/brew packages.
 * Powerful tmux setup using a modified version of [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
 
 # Usage
-First install [Chezmoi](https://github.com/twpayne/chezmoi): https://github.com/twpayne/chezmoi/blob/master/docs/INSTALL.md#one-line-package-install.
+First install Chezmoi with [this guide](https://github.com/twpayne/chezmoi/blob/master/docs/INSTALL.md#one-line-package-install).
 
 After that, run the following to immediately apply the dotfiles and run the installation script:
 ```
