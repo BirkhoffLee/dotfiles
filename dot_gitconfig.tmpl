@@ -1,0 +1,122 @@
+[core]
+  excludesfile = ~/.gitignore_global
+	pager =
+[pager]
+  diff = diff-so-fancy | less --tabs=1,5 -RFX
+  show = diff-so-fancy | less --tabs=1,5 -RFX
+{{- if eq .chezmoi.os "darwin" }}
+[credential]
+  helper = osxkeychain
+{{- end }}
+[http]
+  postBuffer = 524288000
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+[push]
+  default = simple
+[user]
+	name = Birkhoff Lee
+	email = git@birkhoff.me
+[diff]
+  indentHeuristic = on
+[alias]
+  # add
+  a = add                           # add
+  chunkyadd = add --patch           # stage commits chunk by chunk
+
+  # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+  snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+  snapshots = !git stash list --grep snapshot
+
+  #via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+  recent-branches = !git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'
+
+  # branch
+  b = branch -v                     # branch (verbose)
+
+  # commit
+  c = commit -m                     # commit with message
+  ca = commit -am                   # commit all with message
+  ci = commit                       # commit
+  amend = commit --amend            # ammend your last commit
+  ammend = commit --amend           # ammend your last commit
+
+  # checkout
+  co = checkout                     # checkout
+  nb = checkout -b                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
+
+  # cherry-pick
+  cp = cherry-pick -x               # grab a change from a branch
+
+  # diff
+  d = diff                          # diff unstaged changes
+  dc = diff --cached                # diff staged changes
+  last = diff HEAD^                 # diff last committed change
+
+  # log
+  l = log --graph --date=short
+  changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+  short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+  simple = log --pretty=format:\" * %s\"
+  shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
+
+  # pull
+  pl = pull                         # pull
+
+  # push
+  ps = push                         # push
+
+  # rebase
+  rc = rebase --continue            # continue rebase
+  rs = rebase --skip                # skip rebase
+
+  # remote
+  r = remote -v                     # show remotes (verbose)
+
+  # reset
+  unstage = reset HEAD              # remove files from index (tracking)
+  uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
+  filelog = log -u                  # show changes to a file
+  mt = mergetool                    # fire up the merge tool
+
+  # stash
+  ss = stash                        # stash changes
+  sl = stash list                   # list stashes
+  sa = stash apply                  # apply stash (restore changes)
+  sd = stash drop                   # drop stashes (destory changes)
+
+  # status
+  s = status                        # status
+  st = status                       # status
+  stat = status                     # status
+
+  # tag
+  t = tag -n                        # show tags with <n> lines of each tag message
+
+  # svn helpers
+  svnr = svn rebase
+  svnd = svn dcommit
+  svnl = svn log --oneline --show-commit
+# Colors
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = white bold 52
+  newNormal = green bold
+  newHighlight = white bold 22
+[color "diff"]
+  meta = black
+  frag = blue bold
+  commit = black bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+# Allow local customizations in the .gitconfig_local file
+[include]
+  path = ~/.gitconfig_local
+[merge]
+	tool = vim

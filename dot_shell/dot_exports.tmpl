@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+# `.exports` is used to provide custom variables.
+#
+# This file is used as a part of `.shell_env`
+
+
+# === Path modifications ===
+
+# These lines should be the first ones
+
+# gnubin:
+PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+{{- if eq .chezmoi.os "darwin" }}
+PATH="/usr/local/opt/binutils/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:$HOME/.dotnet:/usr/local/opt/curl-openssl/bin:$PATH"
+{{- end }}
+
+export PATH
+
+# === General ===
+
+# Language
+export LANG=en_US.UTF-8
+export LC_ALL="en_US.UTF-8"
+
+# Editor:
+{{- if eq .chezmoi.os "darwin" }}
+export EDITOR=$(which vim)
+{{- else }}
+export EDITOR=$(which code)
+{{- end }}
+
+# oh-my-zsh tmux plugin
+ZSH_TMUX_AUTOSTART_ONCE=true
+ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOQUIT=false
+ZSH_TMUX_ITERM2=true
+
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8'
+
+{{- if eq .chezmoi.os "darwin" }}
+# Homebrew:
+export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
+{{- end }}
+
+# Pagers:
+export LESS="-R"  # argument to allow less to show colors
+export PAGER='bat --color always --style plain'
+export MANPAGER='bat --color always --style plain'
+
+# === Virtualenvs ===
+
+export PIPENV_VENV_IN_PROJECT=true # look for `.venv` dir inside project
+export PIPENV_HIDE_EMOJIS=true # no emojis!
+export PIPENV_COLORBLIND=true # disables colors, so colorful!
+export PIPENV_NOSPIN=true # disables spinner for cleaner logs
+
+
+# === Version managers ===
+
+# nvm (lazy load)
+export NVM_DIR=~/.nvm
+function nvm {
+  if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+    nvm use system
+    nvm $@
+  fi
+}
+
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
+
+
+# === Histories ===
+
+# Enable persistent REPL history for `node`.
+export NODE_REPL_HISTORY="$HOME/.node_history"
+
+# Use sloppy mode by default, matching web browsers.
+export NODE_REPL_MODE='sloppy'
+
+# Erlang and Elixir shell history:
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# zsh histories
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+SAVEHIST=100
+HISTFILE=~/.zsh_history

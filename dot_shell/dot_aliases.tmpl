@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+# `.aliases` is used to provide custom variables.
+#
+# This file is used as a part of `.shell_env`
+
+# === Aliases ===
+
+{{- if eq .chezmoi.os "darwin" }}
+# Bell when the program is finished. It is useful for some
+# time-consuming operations. Like:
+# > npm install | a
+alias a="terminal-notifier -sound default -message 'Command complete' -title 'iTerm 2'"
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# Copy public key to clipboard:
+alias pubkey="cat ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key (ed25519) copied to pasteboard.'"
+alias sshkey="pubkey"
+
+# Quick opening files with VSCode
+alias c='f -e code'
+
+# ping
+alias ping='/usr/local/bin/prettyping --nolegend'
+
+# brew update
+alias brewery='brew update && brew upgrade && brew cleanup'
+
+# Quick connect
+alias q='ssh'
+
+# dig
+alias dig='kdig'
+{{- end }}
+
+{{- if (index .chezmoi "osRelease")}}
+  {{- if eq .chezmoi.osRelease.id "centos" }}
+  alias fcmd='sudo firewall-cmd'
+  {{- end }}
+{{- end }}
+
+# Clear ZSH history
+alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
+
+# preview
+alias preview="fzf --height 40% --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color \"always\" --line-range :40 {}; fi'"
+
+# htop => top
+alias top="sudo htop"
+
+# View disk usage
+alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+
+# docker
+alias d='docker'
+alias dp='docker ps -a'
+alias dr='docker rm'
+alias di='docker inspect'
+alias dvl='docker volume ls'
+alias dvi='docker volume inspect'
+alias dvp='docker volume inspect --format ''{{"{{"}} .Mountpoint {{"}}"}}'''
+
+# docker-compose
+alias dc='docker-compose'
+alias dclf='docker-compose logs -f'
+alias dcu='docker-compose up -d'
+alias dcr='docker-compose restart'
+alias dcub='docker-compose up -d --build'
+alias dcb='docker-compose build'
+alias dcd='docker-compose down'

@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+# `.functions` provides helper functions for shell.
+#
+# This file is used as a part of `.shell_env`
+
+
+# === Commonly used functions ===
+
+{{- if eq .chezmoi.os "darwin" }}
+dns () {
+  ip $(kdig +short $1 | tail -n1)
+}
+
+cdf () {
+  # cd into whatever is the forefront Finder window.
+  local path=$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')
+  echo "$path"
+  cd "$path"
+}
+
+# wireshark() {
+#   sudo chown $(whoami):admin /dev/bp*
+#   sudo chown $(whoami):admin /dev/bp*
+#   ls -la | grep /dev/bp
+#   open /Applications/Wireshark.app/
+# }
+{{- end }}
+
+ip () {
+  curl -Ls https://api.birkhoff.me/v1/ip/$1 | jq
+}
+
+transfer() {if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
+tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; cat $tmpfile | pbcopy; rm -f $tmpfile; echo}
+
+mc () {
+  # Create a new directory and enter it
+  mkdir -p "$@" && cd "$@"
+}
+
+gdrive_download () {
+  CONFIRM=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=$1" -O- | gsed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')
+  wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$CONFIRM&id=$1" -O $2
+  rm -rf /tmp/cookies.txt
+}
+
+pyclean () {
+  # Cleans py[cod] and __pychache__ dirs in the current tree:
+  find . | grep -E "(__pycache__|\.py[cod]$)" | xargs rm -rf
+}
+
+pipenv-shell () {
+  # pipenv shell breaks sometimes. This does not.
+  source "$(pipenv --venv)/bin/activate"
+}

@@ -1,0 +1,125 @@
+#!/bin/sh
+
+set -e
+
+# Check environment
+
+if [[ "$TERM" =~ "screen".* ]]; then
+  echo "This script must not be run under a tmux session."
+  exit 1
+fi
+
+if [[ $EUID -eq 0 ]]; then
+  echo "This script must not be run as root"
+  exit 1
+fi
+
+{{- if (index .chezmoi "osRelease")}}{{- if eq .chezmoi.osRelease.id "centos" }}
+##################### CentOS Start #####################
+
+echo CentOS detected.
+
+echo Installing essential packages.
+
+sudo yum update
+sudo yum install curl wget git htop zsh the_silver_searcher libevent-devel ncurses-devel automake -y
+
+# Install tmux
+if [[ $(tmux -V) != *2.9* ]]; then
+  echo Installing tmux 2.9.
+  sudo yum remove tmux -y
+  cd /tmp
+  git clone https://github.com/tmux/tmux.git
+  cd tmux
+  git checkout 2.9
+  sh autogen.sh
+  ./configure && make
+  sudo make install
+fi
+
+# Install fzf
+echo Installing fzf.
+if [ ! -f ~/.fzf.zsh ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --all
+fi
+
+
+###################### CentOS End ######################
+{{- end }}{{- else if eq .chezmoi.os "darwin" }}
+###################### macOS Start ######################
+
+echo macOS detected.
+
+echo Updating Homebrew.
+brew update
+export HOMEBREW_NO_AUTO_UPDATE=1
+brew upgrade || true
+echo Installing essential packages.
+brew bundle --verbose
+BREW_PREFIX=$(brew --prefix)
+ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
+git lfs install
+sudo git lfs install --system
+
+# Install tmux 2.9a
+if [[ $(tmux -V) != *2.9* ]]; then
+  echo Installing tmux 2.9.
+  brew uninstall tmux
+  brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/c2a5cd21a94f5574458e16198f2c4a1b7a93a0c9/Formula/tmux.rb
+  brew pin tmux
+fi
+
+# Install fzf
+echo Installing fzf.
+if [ ! -f ~/.fzf.zsh ]; then
+  ${BREW_PREFIX}/opt/fzf/install --all
+fi
+
+###################### macOS End #######################
+{{- end }}
+
+# Universal
+echo Running universal scripts.
+
+echo Installing oh-my-zsh and its packages.
+if [ ! -e "$HOME/.oh-my-zsh" ]; then
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+curl -sL git.io/antibody | sh -s
+if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized" ]; then
+  git clone --recursive git://github.com/joel-porquet/zsh-dircolors-solarized ~/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized
+fi
+
+export NVM_DIR="$HOME/.nvm"
+if [ ! -e "$NVM_DIR" ]; then
+  echo Installing NVM.
+  (
+    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+    cd "$NVM_DIR"
+    git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+  ) && \. "$NVM_DIR/nvm.sh"
+fi
+
+#############
+
+echo Installing virtualenv.
+pip3 install virtualenv
+
+#############
+
+if [ ! -e "$HOME/.tmux/plugins/tpm" ]; then
+  echo "Installing TPM (Tmux Plugin Manager)"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# Install TPM plugins.
+# TPM requires running tmux server, as soon as `tmux start-server` does not work
+# create dump __noop session in detached mode, and kill it when plugins are installed
+printf "Install TPM plugins\n"
+tmux new -d -s __noop >/dev/null 2>&1 || true
+tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
+"$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
+tmux kill-session -t __noop >/dev/null 2>&1 || true
+
+#############
