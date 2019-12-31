@@ -1,5 +1,5 @@
 # dotfiles
-My macOS/Linux dotfiles managed by [Chezmoi]](https://github.com/twpayne/chezmoi).
+My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 
 # Features
 * Zsh with oh-my-zsh and antibody.
