@@ -13,5 +13,10 @@ After that, run the following to immediately apply the dotfiles and run the inst
 $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
 
+On any machine, pull and apply the latest changes from the repo with:
+```
+$ chezmoi update
+```
+
 # License
 This projects is with [The Unlicense](LICENSE).
