@@ -1,6 +1,9 @@
 README.md
+LICENSE
 generate
 .git/
 dot_git/
 dot_git_exact/
 dot_git*
+Brewfile
+Brewfile.lock.json
