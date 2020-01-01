@@ -4,10 +4,6 @@
 #
 # This file is used as a source file for zsh.
 
-# === Exports ===
-
-source "$HOME/.shell/.exports"
-
 # === Plugin management ===
 
 antibody bundle < "$HOME/.antibody" > "$HOME/.zsh-plugins"
