@@ -26,10 +26,11 @@ export LC_ALL="en_US.UTF-8"
 
 # Editor:
 {{- if eq .chezmoi.os "darwin" }}
-export EDITOR=$(which vim)
-{{- else }}
 export EDITOR=$(which code)
+{{- else }}
+export EDITOR=$(which vim)
 {{- end }}
+export VISUAL=${EDITOR}
 
 # oh-my-zsh tmux plugin
 ZSH_TMUX_AUTOSTART_ONCE=true
