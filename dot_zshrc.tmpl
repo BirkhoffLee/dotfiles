@@ -36,6 +36,27 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="yyyy/mm/dd"
 HIST_IGNORE_SPACE="true"
 
+# How many lines of history to keep in memory
+HISTSIZE=5000
+
+# Where to save history to disk
+HISTFILE=~/.zsh_history
+
+# Number of history entries to save to disk
+SAVEHIST=5000
+
+# Erase duplicates in the history file
+HISTDUP=erase
+
+# Append history to the history file (no overwriting)
+setopt appendhistory
+
+# Share history across terminals
+setopt sharehistory
+
+# Immediately append to the history file, not just when a term is killed
+setopt incappendhistory
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -47,8 +68,19 @@ plugins=(
   tmux
   {{- if eq .chezmoi.os "darwin" }}
   mosh
+  ssh-agent
   {{- end }}
 )
+
+{{ if eq .chezmoi.os "darwin" -}}
+ulimit -n 10000
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+{{- end }}
+
+# Enable command caching and force prefix matching
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # User configuration
 
