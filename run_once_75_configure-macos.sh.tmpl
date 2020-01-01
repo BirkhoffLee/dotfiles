@@ -1,34 +1,42 @@
 #!/usr/bin/env bash
 
+{{- if ne .chezmoi.os "darwin" }}
+echo Skipping configure-macos
+exit 0
+{{- end }}
 # Edited version of https://mths.be/macos
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
+echo "Closing System Preferences application if present."
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
+echo "Asking for sudo privileges."
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+set -x
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-{{- if .hostname }}
-sudo scutil --set ComputerName "{{ .hostname }}"
-sudo scutil --set HostName "{{ .hostname }}"
-sudo scutil --set LocalHostName "{{ .hostname }}"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "{{ .hostname }}"
+{{- if .darwin_hostname }}
+sudo scutil --set ComputerName "{{ .darwin_hostname }}"
+sudo scutil --set HostName "{{ .darwin_hostname }}"
+sudo scutil --set LocalHostName "{{ .darwin_hostname }}"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "{{ .darwin_hostname }}"
 {{- end }}
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Set highlight color to green
 # defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
@@ -145,10 +153,11 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# no longer works, need to get an alternative
+# defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+# defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+# defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 # Disable press-and-hold for keys in favor of key repeat
 # defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -580,7 +589,7 @@ sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 # sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 # I'm using Alfred, so I'm not gonna index any volume.
-sudo mdutil -i off "/Volumes/foo"
+sudo mdutil -i off "/Volumes/Macintosh HD"
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
 # 	MENU_DEFINITION
@@ -697,9 +706,6 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-# Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -844,6 +850,10 @@ defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 # Kill affected applications                                                  #
 ###############################################################################
 
+set +x
+
+echo Killing affected applications...
+
 for app in "Activity Monitor" \
 	"Address Book" \
 	"Calendar" \
@@ -861,7 +871,7 @@ for app in "Activity Monitor" \
 	"Terminal" \
 	"Tweetbot" \
 	"iCal"; do
-	killall "${app}" &> /dev/null
+	killall "${app}" &> /dev/null && echo "${app}"
 done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
