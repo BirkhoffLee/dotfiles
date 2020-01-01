@@ -35,11 +35,15 @@ alias q='ssh'
 alias dig='kdig'
 {{- end }}
 
-{{- if (index .chezmoi "osRelease")}}
-  {{- if eq .chezmoi.osRelease.id "centos" }}
-  alias fcmd='sudo firewall-cmd'
-  {{- end }}
+# firewall-cmd is CentOS-only
+if (eq (index .chezmoi "osRelease" "id") "centos")
+alias fcmd='sudo firewall-cmd'
 {{- end }}
+
+alias la='exa'
+alias l='exa -lAh'
+alias la='exa -lAh'
+alias tree='exa -lAhT'
 
 # Clear ZSH history
 alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
