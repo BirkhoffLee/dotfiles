@@ -14,15 +14,25 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 
-{{- if (index .chezmoi "osRelease")}}{{- if eq .chezmoi.osRelease.id "centos" }}
-##################### CentOS Start #####################
+{{- if eq .chezmoi.os "linux" }}
+##################### Linux Start #####################
 
 echo CentOS detected.
 
 echo Installing essential packages.
 
 sudo yum update
-sudo yum install curl wget git htop zsh the_silver_searcher libevent-devel ncurses-devel automake -y
+sudo yum install -y \
+  curl \
+  wget \
+  git \
+  htop \
+  vim \
+  zsh \
+  the_silver_searcher \
+  libevent-devel \
+  ncurses-devel \
+  automake
 
 # Install tmux
 if [[ $(tmux -V) != *2.9* ]]; then
@@ -45,7 +55,7 @@ if [ ! -f ~/.fzf.zsh ]; then
 fi
 
 
-###################### CentOS End ######################
+###################### Linux End ######################
 {{- end }}{{- else if eq .chezmoi.os "darwin" }}
 ###################### macOS Start ######################
 
@@ -106,6 +116,18 @@ if [ ! -e "$NVM_DIR" ]; then
     git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
   ) && \. "$NVM_DIR/nvm.sh"
 fi
+
+#############
+
+echo Installing Cargo.
+curl https://sh.rustup.rs -sSf | sh
+
+#############
+
+{{- if eq .chezmoi.os "linux" }}
+echo Installing exa via Cargo.
+cargo install exa
+{{- end }}
 
 #############
 
