@@ -45,6 +45,12 @@ gdrive_download () {
   rm -rf /tmp/cookies.txt
 }
 
+github-clone-and-cd() {
+	mkdir -p ~/src/github.com/$(dirname $1) && \
+		git clone https://github.com/$1.git ~/src/github.com/$1 && \
+		cd ~/src/github.com/$1
+}
+
 pyclean () {
   # Cleans py[cod] and __pychache__ dirs in the current tree:
   find . | grep -E "(__pycache__|\.py[cod]$)" | xargs rm -rf
