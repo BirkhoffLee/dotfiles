@@ -7,3 +7,9 @@ dot_git_exact/
 dot_git*
 Brewfile
 Brewfile.lock.json
+{{- if ne .chezmoi.os "darwin" }}
+run_once_configure-macos.sh
+{{- end }}
+{{- if ne .chezmoi.os "linux" }}
+.hushlogin
+{{- end }}
