@@ -9,8 +9,7 @@
 
 # These lines should be the first ones
 
-# gnubin:
-PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cargo/bin:$PATH"
 
 {{- if eq .chezmoi.os "darwin" }}
 PATH="/usr/local/opt/binutils/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:$HOME/.dotnet:/usr/local/opt/curl-openssl/bin:$PATH"
