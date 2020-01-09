@@ -89,6 +89,10 @@ if [ ! -f ~/.fzf.zsh ]; then
   ${BREW_PREFIX}/opt/fzf/install --all
 fi
 
+# Workaround of https://github.com/OpenSC/OpenSC/issues/1008
+sudo rm /usr/local/lib/opensc-pkcs11.so
+sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
+
 # Install Powerline compatible fonts
 # echo Installing Powerline fonts.
 # git clone https://github.com/powerline/fonts.git --depth=1
