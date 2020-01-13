@@ -37,6 +37,11 @@ export PYTHONIOENCODING='UTF-8'
 {{- if eq .chezmoi.os "darwin" }}
 # Homebrew:
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
+
+# GPG:
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
 {{- end }}
 
 # Pagers:
