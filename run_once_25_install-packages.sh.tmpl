@@ -57,6 +57,12 @@ if [ ! -f ~/.fzf.zsh ]; then
   ~/.fzf/install --all
 fi
 
+echo Installing besttrace.
+wget https://cdn.ipip.net/17mon/besttrace4linux.zip /tmp
+unzip /tmp/besttrace4linux.zip
+mv /tmp/besttrace /usr/local/bin
+chmod +x /usr/local/bin
+rm -f /tmp/besttrace*
 
 ###################### Linux End ######################
 {{- else if eq .chezmoi.os "darwin" }}
@@ -88,6 +94,13 @@ echo Installing fzf.
 if [ ! -f ~/.fzf.zsh ]; then
   ${BREW_PREFIX}/opt/fzf/install --all
 fi
+
+echo Installing besttrace.
+wget https://cdn.ipip.net/17mon/besttrace4linux.zip /tmp
+unzip /tmp/besttrace4linux.zip
+mv /tmp/besttracemac /usr/local/bin
+chmod +x /usr/local/bin
+rm -f /tmp/besttrace*
 
 # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
 sudo rm /usr/local/lib/opensc-pkcs11.so
