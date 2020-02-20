@@ -12,11 +12,34 @@ dns () {
   ip $(kdig +short $1 | tail -n1)
 }
 
+# cd into whatever is the forefront Finder window.
 cdf () {
-  # cd into whatever is the forefront Finder window.
   local path=$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')
   echo "$path"
   cd "$path"
+}
+
+alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
+_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+
+# fcoc - checkout git commit with previews
+fcoc() {
+  local commit
+  commit=$( glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+        --ansi --preview="$_viewGitLogLine" ) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# fshow - git commit browser with previews
+fshow() {
+    glNoGraph |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --ansi --preview="$_viewGitLogLine" \
+                --header "enter to view, alt-y to copy hash" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
 
 # wireshark() {
@@ -30,9 +53,9 @@ cdf () {
 prev () {
   # prev [PATH] [DEPTH]
   if [[ -v $2 ]]; then
-    DEPTH=$2
+    local DEPTH=$2
   else
-    DEPTH=1
+    local DEPTH=1
   fi
   FZF_DEFAULT_COMMAND="ag --hidden --ignore .git --depth $DEPTH -g \"\" $1" \
     fzf --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color "always" --line-range :40 {}; fi'
@@ -42,16 +65,71 @@ ip () {
   curl -Ls https://api.birkhoff.me/v1/ip/$1 | jq
 }
 
-transfer() {if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
-tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; cat $tmpfile | pbcopy; rm -f $tmpfile; echo}
+# transfer() {if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
+# tmpfile=$( mktemp -t transferXXX ); if tty -s; then local basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; cat $tmpfile | pbcopy; rm -f $tmpfile; echo}
+
+transfer() {
+  # check arguments
+  if [ $# -eq 0 ]; then
+    echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
+    return 1
+  fi
+
+  # get temporarily filename, output is written to this file show progress can be showed
+  local tmpfile=$( mktemp -t transferXXX )
+  # upload stdin or file
+  local file=$1
+
+  if tty -s;  then
+    local basefile=$(basename "$file" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
+    if [ ! -e $file ]; then
+      echo "File $file doesn't exist."
+      return 1
+    fi
+
+    if [ -d $file ]; then
+      # zip directory and transfer
+      local zipfile=$( mktemp -t transferXXX.zip )
+      cd $(dirname $file) && zip -r -q - $(basename $file) >> $zipfile
+      curl --progress-bar --upload-file "$zipfile" "https://transfer.sh/$basefile.zip" >> $tmpfile
+      rm -f $zipfile
+    else
+      # transfer file
+      curl --progress-bar --upload-file "$file" "https://transfer.sh/$basefile" >> $tmpfile
+    fi
+  else
+    # transfer pipe
+    curl --progress-bar --upload-file "-" "https://transfer.sh/$file" >> $tmpfile
+  fi
+
+  # cat output link
+  cat $tmpfile
+  # cleanup
+  rm -f $tmpfile
+}
 
 mc () {
   # Create a new directory and enter it
   mkdir -p "$@" && cd "$@"
 }
 
+j() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
+
+antibody-install () {
+  local chezmoiPath=$(chezmoi source-path)
+  echo "$1" >> ~/.antibody
+  antibody bundle < ~/.antibody > ~/.zsh-plugins
+  cp ~/.antibody $chezmoiPath/dot_antibody
+  cp ~/.zsh-plugins $chezmoiPath/dot_zsh-plugins
+  source ~/.zsh-plugins
+  echo $1
+}
+
 gdrive_download () {
-  CONFIRM=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=$1" -O- | gsed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')
+  local CONFIRM=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=$1" -O- | gsed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')
   wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$CONFIRM&id=$1" -O $2
   rm -rf /tmp/cookies.txt
 }

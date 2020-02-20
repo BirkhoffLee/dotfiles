@@ -125,6 +125,7 @@ if [ ! -e "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 curl -sL git.io/antibody | sh -s
+antibody bundle < ~/.antibody > ~/.zsh-plugins
 if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized" ]; then
   git clone --recursive git://github.com/joel-porquet/zsh-dircolors-solarized ~/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized
 fi

@@ -57,6 +57,9 @@ alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
 # htop => top
 alias top="sudo htop"
 
+# select file and vim
+alias v='vim $(fzf --height 40% --reverse)'
+
 # View disk usage
 alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 
