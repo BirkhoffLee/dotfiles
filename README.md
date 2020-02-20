@@ -8,7 +8,11 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 * Powerful tmux setup using a modified version of [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
 
 # Usage
-First install Chezmoi with [this guide](https://github.com/twpayne/chezmoi/blob/master/docs/INSTALL.md#one-line-package-install).
+First install Chezmoi:
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+$ brew install twpayne/taps/chezmoi
+```
 
 After that, run the following to immediately apply the dotfiles and run the installation script:
 ```
