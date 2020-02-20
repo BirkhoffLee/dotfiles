@@ -64,7 +64,7 @@ pipenv-shell () {
 _dnsimple_api_call_create_record () {
     # $1    $2      $3      $4
     # name  type    content ttl
-    source .dnsimple-secrets
+    source ~/.shell/.dnsimple-secrets
     echo "> $2 $1.$DNSIMPLE_DOMAIN will resolve to $3"
     echo
     curl \

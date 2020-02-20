@@ -37,6 +37,7 @@ brew "git"
 brew "git-lfs"
 brew "pinentry"
 brew "gnupg"
+brew "go"
 brew "goaccess"
 brew "grep"
 brew "hashpump"
@@ -56,6 +57,7 @@ brew "lynx"
 brew "mackup"
 brew "ruby"
 brew "macvim"
+brew "mas"
 brew "mosh"
 brew "mtr"
 brew "ncdu"
@@ -125,9 +127,17 @@ cask "qq"
 cask "slowquitapps"
 cask "spotify"
 cask "sublime-text"
+cask "teamviewer"
 cask "telegram"
 cask "transmit"
 cask "visual-studio-code"
 cask "vlc"
 cask "wechat"
 cask "wireshark"
+mas "DevCleaner", id: 1388020431
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Pages", id: 409201541
+mas "Spark", id: 1176895641
+mas "WireGuard", id: 1451685025
+mas "Xcode", id: 497799835
+mas "Yoink", id: 457622435

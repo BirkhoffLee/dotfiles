@@ -96,11 +96,13 @@ if [ ! -f ~/.fzf.zsh ]; then
 fi
 
 echo Installing besttrace.
-wget https://cdn.ipip.net/17mon/besttrace4linux.zip /tmp
-unzip /tmp/besttrace4linux.zip
-mv /tmp/besttracemac /usr/local/bin
-chmod +x /usr/local/bin
-rm -f /tmp/besttrace*
+cd /tmp
+wget https://cdn.ipip.net/17mon/besttrace4linux.zip -O besttrace4linux.zip
+unzip besttrace4linux.zip
+sudo mv besttracemac /usr/local/bin
+sudo chmod +x /usr/local/bin/besttracemac
+rm -f besttrace*
+cd -
 
 # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
 sudo rm /usr/local/lib/opensc-pkcs11.so
@@ -181,6 +183,7 @@ tmux kill-session -t __noop >/dev/null 2>&1 || true
 printf "Install dein.vim\n"
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh ./installer.sh ~/.cache/dein
+rm ./installer.sh
 
 #############
 
