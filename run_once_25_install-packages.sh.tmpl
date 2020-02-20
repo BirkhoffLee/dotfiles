@@ -37,19 +37,6 @@ sudo yum install -y \
   ncurses-devel \
   automake
 
-# Install tmux
-if [[ $(tmux -V) != *2.9* ]]; then
-  echo Installing tmux 2.9.
-  sudo yum remove tmux -y
-  cd /tmp
-  git clone https://github.com/tmux/tmux.git
-  cd tmux
-  git checkout 2.9
-  sh autogen.sh
-  ./configure && make
-  sudo make install
-fi
-
 # Install fzf
 echo Installing fzf.
 if [ ! -f ~/.fzf.zsh ]; then
@@ -80,14 +67,6 @@ BREW_PREFIX=$(brew --prefix)
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
 git lfs install
 sudo git lfs install --system
-
-# Install tmux 2.9a
-if [[ $(tmux -V) != *2.9* ]]; then
-  echo Installing tmux 2.9.
-  brew uninstall tmux
-  brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/c2a5cd21a94f5574458e16198f2c4a1b7a93a0c9/Formula/tmux.rb
-  brew pin tmux
-fi
 
 # Install fzf
 echo Installing fzf.
