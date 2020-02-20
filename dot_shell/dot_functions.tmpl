@@ -27,6 +27,17 @@ cdf () {
 # }
 {{- end }}
 
+prev () {
+  # prev [PATH] [DEPTH]
+  if [[ -v $2 ]]; then
+    DEPTH=$2
+  else
+    DEPTH=1
+  fi
+  FZF_DEFAULT_COMMAND="ag --hidden --ignore .git --depth $DEPTH -g \"\" $1" \
+    fzf --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color "always" --line-range :40 {}; fi'
+}
+
 ip () {
   curl -Ls https://api.birkhoff.me/v1/ip/$1 | jq
 }

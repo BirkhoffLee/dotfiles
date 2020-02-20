@@ -6,13 +6,14 @@
 
 # === Autocomplete ===
 
+eval $(thefuck --alias)
 
 # === fzf ===
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Setting ag as the default source for fzf
-export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
 
 {{- if eq .chezmoi.os "darwin" }}
 # add support for ctrl+o to open selected file in VS Code

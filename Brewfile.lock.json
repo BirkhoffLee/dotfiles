@@ -20,10 +20,10 @@
         "revision": "c51e14809eab037c492f1bad5cc73ba6320f3e7e"
       },
       "homebrew/cask": {
-        "revision": "1c788f08c704e976a62e1ef3ed8f37795ddd055d"
+        "revision": "d92f255696759717f55bdf17d966c5459a757b5e"
       },
       "homebrew/core": {
-        "revision": "c3f06e4f17853bea8c35742923a9c43d3a244d35"
+        "revision": "9b33d0efa69172d6fb865b35d52a01b17098e863"
       },
       "teamookla/speedtest": {
         "revision": "b79ea77017ea57c98658225883d7ecc3d4410fbd"
@@ -2329,7 +2329,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.2.6",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "c3f06e4f17853bea8c35742923a9c43d3a244d35",
+        "Homebrew/homebrew-core": "9b33d0efa69172d6fb865b35d52a01b17098e863",
         "CLT": "11.0.33.17",
         "Xcode": "11.3.1",
         "macOS": "10.15.3"

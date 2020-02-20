@@ -54,9 +54,6 @@ alias tree='exa -lahT'
 # Clear ZSH history
 alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
 
-# preview
-alias preview="fzf --height 40% --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color \"always\" --line-range :40 {}; fi'"
-
 # htop => top
 alias top="sudo htop"
 
