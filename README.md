@@ -20,5 +20,14 @@ On any machine, pull and apply the latest changes from the repo with:
 $ chezmoi update
 ```
 
+# Secrets
+In `.shell/.dnsimple-secrets`:
+```
+DNSIMPLE_ID = "12345"
+DNSIMPLE_DOMAIN = "example.com"
+DNSIMPLE_API_KEY = "api-key-xxxxxxx"
+```
+This is used by a function that points specified subdomain to Cloudflare proxy IP addresses in DNSimple.
+
 # License
 This projects is with [The Unlicense](LICENSE).

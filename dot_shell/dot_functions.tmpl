@@ -47,8 +47,8 @@ gdrive_download () {
 
 github-clone-and-cd() {
 	mkdir -p ~/src/github.com/$(dirname $1) && \
-		git clone https://github.com/$1.git ~/src/github.com/$1 && \
-		cd ~/src/github.com/$1
+  git clone https://github.com/$1.git ~/src/github.com/$1 && \
+  cd ~/src/github.com/$1
 }
 
 pyclean () {
@@ -59,4 +59,29 @@ pyclean () {
 pipenv-shell () {
   # pipenv shell breaks sometimes. This does not.
   source "$(pipenv --venv)/bin/activate"
+}
+
+_dnsimple_api_call_create_record () {
+    # $1    $2      $3      $4
+    # name  type    content ttl
+    source .dnsimple-secrets
+    echo "> $2 $1.$DNSIMPLE_DOMAIN will resolve to $3"
+    echo
+    curl \
+        -H "Authorization: Bearer $DNSIMPLE_API_KEY" \
+        -H 'Accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -X POST \
+        -d "{\"name\": \"$1\",\"type\": \"$2\",\"content\": \"$3\",\"ttl\": $4}" \
+        https://api.dnsimple.com/v2/$DNSIMPLE_ID/zones/$DNSIMPLE_DOMAIN/records
+    echo
+    echo
+}
+
+resolve-cf () {
+  # resolve $1 to Cloudflare proxy IPs
+  _dnsimple_api_call_create_record $1 "A" "198.41.214.162" 3600
+  _dnsimple_api_call_create_record $1 "A" "198.41.215.162" 3600
+  _dnsimple_api_call_create_record $1 "AAAA" "2606:4700::6811:d109" 3600
+  _dnsimple_api_call_create_record $1 "AAAA" "2606:4700::6811:d209" 3600
 }

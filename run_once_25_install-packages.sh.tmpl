@@ -178,4 +178,10 @@ tmux kill-session -t __noop >/dev/null 2>&1 || true
 
 #############
 
+printf "Install dein.vim\n"
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+sh ./installer.sh ~/.cache/dein
+
+#############
+
 echo "install-packages.sh complete"
