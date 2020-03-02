@@ -122,6 +122,11 @@ fi
 
 #############
 
+echo Applying tmux conf
+ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf
+
+#############
+
 echo Installing Cargo.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 
