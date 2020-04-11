@@ -12,6 +12,10 @@ First install Chezmoi:
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 $ brew install twpayne/taps/chezmoi
+
+or
+
+$ curl -sfL https://git.io/chezmoi | sh
 ```
 
 After that, run the following to immediately apply the dotfiles and run the installation script:
