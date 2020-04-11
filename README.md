@@ -15,6 +15,7 @@ $ brew install twpayne/taps/chezmoi
 
 or
 
+$ yum install git -y
 $ curl -sfL https://git.io/chezmoi | sh
 ```
 
