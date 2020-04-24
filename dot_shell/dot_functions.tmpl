@@ -12,6 +12,11 @@ dns () {
   ip $(kdig +short $1 | tail -n1)
 }
 
+serveo () {
+  echo touch the key
+  autossh -M 0 -R yay.birkhoff.me:80:localhost:$1 serveo
+}
+
 # cd into whatever is the forefront Finder window.
 cdf () {
   local path=$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')
