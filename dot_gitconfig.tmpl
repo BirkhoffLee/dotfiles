@@ -18,8 +18,9 @@
 [push]
   default = simple
 [user]
-	name = {{ .git_name }}
-	email = {{ .git_email }}
+	name = Birkhoff Lee
+	email = git@birkhoff.me
+	signingkey = DA23CD9C6AB5F49A
 [diff]
   indentHeuristic = on
 [alias]
@@ -121,3 +122,5 @@
   path = ~/.gitconfig_local
 [merge]
 	tool = vim
+[commit]
+	gpgsign = true
