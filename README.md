@@ -8,12 +8,15 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 * Powerful tmux setup using a modified version of [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
 
 # Usage
+This repository is not meant to be used blindly. This is 100% what
+I'm using right now so you should fork and modify it to suit your needs.
+
 First install Chezmoi:
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 $ brew install twpayne/taps/chezmoi
 
-or
+or on RHEL/CentOS:
 
 $ yum install git -y
 $ curl -sfL https://git.io/chezmoi | sh
@@ -23,7 +26,8 @@ After that, run the following to immediately apply the dotfiles and run the inst
 ```
 $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
-GPG shall ask for secret key. You can delete the encrypted files in the repo so it shouldn't ask anymore.
+GPG shall ask for secret key. You can delete the encrypted files in the repo so
+it shouldn't ask anymore. ([dot_shell/encrypted_dot_dnsimple-secrets](dot_shell/encrypted_dot_dnsimple-secrets))
 
 On any machine, pull and apply the latest changes from the repo with:
 ```
@@ -37,7 +41,8 @@ DNSIMPLE_ID="12345"
 DNSIMPLE_DOMAIN="example.com"
 DNSIMPLE_API_KEY="api-key-xxxxxxx"
 ```
-This is used by a function that points specified subdomain to Cloudflare proxy IP addresses in DNSimple.
+This is used by a function that points specified subdomain to Cloudflare proxy
+IP addresses on DNSimple.
 
 # License
-This projects is with [The Unlicense](LICENSE).
+This projects is released under [The Unlicense](LICENSE).
