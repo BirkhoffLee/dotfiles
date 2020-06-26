@@ -1,5 +1,6 @@
 tap "adoptopenjdk/openjdk"
 tap "bramstein/webfonttools"
+tap "derailed/k9s"
 tap "dteoh/sqa"
 tap "fabianishere/personal"
 tap "getantibody/tap"
@@ -33,6 +34,7 @@ brew "fasd"
 brew "fcrackzip"
 brew "fd"
 brew "gnutls"
+brew "icu4c"
 brew "ffmpeg"
 brew "foremost"
 brew "fzf"
@@ -50,12 +52,14 @@ brew "hopenpgp-tools"
 brew "hstr"
 brew "htop"
 brew "hydra"
+brew "imagemagick"
 brew "iperf3"
 brew "irssi"
 brew "john"
 brew "jq"
 brew "knock"
 brew "knot"
+brew "kubectx"
 brew "libsodium"
 brew "locateme"
 brew "lua"
@@ -63,6 +67,7 @@ brew "lynx"
 brew "mackup"
 brew "ruby"
 brew "macvim"
+brew "magic-wormhole"
 brew "mas"
 brew "mosh"
 brew "mtr"
@@ -70,7 +75,6 @@ brew "ncdu"
 brew "netpbm"
 brew "ninja"
 brew "nmap"
-brew "node"
 brew "noti"
 brew "opensc"
 brew "openssh"
@@ -114,6 +118,7 @@ brew "zopfli"
 brew "zsh"
 brew "bramstein/webfonttools/sfnt2woff"
 brew "bramstein/webfonttools/sfnt2woff-zopfli"
+brew "derailed/k9s/k9s"
 brew "fabianishere/personal/pam_reattach"
 brew "getantibody/tap/antibody"
 brew "heroku/brew/heroku"
@@ -122,6 +127,7 @@ brew "twpayne/taps/chezmoi"
 cask "1password-cli"
 cask "adoptopenjdk"
 cask "alfred"
+cask "aws-vault"
 cask "daisydisk"
 cask "discord"
 cask "docker"
@@ -158,12 +164,18 @@ cask "wechat"
 cask "wireshark"
 mas "AutoSwitchInput", id: 1470350547
 mas "DevCleaner", id: 1388020431
+mas "Grammarly for Safari", id: 1462114288
 mas "Keynote", id: 409183694
+mas "KKBOX", id: 1105332179
 mas "LINE", id: 539883307
+mas "Microsoft Excel", id: 462058435
 mas "Microsoft Remote Desktop", id: 1295203466
+mas "Microsoft Word", id: 462054704
 mas "Pages", id: 409201541
 mas "Quiver", id: 866773894
 mas "Spark", id: 1176895641
+mas "Tweetbot", id: 1384080005
+mas "WiFi Connector for Hero 8", id: 1491486804
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435
