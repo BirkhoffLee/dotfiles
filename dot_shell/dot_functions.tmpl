@@ -13,8 +13,17 @@ dns () {
 }
 
 serveo () {
-  echo touch the key
+  echo Touch the key
   autossh -M 0 -R yay.birkhoff.me:80:localhost:$1 serveo
+}
+
+favicon () {
+  convert $1 -background white \
+    \( -clone 0 -resize 16x16 -extent 16x16 \) \
+    \( -clone 0 -resize 32x32 -extent 32x32 \) \
+    \( -clone 0 -resize 48x48 -extent 48x48 \) \
+    \( -clone 0 -resize 64x64 -extent 64x64 \) \
+    -delete 0 -alpha off -colors 256 favicon.ico
 }
 
 # cd into whatever is the forefront Finder window.
