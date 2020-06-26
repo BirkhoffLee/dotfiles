@@ -23,6 +23,7 @@ After that, run the following to immediately apply the dotfiles and run the inst
 ```
 $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
+GPG shall ask for secret key. You can delete the encrypted files in the repo so it shouldn't ask anymore.
 
 On any machine, pull and apply the latest changes from the repo with:
 ```
