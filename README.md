@@ -44,6 +44,17 @@ DNSIMPLE_API_KEY="api-key-xxxxxxx"
 This is used by a function that points specified subdomain to Cloudflare proxy
 IP addresses on DNSimple.
 
+# Performance
+```
+~
+▶ for i in $(seq 1 5); do /usr/bin/time /bin/zsh -i -c exit; done
+        0.52 real         0.27 user         0.19 sys
+        0.63 real         0.33 user         0.22 sys
+        0.48 real         0.26 user         0.17 sys
+        0.48 real         0.26 user         0.17 sys
+        0.46 real         0.25 user         0.17 sys
+```
+
 # TODO
 * Remove server side shell configuration. Shell on servers should be as user-hostile as possible.
 
