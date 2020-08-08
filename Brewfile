@@ -14,6 +14,7 @@ brew "ack"
 brew "aircrack-ng"
 brew "gmp"
 brew "xz"
+brew "python@3.8"
 brew "ansible"
 brew "autossh"
 brew "azure-cli"
@@ -46,7 +47,6 @@ brew "gnupg"
 brew "go"
 brew "goaccess"
 brew "grep"
-brew "python"
 brew "hashpump"
 brew "hopenpgp-tools"
 brew "hstr"
@@ -75,6 +75,7 @@ brew "ncdu"
 brew "netpbm"
 brew "ninja"
 brew "nmap"
+brew "node"
 brew "noti"
 brew "opensc"
 brew "openssh"
@@ -141,6 +142,7 @@ cask "iterm2"
 cask "karabiner-elements"
 cask "launchbar"
 cask "little-snitch"
+cask "macmediakeyforwarder"
 cask "micro-snitch"
 cask "minecraft"
 cask "mounty"
@@ -164,18 +166,13 @@ cask "wechat"
 cask "wireshark"
 mas "AutoSwitchInput", id: 1470350547
 mas "DevCleaner", id: 1388020431
-mas "Grammarly for Safari", id: 1462114288
 mas "Keynote", id: 409183694
-mas "KKBOX", id: 1105332179
 mas "LINE", id: 539883307
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
 mas "Pages", id: 409201541
-mas "Quiver", id: 866773894
-mas "Spark", id: 1176895641
 mas "Tweetbot", id: 1384080005
-mas "WiFi Connector for Hero 8", id: 1491486804
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435

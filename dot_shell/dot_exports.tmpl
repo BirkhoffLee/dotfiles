@@ -61,15 +61,34 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # === Version managers ===
 
-# nvm (lazy load)
+# nvm
 export NVM_DIR=~/.nvm
-function nvm {
-  if [ -s "$NVM_DIR/nvm.sh" ]; then
-    . "$NVM_DIR/nvm.sh"
-    nvm use system
-    nvm $@
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# nvm (load on cd'ing to a directory containing .nvmrc)
+alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
+alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
+alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
+
+function load-nvm () {
+  if [[ $OSTYPE == "darwin"* ]]; then
+    export NVM_DIR=~/.nvm
+    [[ -s $(brew --prefix nvm)/nvm.sh ]] && source $(brew --prefix nvm)/nvm.sh
+  else
+    [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
   fi
 }
+
+load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]]; then
+    if ! type nvm >/dev/null; then
+      load-nvm
+    fi
+    nvm use
+  fi
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd load-nvmrc
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
@@ -88,6 +107,8 @@ export NODE_REPL_MODE='sloppy'
 
 # Erlang and Elixir shell history:
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+# === Others ===
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 

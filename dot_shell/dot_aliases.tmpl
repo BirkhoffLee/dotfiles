@@ -35,11 +35,6 @@ alias q='ssh'
 alias dig='kdig'
 {{- end }}
 
-# firewall-cmd is CentOS-only
-{{- if (index .chezmoi "osRelease")}}{{- if eq .chezmoi.osRelease.id "centos" }}
-alias fcmd='sudo firewall-cmd'
-{{- end }}{{- end }}
-
 alias btrace='sudo besttrace'
 alias mtr='sudo mtr'
 

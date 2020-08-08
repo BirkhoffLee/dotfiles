@@ -13,10 +13,11 @@ dns () {
 }
 
 serveo () {
-  echo Touch the key
+  echo Connecting to remote. You may need to authenticate to continue.
   autossh -M 0 -R yay.birkhoff.me:80:localhost:$1 serveo
 }
 
+# `favicon 1.png` will generate 4 sizes of favicon.ico
 favicon () {
   convert $1 -background white \
     \( -clone 0 -resize 16x16 -extent 16x16 \) \
@@ -60,13 +61,6 @@ fd() {
   preview="git diff $@ --color=always -- {-1}"
   git diff $@ --name-only | fzf -m --ansi --preview $preview
 }
-
-# wireshark() {
-#   sudo chown $(whoami):admin /dev/bp*
-#   sudo chown $(whoami):admin /dev/bp*
-#   ls -la | grep /dev/bp
-#   open /Applications/Wireshark.app/
-# }
 {{- end }}
 
 prev () {
@@ -83,9 +77,6 @@ prev () {
 ip () {
   curl -Ls https://api.birkhoff.me/v1/ip/$1 | jq
 }
-
-# transfer() {if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
-# tmpfile=$( mktemp -t transferXXX ); if tty -s; then local basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; cat $tmpfile | pbcopy; rm -f $tmpfile; echo}
 
 transfer() {
   # check arguments
@@ -123,6 +114,9 @@ transfer() {
 
   # cat output link
   cat $tmpfile
+  cat $tmpfile | pbcopy
+  echo
+  echo (Copied to clipboard)
   # cleanup
   rm -f $tmpfile
 }
@@ -132,10 +126,11 @@ mc () {
   mkdir -p "$@" && cd "$@"
 }
 
-j() {
-  [ $# -gt 0 ] && _z "$*" && return
-  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-}
+# What's this?
+# j() {
+#   [ $# -gt 0 ] && _z "$*" && return
+#   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+# }
 
 antibody-install () {
   local chezmoiPath=$(chezmoi source-path)
