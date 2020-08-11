@@ -6,7 +6,7 @@ Looking to try out [Prezto](https://github.com/sorin-ionescu/prezto) and [Zplugi
 * zsh, oh-my-zsh, [Antibody](https://github.com/getantibody/antibody)
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k) for the theme
 * git plugin w/ fzf: https://github.com/wfxr/forgit#-features
-* npm lazy-load (well, i'm looking to switch to tj/n)
+* uses n instead of npm
 * Some useful aliases/functions for network administrators
 * Automatic installation of macOS apps/brew packages
 * Powerful tmux setup w/ modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)

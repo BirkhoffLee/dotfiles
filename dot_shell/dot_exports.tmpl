@@ -68,34 +68,37 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # === Version managers ===
 
+# n
+export N_PREFIX="$HOME/.n"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
 # nvm
-export NVM_DIR=~/.nvm
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR=~/.nvm
 
-# nvm (load on cd'ing to a directory containing .nvmrc)
-alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
-alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
-alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
+# # nvm (load on cd'ing to a directory containing .nvmrc)
+# alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
+# alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
+# alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
 
-function load-nvm () {
-  if [[ $OSTYPE == "darwin"* ]]; then
-    export NVM_DIR=~/.nvm
-    [[ -s $(brew --prefix nvm)/nvm.sh ]] && source $(brew --prefix nvm)/nvm.sh
-  else
-    [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
-  fi
-}
+# function load-nvm () {
+#   if [[ $OSTYPE == "darwin"* ]]; then
+#     export NVM_DIR=~/.nvm
+#     [[ -s $(brew --prefix nvm)/nvm.sh ]] && source $(brew --prefix nvm)/nvm.sh
+#   else
+#     [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
+#   fi
+# }
 
-load-nvmrc() {
-  if [[ -f .nvmrc && -r .nvmrc ]]; then
-    if ! type nvm >/dev/null; then
-      load-nvm
-    fi
-    nvm use
-  fi
-}
-autoload -U add-zsh-hook
-add-zsh-hook chpwd load-nvmrc
+# load-nvmrc() {
+#   if [[ -f .nvmrc && -r .nvmrc ]]; then
+#     if ! type nvm >/dev/null; then
+#       load-nvm
+#     fi
+#     nvm use
+#   fi
+# }
+# autoload -U add-zsh-hook
+# add-zsh-hook chpwd load-nvmrc
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs

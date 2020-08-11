@@ -112,15 +112,9 @@ if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized" ]; then
   git clone --recursive git://github.com/joel-porquet/zsh-dircolors-solarized ~/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized
 fi
 
-export NVM_DIR="$HOME/.nvm"
-if [ ! -e "$NVM_DIR" ]; then
-  echo Installing NVM.
-  (
-    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-    cd "$NVM_DIR"
-    git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-  ) && \. "$NVM_DIR/nvm.sh"
-fi
+# Headlessly install n to ~/.n without modifying ~/.zshrc
+export N_PREFIX="$HOME/.n"
+curl -L https://git.io/n-install | N_PREFIX=~/.n bash -s -- -y -n
 
 #############
 
