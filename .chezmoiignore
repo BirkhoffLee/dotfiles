@@ -7,6 +7,7 @@ dot_git_exact/
 dot_git*
 Brewfile
 Brewfile.lock.json
+update_brewfile.sh
 {{- if ne .chezmoi.os "darwin" }}
 run_once_configure-macos.sh
 {{- end }}
