@@ -49,13 +49,17 @@ proxy IP addresses on DNSimple.
 
 # Performance
 ```
-~
-> for i in $(seq 1 5); do /usr/bin/time /bin/zsh -i -c exit; done
-        0.24 real         0.14 user         0.08 sys
-        0.32 real         0.16 user         0.10 sys
-        0.25 real         0.14 user         0.08 sys
-        0.27 real         0.14 user         0.10 sys
-        0.27 real         0.14 user         0.09 sys
+> for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+        0.41 real         0.14 user         0.13 sys
+        0.27 real         0.15 user         0.10 sys
+        0.24 real         0.15 user         0.09 sys
+        0.25 real         0.15 user         0.09 sys
+        0.23 real         0.14 user         0.08 sys
+        0.22 real         0.13 user         0.08 sys
+        0.23 real         0.14 user         0.08 sys
+        0.22 real         0.13 user         0.08 sys
+        0.19 real         0.12 user         0.06 sys
+        0.26 real         0.16 user         0.10 sys
 ```
 
 # Articles
