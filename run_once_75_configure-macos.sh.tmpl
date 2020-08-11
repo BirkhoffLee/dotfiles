@@ -850,26 +850,26 @@ defaults write org.n8gray.QLColorCode pathHL /usr/local/bin/highlight
 
 set +x
 
-echo Killing affected applications...
+# echo Killing affected applications...
 
-for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Google Chrome Canary" \
-	"Google Chrome" \
-	"Mail" \
-	"Messages" \
-	"Photos" \
-	"Safari" \
-	"SystemUIServer" \
-	"Terminal" \
-	"Tweetbot" \
-	"iCal"; do
-	killall "${app}" &> /dev/null && echo "${app}"
-done
+# for app in "Activity Monitor" \
+# 	"Address Book" \
+# 	"Calendar" \
+# 	"cfprefsd" \
+# 	"Contacts" \
+# 	"Dock" \
+# 	"Finder" \
+# 	"Google Chrome Canary" \
+# 	"Google Chrome" \
+# 	"Mail" \
+# 	"Messages" \
+# 	"Photos" \
+# 	"Safari" \
+# 	"SystemUIServer" \
+# 	"Terminal" \
+# 	"Tweetbot" \
+# 	"iCal"; do
+# 	killall "${app}" &> /dev/null && echo "${app}"
+# done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."

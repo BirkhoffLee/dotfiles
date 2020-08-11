@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 # Check environment
 
@@ -18,44 +18,13 @@ cd {{ .chezmoi.sourceDir }}
 pwd
 
 {{- if eq .chezmoi.os "linux" }}
-##################### Linux Start #####################
-
-echo CentOS detected.
-
-echo Installing essential packages.
-
-sudo yum update
-sudo yum install -y \
-  curl \
-  wget \
-  git \
-  htop \
-  vim \
-  zsh \
-  the_silver_searcher \
-  libevent-devel \
-  ncurses-devel \
-  automake
-
-# Install fzf
-echo Installing fzf.
-if [ ! -f ~/.fzf.zsh ]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install --all
-fi
-
-echo Installing besttrace.
-wget https://cdn.ipip.net/17mon/besttrace4linux.zip /tmp
-unzip /tmp/besttrace4linux.zip
-mv /tmp/besttrace /usr/local/bin
-chmod +x /usr/local/bin
-rm -f /tmp/besttrace*
-
-###################### Linux End ######################
+# Linux
 {{- else if eq .chezmoi.os "darwin" }}
 ###################### macOS Start ######################
 
 echo macOS detected.
+
+set -x
 
 echo Updating Homebrew.
 brew update
@@ -171,5 +140,7 @@ sh ./installer.sh ~/.cache/dein
 rm ./installer.sh
 
 #############
+
+set +x
 
 echo "install-packages.sh complete"
