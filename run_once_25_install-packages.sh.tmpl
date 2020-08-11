@@ -71,14 +71,15 @@ sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
 echo Running universal scripts.
 
 echo Installing CLI stuff.
-antibody bundle < "$HOME/.zsh_plugins.txt" > "$HOME/.zsh_plugins.sh"
 
-if [ ! -e "$HOME/.oh-my-zsh" ]; then
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
 
-if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized" ]; then
-  git clone --recursive git://github.com/joel-porquet/zsh-dircolors-solarized ~/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized
+if [ ! -e "$HOME/.zinit" ]; then
+  mkdir ~/.zinit
+  git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+  zsh -i -c "zinit self-update"
 fi
 
 # Headlessly install n to ~/.n without modifying ~/.zshrc

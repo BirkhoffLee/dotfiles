@@ -9,10 +9,10 @@
 
 # These lines should be the first ones
 
-PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cargo/bin:~/.local/bin:$PATH"
+PATH="/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 {{- if eq .chezmoi.os "darwin" }}
-PATH="/usr/local/opt/binutils/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:$HOME/.dotnet:/usr/local/opt/curl-openssl/bin:$PATH"
+PATH="/usr/local/opt/binutils/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/curl-openssl/bin:$HOME/.dotnet:$PATH"
 {{- end }}
 
 export PATH
@@ -38,18 +38,6 @@ export PYTHONIOENCODING='UTF-8'
 # Homebrew:
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
 {{- end }}
-
-# GPG:
-GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
-if [ ! -S $GPG_AGENT_SOCKET ]; then
-  {{- if eq .chezmoi.os "darwin" }}
-  gpgconf --launch gpg-agent
-  {{- else }}
-  gpg-agent --daemon >/dev/null 2>&1
-  {{- end }}
-  export GPG_TTY=$(tty)
-fi
-export SSH_AUTH_SOCK=$GPG_AGENT_SOCKET
 
 # Pagers:
 export LESS="-R"  # argument to allow less to show colors
@@ -122,9 +110,3 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANTIBODY_HOME=~/Libary/antibody
-
-# zsh histories
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-SAVEHIST=100
-HISTFILE=~/.zsh_history

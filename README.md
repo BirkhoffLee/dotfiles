@@ -1,12 +1,14 @@
 # dotfiles
 My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).  
-Looking to try out [Prezto](https://github.com/sorin-ionescu/prezto) and [Zplugin](https://github.com/zdharma/zplugin) soon(TM).
 
 # Features
-* zsh, oh-my-zsh, [Antibody](https://github.com/getantibody/antibody)
-* [Powerlevel10k](https://github.com/romkatv/powerlevel10k) for the theme
-* git plugin w/ fzf: https://github.com/wfxr/forgit#-features
-* uses n instead of npm
+* zsh, Prezto, [zinit plugin manager](https://github.com/zdharma/zinit) and [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+* Uses tj/n instead of nvm
+* Running `1 ... 9` changes the directory to the *n* previous one
+* Wraps GNU utilities in functions without a prefix for interactive use
+* Fish-like autosuggestions
+* Interactive git operations w/ fzf: https://github.com/wfxr/forgit#-features
+* And some git aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git#branch
 * Some useful aliases/functions for network administrators
 * Automatic installation of macOS apps/brew packages
 * Powerful tmux setup w/ modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
