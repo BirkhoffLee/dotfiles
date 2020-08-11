@@ -113,8 +113,11 @@ if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized" ]; then
 fi
 
 # Headlessly install n to ~/.n without modifying ~/.zshrc
-export N_PREFIX="$HOME/.n"
-curl -L https://git.io/n-install | N_PREFIX=~/.n bash -s -- -y -n
+# only if n, node and npm don't exist in $PATH
+if ! command -v n &> /dev/null && ! command -v node &> /dev/null && ! command -v npm &> /dev/null; then
+  export N_PREFIX="$HOME/.n"
+  curl -L https://git.io/n-install | N_PREFIX=~/.n bash -s -- -y -n
+fi
 
 #############
 
