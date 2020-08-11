@@ -5,8 +5,6 @@
 # This file is used as a part of `.shell_env`
 
 # === Autocomplete ===
-eval $(thefuck --alias)
-
 source $HOME/google-cloud-sdk/path.zsh.inc
 source $HOME/google-cloud-sdk/completion.zsh.inc
 
@@ -38,6 +36,6 @@ _fzf_compgen_path() {
 
 {{- if eq .chezmoi.os "darwin" }}
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  FPATH=/usr/local/share/zsh/site-functions:$FPATH
 fi
 {{- end }}

@@ -100,7 +100,7 @@ sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
 echo Running universal scripts.
 
 echo Installing CLI stuff.
-antibody bundle < ~/.antibody > ~/.zsh-plugins
+antibody bundle < "$HOME/.zsh_plugins" > "$HOME/.zsh_plugins.sh"
 
 if [ ! -e "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

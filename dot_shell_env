@@ -5,9 +5,10 @@
 # This file is used as a source file for zsh.
 
 # === Plugin management ===
+# Run this after adding a plugin. This reads from ~/.zsh_plugins.txt to generate static loading script ~/.zsh_plugins.sh
+# antibody bundle < "$HOME/.zsh_plugins.txt" > "$HOME/.zsh_plugins.sh"
 
-antibody bundle < "$HOME/.antibody" > "$HOME/.zsh-plugins"
-source "$HOME/.zsh-plugins"
+source "$HOME/.zsh_plugins.sh"
 
 # === Other shell parts ===
 

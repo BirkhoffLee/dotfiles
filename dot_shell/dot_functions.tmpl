@@ -135,10 +135,10 @@ mc () {
 antibody-install () {
   local chezmoiPath=$(chezmoi source-path)
   echo "$1" >> ~/.antibody
-  antibody bundle < ~/.antibody > ~/.zsh-plugins
+  antibody bundle < ~/.antibody > ~/.zsh_plugins
   cp ~/.antibody $chezmoiPath/dot_antibody
-  cp ~/.zsh-plugins $chezmoiPath/dot_zsh-plugins
-  source ~/.zsh-plugins
+  cp ~/.zsh_plugins $chezmoiPath/dot_zsh_plugins
+  source ~/.zsh_plugins
   echo $1
 }
 

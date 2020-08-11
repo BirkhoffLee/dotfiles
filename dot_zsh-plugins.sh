@@ -6,3 +6,6 @@ source /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-gith
 fpath+=( /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-wfxr-SLASH-forgit )
 source /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-agkozak-SLASH-zsh-z/zsh-z.plugin.zsh
 fpath+=( /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-agkozak-SLASH-zsh-z )
+source /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-powerlevel10k/powerlevel10k.zsh-theme
+source /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-powerlevel10k/powerlevel9k.zsh-theme
+fpath+=( /Users/birkhofflee/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-powerlevel10k )
