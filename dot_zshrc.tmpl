@@ -80,7 +80,7 @@ plugins=(
 )
 
 {{ if eq .chezmoi.os "darwin" -}}
-ulimit -n 10000
+# ulimit -n 10000
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 {{- end }}
 

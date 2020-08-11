@@ -37,12 +37,19 @@ export PYTHONIOENCODING='UTF-8'
 {{- if eq .chezmoi.os "darwin" }}
 # Homebrew:
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
+{{- end }}
 
 # GPG:
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
-{{- end }}
+GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
+if [ ! -S $GPG_AGENT_SOCKET ]; then
+  {{- if eq .chezmoi.os "darwin" }}
+  gpgconf --launch gpg-agent
+  {{- else }}
+  gpg-agent --daemon >/dev/null 2>&1
+  {{- end }}
+  export GPG_TTY=$(tty)
+fi
+export SSH_AUTH_SOCK=$GPG_AGENT_SOCKET
 
 # Pagers:
 export LESS="-R"  # argument to allow less to show colors

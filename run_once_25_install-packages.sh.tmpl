@@ -69,19 +69,21 @@ git lfs install
 sudo git lfs install --system
 
 # Install fzf
-echo Installing fzf.
 if [ ! -f ~/.fzf.zsh ]; then
+  echo Installing fzf.
   ${BREW_PREFIX}/opt/fzf/install --all
 fi
 
-echo Installing besttrace.
-cd /tmp
-wget https://cdn.ipip.net/17mon/besttrace4linux.zip -O besttrace4linux.zip
-unzip besttrace4linux.zip
-sudo mv besttracemac /usr/local/bin
-sudo chmod +x /usr/local/bin/besttracemac
-rm -f besttrace*
-cd -
+if [ ! -f /usr/local/bin/besttrace ]; then
+  echo Installing besttrace.
+  cd /tmp
+  wget https://cdn.ipip.net/17mon/besttrace4linux.zip -O besttrace4linux.zip
+  unzip besttrace4linux.zip
+  sudo mv besttracemac /usr/local/bin/besttrace
+  sudo chmod +x /usr/local/bin/besttrace
+  rm -f besttrace*
+  cd -
+fi
 
 # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
 sudo rm /usr/local/lib/opensc-pkcs11.so
@@ -100,7 +102,7 @@ sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
 echo Running universal scripts.
 
 echo Installing CLI stuff.
-antibody bundle < "$HOME/.zsh_plugins" > "$HOME/.zsh_plugins.sh"
+antibody bundle < "$HOME/.zsh_plugins.txt" > "$HOME/.zsh_plugins.sh"
 
 if [ ! -e "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

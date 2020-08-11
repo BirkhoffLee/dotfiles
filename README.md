@@ -2,23 +2,20 @@
 My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 
 # Features
-* Zsh with oh-my-zsh and antibody.
-* Useful aliases/functions for network administrators.
-* Automatic installation of macOS apps/brew packages.
+* zsh, oh-my-zsh, [Antibody](https://github.com/getantibody/antibody)
+* [Powerlevel10k](https://github.com/romkatv/powerlevel10k) for the theme
+* npm lazy-load (well..)
+* Useful aliases/functions for network administrators
+* Automatic installation of macOS apps/brew packages
 * Powerful tmux setup using a modified version of [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
 
 # Usage
 This repository is not meant to be used blindly. This is 100% what
-I'm using right now so you should fork and modify it to suit your needs.
+I'm using right now so apparently you shouldn't follow this usage 
+guide but instead fork this repo and make some changes before applying.
 
 First install Chezmoi:
 ```
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-$ brew install twpayne/taps/chezmoi
-
-or on RHEL/CentOS:
-
-$ yum install git -y
 $ curl -sfL https://git.io/chezmoi | sh
 ```
 
@@ -47,16 +44,13 @@ IP addresses on DNSimple.
 # Performance
 ```
 ~
-▶ for i in $(seq 1 5); do /usr/bin/time /bin/zsh -i -c exit; done
-        0.52 real         0.27 user         0.19 sys
-        0.63 real         0.33 user         0.22 sys
-        0.48 real         0.26 user         0.17 sys
-        0.48 real         0.26 user         0.17 sys
-        0.46 real         0.25 user         0.17 sys
+> for i in $(seq 1 5); do /usr/bin/time /bin/zsh -i -c exit; done
+        0.24 real         0.14 user         0.08 sys
+        0.32 real         0.16 user         0.10 sys
+        0.25 real         0.14 user         0.08 sys
+        0.27 real         0.14 user         0.10 sys
+        0.27 real         0.14 user         0.09 sys
 ```
-
-# TODO
-* Remove server side shell configuration. Shell on servers should be as user-hostile as possible.
 
 # License
 This projects is released under [The Unlicense](LICENSE).
