@@ -1,5 +1,6 @@
 # dotfiles
-My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
+My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).  
+Looking to try out [Prezto](https://github.com/sorin-ionescu/prezto) and [Zplugin](https://github.com/zdharma/zplugin) soon(TM).
 
 # Features
 * zsh, oh-my-zsh, [Antibody](https://github.com/getantibody/antibody)
@@ -54,6 +55,11 @@ proxy IP addresses on DNSimple.
         0.27 real         0.14 user         0.10 sys
         0.27 real         0.14 user         0.09 sys
 ```
+
+# Articles
+Here are some reads you might find interesting:
+* [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
+* [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
 
 # License
 This projects is released under [The Unlicense](LICENSE).

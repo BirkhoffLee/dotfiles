@@ -835,6 +835,15 @@ defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault
 # Bypass the annoyingly slow t.co URL shortener
 defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
+# QLColorCode
+defaults write org.n8gray.QLColorCode textEncoding UTF-16
+defaults write org.n8gray.QLColorCode webkitTextEncoding UTF-16
+defaults write org.n8gray.QLColorCode font "Source Code Pro"
+defaults write org.n8gray.QLColorCode fontSizePoints 10
+defaults write org.n8gray.QLColorCode hlTheme zenburn
+defaults write org.n8gray.QLColorCode extraHLFlags "-W -J 160"
+defaults write org.n8gray.QLColorCode pathHL /usr/local/bin/highlight
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
