@@ -44,6 +44,18 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  /opt/local/{bin,sbin}
+  /usr/{bin,sbin}
+  /{bin,sbin}
+  $HOME/.cargo/bin
+  $HOME/.local/bin
+{{- if eq .chezmoi.os "darwin" }}
+  /usr/local/opt/binutils/bin
+  /usr/local/opt/gnu-tar/libexec/gnubin
+  /usr/local/opt/coreutils/libexec/gnubin
+  /usr/local/opt/curl-openssl/bin
+  $HOME/.dotnet
+{{- end }}
   $path
 )
 

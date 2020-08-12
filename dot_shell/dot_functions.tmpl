@@ -104,15 +104,15 @@ mc () {
 #   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 # }
 
-antibody-install () {
-  local chezmoiPath=$(chezmoi source-path)
-  echo "$1" >> ~/.antibody
-  antibody bundle < ~/.antibody > ~/.zsh_plugins
-  cp ~/.antibody $chezmoiPath/dot_antibody
-  cp ~/.zsh_plugins $chezmoiPath/dot_zsh_plugins
-  source ~/.zsh_plugins
-  echo $1
-}
+# antibody-install () {
+#   local chezmoiPath=$(chezmoi source-path)
+#   echo "$1" >> ~/.antibody
+#   antibody bundle < ~/.antibody > ~/.zsh_plugins
+#   cp ~/.antibody $chezmoiPath/dot_antibody
+#   cp ~/.zsh_plugins $chezmoiPath/dot_zsh_plugins
+#   source ~/.zsh_plugins
+#   echo $1
+# }
 
 gdrive_download () {
   local CONFIRM=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=$1" -O- | gsed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')

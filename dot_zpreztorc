@@ -47,7 +47,9 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'prompt' \
   'tmux' \
-  'ssh'
+  'ssh' \
+  'alias-tips' \
+  'kubernetes'
 
 #
 # Autosuggestions

@@ -9,6 +9,7 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 * Fish-like autosuggestions
 * Interactive git operations w/ fzf: https://github.com/wfxr/forgit#-features
 * And some git aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git#branch
+* Kubernetes aliases: https://github.com/belak/prezto-contrib/tree/master/kubernetes#aliases
 * Some useful aliases/functions for network administrators
 * Automatic installation of macOS apps/brew packages
 * Powerful tmux setup w/ modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)

@@ -4,19 +4,6 @@
 #
 # This file is used as a part of `.shell_env`
 
-
-# === Path modifications ===
-
-# These lines should be the first ones
-
-PATH="/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
-
-{{- if eq .chezmoi.os "darwin" }}
-PATH="/usr/local/opt/binutils/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/curl-openssl/bin:$HOME/.dotnet:$PATH"
-{{- end }}
-
-export PATH
-
 # === General ===
 
 # Language

@@ -74,6 +74,7 @@ echo Installing CLI stuff.
 
 if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
 fi
 
 if [ ! -e "$HOME/.zinit" ]; then
