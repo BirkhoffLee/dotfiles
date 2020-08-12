@@ -19,13 +19,10 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias pubkey="cat ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key (ed25519) copied to pasteboard.'"
 alias sshkey="pubkey"
 
-# Quick opening files with VSCode
-alias c='f -e code'
-
 # ping
 alias ping='/usr/local/bin/prettyping --nolegend'
 
-# brew update
+# Homebrew
 alias brewery='brew update && brew upgrade && brew cleanup'
 
 # Quick connect
@@ -39,16 +36,13 @@ alias btrace='sudo besttrace'
 alias mtr='sudo mtr'
 
 alias la='ll -a'
-alias tree='la -T'
+alias tree='la --tree'
 
 # Clear ZSH history
 alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
 
 # htop => top
 alias top="sudo htop"
-
-# select file and vim
-alias v='vim $(fzf --height 40% --reverse)'
 
 # View disk usage
 alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"

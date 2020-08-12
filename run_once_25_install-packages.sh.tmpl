@@ -40,7 +40,7 @@ sudo git lfs install --system
 # Install fzf
 if [ ! -f ~/.fzf.zsh ]; then
   echo Installing fzf.
-  ${BREW_PREFIX}/opt/fzf/install --all
+  ${BREW_PREFIX}/opt/fzf/install --all --no-bash --no-zsh --no-fish
 fi
 
 if [ ! -f /usr/local/bin/besttrace ]; then

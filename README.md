@@ -1,7 +1,9 @@
 # dotfiles
+
 My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).  
 
 # Features
+
 * zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
 * Uses tj/n instead of nvm
 * Wraps GNU utilities in functions without a prefix for interactive use
@@ -15,9 +17,8 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 * Powerful tmux setup w/ modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
 
 # Usage
-This repository is not meant to be used blindly. This is 100% what
-I'm using right now so apparently you shouldn't follow this usage  
-guide but instead fork this repo and make some changes before applying.
+
+This repository is not meant to be used blindly. This is 100% what I'm using right now so apparently you shouldn't follow this usage guide but instead fork this repo and make some changes before applying.
 
 First install Chezmoi:
 
@@ -25,16 +26,13 @@ First install Chezmoi:
 curl -sfL https://git.io/chezmoi | sh
 ```
 
-After that, run the following to immediately apply the dotfiles and run  
-the installation script:
+After that, run the following to immediately apply the dotfiles and run the installation script:
 
 ```console
 chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
 
-GPG shall ask for secret key. You can delete the encrypted files in the  
-repo so it shouldn't ask anymore.  
-([dot_shell/encrypted_dot_dnsimple-secrets](dot_shell/encrypted_dot_dnsimple-secrets))
+GPG shall ask for secret key. You can delete the [encrypted files](dot_shell/encrypted_dot_dnsimple-secrets) in the repo so it shouldn't ask anymore.
 
 On any machine, pull and apply the latest changes from the repo with:
 
@@ -43,6 +41,7 @@ chezmoi update
 ```
 
 # Secrets
+
 In `.shell/.dnsimple-secrets`:
 
 ```shell

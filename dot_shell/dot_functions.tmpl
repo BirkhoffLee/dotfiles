@@ -46,6 +46,16 @@ prev () {
     fzf --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color "always" --line-range :55 {}; fi'
 }
 
+# e: edit with default editor, if no parameters set, use fzf + bat to preview
+unalias e
+e () {
+  if [[ ! -z $1 ]]; then
+    $VISUAL $1
+  else
+    file=$(prev); [[ ! -z $file ]] && $VISUAL $file
+  fi
+}
+
 ip () {
   curl -Ls https://api.birkhoff.me/v1/ip/$1 | jq
 }
