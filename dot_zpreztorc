@@ -51,6 +51,10 @@ zstyle ':prezto:load' pmodule \
   'alias-tips' \
   'kubernetes'
 
+# lsd uses --group-dirs instead of --group-directories-first
+# so we alias `ls` to `lsd --group-dirs` and disable this
+zstyle ':prezto:module:utility:ls' dirs-first 'no'
+
 #
 # Autosuggestions
 #
