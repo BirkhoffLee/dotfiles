@@ -97,18 +97,6 @@ ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf || true
 
 #############
 
-echo Installing Cargo.
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-
-#############
-
-{{- if eq .chezmoi.os "linux" }}
-echo Installing exa via Cargo.
-cargo install exa
-{{- end }}
-
-#############
-
 echo Installing python3 pip packages.
 sudo python3 -m pip install virtualenv psutil
 

@@ -63,6 +63,9 @@ proxy IP addresses on DNSimple.
         0.26 real         0.16 user         0.10 sys
 ```
 
+# TODO
+* Add iTerm2 settings
+
 # Articles
 Here are some reads you might find interesting:
 * [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
