@@ -9,24 +9,25 @@
 # source $HOME/google-cloud-sdk/completion.zsh.inc
 
 # === fzf ===
-# Apparently Prezto has built-in fzf and we don't need to load another one 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Setting ag as the default source for fzf
-# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
 
-# {{- if eq .chezmoi.os "darwin" }}
-# # add support for ctrl+o to open selected file in VS Code
-# export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
-# {{- else }}
-# export FZF_DEFAULT_OPTS=""
-# {{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+# add support for ctrl+o to open selected file in VS Code
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
+{{- else }}
+export FZF_DEFAULT_OPTS=""
+{{- end }}
 
-# # To apply the command to CTRL-T as well
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# _fzf_compgen_path() {
-#   ag -g "" "$1"
-# }
+_fzf_compgen_path() {
+  ag -g "" "$1"
+}
 
 # === z ===
 # source "/usr/local/etc/profile.d/z.sh"
