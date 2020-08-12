@@ -16,41 +16,48 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 
 # Usage
 This repository is not meant to be used blindly. This is 100% what
-I'm using right now so apparently you shouldn't follow this usage 
+I'm using right now so apparently you shouldn't follow this usage  
 guide but instead fork this repo and make some changes before applying.
 
 First install Chezmoi:
-```
-$ curl -sfL https://git.io/chezmoi | sh
+
+```console
+curl -sfL https://git.io/chezmoi | sh
 ```
 
-After that, run the following to immediately apply the dotfiles and run 
+After that, run the following to immediately apply the dotfiles and run  
 the installation script:
+
+```console
+chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
-$ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
-```
-GPG shall ask for secret key. You can delete the encrypted files in the 
-repo so it shouldn't ask anymore. 
+
+GPG shall ask for secret key. You can delete the encrypted files in the  
+repo so it shouldn't ask anymore.  
 ([dot_shell/encrypted_dot_dnsimple-secrets](dot_shell/encrypted_dot_dnsimple-secrets))
 
 On any machine, pull and apply the latest changes from the repo with:
-```
-$ chezmoi update
+
+```console
+chezmoi update
 ```
 
 # Secrets
 In `.shell/.dnsimple-secrets`:
-```
+
+```shell
 DNSIMPLE_ID="12345"
 DNSIMPLE_DOMAIN="example.com"
 DNSIMPLE_API_KEY="api-key-xxxxxxx"
 ```
+
 This is used by a function that points specified subdomain to Cloudflare 
 proxy IP addresses on DNSimple.
 
 # Performance
-```
-> for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+
+```shell
+$ for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
         0.36 real         0.27 user         0.10 sys
         0.36 real         0.27 user         0.10 sys
         0.35 real         0.27 user         0.10 sys
@@ -64,12 +71,16 @@ proxy IP addresses on DNSimple.
 ```
 
 # TODO
+
 * Add iTerm2 settings
 
 # Articles
+
 Here are some reads you might find interesting:
+
 * [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
 * [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
 
 # License
+
 This projects is released under [The Unlicense](LICENSE).
