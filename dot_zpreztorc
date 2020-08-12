@@ -31,7 +31,6 @@ zstyle ':prezto:*:*' color 'yes'
 # The order matters.
 zstyle ':prezto:load' pmodule \
   'archive' \
-  'autosuggestions' \
   'environment' \
   'terminal' \
   'editor' \
@@ -49,7 +48,6 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'tmux' \
   'ssh'
-  # 'node'
 
 #
 # Autosuggestions
