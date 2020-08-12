@@ -2,14 +2,14 @@
 My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).  
 
 # Features
-* zsh, Prezto, [zinit plugin manager](https://github.com/zdharma/zinit) and [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+* zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
 * Uses tj/n instead of nvm
-* Running `1 ... 9` changes the directory to the *n* previous one
 * Wraps GNU utilities in functions without a prefix for interactive use
-* Fish-like autosuggestions
+* Running `1 ... 9` changes the directory to the *n* previous one
 * Interactive git operations w/ fzf: https://github.com/wfxr/forgit#-features
 * And some git aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git#branch
 * Kubernetes aliases: https://github.com/belak/prezto-contrib/tree/master/kubernetes#aliases
+* [lsd](https://github.com/Peltoche/lsd) for the win! The `ls` alternative that is good to the eyes.
 * Some useful aliases/functions for network administrators
 * Automatic installation of macOS apps/brew packages
 * Powerful tmux setup w/ modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
@@ -51,16 +51,16 @@ proxy IP addresses on DNSimple.
 # Performance
 ```
 > for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
-        0.41 real         0.14 user         0.13 sys
-        0.27 real         0.15 user         0.10 sys
-        0.24 real         0.15 user         0.09 sys
-        0.25 real         0.15 user         0.09 sys
-        0.23 real         0.14 user         0.08 sys
-        0.22 real         0.13 user         0.08 sys
-        0.23 real         0.14 user         0.08 sys
-        0.22 real         0.13 user         0.08 sys
-        0.19 real         0.12 user         0.06 sys
-        0.26 real         0.16 user         0.10 sys
+        0.36 real         0.27 user         0.10 sys
+        0.36 real         0.27 user         0.10 sys
+        0.35 real         0.27 user         0.10 sys
+        0.36 real         0.28 user         0.11 sys
+        0.36 real         0.27 user         0.11 sys
+        0.35 real         0.27 user         0.10 sys
+        0.37 real         0.28 user         0.11 sys
+        0.37 real         0.28 user         0.11 sys
+        0.40 real         0.29 user         0.12 sys
+        0.51 real         0.36 user         0.15 sys
 ```
 
 # TODO
