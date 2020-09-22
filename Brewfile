@@ -13,6 +13,7 @@ tap "homebrew/core"
 tap "teamookla/speedtest"
 brew "ack"
 brew "aircrack-ng"
+brew "annie"
 brew "xz"
 brew "ansible"
 brew "asciinema"
@@ -64,6 +65,7 @@ brew "irssi"
 brew "john"
 brew "jq"
 brew "knock"
+brew "protobuf-c"
 brew "knot"
 brew "kubectx"
 brew "libsodium"
@@ -75,6 +77,7 @@ brew "ruby"
 brew "macvim"
 brew "magic-wormhole"
 brew "mas"
+brew "mitmproxy"
 brew "mosh"
 brew "mtr"
 brew "ncdu"
@@ -143,7 +146,13 @@ cask "dockey"
 cask "dropbox"
 cask "fantastical"
 cask "firefox"
+cask "font-anonymous-pro"
+cask "font-fira-code"
 cask "font-hack-nerd-font"
+cask "font-menlo-for-powerline"
+cask "font-source-code-pro"
+cask "font-source-han-sans"
+cask "font-source-han-serif"
 cask "google-chrome"
 cask "iina"
 cask "iterm2"
@@ -179,14 +188,18 @@ cask "visual-studio-code"
 cask "vlc"
 cask "wechat"
 cask "wireshark"
+mas "Amphetamine", id: 937984704
 mas "AutoSwitchInput", id: 1470350547
 mas "DevCleaner", id: 1388020431
+mas "GoodNotes", id: 1444383602
+mas "iStudiez Pro", id: 402989379
 mas "Keynote", id: 409183694
 mas "LINE", id: 539883307
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
 mas "Pages", id: 409201541
+mas "Reeder", id: 1449412482
 mas "Tweetbot", id: 1384080005
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835

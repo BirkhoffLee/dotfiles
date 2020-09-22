@@ -5,20 +5,23 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 # Features
 
 * zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
-* Uses tj/n instead of nvm
-* Wraps GNU utilities in functions without a prefix for interactive use
+* [tj/n](https://github.com/tj/n) instead of nvm
+* `ls` alternative [lsd](https://github.com/Peltoche/lsd)
+* Powerful tmux setup with modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
+* Useful [fuzzy completion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) in shell with fzf
+* C-t / Alt-C invokes fzf + fd + bat/tree to preview files/directories
+  * Use C-u / C-d to page up/down
+  * Use C-o to open in VSCode (macOS)
+* [Interactive git operations w/ fzf](https://github.com/wfxr/forgit#-features)
+* [git aliases](https://github.com/sorin-ionescu/prezto/tree/master/modules/git#branch)
+* [Kubernetes aliases](https://github.com/belak/prezto-contrib/tree/master/kubernetes#aliases)
 * Running `1 ... 9` changes the directory to the *n* previous one
-* Interactive git operations w/ fzf: https://github.com/wfxr/forgit#-features
-* And some git aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git#branch
-* Kubernetes aliases: https://github.com/belak/prezto-contrib/tree/master/kubernetes#aliases
-* [lsd](https://github.com/Peltoche/lsd) for the win! The `ls` alternative that is good to the eyes.
-* Some useful aliases/functions for network administrators
-* Automatic installation of macOS apps/brew packages
-* Powerful tmux setup w/ modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
 
 # Usage
 
-This repository is not meant to be used blindly. This is 100% what I'm using right now so apparently you shouldn't follow this usage guide but instead fork this repo and make some changes before applying.
+You really shouldn't install/use this dotfile repository directly. I share this mostly for references purposes only.  
+You should create your own dotfiles and probably copy some of my codes/configs. But Chezmoi do offer a convenient way
+to install the dotfiles.
 
 First install Chezmoi:
 
@@ -32,26 +35,7 @@ After that, run the following to immediately apply the dotfiles and run the inst
 chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
 
-GPG shall ask for secret key. You can delete the [encrypted files](dot_shell/encrypted_dot_dnsimple-secrets) in the repo so it shouldn't ask anymore.
-
-On any machine, pull and apply the latest changes from the repo with:
-
-```console
-chezmoi update
-```
-
-# Secrets
-
-In `.shell/.dnsimple-secrets`:
-
-```shell
-DNSIMPLE_ID="12345"
-DNSIMPLE_DOMAIN="example.com"
-DNSIMPLE_API_KEY="api-key-xxxxxxx"
-```
-
-This is used by a function that points specified subdomain to Cloudflare 
-proxy IP addresses on DNSimple.
+GPG will ask for a secret key. You can delete the [encrypted files](dot_shell/encrypted_dot_dnsimple-secrets) in the repo so it shouldn't ask anymore.
 
 # Performance
 

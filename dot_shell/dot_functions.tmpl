@@ -35,17 +35,6 @@ cdf () {
 }
 {{- end }}
 
-prev () {
-  # prev [PATH] [DEPTH]
-  if [[ -v $2 ]]; then
-    local DEPTH=$2
-  else
-    local DEPTH=1
-  fi
-  FZF_DEFAULT_COMMAND="ag --hidden --ignore .git -f --depth $DEPTH -g \"\" $1" \
-    fzf --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color "always" --line-range :55 {}; fi'
-}
-
 # e: edit with default editor, if no parameters set, use fzf + bat to preview
 unalias e
 e () {
@@ -56,10 +45,31 @@ e () {
   fi
 }
 
+# Search in files, then pipe files with 10 line buffer into fzf preview using bat.
+# https://github.com/issmirnov/dotfiles/blob/df92f79a760740a7d389605f2f0f5085ca95a713/zsh/config/fzf.zsh#L149-L161
+# Notes:
+#  - if you want to replace ag for rg feel free (https://blog.burntsushi.net/ripgrep/)
+#  - Same goes for bat, although ccat and others are definitely worse
+#  - the $ext extraction uses a ZSH specific text globber
+s () {
+  local margin=5 # number of lines above and below search result.
+  local preview_cmd='search={};file=$(echo $search | cut -d':' -f 1 );'
+  preview_cmd+="margin=$margin;" # Inject value into scope.
+  preview_cmd+='line=$(echo $search | cut -d':' -f 2 ); ext=$(echo $file(:e));'
+  preview_cmd+='tail -n +$(( $(( $line - $margin )) > 0 ? $(($line-$margin)) : 0)) $file | head -n $(($margin*2+1)) |'
+  preview_cmd+='bat --paging=never --color=always --style=full --highlight-line $(($margin+1))'
+  local full=$(fd "$*" \
+    | fzf --select-1 --exit-0 --preview-window up:$(($margin*2+1)) --height=60%  --preview $preview_cmd)
+  local file="$(echo $full | awk -F: '{print $1}')"
+  local line="$(echo $full | awk -F: '{print $2}')"
+  [ -n "$file" ] && {{- if eq .chezmoi.os "darwin" }}code -g "$file":$line{{- else }}$VISUAL "$file" +$line{{- end }}
+}
+
 ip () {
   curl -Ls https://api.birkhoff.me/v1/ip/$1 | jq
 }
 
+# transfer.sh
 transfer() {
   # check arguments
   if [ $# -eq 0 ]; then
@@ -114,28 +124,6 @@ mc () {
 #   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 # }
 
-# antibody-install () {
-#   local chezmoiPath=$(chezmoi source-path)
-#   echo "$1" >> ~/.antibody
-#   antibody bundle < ~/.antibody > ~/.zsh_plugins
-#   cp ~/.antibody $chezmoiPath/dot_antibody
-#   cp ~/.zsh_plugins $chezmoiPath/dot_zsh_plugins
-#   source ~/.zsh_plugins
-#   echo $1
-# }
-
-gdrive_download () {
-  local CONFIRM=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=$1" -O- | gsed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')
-  wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$CONFIRM&id=$1" -O $2
-  rm -rf /tmp/cookies.txt
-}
-
-github-clone-and-cd() {
-	mkdir -p ~/src/github.com/$(dirname $1) && \
-  git clone https://github.com/$1.git ~/src/github.com/$1 && \
-  cd ~/src/github.com/$1
-}
-
 pyclean () {
   # Cleans py[cod] and __pychache__ dirs in the current tree:
   find . | grep -E "(__pycache__|\.py[cod]$)" | xargs rm -rf
@@ -164,7 +152,7 @@ _dnsimple_api_call_create_record () {
 }
 
 resolve-cf () {
-  # resolve $1 to Cloudflare proxy IPs
+  # Resolve $1.birkhoff.me to Cloudflare TPE PoP
   _dnsimple_api_call_create_record $1 "A" "198.41.214.162" 3600
   _dnsimple_api_call_create_record $1 "A" "198.41.215.162" 3600
   _dnsimple_api_call_create_record $1 "AAAA" "2606:4700::6811:d109" 3600

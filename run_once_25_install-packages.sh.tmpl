@@ -27,6 +27,9 @@ echo macOS detected.
 set -x
 
 echo Updating Homebrew.
+# brew analytics off
+# brew cask
+# brew tap caskroom/versions
 brew update
 export HOMEBREW_NO_AUTO_UPDATE=1
 brew upgrade || true

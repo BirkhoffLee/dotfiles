@@ -4,33 +4,34 @@
 #
 # This file is used as a part of `.shell_env`
 
-# === Autocomplete ===
-# source $HOME/google-cloud-sdk/path.zsh.inc
-# source $HOME/google-cloud-sdk/completion.zsh.inc
-
 # === fzf ===
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Setting ag as the default source for fzf
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
+export FZF_DEFAULT_OPTS="
+  --bind='ctrl-u:preview-page-up'
+  --bind='ctrl-d:preview-page-down'{{- if eq .chezmoi.os "darwin" }}
+  --bind='ctrl-o:execute(code {})+abort'{{- end }}
+  --preview-window 'right:62%:wrap'
+  --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
 
-{{- if eq .chezmoi.os "darwin" }}
-# add support for ctrl+o to open selected file in VS Code
-export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
-{{- else }}
-export FZF_DEFAULT_OPTS=""
-{{- end }}
+command -v ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
+command -v fd > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+command -v fd > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+command -v fd > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
+
+# https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#full-command-on-preview-window
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# https://ivergara.github.io/Supercharging-shell.html
 _fzf_compgen_path() {
-  ag -g "" "$1"
+  fd --hidden --follow --exclude ".git" . "$1"
 }
-
-# === z ===
-# source "/usr/local/etc/profile.d/z.sh"
 
 {{- if eq .chezmoi.os "darwin" }}
 if type brew &>/dev/null; then

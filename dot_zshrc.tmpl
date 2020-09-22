@@ -2,9 +2,10 @@ zmodload zsh/zprof
 
 source ~/.zinit/bin/zinit.zsh
 
-# PS1="READY > "
-# zinit ice wait'!0' 
+PS1="READY > "
+zinit ice wait'!0' 
 zinit light wfxr/forgit
+zinit light agkozak/zsh-z
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -25,7 +26,8 @@ setopt AUTO_PARAM_SLASH # (autocomplete) If completed parameter is a directory, 
 unsetopt MENU_COMPLETE # Do not autoselect the first completion entry
 unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell editor
 
-alias ls='lsd --group-dirs first' # Make ls aliases from prezto utility module use lsd
+# Register lsd first for ls aliases from prezto utility
+alias ls='lsd --group-dirs first'
 
 # Enable command caching and force prefix matching
 zstyle ':completion:*' accept-exact '*(N)'
