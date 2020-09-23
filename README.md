@@ -35,8 +35,6 @@ After that, run the following to immediately apply the dotfiles and run the inst
 chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 ```
 
-GPG will ask for a secret key. You can delete the [encrypted files](dot_shell/encrypted_dot_dnsimple-secrets) in the repo so it shouldn't ask anymore.
-
 # Performance
 
 ```shell

@@ -12,7 +12,7 @@ export FZF_DEFAULT_OPTS="
   --bind='ctrl-u:preview-page-up'
   --bind='ctrl-d:preview-page-down'{{- if eq .chezmoi.os "darwin" }}
   --bind='ctrl-o:execute(code {})+abort'{{- end }}
-  --preview-window 'right:62%:wrap'
+  --preview-window 'right:60%:wrap'
   --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
 
 command -v ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
