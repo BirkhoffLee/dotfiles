@@ -3,9 +3,22 @@ zmodload zsh/zprof
 source ~/.zinit/bin/zinit.zsh
 
 PS1="READY > "
-zinit ice wait'!0' 
-zinit light wfxr/forgit
-zinit light agkozak/zsh-z
+
+zinit wait lucid light-mode blockf for \
+  agkozak/zsh-z \
+  atpull'zinit creinstall -q .' zsh-users/zsh-completions
+
+zinit wait lucid light-mode for \
+  zsh-users/zsh-history-substring-search \
+  wfxr/forgit \
+  thetic/extract \
+  djui/alias-tips \
+
+zinit wait lucid for \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma/fast-syntax-highlighting \
+  blockf \
+    zsh-users/zsh-completions \
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

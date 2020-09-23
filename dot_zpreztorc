@@ -48,7 +48,6 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'tmux' \
   'ssh' \
-  'alias-tips' \
   'kubernetes'
 
 # lsd uses --group-dirs instead of --group-directories-first
