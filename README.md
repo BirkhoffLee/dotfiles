@@ -61,6 +61,7 @@ Here are some reads you might find interesting:
 
 * [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
 * [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
+* [fzf examples (fzf wiki)](https://github.com/junegunn/fzf/wiki/examples)
 
 # License
 
