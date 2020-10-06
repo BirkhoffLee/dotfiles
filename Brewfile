@@ -197,6 +197,7 @@ mas "LINE", id: 539883307
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
+mas "MoneyWiz", id: 1511185140
 mas "Pages", id: 409201541
 mas "Reeder", id: 1449412482
 mas "Tweetbot", id: 1384080005
