@@ -38,17 +38,17 @@ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git
 # Performance
 
 ```shell
-$ for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
-        0.36 real         0.27 user         0.10 sys
-        0.36 real         0.27 user         0.10 sys
-        0.35 real         0.27 user         0.10 sys
-        0.36 real         0.28 user         0.11 sys
-        0.36 real         0.27 user         0.11 sys
-        0.35 real         0.27 user         0.10 sys
-        0.37 real         0.28 user         0.11 sys
-        0.37 real         0.28 user         0.11 sys
-        0.40 real         0.29 user         0.12 sys
-        0.51 real         0.36 user         0.15 sys
+> for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+        0.39 real         0.31 user         0.10 sys
+        0.37 real         0.29 user         0.10 sys
+        0.38 real         0.30 user         0.10 sys
+        0.40 real         0.31 user         0.11 sys
+        0.40 real         0.32 user         0.11 sys
+        0.34 real         0.27 user         0.09 sys
+        0.34 real         0.27 user         0.09 sys
+        0.33 real         0.26 user         0.09 sys
+        0.50 real         0.34 user         0.12 sys
+        0.40 real         0.32 user         0.10 sys
 ```
 
 # TODO

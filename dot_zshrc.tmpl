@@ -1,6 +1,22 @@
-zmodload zsh/zprof
+# zmodload zsh/zprof
 
 source ~/.zinit/bin/zinit.zsh
+
+zinit wait lucid light-mode for \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma/fast-syntax-highlighting \
+  MichaelAquilina/zsh-you-should-use \
+  zsh-users/zsh-history-substring-search \
+  wfxr/forgit \
+  thetic/extract \
+  agkozak/zsh-z 
+
+# blockf will block the traditional method of adding completions
+zinit wait lucid light-mode blockf for \
+  zsh-users/zsh-completions
+
+zinit wait lucid light-mode svn for \
+  OMZ::plugins/command-not-found
 
 PS1="READY > "
 
@@ -26,7 +42,7 @@ unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell edi
 # switch to emacs mode instead of using vi mode
 set -o emacs
 
-# changes hex 0x15 and 0x18 0x7f to delete everything to the left of 
+# changes hex 0x15 and 0x18 0x7f to delete everything to the left of
 # the cursor, rather than the whole line.
 # https://stackoverflow.com/a/29403520/2465955
 bindkey "^U" backward-kill-line
@@ -48,22 +64,6 @@ source $HOME/.shell/.exports
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-
-zinit wait lucid light-mode blockf for \
-  agkozak/zsh-z \
-  atpull'zinit creinstall -q .' zsh-users/zsh-completions
-
-zinit wait lucid light-mode for \
-  zsh-users/zsh-history-substring-search \
-  wfxr/forgit \
-  thetic/extract \
-  djui/alias-tips \
-
-zinit wait lucid for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    zdharma/fast-syntax-highlighting \
-  blockf \
-    zsh-users/zsh-completions \
 
 source $HOME/.shell_env
 
