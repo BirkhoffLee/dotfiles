@@ -4,7 +4,7 @@ My macOS/Linux dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi)
 
 # Features
 
-* zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
+* zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k#what-do-different-symbols-in-git-status-mean)
 * [tj/n](https://github.com/tj/n) instead of nvm
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
 * Powerful tmux setup with modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
