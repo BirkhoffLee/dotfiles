@@ -24,9 +24,9 @@ You really shouldn't install or use this dotfile repository directly. I share
 this so people can look at my configurations or codes, then you can copy & paste
 them into your own dotfiles.  
 
-Every developers should maintain their own dotfiles repo, IMO.
+Every developers should maintain their own dotfiles repo, IMHO.
 
-Anyhow, Chezmoi dose offer a convenient way to install the dotfiles.
+Anyhow, Chezmoi does offer a convenient way to install the dotfiles.
 
 First install Chezmoi:
 
