@@ -6,13 +6,11 @@
 
 # === fzf ===
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 export FZF_DEFAULT_OPTS="
   --bind='ctrl-u:preview-page-up'
   --bind='ctrl-d:preview-page-down'
   --bind='ctrl-o:execute($VISUAL {})+abort'
-  --preview-window 'right:60%:wrap'
+  --preview-window 'right:60%:hidden:wrap'
   --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
 
 command -v ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
@@ -21,9 +19,10 @@ command -v fd > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --fo
 command -v fd > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
 
 # https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#full-command-on-preview-window
+export FZF_CTRL_T_OPTS="--preview-window 'right:60%:wrap'"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
-# To apply the command to CTRL-T as well
+# Apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
@@ -32,6 +31,20 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
+
+# === fzf-tab ===
+
+# Used by below to extract realpath
+local extract="
+local in=\${\${\"\$(<{f})\"%\$'\0'*}#*\$'\0'}
+local -A ctxt=(\"\${(@ps:\2:)CTXT}\")
+local realpath=\${ctxt[IPREFIX]}\${ctxt[hpre]}\$in
+realpath=\${(Qe)~realpath}
+"
+
+zstyle ':fzf-tab:complete:cd:*' extra-opts --preview-window 'right:60%:wrap' --preview=$extract'lsd --group-dirs first --color=always --icon always $realpath'
+# zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
+zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview-window 'right:60%:wrap' --preview=$extract'ps -p $in[(w)1] -o command -w' --preview-window=down:3:wrap
 
 {{- if eq .chezmoi.os "darwin" }}
 if type brew &>/dev/null; then
