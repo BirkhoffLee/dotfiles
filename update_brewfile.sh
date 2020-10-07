@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
-rm Brewfile
+rm Brewfile Brewfile.lock.json
 brew bundle dump
