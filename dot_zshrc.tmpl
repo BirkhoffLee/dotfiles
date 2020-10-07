@@ -1,28 +1,30 @@
-# First we load plugins. On first run it takes a significant amount of
-# time and there are output, so I put it before Instant Prompt.
+# First we load plugins. At clean state it takes a significant amount of
+# time to download, install and compile. And there are output.
+# So I put it before Instant Prompt. There's Turbo Mode anyways.
+# Note that Prezto itself loads some plugins too. Check dot_zpreztorc
 source ~/.zinit/bin/zinit.zsh
 
-zinit wait lucid light-mode for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    zdharma/fast-syntax-highlighting \
-  MichaelAquilina/zsh-you-should-use \
-  zsh-users/zsh-history-substring-search \
+# https://zdharma.org/zinit/wiki/
+# https://github.com/zdharma/zinit#ice-modifiers
+# wait"0": postpone loading a plugin or snippet
+# lucid: hide "Loaded foo/bar" message
+zinit wait"0" lucid for \
   wfxr/forgit \
   thetic/extract \
-  agkozak/zsh-z 
-
-# blockf will block the traditional method of adding completions
-zinit wait lucid light-mode blockf for \
-  zsh-users/zsh-completions
-
-zinit wait lucid light-mode svn for \
-  OMZ::plugins/command-not-found
+  OMZ::plugins/command-not-found/command-not-found.plugin.zsh \
+  MichaelAquilina/zsh-you-should-use \
+  zsh-users/zsh-history-substring-search \
+  agkozak/zsh-z \
+  as"completion" \
+    https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
+  blockf \
+    zsh-users/zsh-completions \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma/fast-syntax-highlighting \
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-PS1="READY > "
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi

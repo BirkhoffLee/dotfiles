@@ -37,20 +37,22 @@ $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this runs s
 
 # Performance
 
-Well, it's not consistent. I've been trying my best to make it faster.
+**EDIT** This way of measuring shell opening time is not accurate because of Instant Prompt. The loading of plugins are postponed to after interactive prompt starts.
+
+Either way, I've been trying my best to make it faster.
 
 ```shell
 > for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+        0.21 real         0.14 user         0.06 sys
+        0.22 real         0.14 user         0.06 sys
         0.24 real         0.15 user         0.07 sys
-        0.23 real         0.15 user         0.06 sys
-        0.22 real         0.15 user         0.06 sys
-        0.24 real         0.16 user         0.07 sys
-        0.22 real         0.14 user         0.06 sys
         0.22 real         0.15 user         0.06 sys
         0.22 real         0.14 user         0.06 sys
-        0.22 real         0.15 user         0.06 sys
-        0.22 real         0.15 user         0.06 sys
-        0.22 real         0.15 user         0.06 sys
+        0.25 real         0.16 user         0.07 sys
+        0.26 real         0.17 user         0.07 sys
+        0.26 real         0.17 user         0.08 sys
+        0.26 real         0.17 user         0.07 sys
+        0.27 real         0.16 user         0.08 sys
 ```
 
 # TODO
