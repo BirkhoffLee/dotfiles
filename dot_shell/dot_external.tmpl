@@ -10,8 +10,8 @@
 
 export FZF_DEFAULT_OPTS="
   --bind='ctrl-u:preview-page-up'
-  --bind='ctrl-d:preview-page-down'{{- if eq .chezmoi.os "darwin" }}
-  --bind='ctrl-o:execute(code {})+abort'{{- end }}
+  --bind='ctrl-d:preview-page-down'
+  --bind='ctrl-o:execute($VISUAL {})+abort'
   --preview-window 'right:60%:wrap'
   --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
 
