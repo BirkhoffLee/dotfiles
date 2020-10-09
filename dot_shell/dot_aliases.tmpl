@@ -8,12 +8,6 @@
 
 {{- if eq .chezmoi.os "darwin" }}
 
-alias urldecode='python3 -c "import sys, urllib.parse as ul; \
-    print(ul.unquote_plus(sys.argv[1]))"'
-
-alias urlencode='python3 -c "import sys, urllib.parse as ul; \
-    print (ul.quote_plus(sys.argv[1]))"'
-    
 # Bell when the program is finished. It is useful for some
 # time-consuming operations. Like:
 # > npm install | a
@@ -39,6 +33,12 @@ alias q='ssh'
 alias dig='kdig'
 {{- end }}
 
+alias urldecode='python3 -c "import sys, urllib.parse as ul; \
+    print(ul.unquote_plus(sys.argv[1]))"'
+
+alias urlencode='python3 -c "import sys, urllib.parse as ul; \
+    print (ul.quote_plus(sys.argv[1]))"'
+
 alias btrace='sudo besttrace'
 alias mtr='sudo mtr'
 
@@ -52,6 +52,8 @@ alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
 alias top="sudo htop"
 
 alias help='tldr'
+
+alias gitify="g init && gia --all && gcsm First commit && hub create && gpc"
 
 # View disk usage
 alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"

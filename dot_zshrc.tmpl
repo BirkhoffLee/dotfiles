@@ -25,6 +25,8 @@ zinit wait"0" lucid for \
   @MichaelAquilina/zsh-you-should-use \
   @zsh-users/zsh-history-substring-search \
   @agkozak/zsh-z \
+  as"program" pick"bin/git-dsf" \
+    zdharma/zsh-diff-so-fancy \
   multisrc:'shell/{completion,key-bindings}.zsh' \
     @junegunn/fzf \
   atinit"zpcompinit && zpcdreplay" \
@@ -34,6 +36,7 @@ zinit wait"0" lucid for \
   blockf \
     @zsh-users/zsh-completions \
   @zdharma/fast-syntax-highlighting \
+  # @OMZ::plugins/git/git.plugin.zsh \
 
 HISTSIZE=5000 # How many lines of history to keep in memory
 HISTFILE=~/.zsh_history # Where to save history to disk
