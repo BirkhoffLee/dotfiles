@@ -4,7 +4,7 @@ My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 
 # Features
 
-* zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
+* zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k) (with Instant Prompt)
 * [tj/n](https://github.com/tj/n) instead of nvm
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
 * Powerful tmux setup with modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
@@ -37,27 +37,9 @@ $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this runs s
 
 # Performance
 
-**EDIT:** This way of measuring shell opening time is not accurate because of Instant Prompt. The loading of plugins are postponed to after the (immediate) start of the interactive prompt.
+Instant. Measuring shell opening time whilst using Instant Prompt is pointless. The loading of plugins are postponed to after the (immediate) start of the interactive prompt.
 
 Either way, I've been trying my best to make it faster.
-
-```shell
-> for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
-        0.21 real         0.14 user         0.06 sys
-        0.22 real         0.14 user         0.06 sys
-        0.24 real         0.15 user         0.07 sys
-        0.22 real         0.15 user         0.06 sys
-        0.22 real         0.14 user         0.06 sys
-        0.25 real         0.16 user         0.07 sys
-        0.26 real         0.17 user         0.07 sys
-        0.26 real         0.17 user         0.08 sys
-        0.26 real         0.17 user         0.07 sys
-        0.27 real         0.16 user         0.08 sys
-```
-
-# TODO
-
-* Sync iTerm2 settings in here
 
 # Articles
 
