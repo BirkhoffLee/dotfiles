@@ -1,28 +1,44 @@
 [core]
   excludesfile = ~/.gitignore_global
   editor = vim
-  pager = bat
-[pager]
-  diff = diff-so-fancy | less --tabs=1,5 -RFX
-  show = diff-so-fancy | less --tabs=1,5 -RFX
+  pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
 {{- if eq .chezmoi.os "darwin" }}
 [credential]
   helper = osxkeychain
+
 {{- end }}
 [http]
   postBuffer = 524288000
+
 [filter "lfs"]
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
+
 [push]
   default = simple
+
 [user]
 	name = Birkhoff Lee
 	email = git@birkhoff.me
 	signingkey = DA23CD9C6AB5F49A
+
 [diff]
   indentHeuristic = on
+
 [alias]
   # add
   a = add                           # add
@@ -101,14 +117,17 @@
   svnr = svn rebase
   svnd = svn dcommit
   svnl = svn log --oneline --show-commit
+
 # Colors
 [color]
   ui = true
+
 [color "diff-highlight"]
   oldNormal = red bold
   oldHighlight = white bold 52
   newNormal = green bold
   newHighlight = white bold 22
+
 [color "diff"]
   meta = black
   frag = blue bold
@@ -120,9 +139,12 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
   path = ~/.gitconfig_local
+
 [merge]
 	tool = vim
+
 [commit]
 	gpgsign = true
+
 [pull]
 	rebase = true

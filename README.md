@@ -37,7 +37,7 @@ $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this runs s
 
 # Performance
 
-**EDIT** This way of measuring shell opening time is not accurate because of Instant Prompt. The loading of plugins are postponed to after interactive prompt starts.
+**EDIT:** This way of measuring shell opening time is not accurate because of Instant Prompt. The loading of plugins are postponed to after the (immediate) start of the interactive prompt.
 
 Either way, I've been trying my best to make it faster.
 
@@ -70,4 +70,4 @@ Here are some reads you might find interesting:
 
 # License
 
-This projects is released under [The Unlicense](LICENSE).
+This project is released under [The Unlicense](LICENSE).
