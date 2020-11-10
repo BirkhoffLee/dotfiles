@@ -31,6 +31,8 @@ alias q='ssh'
 
 # dig
 alias dig='kdig'
+
+alias btrace='sudo besttrace'
 {{- end }}
 
 alias urldecode='python3 -c "import sys, urllib.parse as ul; \
@@ -39,11 +41,10 @@ alias urldecode='python3 -c "import sys, urllib.parse as ul; \
 alias urlencode='python3 -c "import sys, urllib.parse as ul; \
     print (ul.quote_plus(sys.argv[1]))"'
 
-alias btrace='sudo besttrace'
 alias mtr='sudo mtr'
 
 alias la='ll -a'
-alias tree='la --tree'
+alias tree='ll -A --tree'
 
 # Clear ZSH history
 alias clear_history='> ~/.zsh_history ; exec $SHELL -l'

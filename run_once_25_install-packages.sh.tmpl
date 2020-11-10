@@ -19,6 +19,9 @@ pwd
 
 {{- if eq .chezmoi.os "linux" }}
 # Linux
+{{- if eq .chezmoi.osRelease.id "ubuntu" }}
+sudo apt-get install git-lfs -y
+{{- end }}
 {{- else if eq .chezmoi.os "darwin" }}
 ###################### macOS Start ######################
 
@@ -33,12 +36,12 @@ echo Updating Homebrew.
 brew update
 export HOMEBREW_NO_AUTO_UPDATE=1
 brew upgrade || true
+
 echo Installing essential packages.
-brew bundle --verbose
+brew bundle --verbose || true
 BREW_PREFIX=$(brew --prefix)
+
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
-git lfs install
-sudo git lfs install --system
 
 # Install fzf
 if [ ! -f ~/.fzf.zsh ]; then
@@ -57,9 +60,11 @@ if [ ! -f /usr/local/bin/besttrace ]; then
   cd -
 fi
 
-# Workaround of https://github.com/OpenSC/OpenSC/issues/1008
-sudo rm /usr/local/lib/opensc-pkcs11.so
-sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
+if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
+  # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
+  sudo rm /usr/local/lib/opensc-pkcs11.so
+  sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
+fi
 
 # Install Powerline compatible fonts
 # echo Installing Powerline fonts.
@@ -73,6 +78,8 @@ sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
 # Universal
 echo Running universal scripts.
 
+git lfs install && sudo git lfs install --system
+
 echo Installing CLI stuff.
 
 if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
@@ -84,6 +91,11 @@ if [ ! -e "$HOME/.zinit" ]; then
   mkdir ~/.zinit
   git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
   zsh -i -c "zinit self-update"
+fi
+
+if [ ! -f ~/.fzf.zsh ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
 fi
 
 # Headlessly install n to ~/.n without modifying ~/.zshrc
@@ -101,36 +113,40 @@ ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf || true
 #############
 
 echo Installing python3 pip packages.
-sudo python3 -m pip install virtualenv psutil
+sudo python3 -m pip install virtualenv virtualenvwrapper psutil
 
 #############
 
-echo Installing prettyping.
-sudo wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
-sudo chmod +x /usr/local/bin/prettyping
+if [ ! -f /usr/local/bin/prettyping ]; then
+  echo Installing prettyping.
+  sudo wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+  sudo chmod +x /usr/local/bin/prettyping
+fi
 
 #############
 
 if [ ! -e "$HOME/.tmux/plugins/tpm" ]; then
   echo "Installing TPM (Tmux Plugin Manager)"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
 
-# Install TPM plugins.
-# TPM requires running tmux server, as soon as `tmux start-server` does not work
-# create dump __noop session in detached mode, and kill it when plugins are installed
-printf "Install TPM plugins\n"
-tmux new -d -s __noop >/dev/null 2>&1 || true
-tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
-"$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
-tmux kill-session -t __noop >/dev/null 2>&1 || true
+  # Install TPM plugins.
+  # TPM requires running tmux server, as soon as `tmux start-server` does not work
+  # create dump __noop session in detached mode, and kill it when plugins are installed
+  printf "Install TPM plugins\n"
+  tmux new -d -s __noop >/dev/null 2>&1 || true
+  tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
+  "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
+  tmux kill-session -t __noop >/dev/null 2>&1 || true
+fi
 
 #############
 
-printf "Install dein.vim\n"
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-sh ./installer.sh ~/.cache/dein
-rm ./installer.sh
+if [ ! -e "$HOME/.cache/dein" ]; then
+  echo "Install dein.vim"
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  sh ./installer.sh ~/.cache/dein
+  rm ./installer.sh
+fi
 
 #############
 
