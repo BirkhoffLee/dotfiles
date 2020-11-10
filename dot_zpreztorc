@@ -30,6 +30,7 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
+  'gpg' \
   'git' \
   'terminal' \
   'editor' \
@@ -38,11 +39,10 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'gnu-utility' \
-  'gpg' \
   'syntax-highlighting' \
   'history-substring-search' \
   'prompt' \
-  'tmux'
+  'tmux' \
 
 # lsd uses --group-dirs instead of --group-directories-first
 # so we alias `ls` to `lsd --group-dirs` and disable this
