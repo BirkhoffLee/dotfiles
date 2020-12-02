@@ -13,15 +13,19 @@ export LC_ALL="en_US.UTF-8"
 # Editor:
 {{- if eq .chezmoi.os "darwin" }}
 export EDITOR="$(which code) --wait"
+export VISUAL="$(which code)"
 {{- else }}
 export EDITOR=$(which vim)
-{{- end }}
 export VISUAL=${EDITOR}
+{{- end }}
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'
 
 {{- if eq .chezmoi.os "darwin" }}
+# GPG AGENT
+export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+
 # Homebrew:
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
 {{- end }}

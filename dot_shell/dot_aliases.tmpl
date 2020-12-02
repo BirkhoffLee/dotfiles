@@ -7,6 +7,8 @@
 # === Aliases ===
 
 {{- if eq .chezmoi.os "darwin" }}
+# send to yoink
+alias yoink="open -a Yoink"
 
 # Bell when the program is finished. It is useful for some
 # time-consuming operations. Like:
@@ -27,7 +29,7 @@ alias ping='/usr/local/bin/prettyping --nolegend'
 alias brewery='brew update && brew upgrade && brew cleanup'
 
 # Quick connect
-alias q='ssh'
+alias q='ssh -v'
 
 # dig
 alias dig='kdig'
