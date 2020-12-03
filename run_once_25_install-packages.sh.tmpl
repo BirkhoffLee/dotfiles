@@ -1,11 +1,9 @@
-#!/bin/sh
-
-set -e
+#!/usr/bin/env bash
 
 # Check environment
 
 if [[ "$TERM" =~ "screen".* ]]; then
-  echo "This script must not be run under a tmux session."
+  echo "This script must not be run under a tmux/screen session."
   exit 1
 fi
 
@@ -17,54 +15,59 @@ fi
 cd {{ .chezmoi.sourceDir }}
 pwd
 
+# Ask for the administrator password upfront
+echo "Asking for sudo privileges."
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 {{- if eq .chezmoi.os "linux" }}
 # Linux
+
 {{- if eq .chezmoi.osRelease.id "ubuntu" }}
 sudo apt-get install git-lfs -y
 {{- end }}
+
 {{- else if eq .chezmoi.os "darwin" }}
 ###################### macOS Start ######################
 
-echo macOS detected.
+echo macOS detected
+
+# prevent sleep. we will kill this later
+caffeinate &
+CAFFEINATEPID=$!
+
+set -eE  # same as: `set -o errexit -o errtrace`
+
+function cleanup()
+{
+  kill $CAFFEINATEPID
+}
+
+trap cleanup EXIT
 
 set -x
 
-echo Updating Homebrew.
-# brew analytics off
-# brew cask
-# brew tap caskroom/versions
-brew update
-export HOMEBREW_NO_AUTO_UPDATE=1
-brew upgrade || true
-
-echo Installing essential packages.
-brew bundle --verbose || true
-BREW_PREFIX=$(brew --prefix)
-
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
-
-# Install fzf
-if [ ! -f ~/.fzf.zsh ]; then
-  echo Installing fzf.
-  ${BREW_PREFIX}/opt/fzf/install --all --no-bash --no-zsh --no-fish
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 if [ ! -f /usr/local/bin/besttrace ]; then
-  echo Installing besttrace.
   cd /tmp
   wget https://cdn.ipip.net/17mon/besttrace4linux.zip -O besttrace4linux.zip
   unzip besttrace4linux.zip
-  sudo mv besttracemac /usr/local/bin/besttrace
-  sudo chmod +x /usr/local/bin/besttrace
+  mv besttracemac /usr/local/bin/besttrace
+  chmod +x /usr/local/bin/besttrace
   rm -f besttrace*
   cd -
 fi
 
-if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
+#if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
   # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
-  sudo rm /usr/local/lib/opensc-pkcs11.so
-  sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
-fi
+#  sudo rm /usr/local/lib/opensc-pkcs11.so
+#  sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
+#fi
 
 # Install Powerline compatible fonts
 # echo Installing Powerline fonts.
@@ -72,13 +75,47 @@ fi
 # cd fonts && ./install.sh
 # cd .. && rm -rf fonts
 
+# Homebrew
+brew update
+
+# we prioritise these first, for fresh installs these are more important
+brew install mas 1password dropbox dockutil
+
+# Remove unused apps from Dock
+# This depends on dockutil so I place this here, I know it makes no sense
+dockutil \
+  --remove Podcasts \
+  --remove Maps \
+  --remove Contacts \
+  --remove TV \
+  --remove Calendar \
+  --remove News \
+  --remove FaceTime
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+brew upgrade || true
+brew analytics off
+
+brew bundle --verbose || true
+BREW_PREFIX=$(brew --prefix)
+
+ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
+
+if [ ! -f ~/.fzf.zsh ]; then
+  echo Installing fzf.
+  ${BREW_PREFIX}/opt/fzf/install --key-bindings --completion --no-update-rc
+fi
+
+vagrant plugin install vagrant-parallels
+
 ###################### macOS End #######################
 {{- end }}
 
 # Universal
 echo Running universal scripts.
 
-git lfs install && sudo git lfs install --system
+git lfs install
+sudo git lfs install --system
 
 echo Installing CLI stuff.
 
@@ -89,20 +126,13 @@ fi
 
 if [ ! -e "$HOME/.zinit" ]; then
   mkdir ~/.zinit
-  git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
   zsh -i -c "zinit self-update"
 fi
 
-if [ ! -f ~/.fzf.zsh ]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
-fi
-
-# Headlessly install n to ~/.n without modifying ~/.zshrc
-# only if n, node and npm don't exist in $PATH
-if ! command -v n &> /dev/null && ! command -v node &> /dev/null && ! command -v npm &> /dev/null; then
-  export N_PREFIX="$HOME/.n"
-  curl -L https://git.io/n-install | N_PREFIX=~/.n bash -s -- -y -n
+# https://github.com/tj/n
+if ! command -v n &> /dev/null && command -v npm &> /dev/null; then
+  npm install -g n
 fi
 
 #############
@@ -113,14 +143,14 @@ ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf || true
 #############
 
 echo Installing python3 pip packages.
-sudo python3 -m pip install virtualenv virtualenvwrapper psutil
+sudo python3 -m pip install virtualenv virtualenvwrapper
 
 #############
 
 if [ ! -f /usr/local/bin/prettyping ]; then
   echo Installing prettyping.
-  sudo wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
-  sudo chmod +x /usr/local/bin/prettyping
+  wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+  chmod +x /usr/local/bin/prettyping
 fi
 
 #############
@@ -141,14 +171,16 @@ fi
 
 #############
 
+# Install dein.vim
 if [ ! -e "$HOME/.cache/dein" ]; then
-  echo "Install dein.vim"
   curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
   sh ./installer.sh ~/.cache/dein
   rm ./installer.sh
 fi
 
 #############
+
+zsh -i -c "compaudit | xargs chmod g-w"
 
 set +x
 
