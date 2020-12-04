@@ -1,0 +1,194 @@
+#!/usr/bin/env bash
+
+{{- if ne .chezmoi.os "darwin" }}
+echo Skipping configure-macos
+exit 0
+{{- end }}
+
+# Check environment
+
+if [[ "$TERM" =~ "screen".* ]]; then
+  echo "This script must not be run under a tmux/screen session."
+  exit 1
+fi
+
+if [[ $EUID -eq 0 ]]; then
+  echo "This script must not be run as root"
+  exit 1
+fi
+
+cd {{ .chezmoi.sourceDir }}
+pwd
+
+# Ask for the administrator password upfront
+echo "Asking for sudo privileges."
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+{{- if eq .chezmoi.os "linux" }}
+# Linux
+
+{{- if eq .chezmoi.osRelease.id "ubuntu" }}
+sudo apt-get install git-lfs -y
+{{- end }}
+
+{{- else if eq .chezmoi.os "darwin" }}
+###################### macOS Start ######################
+
+echo macOS detected
+
+# prevent sleep. we will kill this later
+caffeinate &
+CAFFEINATEPID=$!
+
+set -eE  # same as: `set -o errexit -o errtrace`
+
+function cleanup()
+{
+  kill $CAFFEINATEPID
+}
+
+trap cleanup EXIT
+
+set -x
+
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+if [ ! -f /usr/local/bin/besttrace ]; then
+  cd /tmp
+  wget https://cdn.ipip.net/17mon/besttrace4linux.zip -O besttrace4linux.zip
+  unzip besttrace4linux.zip
+  mv besttracemac /usr/local/bin/besttrace
+  chmod +x /usr/local/bin/besttrace
+  rm -f besttrace*
+  cd -
+fi
+
+#if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
+  # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
+#  sudo rm /usr/local/lib/opensc-pkcs11.so
+#  sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
+#fi
+
+# Install Powerline compatible fonts
+# echo Installing Powerline fonts.
+# git clone https://github.com/powerline/fonts.git --depth=1
+# cd fonts && ./install.sh
+# cd .. && rm -rf fonts
+
+# Homebrew
+brew update
+
+# we prioritise these first, for fresh installs these are more important
+brew install mas 1password dropbox dockutil
+
+# Remove unused apps from Dock
+# This depends on dockutil so I place this here, I know it makes no sense
+dockutil \
+  --remove Podcasts \
+  --remove Maps \
+  --remove Contacts \
+  --remove TV \
+  --remove Calendar \
+  --remove News \
+  --remove FaceTime
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+brew upgrade || true
+brew analytics off
+
+brew bundle --verbose || true
+BREW_PREFIX=$(brew --prefix)
+
+ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
+
+if [ ! -f ~/.fzf.zsh ]; then
+  echo Installing fzf.
+  ${BREW_PREFIX}/opt/fzf/install --key-bindings --completion --no-update-rc
+fi
+
+###################### macOS End #######################
+{{- end }}
+
+# Universal
+echo Running universal scripts.
+
+git lfs install
+sudo git lfs install --system
+
+echo Installing CLI stuff.
+
+if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
+fi
+
+if [ ! -e "$HOME/.zinit" ]; then
+  mkdir ~/.zinit
+  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
+  zsh -i -c "zinit self-update"
+fi
+
+# https://github.com/tj/n
+if ! command -v n &> /dev/null && command -v npm &> /dev/null; then
+  npm install -g n
+fi
+
+#############
+
+echo Applying tmux conf
+ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf || true
+
+#############
+
+echo Installing python3 pip packages.
+sudo python3 -m pip install virtualenv virtualenvwrapper
+
+#############
+
+if [ ! -f /usr/local/bin/prettyping ]; then
+  echo Installing prettyping.
+  wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+  chmod +x /usr/local/bin/prettyping
+fi
+
+#############
+
+if [ ! -e "$HOME/.tmux/plugins/tpm" ]; then
+  echo "Installing TPM (Tmux Plugin Manager)"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+  # Install TPM plugins.
+  # TPM requires running tmux server, as soon as `tmux start-server` does not work
+  # create dump __noop session in detached mode, and kill it when plugins are installed
+  printf "Install TPM plugins\n"
+  tmux new -d -s __noop >/dev/null 2>&1 || true
+  tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
+  "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
+  tmux kill-session -t __noop >/dev/null 2>&1 || true
+fi
+
+#############
+
+# Install dein.vim
+if [ ! -e "$HOME/.cache/dein" ]; then
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  sh ./installer.sh ~/.cache/dein
+  rm ./installer.sh
+fi
+
+#############
+
+zsh -i -c "compaudit | xargs chmod g-w"
+
+# https://github.com/Aloxaf/fzf-tab/issues/124#issuecomment-705050186
+# rm -f /usr/local/share/zsh/site-functions/_git
+# rm -f /usr/local/share/zsh/site-functions/git-completion.bash
+
+set +x
+
+echo "install-packages.sh complete"
