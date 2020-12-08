@@ -53,7 +53,7 @@ export N_PREFIX="$HOME/.n"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # === Histories ===
 
@@ -68,5 +68,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 # === Others ===
 
+export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANTIBODY_HOME=~/Libary/antibody
