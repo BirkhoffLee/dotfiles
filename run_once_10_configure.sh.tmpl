@@ -153,7 +153,6 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
-defaults write com.apple.dock autohide -int 0
 defaults write com.apple.dock largesize -int 128
 defaults write com.apple.dock orientation -string left
 defaults write com.apple.dock tilesize -int 40
@@ -268,6 +267,10 @@ defaults write com.apple.commerce AutoUpdate -bool true
 
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+
+# Disable Spotlight shortcuts to use Launchbar
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = 'standard'; }; }"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0; value = { parameters = (32, 49, 1572864); type = 'standard'; }; }"
 
 ###############################################################################
 # Kill affected applications                                                  #
