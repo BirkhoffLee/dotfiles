@@ -4,42 +4,59 @@ My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 
 # Features
 
-* zsh, Prezto, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k) (with Instant Prompt)
+* zsh, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
 * [tj/n](https://github.com/tj/n) instead of nvm
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
 * Powerful tmux setup with modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
-* Useful [fuzzy completion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) in shell with fzf
-* C-t / Alt-C invokes fzf + fd + bat/tree to preview files/directories
-  * Use C-u / C-d to page up/down
-  * Use C-o to open in VSCode (macOS)
-* [Interactive git operations w/ fzf](https://github.com/wfxr/forgit#-features)
-* [git aliases](https://github.com/sorin-ionescu/prezto/tree/master/modules/git#branch)
-* [Kubernetes aliases](https://github.com/belak/prezto-contrib/tree/master/kubernetes#aliases)
+* [fzf](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) + [fd](https://github.com/sharkdp/fd) + [bat](https://github.com/sharkdp/bat)/tree integration
+  * Ctrl-T: select files in cwd recursively & interactively
+    * press `?` to activate preview with [bat](https://github.com/sharkdp/bat)
+      * Use Ctrl-U / Ctrl-D to page up/down
+  * Use Ctrl-O to open in `$VISUAL`, or VSCode by default on macOS
+  * Alt-C: interactive cd
+* [Interactive git operations](https://github.com/wfxr/forgit#-features)
 * Running `1 ... 9` changes the directory to the *n* previous one
-* ... it's countless.
 
 # Usage
 
-You really shouldn't install or use this dotfile repository directly. I share
-this so people can look at my configurations or codes, then you can copy & paste
-them into your own dotfiles.  
-
-Every developers should maintain their own dotfiles repo, IMHO.
-
-Anyhow, Chezmoi does offer a convenient way to install the dotfiles.
-
-First install Chezmoi:
+You should clone & make your own verison of dotfiles instead of directly using
+this repo's configurations. Anyhow, Chezmoi does offer a convenient way to
+install the dotfiles.
 
 ```console
-$ curl -sfL https://git.io/chezmoi | sh # this installs chezmoi
-$ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this runs scripts and overwrites your dotfiles
+$ curl -sfL https://git.io/chezmoi | sh
+$ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwrites dotfiles
 ```
 
 # Performance
 
-Instant. Measuring shell opening time whilst using Instant Prompt is pointless. The loading of plugins are postponed to after the (immediate) start of the interactive prompt.
+Two consecutive runs:
 
-Either way, I've been trying my best to make it faster.
+```shell
+$ for i in $(seq 1 10); do /usr/bin/time /bin/zsh -i -c exit; done;
+        0.22 real         0.13 user         0.04 sys
+        0.17 real         0.13 user         0.03 sys
+        0.24 real         0.16 user         0.04 sys
+        0.22 real         0.15 user         0.04 sys
+        0.17 real         0.13 user         0.03 sys
+        0.16 real         0.13 user         0.03 sys
+        0.21 real         0.15 user         0.04 sys
+        0.25 real         0.17 user         0.04 sys
+        0.22 real         0.15 user         0.04 sys
+        0.18 real         0.13 user         0.03 sys
+
+$ for i in $(seq 1 10); do /usr/bin/time /bin/zsh -i -c exit; done;
+        0.18 real         0.13 user         0.03 sys
+        0.18 real         0.14 user         0.03 sys
+        0.22 real         0.16 user         0.04 sys
+        0.19 real         0.14 user         0.04 sys
+        0.20 real         0.15 user         0.04 sys
+        0.23 real         0.17 user         0.04 sys
+        0.19 real         0.15 user         0.04 sys
+        0.17 real         0.13 user         0.03 sys
+        0.16 real         0.12 user         0.03 sys
+        0.17 real         0.13 user         0.03 sys
+```
 
 # Articles
 
