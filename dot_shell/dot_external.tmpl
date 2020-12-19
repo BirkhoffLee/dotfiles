@@ -32,6 +32,11 @@ _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
 
+function _history_substring_search_config() {
+    bindkey '^[[A' history-substring-search-up
+    bindkey '^[[B' history-substring-search-down
+}
+
 # === fzf-tab ===
 
 # Used by below to extract realpath
