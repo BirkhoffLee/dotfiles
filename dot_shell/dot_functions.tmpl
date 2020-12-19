@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # `.functions` provides helper functions for shell.
 #
@@ -6,6 +6,17 @@
 
 
 # === Commonly used functions ===
+
+# https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
+
+function mkdcd {
+  [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
+}
+
+# Changes to a directory and lists its contents.
+function cdls {
+  builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"
+}
 
 {{- if eq .chezmoi.os "darwin" }}
 dns () {
@@ -36,7 +47,6 @@ cdf () {
 {{- end }}
 
 # e: edit with default editor, if no parameters set, use fzf + bat to preview
-unalias e
 e () {
   if [[ ! -z $1 ]]; then
     $VISUAL $1
