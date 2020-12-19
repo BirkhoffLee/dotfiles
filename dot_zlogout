@@ -6,7 +6,7 @@
 #
 
 # Execute code only if STDERR is bound to a TTY.
-[[ -o INTERACTIVE && -t 2 ]] && {
+# [[ -o INTERACTIVE && -t 2 ]] && {
 
 # SAYINGS=(
 #     "So long and thanks for all the fish.\n  -- Douglas Adams"
@@ -16,4 +16,4 @@
 # Print a randomly-chosen message:
 # echo $SAYINGS[$(($RANDOM % ${#SAYINGS} + 1))]
 
-} >&2
+# } >&2
