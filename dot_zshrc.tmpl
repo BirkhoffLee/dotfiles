@@ -1,9 +1,21 @@
+# zmodload zsh/zprof
+
+# zmodload zsh/datetime
+# setopt PROMPT_SUBST
+# PS4='+$EPOCHREALTIME %N:%i> '
+
+# logfile=$(mktemp zsh_profile.XXXXXXXX)
+# echo "Logging to $logfile"
+# exec 3>&2 2>$logfile
+
+# setopt XTRACE
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # First we load plugins. Note that Prezto itself loads some plugins
 # too. Check dot_zpreztorc
@@ -17,36 +29,43 @@ source ~/.zinit/bin/zinit.zsh
 
 # https://zdharma.org/zinit/wiki/
 # https://github.com/zdharma/zinit#ice-modifiers
-# wait"0": postpone loading a plugin or snippet
-# lucid: hide "Loaded foo/bar" message
-zinit wait"0" lucid for \
+
+zinit depth"1" light-mode for \
+  @romkatv/powerlevel10k
+
+zinit wait"0" silent depth"1" light-mode for \
   @wfxr/forgit \
   @thetic/extract \
   @MichaelAquilina/zsh-you-should-use \
-  @zsh-users/zsh-history-substring-search \
-  @OMZ::plugins/kubectl/kubectl.plugin.zsh \
+  @OMZP::kubectl \
+  @PZTM::gpg \
+  @PZTM::gnu-utility \
+  @PZTM::history \
+  @PZTM::directory \
   @agkozak/zsh-z \
   as"program" pick"bin/git-dsf" \
-    zdharma/zsh-diff-so-fancy \
+    @zdharma/zsh-diff-so-fancy \
   multisrc:'shell/{completion,key-bindings}.zsh' \
     @junegunn/fzf \
-  atinit"zpcompinit && zpcdreplay" \
+  atinit"zicompinit; zicdreplay" \
     @Aloxaf/fzf-tab \
   as"completion" \
     @https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
-  blockf \
+  atinit"zicompinit; zicdreplay" \
+    @zdharma/fast-syntax-highlighting \
+  blockf atpull'zinit creinstall -q .' \
     @zsh-users/zsh-completions \
-  @zdharma/fast-syntax-highlighting \
-  # @bonnefoa/kubectl-fzf \
-  # @OMZ::plugins/git/git.plugin.zsh \
+  atload'_history_substring_search_config' \
+    ver'dont-overwrite-config' \
+  @zsh-users/zsh-history-substring-search
 
 HISTSIZE=5000 # How many lines of history to keep in memory
 HISTFILE=~/.zsh_history # Where to save history to disk
 SAVEHIST=5000 # Number of history entries to save to disk
 
-setopt appendhistory # Append history to the history file (no overwriting)
-setopt sharehistory # Share history across terminals
-setopt incappendhistory # Immediately append to the history file, not just when a term is killed
+setopt APPENDHISTORY # Append history to the history file (no overwriting)
+setopt SHAREHISTORY # Share history across terminals
+setopt INCAPPENDHISTORY # Immediately append to the history file, not just when a term is killed
 
 setopt AUTO_PARAM_SLASH # (autocomplete) If completed parameter is a directory, add a trailing slash
 unsetopt MENU_COMPLETE # Do not autoselect the first completion entry
@@ -64,25 +83,27 @@ bindkey "^X\\x7f" backward-kill-line
 # bind redo to 0x18 0x1f
 bindkey "^X^_" redo
 
-# Register lsd first for ls aliases from prezto utility
-alias ls='lsd --group-dirs first'
-
 # Enable command caching and force prefix matching
 zstyle ':completion:*:*' format '-- %d --'
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-# This loads some crucial environment variables
+# This loads some environment variables
 source $HOME/.shell/.exports
 
 # Load Prezto
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# fi
 
 # Load my aliases, functions and some external tools
 source $HOME/.shell_env
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+# Load p10k config
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# unsetopt XTRACE
+# exec 2>&3 3>&-
+
+# (( ! ${+functions[p10k]} )) || p10k finalize
