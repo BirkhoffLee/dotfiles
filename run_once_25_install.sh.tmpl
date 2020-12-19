@@ -19,7 +19,7 @@ pwd
 echo "Asking for sudo privileges."
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+# Keep-alive: update existing `sudo`
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 {{- if eq .chezmoi.os "linux" }}
@@ -72,6 +72,8 @@ fi
 # git clone https://github.com/powerline/fonts.git --depth=1
 # cd fonts && ./install.sh
 # cd .. && rm -rf fonts
+
+xcode-select --install || true
 
 # Homebrew
 brew update
