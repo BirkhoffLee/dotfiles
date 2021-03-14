@@ -9,7 +9,7 @@
 
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
 
-function mkdcd {
+function take {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }
 
@@ -124,11 +124,6 @@ transfer() {
   rm -f $tmpfile
 }
 
-mc () {
-  # Create a new directory and enter it
-  mkdir -p "$@" && cd "$@"
-}
-
 pyclean () {
   # Cleans py[cod] and __pychache__ dirs in the current tree:
   find . | grep -E "(__pycache__|\.py[cod]$)" | xargs rm -rf
@@ -137,29 +132,4 @@ pyclean () {
 pipenv-shell () {
   # pipenv shell breaks sometimes. This does not.
   source "$(pipenv --venv)/bin/activate"
-}
-
-_dnsimple_api_call_create_record () {
-    # $1    $2      $3      $4
-    # name  type    content ttl
-    source ~/.shell_env_local_secrets
-    echo "> $2 $1.$DNSIMPLE_DOMAIN will resolve to $3"
-    echo
-    curl \
-        -H "Authorization: Bearer $DNSIMPLE_API_KEY" \
-        -H 'Accept: application/json' \
-        -H 'Content-Type: application/json' \
-        -X POST \
-        -d "{\"name\": \"$1\",\"type\": \"$2\",\"content\": \"$3\",\"ttl\": $4}" \
-        https://api.dnsimple.com/v2/$DNSIMPLE_ID/zones/$DNSIMPLE_DOMAIN/records
-    echo
-    echo
-}
-
-resolve-cf () {
-  # Resolve $1.birkhoff.me to Cloudflare TPE PoP
-  _dnsimple_api_call_create_record $1 "A" "198.41.214.162" 3600
-  _dnsimple_api_call_create_record $1 "A" "198.41.215.162" 3600
-  _dnsimple_api_call_create_record $1 "AAAA" "2606:4700::6811:d109" 3600
-  _dnsimple_api_call_create_record $1 "AAAA" "2606:4700::6811:d209" 3600
 }
