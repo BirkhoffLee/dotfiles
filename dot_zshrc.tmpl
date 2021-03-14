@@ -1,5 +1,6 @@
 # zmodload zsh/zprof
 
+# https://esham.io/2018/02/zsh-profiling
 # zmodload zsh/datetime
 # setopt PROMPT_SUBST
 # PS4='+$EPOCHREALTIME %N:%i> '
@@ -10,35 +11,30 @@
 
 # setopt XTRACE
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+# Load plugins with zinit
+# https://zdharma.org/zinit/wiki/
+# https://github.com/zdharma/zinit#ice-modifiers
 
-# First we load plugins. Note that Prezto itself loads some plugins
-# too. Check dot_zpreztorc
 if [[ ! -d ~/.zinit ]]; then
   mkdir -p ~/.zinit && \
     git clone --depth 1 \
       https://github.com/zdharma/zinit.git \
       ~/.zinit/bin
 fi
-source ~/.zinit/bin/zinit.zsh
 
-# https://zdharma.org/zinit/wiki/
-# https://github.com/zdharma/zinit#ice-modifiers
+source ~/.zinit/bin/zinit.zsh
 
 zinit depth"1" light-mode for \
   @romkatv/powerlevel10k
+
+# Load p10k config
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 zinit wait"0" silent depth"1" light-mode for \
   @wfxr/forgit \
   @thetic/extract \
   @MichaelAquilina/zsh-you-should-use \
   @OMZP::kubectl \
-  @PZTM::gpg \
   @PZTM::gnu-utility \
   @PZTM::history \
   @PZTM::directory \
@@ -71,6 +67,8 @@ setopt AUTO_PARAM_SLASH # (autocomplete) If completed parameter is a directory, 
 unsetopt MENU_COMPLETE # Do not autoselect the first completion entry
 unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell editor
 
+# Shell options
+
 # switch to emacs mode instead of using vi mode
 set -o emacs
 
@@ -86,24 +84,19 @@ bindkey "^X^_" redo
 # Enable command caching and force prefix matching
 zstyle ':completion:*:*' format '-- %d --'
 zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
+zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-# This loads some environment variables
-source $HOME/.shell/.exports
+# https://github.com/ohmyzsh/ohmyzsh/blob/3f42700c0d65cf26470d1e165b8ed80dfff9efca/lib/completion.zsh#L23
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
-# Load Prezto
-# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-# fi
+# This loads environment variables
+source $HOME/.shell/.exports
 
 # Load my aliases, functions and some external tools
 source $HOME/.shell_env
 
-# Load p10k config
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+gpg-agent --daemon > /dev/null 2>&1
 
 # unsetopt XTRACE
 # exec 2>&3 3>&-
-
-# (( ! ${+functions[p10k]} )) || p10k finalize
