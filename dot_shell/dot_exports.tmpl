@@ -47,7 +47,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # n
 export N_PREFIX="$HOME/.n"
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+PATH="$N_PREFIX/bin:$PATH"
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
