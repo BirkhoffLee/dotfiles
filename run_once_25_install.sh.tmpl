@@ -51,28 +51,6 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-if [ ! -f /usr/local/bin/besttrace ]; then
-  cd /tmp
-  wget https://cdn.ipip.net/17mon/besttrace4linux.zip -O besttrace4linux.zip
-  unzip besttrace4linux.zip
-  mv besttracemac /usr/local/bin/besttrace
-  chmod +x /usr/local/bin/besttrace
-  rm -f besttrace*
-  cd -
-fi
-
-#if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
-#  # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
-#  sudo rm /usr/local/lib/opensc-pkcs11.so
-#  sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
-#fi
-
-# Install Powerline compatible fonts
-# echo Installing Powerline fonts.
-# git clone https://github.com/powerline/fonts.git --depth=1
-# cd fonts && ./install.sh
-# cd .. && rm -rf fonts
-
 xcode-select --install || true
 
 # Homebrew
