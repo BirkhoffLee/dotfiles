@@ -78,10 +78,10 @@ fi
 brew update
 
 # we prioritise these first, for fresh installs these are more important
-brew install mas 1password dropbox dockutil
+brew install mas 1password dropbox dockutil || true
 
 # Remove unused apps from Dock
-# This depends on dockutil so I place this here, I know it makes no sense
+# This depends on dockutil
 dockutil \
   --remove Podcasts \
   --remove Maps \
