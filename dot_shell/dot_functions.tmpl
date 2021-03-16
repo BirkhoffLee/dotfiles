@@ -7,6 +7,14 @@
 
 # === Commonly used functions ===
 
+# https://gist.github.com/sandeepraju/1f5fbdbdd89551ba7925abe2645f92b5
+function ttfb {
+  curl -Is \
+    -H 'Cache-Control: no-cache' \
+    -w "Connect: %{time_connect} TTFB: %{time_starttransfer} Total time: %{time_total} \n" \
+    "$@"
+}
+
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
 
 function take {
