@@ -7,6 +7,12 @@
 
 # === Commonly used functions ===
 
+# https google.com 443
+# use testssl.sh for complete analysis
+function https {
+  echo | openssl s_client -showcerts -servername $1 -connect $1:$2 2>/dev/null | openssl x509 -inform pem -noout -text | less
+}
+
 # https://gist.github.com/sandeepraju/1f5fbdbdd89551ba7925abe2645f92b5
 function ttfb {
   curl -Is \
