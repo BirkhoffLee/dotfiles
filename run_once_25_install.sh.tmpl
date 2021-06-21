@@ -77,6 +77,12 @@ brew analytics off
 brew bundle --verbose || true
 BREW_PREFIX=$(brew --prefix)
 
+# https://github.com/dteoh/SlowQuitApps
+sqa stop
+sqa delay 1500
+defaults write com.dteoh.SlowQuitApps invertList -bool YES
+defaults write com.dteoh.SlowQuitApps whitelist -array-add com.apple.Notes
+
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
 
 if [ ! -f ~/.fzf.zsh ]; then
