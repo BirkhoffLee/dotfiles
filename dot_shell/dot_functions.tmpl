@@ -75,8 +75,9 @@ e () {
   if [[ ! -z $1 ]]; then
     $VISUAL $1
   else
-    file=$(__fsel); [[ ! -z $file ]] && $VISUAL $file
-    # __fsel is the actual selector function used by fzf-file-widget
+    # file=$(__fsel); [[ ! -z $file ]] && $VISUAL $file
+    # # __fsel is the actual selector function used by fzf-file-widget
+    $VISUAL .
   fi
 }
 
