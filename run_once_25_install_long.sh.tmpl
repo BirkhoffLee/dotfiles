@@ -5,7 +5,7 @@
 # too long
 
 {{- if ne .chezmoi.os "darwin" }}
-echo Skipping configure-macos
+echo Skipping install long
 exit 0
 {{- end }}
 
@@ -31,23 +31,11 @@ sudo -v
 # Keep-alive: update existing `sudo`
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-{{- if eq .chezmoi.os "linux" }}
-# Linux
-
-{{- if eq .chezmoi.osRelease.id "ubuntu" }}
-sudo apt-get install git-lfs -y
-{{- end }}
-
-{{- else if eq .chezmoi.os "darwin" }}
-###################### macOS Start ######################
-
-echo macOS detected
-
 # prevent sleep. we will kill this later
 caffeinate &
 CAFFEINATEPID=$!
 
-set -eE  # same as: `set -o errexit -o errtrace`
+set -eE # same as: `set -o errexit -o errtrace`
 
 function cleanup()
 {
@@ -62,11 +50,11 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-#if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
-  # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
-#  sudo rm /usr/local/lib/opensc-pkcs11.so
-#  sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
-#fi
+# if [ ! -f /usr/local/lib/opensc-pkcs11.so ]; then
+#   # Workaround of https://github.com/OpenSC/OpenSC/issues/1008
+#   sudo rm /usr/local/lib/opensc-pkcs11.so
+#   sudo cp /usr/local/Cellar/opensc/0.20.0/lib/opensc-pkcs11.so /usr/local/lib
+# fi
 
 # Install Powerline compatible fonts
 # echo Installing Powerline fonts.
@@ -78,18 +66,7 @@ fi
 brew update
 
 # we prioritise these first, for fresh installs these are more important
-brew install mas 1password dropbox dockutil || true
-
-# Remove unused apps from Dock
-# This depends on dockutil
-dockutil \
-  --remove Podcasts \
-  --remove Maps \
-  --remove Contacts \
-  --remove TV \
-  --remove Calendar \
-  --remove News \
-  --remove FaceTime
+brew install mas 1password dropbox || true
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 brew upgrade || true
@@ -98,14 +75,6 @@ brew analytics off
 brew bundle --verbose || true
 BREW_PREFIX=$(brew --prefix)
 
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
-
-if [ ! -f ~/.fzf.zsh ]; then
-  echo Installing fzf.
-  ${BREW_PREFIX}/opt/fzf/install --key-bindings --completion --no-update-rc
-fi
-
-###################### macOS End #######################
-{{- end }}
+sudo gem install cocoapods
 
 set +x

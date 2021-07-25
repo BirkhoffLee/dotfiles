@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+{{- if ne .chezmoi.os "darwin" }}
+echo Skipping install
+exit 0
+{{- end }}
+
 # Check environment
 
 if [[ "$TERM" =~ "screen".* ]]; then
@@ -22,18 +27,6 @@ sudo -v
 # Keep-alive: update existing `sudo`
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-{{- if eq .chezmoi.os "linux" }}
-# Linux
-
-{{- if eq .chezmoi.osRelease.id "ubuntu" }}
-sudo apt-get install git-lfs -y
-{{- end }}
-
-{{- else if eq .chezmoi.os "darwin" }}
-###################### macOS Start ######################
-
-echo macOS detected
-
 # prevent sleep. we will kill this later
 caffeinate &
 CAFFEINATEPID=$!
@@ -53,11 +46,8 @@ fi
 
 xcode-select --install || true
 
-# Homebrew
-brew update
-
 # we prioritise these first, for fresh installs these are more important
-brew install mas 1password dropbox dockutil
+brew install dockutil
 
 # Remove unused apps from Dock
 # This depends on dockutil so I place this here, I know it makes no sense
@@ -69,13 +59,6 @@ dockutil \
   --remove Calendar \
   --remove News \
   --remove FaceTime
-
-export HOMEBREW_NO_AUTO_UPDATE=1
-brew upgrade || true
-brew analytics off
-
-brew bundle --verbose || true
-BREW_PREFIX=$(brew --prefix)
 
 # https://github.com/dteoh/SlowQuitApps
 sqa stop
@@ -89,6 +72,3 @@ if [ ! -f ~/.fzf.zsh ]; then
   echo Installing fzf.
   ${BREW_PREFIX}/opt/fzf/install --key-bindings --completion --no-update-rc
 fi
-
-###################### macOS End #######################
-{{- end }}
