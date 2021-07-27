@@ -34,6 +34,7 @@ zinit wait"0" silent depth"1" light-mode for \
   @wfxr/forgit \
   @thetic/extract \
   @MichaelAquilina/zsh-you-should-use \
+  @MichaelAquilina/zsh-auto-notify \
   @OMZP::kubectl \
   @PZTM::gnu-utility \
   @PZTM::history \
@@ -89,6 +90,15 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/3f42700c0d65cf26470d1e165b8ed80dfff9efca/lib/completion.zsh#L23
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+
+# colored man pages
+export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_us=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
 
 # This loads environment variables
 source $HOME/.shell/.exports
