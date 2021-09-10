@@ -51,10 +51,7 @@ zinit wait"0" silent depth"1" light-mode for \
   atinit"zicompinit; zicdreplay" \
     @zdharma/fast-syntax-highlighting \
   blockf atpull'zinit creinstall -q .' \
-    @zsh-users/zsh-completions \
-  atload'_history_substring_search_config' \
-    ver'dont-overwrite-config' \
-  @zsh-users/zsh-history-substring-search
+    @zsh-users/zsh-completions
 
 HISTSIZE=5000 # How many lines of history to keep in memory
 HISTFILE=~/.zsh_history # Where to save history to disk
@@ -73,9 +70,13 @@ unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell edi
 # switch to emacs mode instead of using vi mode
 set -o emacs
 
+# slashes treated as word separators
+WORDCHARS=${WORDCHARS/\/}
+
+# https://stackoverflow.com/a/29403520/2465955
+# note: use iTerm2 Natural Text Editing keymappings preset
 # changes hex 0x15 and 0x18 0x7f to delete everything to the left of
 # the cursor, rather than the whole line.
-# https://stackoverflow.com/a/29403520/2465955
 bindkey "^U" backward-kill-line
 bindkey "^X\\x7f" backward-kill-line
 
@@ -83,7 +84,7 @@ bindkey "^X\\x7f" backward-kill-line
 bindkey "^X^_" redo
 
 # Enable command caching and force prefix matching
-zstyle ':completion:*:*' format '-- %d --'
+zstyle ':completion:*:*' format '[%d]'
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path ~/.zsh/cache
