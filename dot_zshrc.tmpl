@@ -1,15 +1,20 @@
-# zmodload zsh/zprof
-
 # https://esham.io/2018/02/zsh-profiling
+
+# zmodload zsh/zprof
 # zmodload zsh/datetime
 # setopt PROMPT_SUBST
 # PS4='+$EPOCHREALTIME %N:%i> '
-
 # logfile=$(mktemp zsh_profile.XXXXXXXX)
 # echo "Logging to $logfile"
 # exec 3>&2 2>$logfile
-
 # setopt XTRACE
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Load plugins with zinit
 # https://zdharma.org/zinit/wiki/
@@ -30,28 +35,31 @@ zinit depth"1" light-mode for \
 # Load p10k config
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-zinit wait"0" silent depth"1" light-mode for \
+zinit depth"1" light-mode for \
   @wfxr/forgit \
   @thetic/extract \
   @MichaelAquilina/zsh-you-should-use \
   @MichaelAquilina/zsh-auto-notify \
-  @OMZP::kubectl \
+  has'kubectl' \
+    @OMZP::kubectl \
   @PZTM::gnu-utility \
   @PZTM::history \
   @PZTM::directory \
   @agkozak/zsh-z \
   as"program" pick"bin/git-dsf" \
     @zdharma/zsh-diff-so-fancy \
-  multisrc:'shell/{completion,key-bindings}.zsh' \
+  src:'shell/key-bindings.zsh' \
     @junegunn/fzf \
-  atinit"zicompinit; zicdreplay" \
-    @Aloxaf/fzf-tab \
-  as"completion" \
+  @Aloxaf/fzf-tab \
+  has'docker' as"completion" is-snippet \
     @https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
-  atinit"zicompinit; zicdreplay" \
-    @zdharma/fast-syntax-highlighting \
+  @zdharma/fast-syntax-highlighting \
   blockf atpull'zinit creinstall -q .' \
     @zsh-users/zsh-completions
+
+# https://github.com/zdharma/zinit#calling-compinit-without-turbo-mode
+autoload -Uz compinit && compinit -i
+zinit cdreplay -q
 
 HISTSIZE=5000 # How many lines of history to keep in memory
 HISTFILE=~/.zsh_history # Where to save history to disk
@@ -60,10 +68,6 @@ SAVEHIST=5000 # Number of history entries to save to disk
 setopt APPENDHISTORY # Append history to the history file (no overwriting)
 setopt SHAREHISTORY # Share history across terminals
 setopt INCAPPENDHISTORY # Immediately append to the history file, not just when a term is killed
-
-setopt AUTO_PARAM_SLASH # (autocomplete) If completed parameter is a directory, add a trailing slash
-unsetopt MENU_COMPLETE # Do not autoselect the first completion entry
-unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell editor
 
 # Shell options
 
@@ -83,15 +87,6 @@ bindkey "^X\\x7f" backward-kill-line
 # bind redo to 0x18 0x1f
 bindkey "^X^_" redo
 
-# Enable command caching and force prefix matching
-zstyle ':completion:*:*' format '[%d]'
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path ~/.zsh/cache
-
-# https://github.com/ohmyzsh/ohmyzsh/blob/3f42700c0d65cf26470d1e165b8ed80dfff9efca/lib/completion.zsh#L23
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-
 # colored man pages
 export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
 export LESS_TERMCAP_me=$(tput sgr0)
@@ -103,6 +98,9 @@ export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
 
 # This loads environment variables
 source $HOME/.shell/.exports
+
+# Completion configs
+source $HOME/.shell/.completions
 
 # Load my aliases, functions and some external tools
 source $HOME/.shell_env

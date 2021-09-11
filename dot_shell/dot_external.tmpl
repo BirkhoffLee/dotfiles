@@ -17,49 +17,79 @@ export FORGIT_FZF_DEFAULT_OPTS="
 
 # === fzf ===
 
+typeset -AU __FZF
+
+__FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
+
+# TAB / Shift-TAB: multiple selections
+# ^S: preview page up, ^D: preview page down
+# ?: toggle preview window
+# ^O: open with $VISUAL (`code` on macOS)
 export FZF_DEFAULT_OPTS="
-  --bind='ctrl-u:preview-page-up'
-  --bind='ctrl-d:preview-page-down'
-  --bind='ctrl-o:execute($VISUAL {})+abort'
-  --preview-window 'right:60%:hidden:wrap'
-  --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
+  --ansi
+  --no-height
+  --no-reverse
+  --border
+  --inline-info
+  --prompt='» '
+  --pointer=' '
+  --marker='✓ '
+  --reverse
+  --tabstop 2
+  --multi
+  --bind 'ctrl-s:preview-page-up'
+  --bind 'ctrl-d:preview-page-down'
+  --bind 'ctrl-o:execute($VISUAL {})+abort'
+  --bind '?:toggle-preview'"
 
-(( $+commands[fd] )) && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-(( $+commands[ag] )) && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --depth 3 -g ""'
-(( $+commands[fd] )) && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-(( $+commands[fd] )) && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
+export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || ${__FZF[PREVIEW_DIR]} {}"
 
-# https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#full-command-on-preview-window
-export FZF_CTRL_T_OPTS="--preview-window 'right:60%:wrap' --bind '?:toggle-preview'"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+export FZF_CTRL_T_OPTS="
+  --preview '($FZF_PREVIEW_COMMAND)'
+  --preview-window right:60%:border"
 
-# Apply the command to CTRL-T as well
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+{{ if (eq .chezmoi.os "darwin") }}
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}'
+  --preview-window down:3:wrap:hidden
+  --bind '?:toggle-preview,ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --header 'Press ^Y to copy command into clipboard'"
+{{ else }}
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}'
+  --preview-window down:3:wrap:hidden
+  --bind '?:toggle-preview,ctrl-y:execute-silent(echo -n {2..} | xclip)+abort'
+  --header 'Press ^Y to copy command into clipboard'"
+{{ end }}
 
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# https://ivergara.github.io/Supercharging-shell.html
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
+export FZF_ALT_C_OPTS="--preview '${__FZF[PREVIEW_DIR]} {}'"
 
-function _history_substring_search_config() {
-    bindkey '^[[A' history-substring-search-up
-    bindkey '^[[B' history-substring-search-down
-}
+export FZF_COMPLETION_OPTS='+c -x'
 
 # === fzf-tab ===
 
-# Used by below to extract realpath
-local extract="
-local in=\${\${\"\$(<{f})\"%\$'\0'*}#*\$'\0'}
-local -A ctxt=(\"\${(@ps:\2:)CTXT}\")
-local realpath=\${ctxt[IPREFIX]}\${ctxt[hpre]}\$in
-realpath=\${(Qe)~realpath}
-"
+# env
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
 
-zstyle ':fzf-tab:complete:cd:*' extra-opts --preview-window 'right:60%:wrap' --preview=$extract'lsd --group-dirs first --color=always --icon always $realpath'
-# zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
-zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview-window 'right:60%:wrap' --preview=$extract'ps -p $in[(w)1] -o command -w' --preview-window=down:3:wrap
+# cd
+# $realpath issue: https://github.com/Aloxaf/fzf-tab/issues/231
+zstyle ':fzf-tab:complete:cd:*' fzf-preview ${__FZF[PREVIEW_DIR]}' ${realpath//\\ / }'
 
-FPATH=$FPATH:/usr/local/share/zsh/site-functions
+# kill/ps
+zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags --preview-window 'down:3:wrap'
+
+{{ if (eq .chezmoi.os "darwin") }}
+zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,%cpu,%mem,stat,command"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+  '[[ $group == "[process ID]" ]] && ps -wwp$word -o command='
+{{- end }}
+{{ if (eq .chezmoi.os "linux") }}
+if [[ "$OSTYPE" = solaris* ]]; then
+  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
+else
+  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+fi
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+  '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+{{- end }}
