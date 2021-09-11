@@ -3,7 +3,7 @@
 {{ if (ne .chezmoi.os "darwin") }}
 echo Skipping install
 exit 0
-{{- end }}
+{{ end }}
 
 # Check environment
 
@@ -54,6 +54,7 @@ brew install dockutil
 dockutil \
   --remove Podcasts \
   --remove Maps \
+  --remove Music \
   --remove Contacts \
   --remove TV \
   --remove Calendar \
@@ -66,9 +67,7 @@ sqa delay 1500
 defaults write com.dteoh.SlowQuitApps invertList -bool YES
 defaults write com.dteoh.SlowQuitApps whitelist -array-add com.apple.Notes
 
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum" || true
-
-if [ ! -f ~/.fzf.zsh ]; then
-  echo Installing fzf.
-  ${BREW_PREFIX}/opt/fzf/install --key-bindings --completion --no-update-rc
-fi
+{{ if (eq .chezmoi.os "darwin") }}
+# Create locate database
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+{{ end }}
