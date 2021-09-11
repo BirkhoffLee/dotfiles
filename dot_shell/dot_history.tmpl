@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+HISTSIZE=5000 # How many lines of history to keep in memory
+HISTFILE=$HOME/.zsh_history # Where to save history to disk
+SAVEHIST=5000 # Number of history entries to save to disk
+
+setopt APPENDHISTORY # Append history to the history file (no overwriting)
+setopt SHAREHISTORY # Share history across terminals
+setopt INCAPPENDHISTORY # Immediately append to the history file, not just when a term is killed

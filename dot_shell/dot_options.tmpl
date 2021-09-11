@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+# switch to emacs mode instead of using vi mode
+set -o emacs
+
+# slashes treated as word separators
+WORDCHARS=${WORDCHARS/\/}
+
+# https://stackoverflow.com/a/29403520/2465955
+# note: use iTerm2 Natural Text Editing keymappings preset
+# changes hex 0x15 and 0x18 0x7f to delete everything to the left of
+# the cursor, rather than the whole line.
+bindkey "^U" backward-kill-line
+bindkey "^X\\x7f" backward-kill-line
+
+# bind redo to 0x18 0x1f
+bindkey "^X^_" redo

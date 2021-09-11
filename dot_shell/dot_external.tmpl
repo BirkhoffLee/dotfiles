@@ -5,6 +5,7 @@
 # This file is used as a part of `.shell_env`
 
 eval "$(direnv hook zsh)"
+gpg-agent --daemon > /dev/null 2>&1
 
 # === forgit ===
 
@@ -50,7 +51,7 @@ export FZF_CTRL_T_OPTS="
   --preview '($FZF_PREVIEW_COMMAND)'
   --preview-window right:60%:border"
 
-{{ if (eq .chezmoi.os "darwin") }}
+{{ if eq .chezmoi.os "darwin" }}
 export FZF_CTRL_R_OPTS="
   --preview 'echo {}'
   --preview-window down:3:wrap:hidden
@@ -81,13 +82,13 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview ${__FZF[PREVIEW_DIR]}' ${realpath//\
 # kill/ps
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags --preview-window 'down:3:wrap'
 
-{{ if (eq .chezmoi.os "darwin") }}
+{{ if eq .chezmoi.os "darwin" }}
 zstyle ':completion:*:processes-names' command "ps -wwrcau$USER -o comm | uniq" # killall
 zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,%cpu,%mem,stat,comm"
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && ps -wwp$word -o comm='
 {{ end }}
-{{ if (eq .chezmoi.os "linux") }}
+{{ if eq .chezmoi.os "linux" }}
 if [[ "$OSTYPE" = solaris* ]]; then
   zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
 else

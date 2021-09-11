@@ -12,13 +12,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# Load plugins with zinit
-# https://zdharma.org/zinit/wiki/
-# https://github.com/zdharma/zinit#ice-modifiers
 
 if [[ ! -d ~/.zinit ]]; then
   mkdir -p ~/.zinit && \
@@ -55,55 +51,11 @@ zinit depth"1" light-mode for \
   blockf atpull'zinit creinstall -q .' \
     @zsh-users/zsh-completions
 
-# https://github.com/zdharma/zinit#calling-compinit-without-turbo-mode
-autoload -Uz compinit && compinit -i
-zinit cdreplay -q
-
-HISTSIZE=5000 # How many lines of history to keep in memory
-HISTFILE=~/.zsh_history # Where to save history to disk
-SAVEHIST=5000 # Number of history entries to save to disk
-
-setopt APPENDHISTORY # Append history to the history file (no overwriting)
-setopt SHAREHISTORY # Share history across terminals
-setopt INCAPPENDHISTORY # Immediately append to the history file, not just when a term is killed
-
-# Shell options
-
-# switch to emacs mode instead of using vi mode
-set -o emacs
-
-# slashes treated as word separators
-WORDCHARS=${WORDCHARS/\/}
-
-# https://stackoverflow.com/a/29403520/2465955
-# note: use iTerm2 Natural Text Editing keymappings preset
-# changes hex 0x15 and 0x18 0x7f to delete everything to the left of
-# the cursor, rather than the whole line.
-bindkey "^U" backward-kill-line
-bindkey "^X\\x7f" backward-kill-line
-
-# bind redo to 0x18 0x1f
-bindkey "^X^_" redo
-
-# colored man pages
-export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
-export LESS_TERMCAP_us=$(tput bold; tput setaf 2)
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-
-# This loads environment variables
-source $HOME/.shell/.exports
-
-# Completion configs
-source $HOME/.shell/.completions
-
-# Load my aliases, functions and some external tools
-source $HOME/.shell_env
-
-gpg-agent --daemon > /dev/null 2>&1
+source $HOME/.shell/.options # shell options
+source $HOME/.shell/.exports # environmental veriables
+source $HOME/.shell/.completions # completion config
+source $HOME/.shell/.history  # zsh history config
+source $HOME/.shell_env # aliases, functions, externals
 
 # unsetopt XTRACE
 # exec 2>&3 3>&-
