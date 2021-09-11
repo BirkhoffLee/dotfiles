@@ -4,6 +4,8 @@
 #
 # This file is used as a part of `.shell_env`
 
+eval "$(direnv hook zsh)"
+
 # === forgit ===
 
 export FORGIT_FZF_DEFAULT_OPTS="
@@ -80,10 +82,11 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview ${__FZF[PREVIEW_DIR]}' ${realpath//\
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags --preview-window 'down:3:wrap'
 
 {{ if (eq .chezmoi.os "darwin") }}
-zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,%cpu,%mem,stat,command"
+zstyle ':completion:*:processes-names' command "ps -wwrcau$USER -o comm | uniq" # killall
+zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,%cpu,%mem,stat,comm"
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
-  '[[ $group == "[process ID]" ]] && ps -wwp$word -o command='
-{{- end }}
+  '[[ $group == "[process ID]" ]] && ps -wwp$word -o comm='
+{{ end }}
 {{ if (eq .chezmoi.os "linux") }}
 if [[ "$OSTYPE" = solaris* ]]; then
   zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
@@ -92,4 +95,4 @@ else
 fi
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
-{{- end }}
+{{ end }}
