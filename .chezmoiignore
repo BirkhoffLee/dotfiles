@@ -1,16 +1,13 @@
-README.md
+# https://www.chezmoi.io/docs/how-to/#handle-configuration-files-which-are-externally-modifiedREADME.md
 LICENSE
-generate
 .git/
-dot_git/
-dot_git_exact/
 dot_git*
 Brewfile
 Brewfile.lock.json
 update_brewfile.sh
-{{- if ne .chezmoi.os "darwin" }}
+{{ if ne .chezmoi.os "darwin" }}
 run_once_configure-macos.sh
-{{- end }}
-{{- if ne .chezmoi.os "linux" }}
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
 .hushlogin
-{{- end }}
+{{ end }}
