@@ -227,7 +227,7 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" ❐ #S | #{loadavg} |#{cpu_bg_color} #{cpu_icon} #{cpu_percentage} "
-tmux_conf_theme_status_right=" #{prefix} #{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %H:%M %a %h-%d | #{username}#{root} | #{hostname} #{online} "
+tmux_conf_theme_status_right=" #{prefix} #{pairing}#{mouse}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %H:%M %a %h-%d | #{username}#{root} | #{hostname} #{online} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -284,7 +284,8 @@ tmux_conf_battery_bar_length="auto"
 #   - gradient (default)
 #   - heat
 #   - "colour_full_fg,colour_empty_fg,colour_bg"
-tmux_conf_battery_bar_palette="#d70000,#e4e4e4,#000000"   # red, white, black
+tmux_conf_battery_bar_palette="gradient"   # red, white, black
+# tmux_conf_battery_bar_palette="#d70000,#e4e4e4,#000000"   # red, white, black
 
 # battery hbar palette, possible values are:
 #   - gradient (default)
