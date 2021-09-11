@@ -6,28 +6,10 @@ echo Running universal scripts.
 git lfs install
 sudo git lfs install --system
 
-echo Installing CLI stuff.
-
-if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
-fi
-
-if [ ! -e "$HOME/.zinit" ]; then
-  mkdir ~/.zinit
-  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
-  zsh -i -c "zinit self-update"
-fi
-
 # https://github.com/tj/n
 if ! command -v n &> /dev/null && command -v npm &> /dev/null; then
   npm install -g n
 fi
-
-#############
-
-echo Applying tmux conf
-ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf || true
 
 #############
 
@@ -44,22 +26,6 @@ fi
 
 #############
 
-if [ ! -e "$HOME/.tmux/plugins/tpm" ]; then
-  echo "Installing TPM (Tmux Plugin Manager)"
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-  # Install TPM plugins.
-  # TPM requires running tmux server, as soon as `tmux start-server` does not work
-  # create dump __noop session in detached mode, and kill it when plugins are installed
-  printf "Install TPM plugins\n"
-  tmux new -d -s __noop >/dev/null 2>&1 || true
-  tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
-  "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
-  tmux kill-session -t __noop >/dev/null 2>&1 || true
-fi
-
-#############
-
 # Install dein.vim
 if [ ! -e "$HOME/.cache/dein" ]; then
   curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
@@ -69,9 +35,4 @@ fi
 
 #############
 
-zsh -i -c "(( $+commands[compaudit] )) && compaudit | xargs chmod g-w"
-
-# https://github.com/Aloxaf/fzf-tab/issues/124#issuecomment-705050186
-rm -f /usr/local/share/zsh/site-functions/_git >/dev/null 2>&1 || true
-rm -f /usr/local/share/zsh/site-functions/git-completion.bash >/dev/null 2>&1 || true
-rm -f /usr/local/share/zsh/site-functions/_kubectl >/dev/null 2>&1 || true
+# zsh -i -c "(( $+commands[compaudit] )) && compaudit | xargs chmod g-w"
