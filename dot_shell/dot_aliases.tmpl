@@ -61,6 +61,7 @@ if zstyle -T ':prezto:module:utility' safe-ops; then
 fi
 
 alias ls='lsd --group-dirs first'
+alias tree='ls -lhA --tree'
 alias l='ls -1A'         # Lists in one column, hidden files.
 alias ll='ls -lh'        # Lists human readable sizes.
 alias lr='ll -R'         # Lists human readable sizes, recursively.
@@ -116,6 +117,8 @@ alias q='ssh -v'
 
 # dig
 alias dig='kdig'
+
+alias gist='gh gist create'
 {{ end }}
 
 alias urldecode='python3 -c "import sys, urllib.parse as ul; \
@@ -125,9 +128,6 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; \
     print (ul.quote_plus(sys.argv[1]))"'
 
 alias mtr='sudo mtr'
-
-alias la='ll -a'
-alias tree='ll -A --tree'
 
 # Clear ZSH history
 alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
