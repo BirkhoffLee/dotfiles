@@ -1,5 +1,17 @@
 #!/usr/bin/env zsh
 
+{{ if (eq .chezmoi.os "darwin") }}
+# https://github.com/ahmedelgabri/dotfiles/commit/c8156c2f0cf74917392a0e700668005b8f1bbbdb#r33940655
+(
+__GIT_ZSH_COMPLETIONS_FILE_PATH="/usr/local/share/zsh/site-functions/_git"
+
+if [ -f "$__GIT_ZSH_COMPLETIONS_FILE_PATH" ]
+then
+  command rm "$__GIT_ZSH_COMPLETIONS_FILE_PATH"
+fi
+) &!
+{{ end }}
+
 # https://github.com/Aloxaf/dotfiles/blob/0619025cb2c2264cd0639b3697e3483454b2cadd/zsh/.config/zsh/snippets/completion.zsh
 
 setopt COMPLETE_IN_WORD
@@ -79,6 +91,10 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # 补全当前用户所有进程列表
 # zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
 zstyle ':completion:*:kill:*' ignored-patterns '0'
+
+if [[ "${+commands[kubectl]}" == 1 ]]; then
+  source <(kubectl completion zsh)
+fi
 
 # complete manual by their section, from grml
 zstyle ':completion:*:manuals'    separate-sections true
