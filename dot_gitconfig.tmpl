@@ -3,33 +3,32 @@
   editor = vim
   pager = delta
 
+[pager]
+  show = delta
+  diff = delta
+
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-    features = side-by-side line-numbers decorations
-    whitespace-error-style = 22 reverse
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
 
 [delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
 
 {{ if eq .chezmoi.os "darwin" }}
 [credential]
   helper = osxkeychain
+
+[merge]
+	tool = code
+{{ else }}
+[merge]
+	tool = vim
 {{ end }}
-
-[http]
-  postBuffer = 524288000
-
-[filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
-  required = true
-
-[push]
-  default = simple
 
 [user]
 	name = Birkhoff Lee
@@ -38,6 +37,23 @@
 
 [diff]
   indentHeuristic = on
+
+[commit]
+	gpgsign = true
+
+[pull]
+	rebase = true
+
+[push]
+  default = simple
+
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+
+[http]
+  postBuffer = 524288000
 
 [alias]
   # add
@@ -48,7 +64,7 @@
   snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
   snapshots = !git stash list --grep snapshot
 
-  #via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+  # via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
   recent-branches = !git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'
 
   # branch
@@ -139,12 +155,3 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
   path = ~/.gitconfig_local
-
-[merge]
-	tool = vim
-
-[commit]
-	gpgsign = true
-
-[pull]
-	rebase = true
