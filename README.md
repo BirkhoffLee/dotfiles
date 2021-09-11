@@ -8,7 +8,7 @@ My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for completion fuzzy-search
 * [tj/n](https://github.com/tj/n) instead of nvm
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
-* Powerful tmux setup with modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
+* [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 * [fzf](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) + [fd](https://github.com/sharkdp/fd) + [bat](https://github.com/sharkdp/bat)/tree integration
   * Ctrl-T: select files in cwd recursively & interactively
     * press `?` to activate preview with [bat](https://github.com/sharkdp/bat)
@@ -30,6 +30,7 @@ $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwr
 
 ## TODOs
 
+* pbcopy reattach to user namespace
 * https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 * https://github.com/ahmedelgabri/dotfiles/blob/main/config/zsh.d/.zshrc
 * https://github.com/kornicameister/dotfiles/
