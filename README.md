@@ -5,15 +5,15 @@ My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 ## Features
 
 * zsh, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
-* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for completion fuzzy-search
+* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for completion
 * [tj/n](https://github.com/tj/n) instead of nvm
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
 * [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
-* [fzf](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) + [fd](https://github.com/sharkdp/fd) + [bat](https://github.com/sharkdp/bat)/tree integration
-  * Ctrl-T: select files in cwd recursively & interactively
-    * press `?` to activate preview with [bat](https://github.com/sharkdp/bat)
-      * Use Ctrl-U / Ctrl-D to page up/down
-  * Use Ctrl-O to open in `$VISUAL`, or VSCode by default on macOS
+* [fzf](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) + [fd](https://github.com/sharkdp/fd) + [bat](https://github.com/sharkdp/bat)/[lsd](https://github.com/Peltoche/lsd) integration
+  * ^T: interactively select files in cwd recursively
+    * `?` to toggle preview
+    * ^E ^D: page up/down
+  * ^O to open in `$VISUAL` (VS Code on macOS)
   * Alt-C: interactive cd
 * [Interactive git operations](https://github.com/wfxr/forgit#-features)
 
