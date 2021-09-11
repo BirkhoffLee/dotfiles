@@ -68,7 +68,7 @@ cdf () {
   echo "$path"
   cd "$path"
 }
-{{- end }}
+{{ end }}
 
 # e: edit with default editor, if no parameters set, use fzf + bat to preview
 e () {
@@ -98,7 +98,7 @@ s () {
     | fzf --select-1 --exit-0 --preview-window up:$(($margin*2+1)) --height=60%  --preview $preview_cmd)
   local file="$(echo $full | awk -F: '{print $1}')"
   local line="$(echo $full | awk -F: '{print $2}')"
-  [ -n "$file" ] && {{ if (eq .chezmoi.os "darwin") }}code -g "$file":$line{{- else }}$VISUAL "$file" +$line{{- end }}
+  [ -n "$file" ] && {{ if (eq .chezmoi.os "darwin") }}code -g "$file":$line{{ else }}$VISUAL "$file" +$line{{ end }}
 }
 
 ip () {

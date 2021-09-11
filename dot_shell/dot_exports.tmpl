@@ -14,10 +14,10 @@ export LC_ALL="en_US.UTF-8"
 {{ if (eq .chezmoi.os "darwin") }}
 export EDITOR="$(which code) --wait"
 export VISUAL="$(which code)"
-{{- else }}
+{{ else }}
 export EDITOR=$(which vim)
 export VISUAL=${EDITOR}
-{{- end }}
+{{ end }}
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'
@@ -28,10 +28,16 @@ export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 
 # Homebrew:
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
-{{- end }}
+{{ end }}
 
 # Pagers:
 export LESS="-R"  # argument to allow less to show colors
+
+# dotnet
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
+export ANSIBLE_HOST_KEY_CHECKING=False
 
 # === Virtualenvs ===
 
@@ -40,20 +46,17 @@ export PIPENV_HIDE_EMOJIS=true # no emojis!
 export PIPENV_COLORBLIND=true # disables colors, so colorful!
 export PIPENV_NOSPIN=true # disables spinner for cleaner logs
 
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_PYTHON=$commands[python3]
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # === Version managers ===
 
 # n
 export N_PREFIX="$HOME/.n"
 PATH="$N_PREFIX/bin:$PATH"
-
-# virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-export VIRTUALENVWRAPPER_PYTHON=$commands[python3]
-source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # === Histories ===
 
@@ -65,8 +68,3 @@ export NODE_REPL_MODE='sloppy'
 
 # Erlang and Elixir shell history:
 export ERL_AFLAGS="-kernel shell_history enabled"
-
-# === Others ===
-
-export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
-export ANSIBLE_HOST_KEY_CHECKING=False

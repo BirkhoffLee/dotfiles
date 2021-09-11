@@ -11,7 +11,7 @@
 
 {{ if (eq .chezmoi.os "darwin") }}
   export BROWSER='open'
-{{- end }}
+{{ end }}
 
 #
 # Editors
@@ -52,7 +52,7 @@ path=(
   /usr/local/opt/coreutils/libexec/gnubin
   $HOME/go/bin
   $HOME/.dotnet
-{{- end }}
+{{ end }}
   /usr/local/{bin,sbin}
   /opt/local/{bin,sbin}
   /usr/{bin,sbin}
