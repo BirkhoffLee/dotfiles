@@ -377,6 +377,12 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
 
+# Index starts from 1
+set-option -g base-index 1
+
+# select-pane (@george-b)
+bind-key 0 run "tmux split-window -p 40 'zsh -ci ftpane'"
+
 # -- custom variables ----------------------------------------------------------
 
 # to define a custom #{foo} variable, define a POSIX shell function between the

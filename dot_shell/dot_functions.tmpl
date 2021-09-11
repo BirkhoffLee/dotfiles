@@ -70,7 +70,7 @@ cdf () {
 }
 {{ end }}
 
-# e: edit with default editor, if no parameters set, use fzf + bat to preview
+# e: edit with default editor or open cwd with editor
 e () {
   if [[ ! -z $1 ]]; then
     $VISUAL $1
@@ -94,8 +94,8 @@ s () {
   preview_cmd+='line=$(echo $search | cut -d':' -f 2 );'
   preview_cmd+='tail -n +$(( $(( $line - $margin )) > 0 ? $(($line-$margin)) : 0)) $file | head -n $(($margin*2+1)) |'
   preview_cmd+='bat --paging=never --color=always --style=full --file-name $file --highlight-line $(($margin+1))'
-  local full=$(ag "$*" \
-    | fzf --select-1 --exit-0 --preview-window up:$(($margin*2+1)) --height=60%  --preview $preview_cmd)
+  local full=$(ag --silent "$*" \
+    | fzf --no-height --no-reverse --select-1 --exit-0 --preview-window up:$(($margin*2+1)) --preview $preview_cmd)
   local file="$(echo $full | awk -F: '{print $1}')"
   local line="$(echo $full | awk -F: '{print $2}')"
   [ -n "$file" ] && {{ if eq .chezmoi.os "darwin" }}code -g "$file":$line{{ else }}$VISUAL "$file" +$line{{ end }}
@@ -157,4 +157,24 @@ pyclean () {
 pipenv-shell () {
   # pipenv shell breaks sometimes. This does not.
   source "$(pipenv --venv)/bin/activate"
+}
+
+# ftpane - switch pane (@george-b)
+ftpane() {
+  local panes current_window current_pane target target_window target_pane
+  panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
+  current_pane=$(tmux display-message -p '#I:#P')
+  current_window=$(tmux display-message -p '#I')
+
+  target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --reverse) || return
+
+  target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
+  target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
+
+  if [[ $current_window -eq $target_window ]]; then
+    tmux select-pane -t ${target_window}.${target_pane}
+  else
+    tmux select-pane -t ${target_window}.${target_pane} &&
+    tmux select-window -t $target_window
+  fi
 }
