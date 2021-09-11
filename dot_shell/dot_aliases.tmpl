@@ -88,7 +88,7 @@ fi
 
 alias http-serve='python3 -m http.server'
 
-{{- if eq .chezmoi.os "darwin" }}
+{{ if (eq .chezmoi.os "darwin") }}
 alias o='open'
 
 alias pbc='pbcopy'

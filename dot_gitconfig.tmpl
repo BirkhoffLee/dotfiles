@@ -15,11 +15,11 @@
     file-style = bold yellow ul
     file-decoration-style = none
 
-{{- if eq .chezmoi.os "darwin" }}
+{{ if (eq .chezmoi.os "darwin") }}
 [credential]
   helper = osxkeychain
-
 {{- end }}
+
 [http]
   postBuffer = 524288000
 

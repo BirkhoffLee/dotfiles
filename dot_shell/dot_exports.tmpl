@@ -11,7 +11,7 @@ export LANG=en_US.UTF-8
 export LC_ALL="en_US.UTF-8"
 
 # Editor:
-{{- if eq .chezmoi.os "darwin" }}
+{{ if (eq .chezmoi.os "darwin") }}
 export EDITOR="$(which code) --wait"
 export VISUAL="$(which code)"
 {{- else }}
@@ -22,7 +22,7 @@ export VISUAL=${EDITOR}
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'
 
-{{- if eq .chezmoi.os "darwin" }}
+{{ if (eq .chezmoi.os "darwin") }}
 # GPG AGENT
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 
