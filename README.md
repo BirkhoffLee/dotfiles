@@ -28,6 +28,36 @@ $ curl -sfL https://git.io/chezmoi | sh
 $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwrites dotfiles
 ```
 
+## iTerm2 configuration
+
+* `/bin/zsh` for starting command
+* Font
+  * Monaco Regular 13
+  * Anti-aliased
+  * Use a different font for non-ASCII text
+* Non-ASCII Font
+  * Hack Nerd Font Regular 13
+  * Use ligatures
+  * Anti-aliased
+* Settings for New Windows - 144, 41
+* Enable mouse reporting
+* Silence bell
+* Key Mappings:
+  * Using Natural Text Editing preset
+  * ⇧⌘↵: Send Hex Codes `0x1 0x7a` - maximize pane in current window
+  * ⌃⌘F: Send Hex Codes `0x1 0x2b` - move pane to new window
+  * ⇧⌘D: Send Hex Codes `0x1 0x2d` - splits the current pane vertically
+  * ⌘D: Send Hex Codes `0x1 0x5f` - splits the current pane horizontally
+  * ⇧⌘R: Send Hex Codes `0x1 0x72` - reload tmux config
+  * ⌘←: Send Hex Codes `0x1 0x68` - navigate to the pane on the left
+  * ⌘↓: Send Hex Codes `0x1 0x6a` - navigate to the pane on the bottom
+  * ⌘↑: Send Hex Codes `0x1 0x6b` - navigate to the pane on the top
+  * ⌘→: Send Hex Codes `0x1 0x6c` - navigate to the pane on the right
+  * ⌥⌘←: Send Hex Codes `0x1 0x8` - switch to previous window
+  * ⌥⌘→: Send Hex Codes `0x1 0xc` - switch to next window
+* Left Option Key: Esc+
+* Right Option Key: Normal
+
 ## TODOs
 
 * pbcopy reattach to user namespace
