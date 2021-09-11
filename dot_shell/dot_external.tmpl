@@ -9,13 +9,16 @@ gpg-agent --daemon > /dev/null 2>&1
 
 # === forgit ===
 
+# --ansi is required for forgit to display colors
+
 export FORGIT_FZF_DEFAULT_OPTS="
+  --ansi
   --exact
   --border
   --cycle
   --reverse
   --height '80%'
-  --preview-window='right:80%:nohidden:nowrap'
+  --preview-window='right:45%:nohidden:nowrap'
 "
 
 # === fzf ===
@@ -24,27 +27,27 @@ typeset -AU __FZF
 
 __FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
 
+export FZF_TMUX=1
+
 # TAB / Shift-TAB: multiple selections
 # ^S: preview page up, ^D: preview page down
 # ?: toggle preview window
 # ^O: open with $VISUAL (`code` on macOS)
 export FZF_DEFAULT_OPTS="
-  --ansi
-  --no-height
-  --no-reverse
   --border
   --inline-info
-  --prompt='» '
-  --pointer=' '
-  --marker='✓ '
   --reverse
   --tabstop 2
   --multi
+  --prompt='» '
+  --pointer=' '
+  --marker='✓ '
   --bind 'ctrl-s:preview-page-up'
   --bind 'ctrl-d:preview-page-down'
   --bind 'ctrl-o:execute($VISUAL {})+abort'
   --bind '?:toggle-preview'"
 
+# fixme: file type
 export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || ${__FZF[PREVIEW_DIR]} {}"
 
 export FZF_CTRL_T_OPTS="
@@ -53,12 +56,16 @@ export FZF_CTRL_T_OPTS="
 
 {{ if eq .chezmoi.os "darwin" }}
 export FZF_CTRL_R_OPTS="
+  --layout default
+  --height 20
   --preview 'echo {}'
   --preview-window down:3:wrap:hidden
   --bind '?:toggle-preview,ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --header 'Press ^Y to copy command into clipboard'"
 {{ else }}
 export FZF_CTRL_R_OPTS="
+  --layout default
+  --height 20
   --preview 'echo {}'
   --preview-window down:3:wrap:hidden
   --bind '?:toggle-preview,ctrl-y:execute-silent(echo -n {2..} | xclip)+abort'
@@ -71,6 +78,8 @@ export FZF_COMPLETION_OPTS='+c -x'
 
 # === fzf-tab ===
 
+zstyle ':fzf-tab:*' fzf-command fzf-tmux
+
 # env
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
 	fzf-preview 'echo ${(P)word}'
@@ -80,7 +89,9 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 zstyle ':fzf-tab:complete:cd:*' fzf-preview ${__FZF[PREVIEW_DIR]}' ${realpath//\\ / }'
 
 # kill/ps
-zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags --preview-window 'down:3:wrap'
+zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \
+  --height=20 \
+  --preview-window 'down:3:wrap'
 
 {{ if eq .chezmoi.os "darwin" }}
 zstyle ':completion:*:processes-names' command "ps -wwrcau$USER -o comm | uniq" # killall
