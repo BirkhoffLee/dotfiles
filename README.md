@@ -2,9 +2,10 @@
 
 My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).  
 
-# Features
+## Features
 
 * zsh, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
+* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for completion fuzzy-search
 * [tj/n](https://github.com/tj/n) instead of nvm
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
 * Powerful tmux setup with modified [samoshkin/tmux-config](https://github.com/samoshkin/tmux-config)
@@ -15,9 +16,8 @@ My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
   * Use Ctrl-O to open in `$VISUAL`, or VSCode by default on macOS
   * Alt-C: interactive cd
 * [Interactive git operations](https://github.com/wfxr/forgit#-features)
-* Running `1 ... 9` changes the directory to the *n* previous one
 
-# Usage
+## Usage
 
 You should clone & make your own verison of dotfiles instead of directly using
 this repo's configurations. Anyhow, Chezmoi does offer a convenient way to
@@ -28,37 +28,18 @@ $ curl -sfL https://git.io/chezmoi | sh
 $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwrites dotfiles
 ```
 
-# Performance
+## TODOs
 
-Two consecutive runs:
+* https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+* https://github.com/ahmedelgabri/dotfiles/blob/main/config/zsh.d/.zshrc
+* https://github.com/kornicameister/dotfiles/
+* https://github.com/Aloxaf/dotfiles/tree/master/zsh/.config/zsh
+* https://github.com/finnurtorfa/zsh/blob/master/completion.zsh
+* https://github.com/paulmillr/dotfiles
+* https://github.com/marlonrichert/.config/tree/main/zsh
+* https://github.com/mashehu/dotfiles/blob/master/zshrc
 
-```shell
-$ for i in $(seq 1 10); do /usr/bin/time /bin/zsh -i -c exit; done;
-        0.22 real         0.13 user         0.04 sys
-        0.17 real         0.13 user         0.03 sys
-        0.24 real         0.16 user         0.04 sys
-        0.22 real         0.15 user         0.04 sys
-        0.17 real         0.13 user         0.03 sys
-        0.16 real         0.13 user         0.03 sys
-        0.21 real         0.15 user         0.04 sys
-        0.25 real         0.17 user         0.04 sys
-        0.22 real         0.15 user         0.04 sys
-        0.18 real         0.13 user         0.03 sys
-
-$ for i in $(seq 1 10); do /usr/bin/time /bin/zsh -i -c exit; done;
-        0.18 real         0.13 user         0.03 sys
-        0.18 real         0.14 user         0.03 sys
-        0.22 real         0.16 user         0.04 sys
-        0.19 real         0.14 user         0.04 sys
-        0.20 real         0.15 user         0.04 sys
-        0.23 real         0.17 user         0.04 sys
-        0.19 real         0.15 user         0.04 sys
-        0.17 real         0.13 user         0.03 sys
-        0.16 real         0.12 user         0.03 sys
-        0.17 real         0.13 user         0.03 sys
-```
-
-# Articles
+## Articles
 
 Here are some reads you might find interesting:
 
@@ -67,6 +48,6 @@ Here are some reads you might find interesting:
 * [fzf examples (fzf wiki)](https://github.com/junegunn/fzf/wiki/examples)
 * [p10k git status symbols](https://github.com/romkatv/powerlevel10k#what-do-different-symbols-in-git-status-mean)
 
-# License
+## License
 
 This project is released under [The Unlicense](LICENSE).
