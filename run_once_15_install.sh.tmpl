@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-{{ if (ne .chezmoi.os "darwin") }}
+{{ if ne .chezmoi.os "darwin" }}
 echo Skipping install
 exit 0
 {{ end }}
@@ -67,7 +67,7 @@ sqa delay 1500
 defaults write com.dteoh.SlowQuitApps invertList -bool YES
 defaults write com.dteoh.SlowQuitApps whitelist -array-add com.apple.Notes
 
-{{ if (eq .chezmoi.os "darwin") }}
+{{ if eq .chezmoi.os "darwin" }}
 # Create locate database
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
 {{ end }}

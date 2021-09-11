@@ -4,7 +4,7 @@
 # So when I modify the installation script, chezmoi apply won't take
 # too long
 
-{{ if (ne .chezmoi.os "darwin") }}
+{{ if ne .chezmoi.os "darwin" }}
 echo Skipping install long
 exit 0
 {{ end }}
