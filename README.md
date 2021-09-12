@@ -24,8 +24,7 @@ this repo's configurations. Anyhow, Chezmoi does offer a convenient way to
 install the dotfiles.
 
 ```console
-$ curl -sfL https://git.io/chezmoi | sh
-$ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwrites dotfiles
+sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply birkhofflee
 ```
 
 ## iTerm2 Profile Configuration
