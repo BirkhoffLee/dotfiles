@@ -9,6 +9,8 @@
 # exec 3>&2 2>$logfile
 # setopt XTRACE
 
+# set -x
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -41,6 +43,9 @@ zinit depth"1" light-mode for \
   @PZTM::history \
   @PZTM::directory \
   @agkozak/zsh-z \
+  as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' pick"direnv" src"zhook.zsh" \
+    @direnv/direnv \
   as"program" id-as"cht.sh" \
     @https://cht.sh/:cht.sh \
   as'completion' id-as"_cht.sh" \
@@ -67,3 +72,4 @@ source $HOME/.shell_env # aliases, functions, externals
 
 # unsetopt XTRACE
 # exec 2>&3 3>&-
+# set +x
