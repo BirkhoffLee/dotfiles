@@ -60,8 +60,6 @@ if zstyle -T ':prezto:module:utility' safe-ops; then
   alias ln="${aliases[ln]:-ln} -i"
 fi
 
-alias ls='lsd --group-dirs first'
-alias tree='ls -lhA --tree'
 alias l='ls -1A'         # Lists in one column, hidden files.
 alias ll='ls -lh'        # Lists human readable sizes.
 alias lr='ll -R'         # Lists human readable sizes, recursively.
@@ -73,6 +71,18 @@ alias lt='ll -tr'        # Lists sorted by date, most recent last.
 alias lc='lt -c'         # Lists sorted by date, most recent last, shows change time.
 alias lu='lt -u'         # Lists sorted by date, most recent last, shows access time.
 alias sl='ls'            # I often screw this up.
+
+command -v exa > /dev/null && {
+  alias ls='exa'
+  alias tree='ls -lha --tree'
+  alias l='ls -1a'
+  alias la='ll -a'
+}
+
+command -v lsd > /dev/null && {
+  alias ls='lsd --group-dirs first'
+  alias tree='ls -lhA --tree'
+}
 
 alias grep="${aliases[grep]:-grep} --color=auto"
 
@@ -105,9 +115,6 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 # Copy public key to clipboard:
 alias pubkey="cat ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key (ed25519) copied to pasteboard.'"
 alias sshkey="pubkey"
-
-# ping
-alias ping='/usr/local/bin/prettyping --nolegend'
 
 # Homebrew
 alias brewery='brew update && brew upgrade && brew cleanup'
