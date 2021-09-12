@@ -33,6 +33,15 @@ zinit depth"1" light-mode for \
 # Load p10k config
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+zinit light-mode for \
+  @zinit-zsh/z-a-bin-gem-node \
+  @zinit-zsh/z-a-patch-dl \
+  pack"bgn-binary+keys" @fzf \
+  pack"bgn" @ecs-cli \
+  pack"bgn" @pyenv \
+  id-as"fzf-tmux" sbin'bin/fzf-tmux' \
+    @junegunn/fzf
+
 zinit depth"1" light-mode for \
   @hlissner/zsh-autopair \
   @wfxr/forgit \
@@ -43,15 +52,18 @@ zinit depth"1" light-mode for \
   @PZTM::history \
   @PZTM::directory \
   @agkozak/zsh-z \
-  as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
-    atpull'%atclone' pick"direnv" src"zhook.zsh" \
+  as"null" sbin"prettyping -> ping" \
+    @denilsonsa/prettyping \
+  from"gh-r" as"program" mv"direnv* -> direnv" \
+    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+    pick"direnv" src="zhook.zsh" \
     @direnv/direnv \
   as"program" id-as"cht.sh" \
     @https://cht.sh/:cht.sh \
   as'completion' id-as"_cht.sh" \
     @https://cht.sh/:zsh \
-  src:'shell/key-bindings.zsh' \
-    @junegunn/fzf \
+  from"gh-r" as"program" mv"docker* -> docker-compose" \
+    @docker/compose \
   has'docker' as"completion" is-snippet \
     @https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
   as"completion" \
