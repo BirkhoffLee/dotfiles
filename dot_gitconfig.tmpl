@@ -33,7 +33,7 @@
 [user]
 	name = {{ .git_name | quote }}
 	email = {{ .git_email | quote }}
-	signingkey = DA23CD9C6AB5F49A
+	signingkey = {{ .signing_key | quote }}
 
 [diff]
   indentHeuristic = on
