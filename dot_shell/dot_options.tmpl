@@ -17,3 +17,9 @@ bindkey "^B" beginning-of-line
 
 # bind redo to 0x18 0x1f
 bindkey "^X^_" redo
+
+# executed after history-substring-search is loaded
+__zinit_history_substring_search_atload () {
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+}

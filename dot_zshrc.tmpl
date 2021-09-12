@@ -37,7 +37,7 @@ zinit depth"1" light-mode for \
 
 zinit depth"1" light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
-  @zinit-zsh/z-a-patch-dl \
+  @zinit-zsh/z-a-patch-dl
 
 zinit wait lucid depth"1" light-mode for \
   @agkozak/zsh-z \
@@ -61,9 +61,11 @@ zinit wait lucid depth"1" light-mode for \
     @https://cht.sh/:cht.sh \
   from"gh-r" sbin"docker-compose" mv"docker* -> docker-compose" \
     @docker/compose \
-
+  
 zinit depth"1" light-mode for \
   @hlissner/zsh-autopair \
+  atload'__zinit_history_substring_search_atload' \
+    @zsh-users/zsh-history-substring-search \
   as'completion' id-as"_cht.sh" \
     @https://cht.sh/:zsh \
   has'docker' as"completion" is-snippet \
@@ -76,7 +78,9 @@ zinit depth"1" light-mode for \
 source $HOME/.shell/.completions # completion config
 
 zinit depth"1" light-mode for \
-  @Aloxaf/fzf-tab \
+  @Aloxaf/fzf-tab
+
+zinit wait"0a" lucid depth"1" light-mode for \
   @zdharma/fast-syntax-highlighting
 
 source $HOME/.shell/.exports # environmental veriables
