@@ -62,7 +62,7 @@ export PIPENV_NOSPIN=true # disables spinner for cleaner logs
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_PYTHON=$commands[python3]
-source ${$(which pip3):h}/virtualenvwrapper_lazy.sh # site packages path
+VIRTUALENVWRAPPER_SCRIPT=$commands[virtualenvwrapper.sh] source $commands[virtualenvwrapper_lazy.sh]
 
 # === Version managers ===
 
