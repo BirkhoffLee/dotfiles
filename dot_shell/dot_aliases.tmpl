@@ -119,13 +119,16 @@ alias sshkey="pubkey"
 # Homebrew
 alias brewery='brew update && brew upgrade && brew cleanup'
 
+# GNU tar
+command -v gtar > /dev/null && alias tar='gtar'
+
 # Quick connect
 alias q='ssh -v'
 
 # dig
-alias dig='kdig'
+command -v kdig > /dev/null && alias dig='kdig'
 
-alias gist='gh gist create'
+command -v gh > /dev/null && alias gist='gh gist create'
 {{ end }}
 
 alias urldecode='python3 -c "import sys, urllib.parse as ul; \
@@ -140,29 +143,31 @@ alias mtr='sudo mtr'
 alias clear_history='> ~/.zsh_history ; exec $SHELL -l'
 
 # htop => top
-alias top="sudo htop"
+command -v htop > /dev/null && alias top="sudo htop"
 
-alias help='tldr'
+command -v tldr > /dev/null && alias help='tldr'
 
 alias gitify="g init && gia --all && gcSm First commit && hub create && gpc"
 
 # View disk usage
-alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+command -v ncdu > /dev/null && alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 
 # docker
-alias d='docker'
-alias dp='docker ps -a'
-alias dr='docker rm'
-alias di='docker inspect'
-alias dvl='docker volume ls'
-alias dvi='docker volume inspect'
-alias dvp='docker volume inspect --format ''{{"{{"}} .Mountpoint {{"}}"}}'''
-
-# docker-compose
-alias dc='docker-compose'
-alias dclf='docker-compose logs -f'
-alias dcu='docker-compose up -d'
-alias dcr='docker-compose restart'
-alias dcub='docker-compose up -d --build'
-alias dcb='docker-compose build'
-alias dcd='docker-compose down'
+command -v docker > /dev/null && {
+  alias d='docker'
+  alias dp='docker ps -a'
+  alias dr='docker rm'
+  alias di='docker inspect'
+  alias dvl='docker volume ls'
+  alias dvi='docker volume inspect'
+  alias dvp='docker volume inspect --format ''{{"{{"}} .Mountpoint {{"}}"}}'''
+  
+  # compose
+  alias dc='docker-compose'
+  alias dclf='docker-compose logs -f'
+  alias dcu='docker-compose up -d'
+  alias dcr='docker-compose restart'
+  alias dcub='docker-compose up -d --build'
+  alias dcb='docker-compose build'
+  alias dcd='docker-compose down'
+}
