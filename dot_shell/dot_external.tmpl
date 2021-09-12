@@ -4,7 +4,7 @@
 #
 # This file is used as a part of `.shell_env`
 
-gpg-agent --daemon > /dev/null 2>&1
+( gpg-agent --daemon > /dev/null 2>&1 & )
 
 AUTO_NOTIFY_IGNORE+=("tmux")
 

@@ -11,6 +11,8 @@
 
 # set -x
 
+source $HOME/.shell/.options # shell options
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -33,17 +35,19 @@ zinit depth"1" light-mode for \
 # Load p10k config
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-zinit light-mode for \
+zinit depth"1" light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
   @zinit-zsh/z-a-patch-dl \
-  pack"bgn-binary+keys" @fzf \
-  pack"bgn" @ecs-cli \
-  pack"bgn" @pyenv \
-  id-as"fzf-tmux" sbin'bin/fzf-tmux' \
-    @junegunn/fzf
 
-zinit depth"1" light-mode for \
-  @hlissner/zsh-autopair \
+zinit wait lucid depth"1" light-mode for \
+  @agkozak/zsh-z \
+  pack"bgn-binary+keys" @fzf \
+  id-as"fzf-tmux" sbin'bin/fzf-tmux' \
+    @junegunn/fzf \
+  as"null" from"gh-r" sbin"direnv" mv"direnv* -> direnv" \
+    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+    src="zhook.zsh" \
+    @direnv/direnv \
   @wfxr/forgit \
   @thetic/extract \
   @MichaelAquilina/zsh-you-should-use \
@@ -51,19 +55,17 @@ zinit depth"1" light-mode for \
   @PZTM::gnu-utility \
   @PZTM::history \
   @PZTM::directory \
-  @agkozak/zsh-z \
   as"null" sbin"prettyping -> ping" \
     @denilsonsa/prettyping \
-  from"gh-r" as"program" mv"direnv* -> direnv" \
-    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
-    pick"direnv" src="zhook.zsh" \
-    @direnv/direnv \
-  as"program" id-as"cht.sh" \
+  as"null" sbin"cht.sh" id-as"cht.sh" \
     @https://cht.sh/:cht.sh \
+  from"gh-r" sbin"docker-compose" mv"docker* -> docker-compose" \
+    @docker/compose \
+
+zinit depth"1" light-mode for \
+  @hlissner/zsh-autopair \
   as'completion' id-as"_cht.sh" \
     @https://cht.sh/:zsh \
-  from"gh-r" as"program" mv"docker* -> docker-compose" \
-    @docker/compose \
   has'docker' as"completion" is-snippet \
     @https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
   as"completion" \
@@ -77,7 +79,6 @@ zinit depth"1" light-mode for \
   @Aloxaf/fzf-tab \
   @zdharma/fast-syntax-highlighting
 
-source $HOME/.shell/.options # shell options
 source $HOME/.shell/.exports # environmental veriables
 source $HOME/.shell/.history  # zsh history config
 source $HOME/.shell_env # aliases, functions, externals
