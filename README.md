@@ -28,9 +28,9 @@ $ curl -sfL https://git.io/chezmoi | sh
 $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwrites dotfiles
 ```
 
-## iTerm2 configuration
+## iTerm2 Profile Configuration
 
-* `/bin/zsh` for starting command
+* Command: `/bin/zsh -c "tmux new -As0"`
 * Font
   * Monaco Regular 13
   * Anti-aliased
@@ -42,17 +42,21 @@ $ chezmoi init --apply https://github.com/birkhofflee/dotfiles.git # this overwr
 * Settings for New Windows - 144, 41
 * Enable mouse reporting
 * Silence bell
-* Key Mappings:
+* Key Mappings (included in [Terminal.itermkeymap](Terminal.itermkeymap)):
   * Using Natural Text Editing preset
+  * ⌘Z: Send Hex Codes `0x1f` - undo
+  * ⇧⌘Z: Send Hex Codes `0x18 0x1f` - redo
+  * ⌥Del→: Send Hex Codes `0x17` - delete word
+  * ⌘←: Send Hex Codes `0x2` - go to beginning of line
   * ⇧⌘↵: Send Hex Codes `0x1 0x7a` - maximize pane in current window
   * ⌃⌘F: Send Hex Codes `0x1 0x2b` - move pane to new window
   * ⇧⌘D: Send Hex Codes `0x1 0x2d` - splits the current pane vertically
   * ⌘D: Send Hex Codes `0x1 0x5f` - splits the current pane horizontally
   * ⇧⌘R: Send Hex Codes `0x1 0x72` - reload tmux config
-  * ⌘←: Send Hex Codes `0x1 0x68` - navigate to the pane on the left
-  * ⌘↓: Send Hex Codes `0x1 0x6a` - navigate to the pane on the bottom
-  * ⌘↑: Send Hex Codes `0x1 0x6b` - navigate to the pane on the top
-  * ⌘→: Send Hex Codes `0x1 0x6c` - navigate to the pane on the right
+  * ⇧⌘←: Send Hex Codes `0x1 0x68` - navigate to the pane on the left
+  * ⇧⌘↓: Send Hex Codes `0x1 0x6a` - navigate to the pane on the bottom
+  * ⇧⌘↑: Send Hex Codes `0x1 0x6b` - navigate to the pane on the top
+  * ⇧⌘→: Send Hex Codes `0x1 0x6c` - navigate to the pane on the right
   * ⌥⌘←: Send Hex Codes `0x1 0x8` - switch to previous window
   * ⌥⌘→: Send Hex Codes `0x1 0xc` - switch to next window
 * Left Option Key: Esc+

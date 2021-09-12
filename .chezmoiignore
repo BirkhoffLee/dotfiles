@@ -1,10 +1,12 @@
 # https://www.chezmoi.io/docs/how-to/#handle-configuration-files-which-are-externally-modifiedREADME.md
 LICENSE
+README.md
 .git/
 dot_git*
 Brewfile
 Brewfile.lock.json
 update_brewfile.sh
+*.itermkeymap
 {{ if ne .chezmoi.os "darwin" }}
 run_once_configure-macos.sh
 {{ end }}
