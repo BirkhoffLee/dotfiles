@@ -46,12 +46,6 @@ trap cleanup EXIT
 
 set -x
 
-# Homebrew
-brew update
-
-# we prioritise these first, for fresh installs these are more important
-brew install mas 1password dropbox || true
-
 export HOMEBREW_NO_AUTO_UPDATE=1
 brew upgrade || true
 brew analytics off
