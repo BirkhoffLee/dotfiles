@@ -18,7 +18,7 @@ pwd
 # Shell startup calls virtualenvwrapper_lazy.sh, so we install first
 # to avoid errors if user open new shell while still installing
 python3 -m pip install --upgrade --user pip
-python3 -m pip install --user virtualenv virtualenvwrapper
+python3 -m pip install --user --no-warn-script-location virtualenv virtualenvwrapper
 
 {{ if ne .chezmoi.os "darwin" }}
 exit 0
