@@ -10,11 +10,11 @@ My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).
 * `ls` alternative [lsd](https://github.com/Peltoche/lsd)
 * [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 * [fzf](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh) + [fd](https://github.com/sharkdp/fd) + [bat](https://github.com/sharkdp/bat)/[lsd](https://github.com/Peltoche/lsd) integration
-  * ^T: interactively select files in cwd recursively
-    * `?` to toggle preview
-    * ^E ^D: page up/down
-  * ^O to open in `$VISUAL` (VS Code on macOS)
-  * Alt-C: interactive cd
+  + ^T: interactively select files in cwd recursively
+    - `?` to toggle preview
+    - ^E ^D: page up/down
+  + ^O to open in `$VISUAL` (VS Code on macOS)
+  + Alt-C: interactive cd
 * [Interactive git operations](https://github.com/wfxr/forgit#-features)
 
 ## Usage
@@ -31,35 +31,40 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply birkhofflee
 
 * Command: `/bin/zsh -c "/usr/local/bin/tmux new -As0"`
 * Font
-  * Monaco Regular 13
-  * Anti-aliased
-  * Use a different font for non-ASCII text
+  + Monaco Regular 13
+  + Anti-aliased
+  + Use a different font for non-ASCII text
 * Non-ASCII Font
-  * Hack Nerd Font Regular 13
-  * Use ligatures
-  * Anti-aliased
+  + Hack Nerd Font Regular 13
+  + Use ligatures
+  + Anti-aliased
 * Settings for New Windows - 144, 41
 * Enable mouse reporting
 * Silence bell
-* Key Mappings (included in [Terminal.itermkeymap](Terminal.itermkeymap)):
-  * Using Natural Text Editing preset
-  * ⌘Z: Send Hex Codes `0x1f` - undo
-  * ⇧⌘Z: Send Hex Codes `0x18 0x1f` - redo
-  * ⌥Del→: Send Hex Codes `0x17` - delete word
-  * ⌘←: Send Hex Codes `0x2` - go to beginning of line
-  * ⇧⌘↵: Send Hex Codes `0x1 0x7a` - maximize pane in current window
-  * ⌃⌘F: Send Hex Codes `0x1 0x2b` - move pane to new window
-  * ⇧⌘D: Send Hex Codes `0x1 0x2d` - splits the current pane vertically
-  * ⌘D: Send Hex Codes `0x1 0x5f` - splits the current pane horizontally
-  * ⇧⌘R: Send Hex Codes `0x1 0x72` - reload tmux config
-  * ⇧⌘←: Send Hex Codes `0x1 0x68` - navigate to the pane on the left
-  * ⇧⌘↓: Send Hex Codes `0x1 0x6a` - navigate to the pane on the bottom
-  * ⇧⌘↑: Send Hex Codes `0x1 0x6b` - navigate to the pane on the top
-  * ⇧⌘→: Send Hex Codes `0x1 0x6c` - navigate to the pane on the right
-  * ⌥⌘←: Send Hex Codes `0x1 0x8` - switch to previous window
-  * ⌥⌘→: Send Hex Codes `0x1 0xc` - switch to next window
 * Left Option Key: Esc+
 * Right Option Key: Normal
+
+### Key Mappings (included in [Terminal.itermkeymap](Terminal.itermkeymap)):
+
+Using Natural Text Editing preset, and the following:
+
+| Key   | Send Hex Codes | Description                          |
+|-------|----------------|--------------------------------------|
+| ⌘Z    | `0x1f`         | undo                                 |
+| ⇧⌘Z   | `0x18 0x1f`    | redo                                 |
+| ⌥Del→ | `0x17`         | delete word                          |
+| ⌘←    | `0x2`          | go to beginning of line              |
+| ⇧⌘↵   | `0x1 0x7a`     | maximize pane in current window      |
+| ⌃⌘F   | `0x1 0x2b`     | move pane to new window              |
+| ⇧⌘D   | `0x1 0x2d`     | splits the current pane vertically   |
+| ⌘D    | `0x1 0x5f`     | splits the current pane horizontally |
+| ⇧⌘R   | `0x1 0x72`     | reload tmux config                    |
+| ⇧⌘←   | `0x1 0x68`     | navigate to the pane on the left     |
+| ⇧⌘↓   | `0x1 0x6a`     | navigate to the pane on the bottom   |
+| ⇧⌘↑   | `0x1 0x6b`     | navigate to the pane on the top      |
+| ⇧⌘→   | `0x1 0x6c`     | navigate to the pane on the right    |
+| ⌥⌘←   | `0x1 0x8`      | switch to previous window            |
+| ⌥⌘→   | `0x1 0xc`      | switch to next window                |
 
 ## TODOs
 
