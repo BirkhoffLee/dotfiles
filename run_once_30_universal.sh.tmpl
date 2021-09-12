@@ -3,18 +3,10 @@
 # Universal
 echo Running universal scripts.
 
-git lfs install
-sudo git lfs install --system
-
 # https://github.com/tj/n
 if ! command -v n &> /dev/null && command -v npm &> /dev/null; then
   npm install -g n
 fi
-
-#############
-
-echo Installing python3 pip packages.
-python3 -m pip install virtualenv virtualenvwrapper
 
 #############
 
