@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # https://github.com/zdharma/zinit#calling-compinit-without-turbo-mode
-autoload -Uz compinit && compinit -i
+autoload -Uz compinit && compinit -uiC
 zinit cdreplay -q
 
 {{ if eq .chezmoi.os "darwin" }}
@@ -96,9 +96,13 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
 zstyle ':completion:*:kill:*' ignored-patterns '0'
 
-if [[ "${+commands[kubectl]}" == 1 ]]; then
-  source <(kubectl completion zsh)
-fi
+function kubectl() {
+  if ! type __start_kubectl >/dev/null 2>&1; then
+    source <(command kubectl completion zsh)
+  fi
+
+  command kubectl "$@"
+}
 
 # complete manual by their section, from grml
 zstyle ':completion:*:manuals'    separate-sections true
