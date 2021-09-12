@@ -29,7 +29,7 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply birkhofflee
 
 ## iTerm2 Profile Configuration
 
-* Command: `/bin/zsh -c "tmux new -As0"`
+* Command: `/bin/zsh -c "/usr/local/bin/tmux new -As0"`
 * Font
   * Monaco Regular 13
   * Anti-aliased
