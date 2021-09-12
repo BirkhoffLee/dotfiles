@@ -29,10 +29,10 @@ sudo xcodebuild -license accept || true
 sudo cp /etc/pam.d/sudo /etc/pam.d/sudo.backup
 sudo sed -i '' -e '/^#/a\'$'\n''auth       sufficient     pam_tid.so' /etc/pam.d/sudo
 
-sudo scutil --set ComputerName "BirkhoffMBPR"
-sudo scutil --set HostName "BirkhoffMBPR"
-sudo scutil --set LocalHostName "BirkhoffMBPR"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "BirkhoffMBPR"
+sudo scutil --set ComputerName {{ .darwin_hostname | quote }}
+sudo scutil --set HostName {{ .darwin_hostname | quote }}
+sudo scutil --set LocalHostName {{ .darwin_hostname | quote }}
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string {{ .darwin_hostname | quote }}
 
 # The trick to get those configuration keys:
 # $ defaults read > before

@@ -31,8 +31,8 @@
 {{ end }}
 
 [user]
-	name = Birkhoff Lee
-	email = git@birkhoff.me
+	name = {{ .git_name | quote }}
+	email = {{ .git_email | quote }}
 	signingkey = DA23CD9C6AB5F49A
 
 [diff]

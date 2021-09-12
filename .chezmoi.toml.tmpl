@@ -1,7 +1,9 @@
 {{- $git_name := promptString "Display name for git commits" -}}
 {{- $git_email := promptString "Email for git commits" -}}
 {{- $darwin_hostname := promptString "Hostname for macOS" -}}
+{{- $signingkey := promptString "Hostname for macOS" -}}
 [data]
   git_name = "{{ $git_name }}"
   git_email = "{{ $git_email }}"
   darwin_hostname = "{{ $darwin_hostname }}"
+  signingkey = "{{ $signing_key }}"
