@@ -11,7 +11,7 @@
 
 # set -x
 
-source $HOME/.shell/.options # shell options
+source $HOME/.shell/options.zsh # shell options
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -29,11 +29,10 @@ fi
 
 source ~/.zinit/bin/zinit.zsh
 
-zinit depth"1" light-mode for \
-  @romkatv/powerlevel10k
-
-# Load p10k config
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zinit \
+  depth"1" light-mode nocd \
+  atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' for \
+    @romkatv/powerlevel10k
 
 zinit depth"1" light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
@@ -44,24 +43,29 @@ zinit wait lucid depth"1" light-mode for \
   pack"bgn-binary+keys" @fzf \
   id-as"fzf-tmux" sbin'bin/fzf-tmux' \
     @junegunn/fzf \
-  as"null" from"gh-r" sbin"direnv" mv"direnv* -> direnv" \
+  as"null" from"gh-r" sbin mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
     src="zhook.zsh" \
     @direnv/direnv \
+  @MichaelAquilina/zsh-you-should-use \
+  @MichaelAquilina/zsh-auto-notify
+
+zinit wait"1" lucid depth"1" light-mode for \
   @wfxr/forgit \
   @thetic/extract \
-  @MichaelAquilina/zsh-you-should-use \
-  @MichaelAquilina/zsh-auto-notify \
   @PZTM::gnu-utility \
-  @PZTM::history \
-  @PZTM::directory \
+  @PZTM::directory \ # https://github.com/sorin-ionescu/prezto/blob/master/modules/directory/init.zsh
   as"null" sbin"prettyping -> ping" \
     @denilsonsa/prettyping \
   as"null" sbin"cht.sh" id-as"cht.sh" \
     @https://cht.sh/:cht.sh \
+  as"null" sbin cloneopts paulirish/git-open \
+  as"null" sbin paulirish/git-recent \
   from"gh-r" sbin"docker-compose" mv"docker* -> docker-compose" \
     @docker/compose \
-  
+  as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" \
+    make"PREFIX=$ZPFX" tj/git-extras
+
 zinit depth"1" light-mode for \
   @hlissner/zsh-autopair \
   atload'__zinit_history_substring_search_atload' \
@@ -75,7 +79,9 @@ zinit depth"1" light-mode for \
   blockf atpull'zinit creinstall -q .' \
     @zsh-users/zsh-completions
 
-source $HOME/.shell/.completions # completion config
+autoload -Uz zmv
+
+source $HOME/.shell/completions.zsh # completion config
 
 zinit depth"1" light-mode for \
   @Aloxaf/fzf-tab
@@ -83,8 +89,8 @@ zinit depth"1" light-mode for \
 zinit wait"0a" lucid depth"1" light-mode for \
   @zdharma/fast-syntax-highlighting
 
-source $HOME/.shell/.exports # environmental veriables
-source $HOME/.shell/.history  # zsh history config
+source $HOME/.shell/exports.zsh # environmental veriables
+source $HOME/.shell/history.zsh  # zsh history config
 source $HOME/.shell_env # aliases, functions, externals
 
 # unsetopt XTRACE

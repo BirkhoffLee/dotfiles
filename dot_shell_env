@@ -4,9 +4,9 @@
 #
 # This file is used as a source file for zsh.
 
-source "$HOME/.shell/.aliases"
-source "$HOME/.shell/.functions"
-source "$HOME/.shell/.external"
+source "$HOME/.shell/aliases.zsh"
+source "$HOME/.shell/functions.zsh"
+source "$HOME/.shell/external.zsh"
 
 # === Local variables and overrides ===
 

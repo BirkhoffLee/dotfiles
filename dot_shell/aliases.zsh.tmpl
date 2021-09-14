@@ -6,6 +6,14 @@
 
 # === Aliases ===
 
+sudo() {
+  unset -f sudo
+  if [[ "$(uname)" == 'Darwin' ]] && ! grep 'pam_tid.so' /etc/pam.d/sudo --silent; then
+    sudo sed -i -e '1s;^;auth       sufficient     pam_tid.so\n;' /etc/pam.d/sudo
+  fi
+  sudo "$@"
+}
+
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
 
 # Disable correction.
