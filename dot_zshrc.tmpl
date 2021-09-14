@@ -50,11 +50,12 @@ zinit wait lucid depth"1" light-mode for \
   @MichaelAquilina/zsh-you-should-use \
   @MichaelAquilina/zsh-auto-notify
 
+# https://github.com/sorin-ionescu/prezto/blob/master/modules/directory/init.zsh
 zinit wait"1" lucid depth"1" light-mode for \
   @wfxr/forgit \
   @thetic/extract \
   @PZTM::gnu-utility \
-  @PZTM::directory \ # https://github.com/sorin-ionescu/prezto/blob/master/modules/directory/init.zsh
+  @PZTM::directory \
   as"null" sbin"prettyping -> ping" \
     @denilsonsa/prettyping \
   as"null" sbin"cht.sh" id-as"cht.sh" \
@@ -90,7 +91,6 @@ zinit wait"0a" lucid depth"1" light-mode for \
   @zdharma/fast-syntax-highlighting
 
 source $HOME/.shell/exports.zsh # environmental veriables
-source $HOME/.shell/history.zsh  # zsh history config
 source $HOME/.shell_env # aliases, functions, externals
 
 # unsetopt XTRACE
