@@ -1,9 +1,10 @@
-{{- $git_name := promptString "Display name for git commits" -}}
-{{- $git_email := promptString "Email for git commits" -}}
-{{- $darwin_hostname := promptString "Hostname for macOS" -}}
-{{- $signing_key := promptString "Git signing key" -}}
+{{ $darwin_hostname := "" }}
+
+{{ if eq .chezmoi.os "darwin" }}
+{{ $darwin_hostname = promptString "Hostname for macOS" }}
+{{ end }}
+
 [data]
-  git_name = "{{ $git_name }}"
-  git_email = "{{ $git_email }}"
+{{ if eq .chezmoi.os "darwin" }}
   darwin_hostname = "{{ $darwin_hostname }}"
-  signing_key = "{{ $signing_key }}"
+{{ end }}
