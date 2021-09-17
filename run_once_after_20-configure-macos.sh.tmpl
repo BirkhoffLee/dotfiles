@@ -1,33 +1,17 @@
 #!/usr/bin/env bash
-
-{{ if ne .chezmoi.os "darwin" }}
-echo Skipping configure
-exit 0
-{{ end }}
-
 # Edited version of https://mths.be/macos
 
-# Close any open System Preferences panes, to prevent them from overriding
-# settings we’re about to change
-echo "Closing System Preferences application if present."
-osascript -e 'tell application "System Preferences" to quit'
-
-# Ask for the administrator password upfront
-echo "Asking for sudo privileges."
-sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-mkdir -p $HOME/.ssh
+{{ template "script_darwin_only" . }}
+{{ template "script_sudo" . }}
+{{ template "script_caffeinate" . }}
 
 set -x
 
-sudo xcodebuild -license accept || true
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
 
-# Enable Touch ID for sudo
-sudo cp /etc/pam.d/sudo /etc/pam.d/sudo.backup
-sudo sed -i '' -e '/^#/a\'$'\n''auth       sufficient     pam_tid.so' /etc/pam.d/sudo
+sudo xcodebuild -license accept || true
 
 sudo scutil --set ComputerName {{ .darwin_hostname | quote }}
 sudo scutil --set HostName {{ .darwin_hostname | quote }}
@@ -272,13 +256,44 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = 'standard'; }; }"
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0; value = { parameters = (32, 49, 1572864); type = 'standard'; }; }"
 
+# Create locate database
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist || true
+
+set +x
+
+for dockItemLabel in \
+	Launchpad \
+	Maps \
+	Photos \
+	Contacts \
+	Calendar \
+	Reminders \
+	Notes \
+	Music \
+	Podcasts \
+	TV \
+	News \
+	"App Store" \
+	"System Preferences" ; do
+  echo "Removing dock item $dockItemLabel if present"
+	dockutil --find "$dockItemLabel" >/dev/null && dockutil --no-restart --remove "$dockItemLabel"
+done
+
+set -x
+
+killall Dock
+
+# https://github.com/dteoh/SlowQuitApps
+sqa stop || true # will be blocked by macOS security
+sqa delay 1000 || true
+defaults write com.dteoh.SlowQuitApps invertList -bool YES
+defaults write com.dteoh.SlowQuitApps whitelist -array-add com.apple.Safari
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
 set +x
-
-echo Killing affected applications...
 
 for app in "Activity Monitor" \
 	"cfprefsd" \
@@ -288,7 +303,5 @@ for app in "Activity Monitor" \
 	"Photos" \
 	"Safari" \
 	"SystemUIServer"; do
-	killall "${app}" &> /dev/null && echo "${app}"
+	killall "${app}" &> /dev/null && echo "Killed ${app}"
 done
-
-echo "Done. Note that some of these changes require a logout/restart to take effect."

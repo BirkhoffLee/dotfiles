@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+{{ template "script_no_root" . }}
+{{ template "script_caffeinate" . }}
+{{ template "script_darwin_only" . }}
+
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew analytics off
+
+# we prioritise these first, for fresh installs these are more important
+brew install dockutil slowquitapps mas 1password dropbox

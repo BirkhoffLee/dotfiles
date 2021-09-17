@@ -1,0 +1,15 @@
+# caffeinate is available for darwin only. #
+{{ if eq .chezmoi.os "darwin" }}
+# prevent sleep. we will kill this later
+caffeinate &
+CAFFEINATEPID=$!
+
+set -eE # same as: `set -o errexit -o errtrace`
+
+function cleanup()
+{
+  kill $CAFFEINATEPID
+}
+
+trap cleanup EXIT
+{{ end }}

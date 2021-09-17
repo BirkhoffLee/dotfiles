@@ -1,30 +1,21 @@
 #!/usr/bin/env bash
 
-# Universal
-echo Running universal scripts.
+{{ template "script_no_root" . }}
+{{ template "script_caffeinate" . }}
 
-# https://github.com/tj/n
+python3 -m pip install --upgrade --user pip
+python3 -m pip install --user --no-warn-script-location virtualenv virtualenvwrapper
+
+# tj/n
 if ! command -v n &> /dev/null && command -v npm &> /dev/null; then
   npm install -g n
 fi
 
-#############
-
-if [ ! -f /usr/local/bin/prettyping ]; then
-  echo Installing prettyping.
-  wget -O /usr/local/bin/prettyping https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
-  chmod +x /usr/local/bin/prettyping
-fi
-
-#############
-
-# Install dein.vim
+# dein.vim
 if [ ! -e "$HOME/.cache/dein" ]; then
   curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
   sh ./installer.sh ~/.cache/dein
   rm ./installer.sh
 fi
-
-#############
 
 # zsh -i -c "(( $+commands[compaudit] )) && compaudit | xargs chmod g-w"
