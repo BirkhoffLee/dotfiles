@@ -28,7 +28,7 @@ typeset -AU __FZF
 
 __FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
 
-export FZF_TMUX=1
+[ "$TERM_PROGRAM" = "tmux" ] && export FZF_TMUX=1
 
 # TAB / Shift-TAB: multiple selections
 # ^S: preview page up, ^D: preview page down
