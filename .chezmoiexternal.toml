@@ -1,0 +1,5 @@
+[".tmux"]
+  type = "archive"
+  url = "https://github.com/gpakosz/.tmux/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
