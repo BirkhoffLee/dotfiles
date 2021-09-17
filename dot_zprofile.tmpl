@@ -33,13 +33,10 @@ fi
 # Paths
 #
 
+export GEM_HOME=$HOME/.gem
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
-
-# Set the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
 
 # Set the list of directories that Zsh searches for programs.
 path=(
@@ -47,6 +44,7 @@ path=(
   $HOME/.local/bin
 {{ if eq .chezmoi.os "darwin" }}
   $HOME/go/bin
+  $GEM_HOME/bin
   /usr/local/opt/binutils/bin
   /usr/local/opt/coreutils/libexec/gnubin
   /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
