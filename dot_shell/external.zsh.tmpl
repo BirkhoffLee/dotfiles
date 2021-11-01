@@ -6,7 +6,7 @@
 
 ( gpg-agent --daemon > /dev/null 2>&1 & )
 
-AUTO_NOTIFY_IGNORE+=("tmux")
+AUTO_NOTIFY_IGNORE+=("tmux" "bat")
 
 # === forgit ===
 
@@ -28,7 +28,8 @@ typeset -AU __FZF
 
 __FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
 
-[ "$TERM_PROGRAM" = "tmux" ] && export FZF_TMUX=1
+export FZF_TMUX=1
+[ "$TERM_PROGRAM" != "tmux" ] && export FZF_TMUX=0
 
 # TAB / Shift-TAB: multiple selections
 # ^S: preview page up, ^D: preview page down
@@ -87,7 +88,7 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 
 # cd
 # $realpath issue: https://github.com/Aloxaf/fzf-tab/issues/231
-zstyle ':fzf-tab:complete:cd:*' fzf-preview ${__FZF[PREVIEW_DIR]}' ${realpath//\\ / }'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview ${__FZF[PREVIEW_DIR]}' ${(Q)realpath:a}'
 
 # kill/ps
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \
