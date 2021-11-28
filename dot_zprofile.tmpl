@@ -10,7 +10,7 @@
 #
 
 {{ if eq .chezmoi.os "darwin" }}
-  export BROWSER='open'
+export BROWSER='open'
 {{ end }}
 
 #
@@ -41,8 +41,8 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   $HOME/.cargo/bin
-  $HOME/.local/bin
 {{ if eq .chezmoi.os "darwin" }}
+  $HOME/.local/bin
   $HOME/go/bin
   $GEM_HOME/bin
   /usr/local/opt/binutils/bin
@@ -51,8 +51,10 @@ path=(
   $HOME/Library/Python/*/bin
 {{ end }}
   /usr/local/{bin,sbin}
-  /usr/{bin,sbin}
-  /{bin,sbin}
+  /usr/bin
+  /bin
+  /usr/sbin
+  /sbin
   $path
 )
 
