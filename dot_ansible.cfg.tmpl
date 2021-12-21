@@ -1,3 +1,11 @@
 [defaults]
-inventory = "{{ .chezmoi.homeDir }}/.ansible_inventory"
+inventory = {{ .chezmoi.homeDir }}/.ansible_inventory
 nocows = 1
+forks = 25
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = /tmp
+
+[ssh_connection]
+pipelining = True
+ssh_args = -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey
