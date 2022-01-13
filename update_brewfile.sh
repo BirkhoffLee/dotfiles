@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-rm Brewfile Brewfile.lock.json
-brew bundle dump
+# rm Brewfile Brewfile.lock.json
+brew bundle dump --describe --force
 git add Brewfile
 git commit -S -m "chore: update Brewfile"
