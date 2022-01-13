@@ -8,7 +8,7 @@
 if [ -z ${HOMEBREW_PREFIX+x} ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-  echo "HOMEBREW_PREFIX set to $var"
+  echo "HOMEBREW_PREFIX set to $HOMEBREW_PREFIX"
 fi
 
 brew analytics off
