@@ -22,6 +22,9 @@ export VISUAL=${EDITOR}
 export PYTHONIOENCODING='UTF-8'
 
 {{ if eq .chezmoi.os "darwin" }}
+# Workaround for Ansible forking: https://github.com/ansible/ansible/issues/76322
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 # GPG AGENT
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 
