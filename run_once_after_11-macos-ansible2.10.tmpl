@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+{{ template "script_darwin_only" . }}
+{{ template "script_no_root" . }}
+{{ template "script_brew_path" . }}
+
+cd {{ .chezmoi.sourceDir }}
+pwd
+
+{{ template "script_caffeinate" . }}
+
+set -x
+
+brew uninstall ansible
+pip3 uninstall ansible
+python3 -m pip install --user --no-warn-script-location netaddr ansible==2.10
+
+if [ ! -d ~/.ansible/mitogen ]; then
+  mkdir -p {{ .chezmoi.homeDir }}/.ansible
+  git clone --depth 1 https://github.com/mitogen-hq/mitogen {{ .chezmoi.homeDir }}/.ansible/mitogen
+fi
+
+set +x
