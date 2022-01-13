@@ -29,6 +29,9 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 
 # Homebrew:
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
 
 {{ if stat "/opt/homebrew/bin/brew" }}
