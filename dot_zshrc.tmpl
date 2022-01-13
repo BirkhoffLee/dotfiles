@@ -20,7 +20,7 @@ if [[ -r "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [[ ! -d ~/.zinit ]]; then
+if [[ ! -d ~/.zinit/bin ]]; then
   mkdir -p ~/.zinit && \
     git clone --depth 1 \
       https://github.com/zdharma/zinit.git \
