@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+{{ template "script_darwin_only" . }}
+{{ template "script_no_root" . }}
+{{ template "script_brew_path" . }}
+
+cd {{ .chezmoi.sourceDir }}
+pwd
+
+{{ template "script_caffeinate" . }}
+
+set -x
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+brew install chruby ruby-install
+ruby-install ruby-2.7.4
+
+{{ if eq .chezmoi.arch "arm64" }}
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+chruby ruby-2.7.4
+{{ else }}
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+chruby ruby-2.7.4
+{{ end }}
+
+ruby -v
+gem update --system
+number_of_cores=$(sysctl -n hw.ncpu)
+bundle config set --global jobs $((number_of_cores - 1))
+
+gem install --conservative cocoapods
+
+set +x
