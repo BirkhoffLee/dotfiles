@@ -42,14 +42,20 @@ typeset -gU cdpath fpath mailpath path
 path=(
   $HOME/.cargo/bin
 {{ if eq .chezmoi.os "darwin" }}
+{{ if eq .chezmoi.arch "arm64" }}
   /opt/homebrew/bin
   /opt/homebrew/sbin
-  $HOME/.local/bin
-  $HOME/go/bin
-  $GEM_HOME/bin
+  /opt/homebrew/opt/binutils/bin
+  /opt/homebrew/opt/coreutils/libexec/gnubin
+  /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+{{ else }}
   /usr/local/opt/binutils/bin
   /usr/local/opt/coreutils/libexec/gnubin
   /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+{{ end }}
+  $HOME/.local/bin
+  $HOME/go/bin
+  $GEM_HOME/bin
   $HOME/Library/Python/*/bin
 {{ end }}
   /usr/local/{bin,sbin}
