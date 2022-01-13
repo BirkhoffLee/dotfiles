@@ -382,6 +382,8 @@ set-option -g base-index 1
 # select-pane (@george-b)
 bind-key 0 run "tmux split-window -p 40 'zsh -ci ftpane'"
 
+bind-key X set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}"
+
 # -- custom variables ----------------------------------------------------------
 
 # to define a custom #{foo} variable, define a POSIX shell function between the
