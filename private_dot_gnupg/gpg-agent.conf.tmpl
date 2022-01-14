@@ -4,7 +4,11 @@
 default-cache-ttl 60
 max-cache-ttl 120
 # This confirms SSH key usage every single time for Ansible
+{{ if eq .chezmoi.arch "arm64" }}
+pinentry-program /opt/homebrew/bin/pinentry-mac
+{{ else }}
 pinentry-program /usr/local/bin/pinentry-mac
+{{ end }}
 # agent refused operation after some time
 # pinentry-program /usr/local/bin/pinentry-curses
 # pinentry-program /usr/local/bin/pinentry
