@@ -7,6 +7,11 @@
 
 if [ -z ${HOMEBREW_PREFIX+x} ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+{{ if eq .chezmoi.arch "arm64" }}
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ else }}
+  eval "$(/usr/local/bin/brew shellenv)"
+{{ end }}
 else
   echo "HOMEBREW_PREFIX set to $HOMEBREW_PREFIX"
 fi
