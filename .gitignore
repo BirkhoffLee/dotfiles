@@ -3,3 +3,4 @@
 dot_git
 Brewfile.lock.json
 .vscode
+bin
