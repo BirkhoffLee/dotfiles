@@ -11,9 +11,8 @@ pwd
 
 set -x
 
-brew uninstall ansible
-pip3 uninstall ansible
-python3 -m pip install --user --no-warn-script-location netaddr ansible==2.10
+brew uninstall ansible ansible-lint || true
+python3 -m pip install --user --no-warn-script-location netaddr ansible==2.10 ansible-lint
 
 if [ ! -d ~/.ansible/mitogen ]; then
   mkdir -p {{ .chezmoi.homeDir }}/.ansible
