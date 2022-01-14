@@ -1,6 +1,6 @@
 # dotfiles
 
-My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi).  
+My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi) (M1 fully supported)
 
 ## Features
 
@@ -29,7 +29,7 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply birkhofflee
 
 ## iTerm2 Profile Configuration
 
-* Command: `/bin/zsh -c "/usr/local/bin/tmux new -As0"`
+* Command: `/bin/zsh -c "tmux new -As0"`
 * Font
   + Monaco Regular 13
   + Anti-aliased
@@ -48,23 +48,29 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply birkhofflee
 
 Using Natural Text Editing preset, and the following:
 
-| Key   | Send Hex Codes | Description                          |
-|-------|----------------|--------------------------------------|
-| ⌘Z    | `0x1f`         | undo                                 |
-| ⇧⌘Z   | `0x18 0x1f`    | redo                                 |
-| ⌥Del→ | `0x17`         | delete word                          |
-| ⌘←    | `0x2`          | go to beginning of line              |
-| ⇧⌘↵   | `0x1 0x7a`     | maximize pane in current window      |
-| ⌃⌘F   | `0x1 0x2b`     | move pane to new window              |
-| ⇧⌘D   | `0x1 0x2d`     | splits the current pane vertically   |
-| ⌘D    | `0x1 0x5f`     | splits the current pane horizontally |
-| ⇧⌘R   | `0x1 0x72`     | reload tmux config                    |
-| ⇧⌘←   | `0x1 0x68`     | navigate to the pane on the left     |
-| ⇧⌘↓   | `0x1 0x6a`     | navigate to the pane on the bottom   |
-| ⇧⌘↑   | `0x1 0x6b`     | navigate to the pane on the top      |
-| ⇧⌘→   | `0x1 0x6c`     | navigate to the pane on the right    |
-| ⌥⌘←   | `0x1 0x8`      | switch to previous window            |
-| ⌥⌘→   | `0x1 0xc`      | switch to next window                |
+| Key     | Send Hex Codes | Description                          |
+| ------- | -------------- | ------------------------------------ |
+| ⌘Z     | `0x1f`       | undo                                 |
+| ⇧⌘Z   | `0x18 0x1f`  | redo                                 |
+| ⌥Del→ | `0x17`       | delete word                          |
+| ⌘←    | `0x2`        | go to beginning of line              |
+| ⇧⌘↵  | `0x1 0x7a`   | maximize pane in current window      |
+| ⌃⌘F   | `0x1 0x2b`   | move pane to new window              |
+| ⇧⌘D   | `0x1 0x2d`   | splits the current pane vertically   |
+| ⌘D     | `0x1 0x5f`   | splits the current pane horizontally |
+| ⇧⌘R   | `0x1 0x72`   | reload tmux config                   |
+| ⇧⌘←  | `0x1 0x68`   | navigate to the pane on the left     |
+| ⇧⌘↓  | `0x1 0x6a`   | navigate to the pane on the bottom   |
+| ⇧⌘↑  | `0x1 0x6b`   | navigate to the pane on the top      |
+| ⇧⌘→  | `0x1 0x6c`   | navigate to the pane on the right    |
+| ⌥⌘←  | `0x1 0x8`    | switch to previous window            |
+| ⌥⌘→  | `0x1 0xc`    | switch to next window                |
+
+## Notes
+
+* VirtualBox is not and will not implement support towards ARM64.
+* avifenc is not currently available on ARM64.
+*
 
 ## TODOs
 
