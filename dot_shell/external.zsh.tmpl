@@ -8,6 +8,15 @@
 
 AUTO_NOTIFY_IGNORE+=("tmux" "bat")
 
+# === ruby ===
+{{ if eq .chezmoi.arch "arm64" }}
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+{{ else }}
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+{{ end }}
+
 # === forgit ===
 
 # --ansi is required for forgit to display colors
