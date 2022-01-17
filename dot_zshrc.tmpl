@@ -29,6 +29,10 @@ fi
 
 source ~/.zinit/bin/zinit.zsh
 
+# fd -t x . '$HOME/.zinit/plugins/' | xargs file | grep Mach
+# {{ if eq .chezmoi.arch "arm64" }}bpick"*arm64*"{{ end }}
+# {{ if eq .chezmoi.arch "arm64" }}bpick"*aarch64*"{{ end }}
+
 zinit \
   depth"1" light-mode nocd \
   atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' for \
@@ -40,12 +44,12 @@ zinit depth"1" light-mode for \
 
 zinit wait lucid depth"1" light-mode for \
   @agkozak/zsh-z \
-  pack"bgn-binary+keys" @fzf \
+  pack"bgn-binary+keys"{{ if eq .chezmoi.arch "arm64" }} bpick"*arm64*"{{ end }} @fzf \
   id-as"fzf-tmux" sbin'bin/fzf-tmux' \
     @junegunn/fzf \
   as"null" from"gh-r" sbin mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
-    src="zhook.zsh" \
+    src="zhook.zsh"{{ if eq .chezmoi.arch "arm64" }} bpick"*arm64*"{{ end }} \
     @direnv/direnv \
   @MichaelAquilina/zsh-you-should-use \
   @MichaelAquilina/zsh-auto-notify
@@ -60,7 +64,7 @@ zinit wait"1" lucid depth"1" light-mode for \
     @https://cht.sh/:cht.sh \
   as"null" sbin cloneopts paulirish/git-open \
   as"null" sbin paulirish/git-recent \
-  from"gh-r" sbin"docker-compose" mv"docker* -> docker-compose" \
+  from"gh-r" sbin"docker-compose"{{ if eq .chezmoi.arch "arm64" }} bpick"*aarch64*"{{ end }} mv"docker* -> docker-compose" \
     @docker/compose \
   as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" \
     make"PREFIX=$ZPFX" tj/git-extras
