@@ -14,5 +14,6 @@ set -x
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 brew bundle --verbose --no-upgrade --no-lock || true
+vagrant plugin install vagrant-parallels
 
 set +x
