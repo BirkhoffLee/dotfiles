@@ -33,6 +33,11 @@ function cdls {
 }
 
 {{ if eq .chezmoi.os "darwin" }}
+fixsudo() {
+  filename=/private/etc/pam.d/sudo
+  awk 'NR==2{print "auth       sufficient     pam_tid.so"}1' "$filename" | sudo tee "$filename"
+}
+
 listening() {
     if [ $# -eq 0 ]; then
         sudo lsof -iTCP -sTCP:LISTEN -n -P
