@@ -96,6 +96,8 @@ fi
 alias http-serve='python3 -m http.server'
 
 {{ if eq .chezmoi.os "darwin" }}
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
 alias o='open'
 
 alias pbc='pbcopy'
