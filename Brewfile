@@ -26,8 +26,6 @@ brew "webp"
 brew "openssl@1.1"
 # GNU database manager
 brew "gdbm"
-# Library for command-line editing
-brew "readline"
 # Record and share terminal sessions
 brew "asciinema"
 # Portable Foreign Function Interface library
@@ -264,6 +262,8 @@ brew "node"
 brew "noti"
 # Libraries for security-enabled client and server applications
 brew "nss"
+# Oracle Cloud Infrastructure CLI
+brew "oci-cli"
 # Optical character recognition (OCR) program
 brew "ocrad"
 # Tools and libraries for smart cards
@@ -334,6 +334,8 @@ brew "telnet"
 brew "terminal-notifier"
 # Tool to build, change, and version infrastructure
 brew "terraform"
+# CLI tool to generate terraform files from existing infrastructure
+brew "terraformer"
 # Tool which checks for the support of TLS/SSL ciphers and flaws
 brew "testssl"
 # Code-search similar to ack
@@ -414,8 +416,12 @@ cask "backblaze"
 cask "badlion-client"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
+# Cryptocurrency exchange
+cask "binance"
 # Free app that makes your Internet safer
 cask "cloudflare-warp"
+# Menu bar application that lists iCloud Tabs
+cask "cloudytabs"
 # Disk space visualizer
 cask "daisydisk"
 # Voice and text chat software
@@ -442,6 +448,8 @@ cask "imazing"
 cask "iterm2"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
+# End-to-end encryption software
+cask "keybase"
 # Sound clear in online meetings
 cask "krisp"
 # Productivity tool
@@ -496,8 +504,6 @@ cask "ueli"
 cask "vagrant"
 # Open-source code editor
 cask "visual-studio-code"
-# Multimedia player
-cask "vlc"
 # Free messaging and calling application
 cask "wechat"
 # Network protocol analyzer
