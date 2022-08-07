@@ -17,23 +17,22 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "joedrago/repo"
 tap "louisbrunner/valgrind"
-tap "teamookla/speedtest"
 # Search tool like grep, but optimized for programmers
 brew "ack"
 # Image format providing lossless and lossy compression for web images
 brew "webp"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
 # GNU database manager
 brew "gdbm"
 # Record and share terminal sessions
 brew "asciinema"
 # Portable Foreign Function Interface library
 brew "libffi"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
 # Core application library for C
 brew "glib"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
+# GNOME accessibility toolkit
+brew "atk"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
 # Automatically restart SSH sessions and tunnels
@@ -78,6 +77,8 @@ brew "blueutil"
 brew "caddy", restart_service: true
 # Decentralized dependency manager for Cocoa
 brew "carthage"
+# Tool to obtain certs from Let's Encrypt and autoenable HTTPS
+brew "certbot"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
 # Ruby environment tool
@@ -92,6 +93,8 @@ brew "cowsay"
 brew "create-dmg"
 # Reimplementation of ctags(1)
 brew "ctags"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
 # Tools to work with Android .dex and Java .class files
 brew "dex2jar"
 # Good-lookin' diffs with diff-highlight and more
@@ -108,6 +111,8 @@ brew "exa"
 brew "fasd"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Library to load and enumerate PKCS#11 modules
+brew "p11-kit"
 # Validating, recursive, caching DNS resolver
 brew "unbound", restart_service: true
 # GNU Transport Layer Security (TLS) Library
@@ -124,8 +129,12 @@ brew "ffmpeg"
 brew "flarectl"
 # Console program to recover files based on their headers and footers
 brew "foremost"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
 # Frame Streams implementation in C
 brew "fstrm"
+# Toolkit for image loading and pixel buffer manipulation
+brew "gdk-pixbuf"
 # GitHub command-line tool
 brew "gh"
 # Interpreter for PostScript and PDF
@@ -180,6 +189,8 @@ brew "httpie"
 brew "hub"
 # Configurable static site generator
 brew "hugo"
+# Provides library functionality for FIDO U2F & FIDO 2.0, including USB
+brew "libfido2"
 # C library SSHv1/SSHv2 client and server protocols
 brew "libssh"
 # Open source relational database management system
@@ -198,18 +209,14 @@ brew "jc"
 brew "jq"
 # Port-knock server
 brew "knock"
-# Protocol buffers library
-brew "protobuf-c"
-# High-performance authoritative-only DNS server
-brew "knot", restart_service: true
+# Network authentication protocol
+brew "krb5"
 # Tool that can switch between kubectl contexts easily and create aliases
 brew "kubectx"
 # Template-free customization of Kubernetes YAML manifests
 brew "kustomize"
 # DNS library written in C
 brew "ldns"
-# Provides library functionality for FIDO U2F & FIDO 2.0, including USB
-brew "libfido2"
 # Library to communicate with iOS devices natively
 brew "libimobiledevice"
 # Library and utility to talk to iBoot/iBSS via USB
@@ -270,12 +277,16 @@ brew "ocrad"
 brew "opensc"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
 # PNG file optimizer
 brew "optipng"
 # Outputs current CPU temperature for OSX
 brew "osx-cpu-temp"
 # General-purpose scripting language
 brew "php", restart_service: true
+# New zlib (gzip, deflate) compatible compressor
+brew "zopfli"
 # Parallel gzip
 brew "pigz"
 # Pinentry for GPG on Mac
@@ -284,6 +295,8 @@ brew "pinentry-mac"
 brew "pngcheck"
 # Modern replacement for ps written by Rust
 brew "procs"
+# Protocol buffers library
+brew "protobuf-c"
 # Implementation of Telnet and SSH
 brew "putty"
 # Monitor data's progress through a pipe
@@ -297,7 +310,7 @@ brew "r"
 # Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
 # Persistent key-value database, with built-in net interface
-brew "redis", restart_service: true
+brew "redis"
 # Perl-powered file rename script with many helpful built-ins
 brew "rename"
 # Readline wrapper: adds readline support to tools that lack it
@@ -352,6 +365,8 @@ brew "ucspi-tcp"
 brew "vbindiff"
 # Disaster recovery for Kubernetes resources and persistent volumes
 brew "velero"
+# Modern watch command
+brew "viddy"
 # Sends magic packets to wake up network-devices
 brew "wakeonlan"
 # Internet file retriever
@@ -380,8 +395,6 @@ brew "ykpers"
 brew "youtube-dl"
 # Command-line tool for the YubiKey PIV application
 brew "yubico-piv-tool"
-# New zlib (gzip, deflate) compatible compressor
-brew "zopfli"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Convert existing TrueType/OpenType fonts to WOFF format
@@ -396,10 +409,10 @@ brew "derailed/k9s/k9s"
 brew "fabianishere/personal/pam_reattach"
 # Nomad
 brew "hashicorp/tap/nomad"
+# Packer
+brew "hashicorp/tap/packer"
 # Everything you need to get started with Heroku
 brew "heroku/brew/heroku"
-# Ookla Speedtest
-brew "teamookla/speedtest/speedtest"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Command-line helper for the 1Password password manager
@@ -412,14 +425,12 @@ cask "adoptopenjdk"
 cask "aws-vault"
 # Data backup and storage service
 cask "backblaze"
-# Minecraft launcher
-cask "badlion-client"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
 # Cryptocurrency exchange
 cask "binance"
-# Free app that makes your Internet safer
-cask "cloudflare-warp"
+# Web browser focusing on privacy
+cask "brave-browser"
 # Menu bar application that lists iCloud Tabs
 cask "cloudytabs"
 # Disk space visualizer
@@ -448,12 +459,10 @@ cask "imazing"
 cask "iterm2"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
-# End-to-end encryption software
-cask "keybase"
 # Sound clear in online meetings
 cask "krisp"
-# Productivity tool
-cask "launchbar"
+# Wallet desktop application to maintain multiple cryptocurrencies
+cask "ledger-live"
 # Link-Layer MAC spoofing GUI for macOS
 cask "linkliar"
 # Media key forwarder for iTunes and Spotify
@@ -464,19 +473,28 @@ cask "microsoft-auto-update"
 cask "microsoft-edge"
 # Re-mounts write-protected NTFS volumes
 cask "mounty"
+# Free and open-source RSS reader
+cask "netnewswire"
 # MikroTik Winbox
 cask "nrlquaker-winbox"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Desktop virtualization software
 cask "parallels"
+# Remote desktop
+cask "parsec"
 # Command-line shell and scripting language
 cask "powershell"
 # Instant messaging tool
 cask "qq"
+# QuickLook plugin for CSV files
 cask "quicklook-csv"
+# QuickLook plugin for JSON files
 cask "quicklook-json"
+# Quick Look plugin for Android packages
 cask "quicklookapk"
+# Control your tools with a few keystrokes
+cask "raycast"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Collection of apps available by subscription
@@ -486,6 +504,8 @@ cask "skype"
 cask "slowquitapps"
 # Music streaming service
 cask "spotify"
+# Video game digital distribution service
+cask "steam"
 # Text editor for code, markup and prose
 cask "sublime-text"
 # Application for inspecting installer packages
@@ -508,27 +528,3 @@ cask "visual-studio-code"
 cask "wechat"
 # Network protocol analyzer
 cask "wireshark"
-mas "1Password for Safari", id: 1569813296
-mas "Amphetamine", id: 937984704
-mas "AutoSwitchInput", id: 1470350547
-mas "Craft", id: 1487937127
-mas "DevCleaner", id: 1388020431
-mas "GarageBand", id: 682658836
-mas "GoodNotes", id: 1444383602
-mas "iMovie", id: 408981434
-mas "iStudiez Pro", id: 402989379
-mas "Keynote", id: 409183694
-mas "LINE", id: 539883307
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Remote Desktop", id: 1295203466
-mas "Microsoft Word", id: 462054704
-mas "MoneyWiz", id: 1511185140
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Slack", id: 803453959
-mas "Tab Space", id: 1473726602
-mas "Tailscale", id: 1475387142
-mas "Tweetbot", id: 1384080005
-mas "Xcode", id: 497799835
-mas "Yoink", id: 457622435
