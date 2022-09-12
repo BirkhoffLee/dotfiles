@@ -81,8 +81,6 @@ brew "carthage"
 brew "certbot"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
-# Ruby environment tool
-brew "chruby"
 # Work on automating classical cipher cracking in C
 brew "cifer"
 # GNU File, Shell, and Text utilities
@@ -302,11 +300,13 @@ brew "putty"
 # Monitor data's progress through a pipe
 brew "pv"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.8"
+brew "python@3.8", link: false
 # Cross-platform application and UI framework
 brew "qt"
 # Software environment for statistical computing
 brew "r"
+# Ruby version manager
+brew "rbenv"
 # Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
 # Persistent key-value database, with built-in net interface
@@ -337,10 +337,14 @@ brew "stress"
 brew "subversion"
 # TCP/IP packet demultiplexer
 brew "tcpflow"
+# TCP connect to the given IP/port combo
+brew "tcping"
 # Replay saved tcpdump files at arbitrary speeds
 brew "tcpreplay"
 # Analyze tcpdump output
 brew "tcptrace"
+# Traceroute implementation using TCP packets
+brew "tcptraceroute"
 # User interface to the TELNET protocol
 brew "telnet"
 # Send macOS User Notifications from the command-line
@@ -442,6 +446,7 @@ cask "docker"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
 cask "font-fira-code"
+# Developer targeted fonts with a high number of glyphs
 cask "font-hack-nerd-font"
 cask "font-menlo-for-powerline"
 cask "font-source-code-pro"
@@ -465,6 +470,8 @@ cask "krisp"
 cask "ledger-live"
 # Link-Layer MAC spoofing GUI for macOS
 cask "linkliar"
+# Host-based application firewall
+cask "little-snitch"
 # Media key forwarder for iTunes and Spotify
 cask "macmediakeyforwarder"
 # Provides updates to various Microsoft products
@@ -528,3 +535,28 @@ cask "visual-studio-code"
 cask "wechat"
 # Network protocol analyzer
 cask "wireshark"
+mas "1Password for Safari", id: 1569813296
+mas "Amphetamine", id: 937984704
+mas "AutoSwitchInput", id: 1470350547
+mas "Craft", id: 1487937127
+mas "DevCleaner", id: 1388020431
+mas "GarageBand", id: 682658836
+mas "GoodNotes", id: 1444383602
+mas "iMovie", id: 408981434
+mas "iStudiez Pro", id: 402989379
+mas "Keynote", id: 409183694
+mas "LINE", id: 539883307
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft PowerPoint", id: 462062816
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Microsoft Word", id: 462054704
+mas "Minimal", id: 1442727443
+mas "MoneyWiz", id: 1511185140
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Slack", id: 803453959
+mas "Tab Space", id: 1473726602
+mas "Tailscale", id: 1475387142
+mas "Tweetbot", id: 1384080005
+mas "Xcode", id: 497799835
+mas "Yoink", id: 457622435
