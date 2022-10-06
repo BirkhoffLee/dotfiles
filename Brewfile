@@ -17,6 +17,7 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "joedrago/repo"
 tap "louisbrunner/valgrind"
+tap "teamookla/speedtest"
 # Search tool like grep, but optimized for programmers
 brew "ack"
 # Image format providing lossless and lossy compression for web images
@@ -25,10 +26,10 @@ brew "webp"
 brew "gdbm"
 # Record and share terminal sessions
 brew "asciinema"
-# Portable Foreign Function Interface library
-brew "libffi"
 # Core application library for C
 brew "glib"
+# Portable Foreign Function Interface library
+brew "libffi"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.9"
 # GNOME accessibility toolkit
@@ -47,18 +48,20 @@ brew "b2-tools"
 brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Vector graphics library with cross-device output support
+brew "cairo"
+# OpenType text shaping engine
+brew "harfbuzz"
 # Remove large files or passwords from Git history like git-filter-branch
 brew "bfg"
 # GNU binary tools for native development
 brew "binutils"
-# Vector graphics library with cross-device output support
-brew "cairo"
 # GNU multiple precision arithmetic library
 brew "gmp"
+# Palette quantization library extracted from pnquant2
+brew "libimagequant"
 # Generate introspection data for GObject libraries
 brew "gobject-introspection"
-# OpenType text shaping engine
-brew "harfbuzz"
 # Library for complex text layout
 brew "libraqm"
 # Package for scientific computing with Python
@@ -91,12 +94,12 @@ brew "cowsay"
 brew "create-dmg"
 # Reimplementation of ctags(1)
 brew "ctags"
-# Get a file from an HTTP, HTTPS or FTP server
-brew "curl"
 # Tools to work with Android .dex and Java .class files
 brew "dex2jar"
 # Good-lookin' diffs with diff-highlight and more
 brew "diff-so-fancy"
+# Diff that understands syntax
+brew "difftastic"
 # TCP over DNS tunnel
 brew "dns2tcp"
 # Tool for managing dock items
@@ -281,6 +284,8 @@ brew "openssl@3"
 brew "optipng"
 # Outputs current CPU temperature for OSX
 brew "osx-cpu-temp"
+# PAM module for reattaching to the user's GUI (Aqua) session
+brew "pam_reattach"
 # General-purpose scripting language
 brew "php", restart_service: true
 # New zlib (gzip, deflate) compatible compressor
@@ -291,6 +296,8 @@ brew "pigz"
 brew "pinentry-mac"
 # Print info and check PNG, JNG, and MNG files
 brew "pngcheck"
+# 📦🚀 Fast, disk space efficient package manager
+brew "pnpm"
 # Modern replacement for ps written by Rust
 brew "procs"
 # Protocol buffers library
@@ -300,7 +307,7 @@ brew "putty"
 # Monitor data's progress through a pipe
 brew "pv"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.8", link: false
+brew "python@3.8"
 # Cross-platform application and UI framework
 brew "qt"
 # Software environment for statistical computing
@@ -409,14 +416,14 @@ brew "bramstein/webfonttools/sfnt2woff-zopfli"
 brew "cjbassi/ytop/ytop"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
-# PAM module for reattaching to the user's GUI (Aqua) session
-brew "fabianishere/personal/pam_reattach"
 # Nomad
 brew "hashicorp/tap/nomad"
 # Packer
 brew "hashicorp/tap/packer"
 # Everything you need to get started with Heroku
 brew "heroku/brew/heroku"
+# Ookla Speedtest
+brew "teamookla/speedtest/speedtest"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Command-line helper for the 1Password password manager
@@ -466,8 +473,12 @@ cask "iterm2"
 cask "key-codes"
 # Sound clear in online meetings
 cask "krisp"
+# Open source code editor written in Rust
+cask "lapce"
 # Wallet desktop application to maintain multiple cryptocurrencies
 cask "ledger-live"
+# App to manage software development and track bugs
+cask "linear-linear"
 # Link-Layer MAC spoofing GUI for macOS
 cask "linkliar"
 # Host-based application firewall
@@ -490,6 +501,8 @@ cask "obsidian"
 cask "parallels"
 # Remote desktop
 cask "parsec"
+# Collaboration platform for API development
+cask "postman"
 # Command-line shell and scripting language
 cask "powershell"
 # Instant messaging tool
@@ -517,6 +530,8 @@ cask "steam"
 cask "sublime-text"
 # Application for inspecting installer packages
 cask "suspicious-package"
+# Mesh VPN based on Wireguard
+cask "tailscale"
 # Remote access and connectivity software focused on security
 cask "teamviewer"
 # Messaging app with a focus on speed and security
