@@ -84,6 +84,12 @@ source $commands[virtualenvwrapper_lazy.sh]
 export N_PREFIX="$HOME/.n"
 PATH="$N_PREFIX/bin:$PATH"
 
+# rbenv
+eval "$(rbenv init - zsh)"
+
+# rvm
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 # === Histories ===
 
 # Enable persistent REPL history for `node`.

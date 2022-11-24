@@ -33,13 +33,12 @@ fi
 # Paths
 #
 
-export GEM_HOME=$HOME/.gem
-
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  # $HOME/.rvm/bin
   $HOME/.cargo/bin
 {{ if eq .chezmoi.os "darwin" }}
 {{ if eq .chezmoi.arch "arm64" }}
@@ -55,7 +54,6 @@ path=(
 {{ end }}
   $HOME/.local/bin
   $HOME/go/bin
-  $GEM_HOME/bin
   $HOME/Library/Python/*/bin
 {{ end }}
   /usr/local/{bin,sbin}
