@@ -284,8 +284,6 @@ brew "openssl@3"
 brew "optipng"
 # Outputs current CPU temperature for OSX
 brew "osx-cpu-temp"
-# PAM module for reattaching to the user's GUI (Aqua) session
-brew "pam_reattach"
 # General-purpose scripting language
 brew "php", restart_service: true
 # New zlib (gzip, deflate) compatible compressor
@@ -296,8 +294,6 @@ brew "pigz"
 brew "pinentry-mac"
 # Print info and check PNG, JNG, and MNG files
 brew "pngcheck"
-# 📦🚀 Fast, disk space efficient package manager
-brew "pnpm"
 # Modern replacement for ps written by Rust
 brew "procs"
 # Protocol buffers library
@@ -416,6 +412,8 @@ brew "bramstein/webfonttools/sfnt2woff-zopfli"
 brew "cjbassi/ytop/ytop"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
+# PAM module for reattaching to the user's GUI (Aqua) session
+brew "fabianishere/personal/pam_reattach"
 # Nomad
 brew "hashicorp/tap/nomad"
 # Packer
@@ -432,6 +430,8 @@ cask "1password-cli"
 cask "adobe-creative-cloud"
 # JDK from the Java User Group (JUG)
 cask "adoptopenjdk"
+# Utility to set a Retina display to custom resolutions
+cask "avibrazil-rdm"
 # Securely stores and accesses AWS credentials in a development environment
 cask "aws-vault"
 # Data backup and storage service
@@ -452,6 +452,7 @@ cask "discord"
 cask "docker"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
+# Free monospaced font with programming ligatures
 cask "font-fira-code"
 # Developer targeted fonts with a high number of glyphs
 cask "font-hack-nerd-font"
@@ -469,6 +470,8 @@ cask "iina"
 cask "imazing"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# JetBrains tools manager
+cask "jetbrains-toolbox"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
 # Sound clear in online meetings
@@ -519,6 +522,8 @@ cask "raycast"
 cask "rectangle"
 # Collection of apps available by subscription
 cask "setapp"
+# Screenshot measurement and annotation tool
+cask "shottr"
 # Video chat, voice call and instant messaging application
 cask "skype"
 cask "slowquitapps"
@@ -569,9 +574,9 @@ mas "Minimal", id: 1442727443
 mas "MoneyWiz", id: 1511185140
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "PasteNow", id: 1552536109
 mas "Slack", id: 803453959
 mas "Tab Space", id: 1473726602
-mas "Tailscale", id: 1475387142
 mas "Tweetbot", id: 1384080005
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435
