@@ -25,16 +25,16 @@
   helper = osxkeychain
 
 [merge]
-	tool = code
+  tool = code
 {{ else }}
 [merge]
-	tool = vim
+  tool = vim
 {{ end }}
 
 [user]
-	name = "Birkhoff Lee"
-	email = "git@birkhoff.me"
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM
+  name = "Birkhoff Lee"
+  email = "git@birkhoff.me"
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM
 
 [diff]
   algorithm = histogram
@@ -47,10 +47,10 @@
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 [commit]
-	gpgsign = true
+  gpgsign = true
 
 [pull]
-	rebase = true
+  rebase = true
 
 [push]
   default = simple
