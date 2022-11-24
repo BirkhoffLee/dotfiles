@@ -34,14 +34,20 @@
 [user]
 	name = "Birkhoff Lee"
 	email = "git@birkhoff.me"
-#	signingkey = "DA23CD9C6AB5F49A"
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM
 
 [diff]
   algorithm = histogram
   indentHeuristic = on
 
-# [commit]
-# 	gpgsign = true
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+	gpgsign = true
 
 [pull]
 	rebase = true
