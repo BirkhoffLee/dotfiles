@@ -6,8 +6,8 @@ forks = 25
 gathering = smart
 fact_caching = jsonfile
 fact_caching_connection = /tmp
-strategy_plugins = {{ .chezmoi.homeDir }}/.ansible/mitogen/ansible_mitogen/plugins/strategy
-strategy = mitogen_linear
+# strategy_plugins = {{ .chezmoi.homeDir }}/.ansible/mitogen/ansible_mitogen/plugins/strategy
+# strategy = mitogen_linear
 
 [ssh_connection]
 pipelining = True
