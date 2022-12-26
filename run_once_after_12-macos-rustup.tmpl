@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+{{ template "script_darwin_only" . }}
+{{ template "script_no_root" . }}
+
+cd {{ .chezmoi.sourceDir }}
+pwd
+
+{{ template "script_caffeinate" . }}
+
+set -x
+
+# export HOMEBREW_NO_AUTO_UPDATE=1
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+
+set +x
