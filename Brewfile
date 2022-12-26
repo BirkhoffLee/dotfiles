@@ -422,8 +422,6 @@ brew "fabianishere/personal/pam_reattach"
 brew "hashicorp/tap/nomad"
 # Packer
 brew "hashicorp/tap/packer"
-# Everything you need to get started with Heroku
-brew "heroku/brew/heroku"
 # Ookla Speedtest
 brew "teamookla/speedtest/speedtest"
 # Password manager that keeps all passwords secure behind one password
