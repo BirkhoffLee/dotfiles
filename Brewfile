@@ -22,8 +22,12 @@ tap "teamookla/speedtest"
 brew "ack"
 # Image format providing lossless and lossy compression for web images
 brew "webp"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
 # GNU database manager
 brew "gdbm"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.10"
 # Record and share terminal sessions
 brew "asciinema"
 # Core application library for C
@@ -94,6 +98,8 @@ brew "cowsay"
 brew "create-dmg"
 # Reimplementation of ctags(1)
 brew "ctags"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
 # Tools to work with Android .dex and Java .class files
 brew "dex2jar"
 # Good-lookin' diffs with diff-highlight and more
@@ -278,8 +284,6 @@ brew "ocrad"
 brew "opensc"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
 # PNG file optimizer
 brew "optipng"
 # Outputs current CPU temperature for OSX
@@ -334,6 +338,8 @@ brew "socat"
 brew "sqlmap"
 # Add a public key to a remote machine's authorized_keys file
 brew "ssh-copy-id"
+# Test SSL/TLS enabled services to discover supported cipher suites
+brew "sslscan"
 # Tool to impose load on and stress test a computer system
 brew "stress"
 # Version control system designed to be a better CVS
@@ -360,8 +366,6 @@ brew "terraformer"
 brew "testssl"
 # Code-search similar to ack
 brew "the_silver_searcher"
-# Simplified and community-driven man pages
-brew "tldr"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
