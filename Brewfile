@@ -482,8 +482,6 @@ cask "krisp"
 cask "lapce"
 # Wallet desktop application to maintain multiple cryptocurrencies
 cask "ledger-live"
-# App to manage software development and track bugs
-cask "linear-linear"
 # Link-Layer MAC spoofing GUI for macOS
 cask "linkliar"
 # Host-based application firewall
