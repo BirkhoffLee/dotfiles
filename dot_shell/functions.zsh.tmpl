@@ -27,6 +27,10 @@ function take {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }
 
+function taketemp {
+  builtin cd $(mktemp -d)
+}
+
 # Changes to a directory and lists its contents.
 function cdls {
   builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"
