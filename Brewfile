@@ -22,6 +22,8 @@ tap "teamookla/speedtest"
 brew "ack"
 # Image format providing lossless and lossy compression for web images
 brew "webp"
+# New file format for still image compression
+brew "jpeg-xl"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@1.1"
 # GNU database manager
@@ -64,14 +66,12 @@ brew "binutils"
 brew "gmp"
 # Palette quantization library extracted from pnquant2
 brew "libimagequant"
-# Generate introspection data for GObject libraries
-brew "gobject-introspection"
 # Library for complex text layout
 brew "libraqm"
 # Package for scientific computing with Python
 brew "numpy"
 # Tool Command Language
-brew "tcl-tk"
+brew "tcl-tk", link: false
 # Friendly PIL fork (Python Imaging Library)
 brew "pillow"
 # Searches a binary image for embedded files and executable code
@@ -90,6 +90,8 @@ brew "certbot"
 brew "chezmoi"
 # Work on automating classical cipher cracking in C
 brew "cifer"
+# Convert a Container Linux Config into Ignition
+brew "coreos-ct"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Configurable talking characters in ASCII art
@@ -124,10 +126,14 @@ brew "p11-kit"
 brew "unbound", restart_service: true
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
+# Multi-format archive and compression library
+brew "libarchive"
 # Subtitle renderer for the ASS/SSA subtitle format
 brew "libass"
 # NaCl networking and cryptography library
 brew "libsodium"
+# Framework for layout and rendering of i18n text
+brew "pango"
 # Secure Reliable Transport
 brew "srt"
 # Play, record, convert, and stream audio and video
@@ -162,6 +168,8 @@ brew "pinentry"
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Generate introspection data for GObject libraries
+brew "gobject-introspection"
 # Image manipulation
 brew "netpbm"
 # Optical Character Recognition (OCR), converts images back to text
@@ -172,8 +180,6 @@ brew "gotop"
 brew "grep"
 # GSettings schemas for desktop components
 brew "gsettings-desktop-schemas"
-# Framework for layout and rendering of i18n text
-brew "pango"
 # GUI toolkit
 brew "gtk+"
 # Toolkit for creating graphical user interfaces
@@ -256,6 +262,8 @@ brew "macvim"
 brew "magic-wormhole"
 # Mac App Store command-line interface
 brew "mas"
+# Fast Cross-Platform Package Manager
+brew "micromamba"
 # Intercept, modify, replay, save HTTP/S traffic
 brew "mitmproxy"
 # Remote terminal application
@@ -310,6 +318,8 @@ brew "pv"
 brew "python@3.8"
 # Cross-platform application and UI framework
 brew "qt"
+# Cross-platform application and UI framework
+brew "qt@5"
 # Software environment for statistical computing
 brew "r"
 # Ruby version manager
@@ -452,6 +462,7 @@ cask "daisydisk"
 cask "discord"
 # App to build and share containerized applications and microservices
 cask "docker"
+cask "dockey"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
 # Free monospaced font with programming ligatures
@@ -526,6 +537,8 @@ cask "setapp"
 cask "shottr"
 # Video chat, voice call and instant messaging application
 cask "skype"
+# Displays all open files and sockets in use by all running processes
+cask "sloth"
 cask "slowquitapps"
 # Music streaming service
 cask "spotify"
@@ -563,7 +576,6 @@ mas "DevCleaner", id: 1388020431
 mas "GarageBand", id: 682658836
 mas "GoodNotes", id: 1444383602
 mas "iMovie", id: 408981434
-mas "iStudiez Pro", id: 402989379
 mas "Keynote", id: 409183694
 mas "LINE", id: 539883307
 mas "Microsoft Excel", id: 462058435
@@ -571,12 +583,12 @@ mas "Microsoft PowerPoint", id: 462062816
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
 mas "Minimal", id: 1442727443
-mas "MoneyWiz", id: 1511185140
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "PasteNow", id: 1552536109
 mas "Slack", id: 803453959
 mas "Tab Space", id: 1473726602
 mas "Tweetbot", id: 1384080005
+mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435
