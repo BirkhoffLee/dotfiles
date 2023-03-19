@@ -298,8 +298,6 @@ brew "optipng"
 brew "osx-cpu-temp"
 # Painless compression and decompression for your terminal
 brew "ouch"
-# General-purpose scripting language
-brew "php", restart_service: true
 # New zlib (gzip, deflate) compatible compressor
 brew "zopfli"
 # Parallel gzip
@@ -559,7 +557,6 @@ mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "PasteNow", id: 1552536109
 mas "Slack", id: 803453959
 mas "Tab Space", id: 1473726602
 mas "WireGuard", id: 1451685025
