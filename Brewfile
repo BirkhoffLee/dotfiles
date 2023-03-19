@@ -483,8 +483,6 @@ cask "imazing"
 cask "iterm2"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
-# Open source code editor written in Rust
-cask "lapce"
 # Wallet desktop application to maintain multiple cryptocurrencies
 cask "ledger-live"
 # Link-Layer MAC spoofing GUI for macOS
@@ -559,7 +557,6 @@ mas "Microsoft Excel", id: 462058435
 mas "Microsoft PowerPoint", id: 462062816
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
-mas "Minimal", id: 1442727443
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "PasteNow", id: 1552536109
