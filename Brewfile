@@ -296,6 +296,8 @@ brew "openssh"
 brew "optipng"
 # Outputs current CPU temperature for OSX
 brew "osx-cpu-temp"
+# Painless compression and decompression for your terminal
+brew "ouch"
 # General-purpose scripting language
 brew "php", restart_service: true
 # New zlib (gzip, deflate) compatible compressor
@@ -452,8 +454,6 @@ cask "backblaze"
 cask "balenaetcher"
 # Cryptocurrency exchange
 cask "binance"
-# Web browser focusing on privacy
-cask "brave-browser"
 # Menu bar application that lists iCloud Tabs
 cask "cloudytabs"
 # Disk space visualizer
@@ -473,8 +473,6 @@ cask "font-menlo-for-powerline"
 cask "font-source-code-pro"
 # Web browser
 cask "google-chrome"
-# Set of tools to manage resources and applications hosted on Google Cloud
-cask "google-cloud-sdk"
 # Open-source video transcoder
 cask "handbrake"
 # Free and open-source media player
@@ -483,12 +481,8 @@ cask "iina"
 cask "imazing"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
-# JetBrains tools manager
-cask "jetbrains-toolbox"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
-# Sound clear in online meetings
-cask "krisp"
 # Open source code editor written in Rust
 cask "lapce"
 # Wallet desktop application to maintain multiple cryptocurrencies
@@ -499,20 +493,10 @@ cask "linkliar"
 cask "little-snitch"
 # Media key forwarder for iTunes and Spotify
 cask "macmediakeyforwarder"
-# Provides updates to various Microsoft products
-cask "microsoft-auto-update"
-# Web browser
-cask "microsoft-edge"
 # Re-mounts write-protected NTFS volumes
 cask "mounty"
 # Free and open-source RSS reader
 cask "netnewswire"
-# MikroTik Winbox
-cask "nrlquaker-winbox"
-# Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
-# Desktop virtualization software
-cask "parallels"
 # Remote desktop
 cask "parsec"
 # Collaboration platform for API development
@@ -533,8 +517,6 @@ cask "raycast"
 cask "rectangle"
 # Collection of apps available by subscription
 cask "setapp"
-# Screenshot measurement and annotation tool
-cask "shottr"
 # Video chat, voice call and instant messaging application
 cask "skype"
 # Displays all open files and sockets in use by all running processes
@@ -542,8 +524,6 @@ cask "sloth"
 cask "slowquitapps"
 # Music streaming service
 cask "spotify"
-# Video game digital distribution service
-cask "steam"
 # Text editor for code, markup and prose
 cask "sublime-text"
 # Application for inspecting installer packages
@@ -558,8 +538,6 @@ cask "telegram"
 cask "transmit"
 # Configurable document editor that supports Markdown
 cask "typora"
-# Keystroke launcher
-cask "ueli"
 # Development environment
 cask "vagrant"
 # Open-source code editor
@@ -568,7 +546,6 @@ cask "visual-studio-code"
 cask "wechat"
 # Network protocol analyzer
 cask "wireshark"
-mas "1Password for Safari", id: 1569813296
 mas "Amphetamine", id: 937984704
 mas "AutoSwitchInput", id: 1470350547
 mas "Craft", id: 1487937127
@@ -588,7 +565,6 @@ mas "Pages", id: 409201541
 mas "PasteNow", id: 1552536109
 mas "Slack", id: 803453959
 mas "Tab Space", id: 1473726602
-mas "Tweetbot", id: 1384080005
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435
