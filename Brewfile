@@ -6,6 +6,7 @@ tap "derailed/k9s"
 tap "dteoh/sqa"
 tap "fabianishere/personal"
 tap "getantibody/tap"
+tap "gofireflyio/aiac"
 tap "hashicorp/tap"
 tap "heroku/brew"
 tap "homebrew/bundle"
@@ -18,6 +19,7 @@ tap "homebrew/services"
 tap "joedrago/repo"
 tap "louisbrunner/valgrind"
 tap "teamookla/speedtest"
+tap "zurawiki/brews"
 # Search tool like grep, but optimized for programmers
 brew "ack"
 # Image format providing lossless and lossy compression for web images
@@ -316,6 +318,8 @@ brew "putty"
 brew "pv"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.8"
+# Tools for and transforming and inspecting PDF files
+brew "qpdf"
 # Cross-platform application and UI framework
 brew "qt"
 # Cross-platform application and UI framework
@@ -428,12 +432,16 @@ brew "cjbassi/ytop/ytop"
 brew "derailed/k9s/k9s"
 # PAM module for reattaching to the user's GUI (Aqua) session
 brew "fabianishere/personal/pam_reattach"
+# Artificial Intelligence Infrastructure-as-Code Generator
+brew "gofireflyio/aiac/aiac"
 # Nomad
 brew "hashicorp/tap/nomad"
 # Packer
 brew "hashicorp/tap/packer"
 # Ookla Speedtest
 brew "teamookla/speedtest/speedtest"
+# Git prepare-commit-msg hook for authoring commit messages with GPT-3
+brew "zurawiki/brews/gptcommit"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Command-line helper for the 1Password password manager
@@ -493,6 +501,8 @@ cask "macmediakeyforwarder"
 cask "mounty"
 # Free and open-source RSS reader
 cask "netnewswire"
+# MikroTik Winbox
+cask "nrlquaker-winbox"
 # Remote desktop
 cask "parsec"
 # Collaboration platform for API development
@@ -524,8 +534,6 @@ cask "spotify"
 cask "sublime-text"
 # Application for inspecting installer packages
 cask "suspicious-package"
-# Mesh VPN based on Wireguard
-cask "tailscale"
 # Remote access and connectivity software focused on security
 cask "teamviewer"
 # Messaging app with a focus on speed and security
