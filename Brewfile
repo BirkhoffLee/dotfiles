@@ -224,6 +224,10 @@ brew "jc"
 brew "jq"
 # Port-knock server
 brew "knock"
+# Protocol buffers library
+brew "protobuf-c"
+# High-performance authoritative-only DNS server
+brew "knot", restart_service: true
 # Network authentication protocol
 brew "krb5"
 # Tool that can switch between kubectl contexts easily and create aliases
@@ -310,8 +314,6 @@ brew "pinentry-mac"
 brew "pngcheck"
 # Modern replacement for ps written by Rust
 brew "procs"
-# Protocol buffers library
-brew "protobuf-c"
 # Implementation of Telnet and SSH
 brew "putty"
 # Monitor data's progress through a pipe
@@ -466,8 +468,6 @@ cask "cloudytabs"
 cask "daisydisk"
 # Voice and text chat software
 cask "discord"
-# App to build and share containerized applications and microservices
-cask "docker"
 cask "dockey"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
@@ -503,6 +503,8 @@ cask "mounty"
 cask "netnewswire"
 # MikroTik Winbox
 cask "nrlquaker-winbox"
+# Replacement for Docker Desktop
+cask "orbstack"
 # Remote desktop
 cask "parsec"
 # Collaboration platform for API development
