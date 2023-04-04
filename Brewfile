@@ -1,7 +1,9 @@
 tap "adoptopenjdk/openjdk"
+tap "birkhofflee/birkhoff"
 tap "bramstein/webfonttools"
 tap "buo/cask-upgrade"
 tap "cjbassi/ytop"
+tap "cloudflare/cloudflare"
 tap "derailed/k9s"
 tap "dteoh/sqa"
 tap "fabianishere/personal"
@@ -73,7 +75,7 @@ brew "libraqm"
 # Package for scientific computing with Python
 brew "numpy"
 # Tool Command Language
-brew "tcl-tk", link: false
+brew "tcl-tk"
 # Friendly PIL fork (Python Imaging Library)
 brew "pillow"
 # Searches a binary image for embedded files and executable code
@@ -102,8 +104,6 @@ brew "cowsay"
 brew "create-dmg"
 # Reimplementation of ctags(1)
 brew "ctags"
-# Get a file from an HTTP, HTTPS or FTP server
-brew "curl"
 # Tools to work with Android .dex and Java .class files
 brew "dex2jar"
 # Good-lookin' diffs with diff-highlight and more
@@ -424,6 +424,8 @@ brew "youtube-dl"
 brew "yubico-piv-tool"
 # UNIX shell (command interpreter)
 brew "zsh"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "birkhofflee/birkhoff/curl"
 # Convert existing TrueType/OpenType fonts to WOFF format
 brew "bramstein/webfonttools/sfnt2woff"
 # WOFF utilities with Zopfli compression
