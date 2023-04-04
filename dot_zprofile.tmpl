@@ -42,15 +42,14 @@ path=(
   $HOME/.cargo/bin
 {{ if eq .chezmoi.os "darwin" }}
 {{ if eq .chezmoi.arch "arm64" }}
+  /opt/homebrew/opt/curl/bin
   /opt/homebrew/bin
   /opt/homebrew/sbin
   /opt/homebrew/opt/binutils/bin
   /opt/homebrew/opt/coreutils/libexec/gnubin
-  /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
 {{ else }}
   /usr/local/opt/binutils/bin
   /usr/local/opt/coreutils/libexec/gnubin
-  /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
 {{ end }}
   $HOME/.local/bin
   $HOME/go/bin
