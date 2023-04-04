@@ -8,6 +8,11 @@
 
 AUTO_NOTIFY_IGNORE+=("tmux" "bat")
 
+# === OrbStack ===
+{{ if eq .chezmoi.os "darwin" }}
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+{{ end }}
+
 # === micromamba ===
 {{ if eq .chezmoi.os "darwin" }}
 # lazy load
