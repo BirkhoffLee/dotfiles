@@ -85,7 +85,7 @@ brew "bison"
 # Get/set bluetooth power and discoverable state
 brew "blueutil"
 # Powerful, enterprise-ready, open source web server with automatic HTTPS
-brew "caddy", restart_service: true
+brew "caddy"
 # Decentralized dependency manager for Cocoa
 brew "carthage"
 # Tool to obtain certs from Let's Encrypt and autoenable HTTPS
@@ -125,7 +125,7 @@ brew "fd"
 # Library to load and enumerate PKCS#11 modules
 brew "p11-kit"
 # Validating, recursive, caching DNS resolver
-brew "unbound", restart_service: true
+brew "unbound"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # Multi-format archive and compression library
@@ -227,7 +227,7 @@ brew "knock"
 # Protocol buffers library
 brew "protobuf-c"
 # High-performance authoritative-only DNS server
-brew "knot", restart_service: true
+brew "knot"
 # Network authentication protocol
 brew "krb5"
 # Tool that can switch between kubectl contexts easily and create aliases
@@ -571,6 +571,7 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Tab Space", id: 1473726602
+mas "Tailscale", id: 1475387142
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435
