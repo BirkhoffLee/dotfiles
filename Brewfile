@@ -112,6 +112,8 @@ brew "diff-so-fancy"
 brew "difftastic"
 # TCP over DNS tunnel
 brew "dns2tcp"
+# It is system for maintaining DNS zones
+brew "dnscontrol"
 # Tool for managing dock items
 brew "dockutil"
 # Run arbitrary commands when files change
