@@ -1,4 +1,5 @@
 tap "adoptopenjdk/openjdk"
+tap "ameshkov/tap"
 tap "birkhofflee/birkhoff"
 tap "bramstein/webfonttools"
 tap "buo/cask-upgrade"
@@ -9,6 +10,7 @@ tap "dteoh/sqa"
 tap "fabianishere/personal"
 tap "getantibody/tap"
 tap "gofireflyio/aiac"
+tap "golangci/tap"
 tap "hashicorp/tap"
 tap "heroku/brew"
 tap "homebrew/bundle"
@@ -338,6 +340,8 @@ brew "reattach-to-user-namespace"
 brew "redis"
 # Perl-powered file rename script with many helpful built-ins
 brew "rename"
+# Fast, efficient and secure backup program
+brew "restic"
 # Readline wrapper: adds readline support to tools that lack it
 brew "rlwrap"
 # Install Ruby, JRuby, Rubinius, TruffleRuby, or mruby
@@ -426,6 +430,8 @@ brew "youtube-dl"
 brew "yubico-piv-tool"
 # UNIX shell (command interpreter)
 brew "zsh"
+# Simple command-line utility to make DNS lookups using any protocol
+brew "ameshkov/tap/dnslookup"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "birkhofflee/birkhoff/curl"
 # Convert existing TrueType/OpenType fonts to WOFF format
@@ -440,6 +446,8 @@ brew "derailed/k9s/k9s"
 brew "fabianishere/personal/pam_reattach"
 # Artificial Intelligence Infrastructure-as-Code Generator
 brew "gofireflyio/aiac/aiac"
+# Fast linters runner for Go.
+brew "golangci/tap/golangci-lint"
 # Nomad
 brew "hashicorp/tap/nomad"
 # Packer
@@ -557,7 +565,6 @@ cask "wechat"
 # Network protocol analyzer
 cask "wireshark"
 mas "Amphetamine", id: 937984704
-mas "AutoSwitchInput", id: 1470350547
 mas "Craft", id: 1487937127
 mas "DevCleaner", id: 1388020431
 mas "GarageBand", id: 682658836
@@ -574,6 +581,7 @@ mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Tab Space", id: 1473726602
 mas "Tailscale", id: 1475387142
+mas "The Unarchiver", id: 425424353
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 mas "Yoink", id: 457622435
