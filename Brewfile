@@ -542,8 +542,6 @@ cask "skype"
 # Displays all open files and sockets in use by all running processes
 cask "sloth"
 cask "slowquitapps"
-# Music streaming service
-cask "spotify"
 # Text editor for code, markup and prose
 cask "sublime-text"
 # Application for inspecting installer packages
@@ -564,6 +562,8 @@ cask "visual-studio-code"
 cask "wechat"
 # Network protocol analyzer
 cask "wireshark"
+# Video communication and virtual meeting platform
+cask "zoom"
 mas "Amphetamine", id: 937984704
 mas "Craft", id: 1487937127
 mas "DevCleaner", id: 1388020431
