@@ -119,7 +119,8 @@ pingu () {
   echo "Done pinging, cancelled=$ping_cancelled"
 }
 
-ip () { 
+# lookup ip
+lip () { 
   http -b https://api.birkhoff.me/v3/ip/$1
 }
 
