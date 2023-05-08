@@ -499,6 +499,8 @@ cask "iina"
 cask "imazing"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Remote desktop application
+cask "jump"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
 # Wallet desktop application to maintain multiple cryptocurrencies
