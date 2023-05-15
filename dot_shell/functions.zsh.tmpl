@@ -124,6 +124,10 @@ lip () {
   http -b https://api.birkhoff.me/v3/ip/$1
 }
 
+testdown() {
+  http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null
+}
+
 # transfer.sh
 transfer() {
   # check arguments
