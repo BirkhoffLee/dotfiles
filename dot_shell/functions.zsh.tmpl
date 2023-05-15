@@ -52,10 +52,6 @@ listening() {
     fi
 }
 
-dns () {
-  ip $(kdig +short $1 | tail -n1)
-}
-
 # `favicon 1.png` will generate 4 sizes of favicon.ico
 favicon () {
   convert $1 -background white \
@@ -117,6 +113,10 @@ pingu () {
 # lookup ip
 lip () { 
   http -b https://api.birkhoff.me/v3/ip/$1
+}
+
+dns () {
+  lip $(kdig +short $1 | tail -n1)
 }
 
 testdown() {
