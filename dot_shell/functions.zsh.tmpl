@@ -56,11 +56,6 @@ dns () {
   ip $(kdig +short $1 | tail -n1)
 }
 
-serveo () {
-  echo Connecting to remote. You may need to authenticate to continue.
-  autossh -M 0 -R yay.birkhoff.me:80:localhost:$1 serveo
-}
-
 # `favicon 1.png` will generate 4 sizes of favicon.ico
 favicon () {
   convert $1 -background white \
