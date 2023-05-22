@@ -23,6 +23,7 @@ tap "homebrew/services"
 tap "joedrago/repo"
 tap "louisbrunner/valgrind"
 tap "teamookla/speedtest"
+tap "xgadget-lab/nexttrace"
 tap "zurawiki/brews"
 # Search tool like grep, but optimized for programmers
 brew "ack"
@@ -106,6 +107,8 @@ brew "cowsay"
 brew "create-dmg"
 # Reimplementation of ctags(1)
 brew "ctags"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
 # Tools to work with Android .dex and Java .class files
 brew "dex2jar"
 # Good-lookin' diffs with diff-highlight and more
@@ -318,6 +321,8 @@ brew "pinentry-mac"
 brew "pngcheck"
 # Modern replacement for ps written by Rust
 brew "procs"
+# Coreutils progress viewer
+brew "progress"
 # Implementation of Telnet and SSH
 brew "putty"
 # Monitor data's progress through a pipe
@@ -432,8 +437,6 @@ brew "yubico-piv-tool"
 brew "zsh"
 # Simple command-line utility to make DNS lookups using any protocol
 brew "ameshkov/tap/dnslookup"
-# Get a file from an HTTP, HTTPS or FTP server
-brew "birkhofflee/birkhoff/curl"
 # Convert existing TrueType/OpenType fonts to WOFF format
 brew "bramstein/webfonttools/sfnt2woff"
 # WOFF utilities with Zopfli compression
@@ -454,6 +457,8 @@ brew "hashicorp/tap/nomad"
 brew "hashicorp/tap/packer"
 # Ookla Speedtest
 brew "teamookla/speedtest/speedtest"
+# An open source visual route tracking CLI tool
+brew "xgadget-lab/nexttrace/nexttrace"
 # Git prepare-commit-msg hook for authoring commit messages with GPT-3
 brew "zurawiki/brews/gptcommit"
 # Password manager that keeps all passwords secure behind one password
@@ -499,8 +504,6 @@ cask "iina"
 cask "imazing"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
-# Remote desktop application
-cask "jump"
 # Display key code, unicode value and modifier keys state for any key combination
 cask "key-codes"
 # Wallet desktop application to maintain multiple cryptocurrencies
