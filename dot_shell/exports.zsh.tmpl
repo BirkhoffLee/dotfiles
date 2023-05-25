@@ -12,7 +12,7 @@ export LC_ALL="en_US.UTF-8"
 
 # Editor:
 {{ if eq .chezmoi.os "darwin" }}
-export EDITOR="$(which code)"
+export EDITOR="$(which code-insiders || which code)"
 {{ else }}
 export EDITOR=$(which vim)
 {{ end }}
