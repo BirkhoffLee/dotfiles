@@ -561,8 +561,8 @@ cask "transmit"
 cask "typora"
 # Development environment
 cask "vagrant"
-# Open-source code editor
-cask "visual-studio-code"
+# Code editor
+cask "visual-studio-code-insiders"
 # Free messaging and calling application
 cask "wechat"
 # Network protocol analyzer
