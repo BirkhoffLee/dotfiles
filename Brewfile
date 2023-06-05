@@ -31,8 +31,6 @@ brew "ack"
 brew "webp"
 # New file format for still image compression
 brew "jpeg-xl"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
 # GNU database manager
 brew "gdbm"
 # Interpreted, interactive, object-oriented programming language
