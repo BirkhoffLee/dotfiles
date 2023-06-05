@@ -207,8 +207,6 @@ brew "htop"
 brew "httpie"
 # Add GitHub support to git on the command-line
 brew "hub"
-# Configurable static site generator
-brew "hugo"
 # Provides library functionality for FIDO U2F & FIDO 2.0, including USB
 brew "libfido2"
 # C library SSHv1/SSHv2 client and server protocols
@@ -353,8 +351,6 @@ brew "ruby-install"
 brew "screen"
 # Easy and Repeatable Kubernetes Development
 brew "skaffold"
-# Monitors sleep, wakeup, and idleness of a Mac
-brew "sleepwatcher", restart_service: true
 # Terminal based presentation tool
 brew "slides"
 # SOcket CAT: netcat on steroids
