@@ -1,0 +1,2 @@
+echo "[+] Loading nix-darwin utilities from /etc/static/bashrc"
+source /etc/static/bashrc

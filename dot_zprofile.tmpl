@@ -25,43 +25,39 @@ export PAGER='less'
 # Language
 #
 
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
+export LANG='en_US.UTF-8'
+export LC_ALL="en_US.UTF-8"
+
+{{ if eq .chezmoi.os "darwin" }}
+#
+# Homebrew
+#
+
+{{ if eq .chezmoi.arch "arm64" }}
+export HOMEBREW_PREFIX="/opt/homebrew";
+{{ else }}
+export HOMEBREW_PREFIX="/usr/local";
+{{ end }}
+{{ end }}
 
 #
 # Paths
 #
 
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-
 # Set the list of directories that Zsh searches for programs.
 path=(
   # $HOME/.rvm/bin
   $HOME/.cargo/bin
-{{ if eq .chezmoi.os "darwin" }}
-{{ if eq .chezmoi.arch "arm64" }}
-  /opt/homebrew/opt/curl/bin
-  /opt/homebrew/bin
-  /opt/homebrew/sbin
-  /opt/homebrew/opt/binutils/bin
-  /opt/homebrew/opt/coreutils/libexec/gnubin
-{{ else }}
-  /usr/local/opt/binutils/bin
-  /usr/local/opt/coreutils/libexec/gnubin
-{{ end }}
-  $HOME/.local/bin
   $HOME/go/bin
   $HOME/Library/Python/*/bin
+{{ if eq .chezmoi.os "darwin" }}
+  $HOMEBREW_PREFIX/{bin,sbin}
+  $HOMEBREW_PREFIX/opt/binutils/bin
 {{ end }}
-  /usr/local/{bin,sbin}
-  /usr/bin
-  /bin
-  /usr/sbin
-  /sbin
   $path
 )
+# echo $PATH
+# echo $EDITOR
 
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+{{ template "script_darwin_only" . }}
+{{ template "script_caffeinate" . }}
+
+echo "[+] Accepting Xcode license; quit immediately if you disagree"
+sudo xcodebuild -license accept || true
+
+echo "[+] Installing Xcode command line tools"
+xcode-select --install || true
+
+{{ if eq .chezmoi.arch "arm64" }}
+echo "[+] Installing Rosetta since we're on an M1 Mac"
+/usr/sbin/softwareupdate --install-rosetta --agree-to-license
+{{ end }}

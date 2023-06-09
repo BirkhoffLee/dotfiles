@@ -3,6 +3,8 @@
 {{ template "script_no_root" . }}
 {{ template "script_caffeinate" . }}
 
+# TODO: migrate to using nix
+
 python3 -m pip install --upgrade --user pip
 python3 -m pip install --user --no-warn-script-location virtualenv virtualenvwrapper
 
@@ -10,12 +12,3 @@ python3 -m pip install --user --no-warn-script-location virtualenv virtualenvwra
 if ! command -v n &> /dev/null && command -v npm &> /dev/null; then
   npm install -g n
 fi
-
-# dein.vim
-if [ ! -e "$HOME/.cache/dein" ]; then
-  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-  sh ./installer.sh ~/.cache/dein
-  rm ./installer.sh
-fi
-
-# zsh -i -c "(( $+commands[compaudit] )) && compaudit | xargs chmod g-w"

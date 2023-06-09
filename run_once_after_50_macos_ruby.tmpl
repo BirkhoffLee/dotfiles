@@ -2,22 +2,19 @@
 
 {{ template "script_darwin_only" . }}
 {{ template "script_no_root" . }}
-{{ template "script_brew_path" . }}
-
-cd {{ .chezmoi.sourceDir }}
-pwd
-
 {{ template "script_caffeinate" . }}
 
-set -x
+if [ "$(which gem)" = "/usr/bin/gem" ]; then
+  echo "[!] Skipping ruby script since system ruby is being used"
+  exit 0
+fi
 
-export HOMEBREW_NO_AUTO_UPDATE=1
+echo "[+] Updating gems"
+gem update --system
 
-ruby -v
-# gem update --system
 number_of_cores=$(sysctl -n hw.ncpu)
+
+echo "[+] Set up bundler to use $((number_of_cores - 1)) cores"
 bundle config set --global jobs $((number_of_cores - 1))
 
 # gem install --conservative cocoapods
-
-set +x

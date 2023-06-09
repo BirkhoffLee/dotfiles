@@ -41,16 +41,9 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 # Homebrew:
-export HOMEBREW_PREFIX="/opt/homebrew";
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-export HOMEBREW_REPOSITORY="/opt/homebrew";
+export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar";
+export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX";
 export HOMEBREW_NO_ANALYTICS=1  # disables statistics that brew collects
-
-{{ if stat "/opt/homebrew/bin/brew" }}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{ else if stat "/usr/local/bin/brew" }}
-eval "$(/usr/local/bin/brew shellenv)"
-{{ end }}
 
 {{ end }}
 
@@ -72,9 +65,6 @@ export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
 
 # dotnet
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-export CLOUDSDK_PYTHON="$HOMEBREW_PREFIX/opt/python@3.8/libexec/bin/python"
-export ANSIBLE_HOST_KEY_CHECKING=False
 
 # === Virtualenvs ===
 

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+{{ template "script_darwin_only" . }}
 {{ template "script_no_root" . }}
 {{ template "script_caffeinate" . }}
-{{ template "script_darwin_only" . }}
 {{ template "script_brew_path" . }}
 
 if [ -z ${HOMEBREW_PREFIX+x} ]; then
+  echo "[+] Installing Homebrew; your password will be required"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 {{ if eq .chezmoi.arch "arm64" }}
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -13,10 +14,8 @@ if [ -z ${HOMEBREW_PREFIX+x} ]; then
   eval "$(/usr/local/bin/brew shellenv)"
 {{ end }}
 else
-  echo "HOMEBREW_PREFIX set to $HOMEBREW_PREFIX"
+  echo "[~] Homebrew is installed; prefix is $HOMEBREW_PREFIX"
 fi
 
+echo "[+] Turning off Homebrew telemetry"
 brew analytics off
-
-# we prioritise these first, for fresh installs these are more important
-brew install 1password dropbox mas python@3.9

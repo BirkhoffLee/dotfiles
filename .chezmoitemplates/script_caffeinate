@@ -1,4 +1,3 @@
-# caffeinate is available for darwin only. #
 {{ if eq .chezmoi.os "darwin" }}
 # prevent sleep. we will kill this later
 caffeinate -d &
@@ -12,4 +11,6 @@ function cleanup()
 }
 
 trap cleanup EXIT
+{{ else }}
+echo "Note: caffeinate is darwin-only, skipping"
 {{ end }}

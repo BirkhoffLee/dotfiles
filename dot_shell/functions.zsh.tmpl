@@ -37,11 +37,6 @@ function cdls {
 }
 
 {{ if eq .chezmoi.os "darwin" }}
-fixsudo() {
-  filename=/private/etc/pam.d/sudo
-  awk 'NR==2{print "auth       sufficient     pam_tid.so"}1' "$filename" | sudo tee "$filename"
-}
-
 listening() {
     if [ $# -eq 0 ]; then
         sudo lsof -iTCP -sTCP:LISTEN -n -P
@@ -60,13 +55,6 @@ favicon () {
     \( -clone 0 -resize 48x48 -extent 48x48 \) \
     \( -clone 0 -resize 64x64 -extent 64x64 \) \
     -delete 0 -alpha off -colors 256 favicon.ico
-}
-
-# cd into whatever is the forefront Finder window.
-cdf () {
-  local path=$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')
-  echo "$path"
-  cd "$path"
 }
 {{ end }}
 
@@ -121,50 +109,6 @@ dns () {
 
 testdown() {
   http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null
-}
-
-# transfer.sh
-transfer() {
-  # check arguments
-  if [ $# -eq 0 ]; then
-    echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
-    return 1
-  fi
-
-  # get temporarily filename, output is written to this file show progress can be showed
-  local tmpfile=$( mktemp -t transferXXX )
-  # upload stdin or file
-  local file=$1
-
-  if tty -s;  then
-    local basefile=$(basename "$file" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
-    if [ ! -e $file ]; then
-      echo "File $file doesn't exist."
-      return 1
-    fi
-
-    if [ -d $file ]; then
-      # zip directory and transfer
-      local zipfile=$( mktemp -t transferXXX.zip )
-      cd $(dirname $file) && zip -r -q - $(basename $file) >> $zipfile
-      curl --progress-bar --upload-file "$zipfile" "https://transfer.sh/$basefile.zip" >> $tmpfile
-      rm -f $zipfile
-    else
-      # transfer file
-      curl --progress-bar --upload-file "$file" "https://transfer.sh/$basefile" >> $tmpfile
-    fi
-  else
-    # transfer pipe
-    curl --progress-bar --upload-file "-" "https://transfer.sh/$file" >> $tmpfile
-  fi
-
-  # cat output link
-  cat $tmpfile
-  cat $tmpfile | pbcopy
-  echo
-  echo (Copied to clipboard)
-  # cleanup
-  rm -f $tmpfile
 }
 
 pyclean () {
