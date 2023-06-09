@@ -471,8 +471,6 @@ cask "aws-vault"
 cask "backblaze"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
-# Cryptocurrency exchange
-cask "binance"
 # Menu bar application that lists iCloud Tabs
 cask "cloudytabs"
 # Disk space visualizer
