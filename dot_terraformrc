@@ -1,3 +1,0 @@
-providers {
-    ansible = "/usr/local/bin/terraform-provisioner-ansible"
-}

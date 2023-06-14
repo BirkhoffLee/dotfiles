@@ -1,17 +1,15 @@
 # dotfiles
 
-My macOS dotfiles managed by [Chezmoi](https://github.com/twpayne/chezmoi) (M1 fully supported)
+My dotfiles managed by [Nix](https://nixos.org/), [home-manager](https://github.com/nix-community/home-manager) and [nix-darwin](https://github.com/LnL7/nix-darwin).
 
-## Features
+## Overview
 
-I primarily use Macs, therefore this repo is mainly for my own use on macOS. However I do try to make it work on Linux as well.
+I primarily use Macs, therefore this repo is (mainly) for darwin. However I do try to make it work on Linux as well.
 
-I'm currently transitioning to the use of [nix](https://nixos.org/). Being overwhelmed, I use a hybrid setup of nix and homebrew right now since some packages are not available on nixpkgs yet.
-
-Here's an overview of the features:
+Some features worth mentioning:
 
 * [Declarative](dot_nixpkgs/darwin-configuration.nix.tmpl) macOS with [nix-darwin](https://github.com/LnL7/nix-darwin)
-* zsh, [zinit](https://github.com/zdharma/zinit) and [p10k](https://github.com/romkatv/powerlevel10k)
+* zsh with [p10k](https://github.com/romkatv/powerlevel10k)
 * [tj/n](https://github.com/tj/n) instead of nvm
 * [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for completion
@@ -25,13 +23,35 @@ Here's an overview of the features:
 
 ## Usage
 
-While one's supposed to maintain their own dotfiles, I do suppose my dotfiles can be used as a good starting point for beginners. You can fork the repository and change whatever you like. Here's a one-liner to get started:
+On a new macOS machine w/o Nix installed:
 
 ```console
-sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply birkhofflee --depth 1
+xcode-select --install
+
+# Install nix
+bash <(curl -L https://nixos.org/nix/install) --daemon --yes --no-modify-profile
+
+# Propagate /run
+printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
+/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
+
+# Build the dotfiles
+mkdir $HOME/.config
+git clone https://github.com/birkhofflee/dotfiles $HOME/.config/nix
+nix build "$HOME/.config/nix#darwinConfigurations.BirkhoffMBPR14.system" --extra-experimental-features "nix-command flakes"
+
+# Remove default nix config to mitigate https://github.com/LnL7/nix-darwin/issues/149
+sudo rm -f /etc/nix/nix.conf
+./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#BirkhoffMBPR14"
 ```
 
-## iTerm2 Profile Configuration
+After first successful deployment, use the following command to switch:
+
+```console
+darwin-rebuild switch --flake "$HOME/.config/nix#BirkhoffMBPR14"
+```
+
+## Appendix: iTerm2 Profile Configuration
 
 I use iTerm2 as my terminal emulator. Here are some settings that I've been using for years:
 
@@ -77,6 +97,7 @@ I use the built-in *Natural Text Editing* preset, with the following custom key 
 * manage python versions/dependencies with nix
 * manage nodejs with nix
 * pbcopy reattach to user namespace
+* https://xyno.space/post/nix-darwin-introduction
 * https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 * https://github.com/ahmedelgabri/dotfiles/blob/main/config/zsh.d/.zshrc
 * https://github.com/kornicameister/dotfiles/

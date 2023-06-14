@@ -1,3 +1,0 @@
-{{ if ne .chezmoi.os "darwin" }}
-exit 0
-{{ end }}
