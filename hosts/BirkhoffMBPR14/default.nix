@@ -9,7 +9,7 @@ in {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.${username} = import ./home;
+    users.${username} = (import ./home);
   };
 
   users.users.${username} = {

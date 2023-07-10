@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 rec {
   home.stateVersion = "23.11";
@@ -8,7 +8,7 @@ rec {
 
   imports = [
     ../packages/user-packages.nix
-    ./zsh
+    (import ./zsh { inherit home pkgs; })
     (import ./ansible.nix { inherit home; })
     ./bundle.nix
     ./editorconfig.nix

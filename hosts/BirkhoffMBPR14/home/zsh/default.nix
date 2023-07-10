@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ home, pkgs, ... }:
 
 {
   programs.zsh = {
@@ -26,14 +26,14 @@
 
     initExtraFirst = ''
       # Powerlevel10k instant prompt
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      if [[ -r "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
 
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source "$HOME/.shell/p10k.zsh"
+      source "${home.homeDirectory}/.shell/p10k.zsh"
 
-      source "$HOME/.shell/options.zsh"
+      source "${home.homeDirectory}/.shell/options.zsh"
 
       # Load Zsh's rename utility `zmv`
       autoload -Uz zmv
@@ -42,11 +42,11 @@
     initExtra = ''
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
 
-      source "$HOME/.shell/completions.zsh"
-      source "$HOME/.shell/exports.zsh"
-      source "$HOME/.shell/aliases.zsh"
-      source "$HOME/.shell/functions.zsh"
-      source "$HOME/.shell/external.zsh"
+      source "${home.homeDirectory}/.shell/completions.zsh"
+      source "${home.homeDirectory}/.shell/exports.zsh"
+      source "${home.homeDirectory}/.shell/aliases.zsh"
+      source "${home.homeDirectory}/.shell/functions.zsh"
+      source "${home.homeDirectory}/.shell/external.zsh"
     '';
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
