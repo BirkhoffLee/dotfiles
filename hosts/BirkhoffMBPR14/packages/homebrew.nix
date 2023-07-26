@@ -124,7 +124,7 @@
       "QQ" = 451108668;
       "Slack" = 803453959;
       "Tab Space" = 1473726602;
-      "Tailscale" = 1475387142;
+      # "Tailscale" = 1475387142;
       "The Unarchiver" = 425424353;
       "Transmit" = 1436522307;
       "WireGuard" = 1451685025;

@@ -16,6 +16,7 @@
     gptcommit
 
     # ops
+    tailscale
     awscli2
     azure-cli
     oci-cli
