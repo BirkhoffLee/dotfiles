@@ -47,6 +47,7 @@
       source "${home.homeDirectory}/.shell/aliases.zsh"
       source "${home.homeDirectory}/.shell/functions.zsh"
       source "${home.homeDirectory}/.shell/external.zsh"
+      source "${home.homeDirectory}/.shell/proxy.zsh"
     '';
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
