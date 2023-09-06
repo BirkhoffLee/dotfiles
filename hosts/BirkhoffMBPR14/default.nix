@@ -33,7 +33,8 @@ in {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
-  nix.settings.auto-optimise-store = true;
+  # https://github.com/NixOS/nix/issues/7273
+  nix.settings.auto-optimise-store = false;
 
   # Enable flakes
   nix.extraOptions = ''
