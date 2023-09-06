@@ -112,7 +112,7 @@
       "DaisyDisk" = 411643860;
       "DevCleaner" = 1388020431;
       "GarageBand" = 682658836;
-      "GoodNotes" = 1444383602;
+      "Goodnotes" = 1444383602;
       "iMovie" = 408981434;
       "Keynote" = 409183694;
       "LINE" = 539883307;
@@ -124,9 +124,10 @@
       "QQ" = 451108668;
       "Slack" = 803453959;
       "Tab Space" = 1473726602;
-      # "Tailscale" = 1475387142;
+      "TestFlight" = 899247664;
       "The Unarchiver" = 425424353;
       "Transmit" = 1436522307;
+      "WhatsApp" = 1147396723;
       "WireGuard" = 1451685025;
       "Xcode" = 497799835;
       "Yoink" = 457622435;
