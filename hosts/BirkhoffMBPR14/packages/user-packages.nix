@@ -121,8 +121,9 @@
 
     # build
     autoconf
-    gcc
+    # gcc
     automake
+    wasm-pack
     autossh
     pkg-config
 
