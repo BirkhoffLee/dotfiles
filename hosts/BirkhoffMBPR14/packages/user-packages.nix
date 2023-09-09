@@ -78,7 +78,7 @@
     jc
     lolcat
     lux
-    magic-wormhole
+    # magic-wormhole
     neofetch
     noti
     ouch
