@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     ack
-    bash
+    bashInteractive
     cmake
     dialog
     foremost
