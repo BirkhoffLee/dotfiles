@@ -37,12 +37,11 @@
     ];
 
     casks = [
-      "wireshark"
       "1password"
       "1password-cli"
       "adobe-creative-cloud"
-      "arc"
       "adoptopenjdk"
+      "arc"
       "backblaze"
       "balenaetcher"
       "cloudytabs"
@@ -74,6 +73,7 @@
       "telegram"
       "typora"
       "wechat"
+      "wireshark"
       "zoom"
     ];
 
@@ -94,14 +94,15 @@
       "hashicorp/tap"
       "heroku/brew"
       "homebrew/bundle"
+      "homebrew/cask"
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
-      "homebrew/cask"
       "homebrew/command-not-found"
       "homebrew/core"
       "homebrew/services"
       "joedrago/repo"
       "louisbrunner/valgrind"
+      "teamookla/speedtest"
       "xgadget-lab/nexttrace"
       "zurawiki/brews"
     ];
@@ -126,7 +127,6 @@
       "Tab Space" = 1473726602;
       "TestFlight" = 899247664;
       "The Unarchiver" = 425424353;
-      "Transmit" = 1436522307;
       "WhatsApp" = 1147396723;
       "WireGuard" = 1451685025;
       "Xcode" = 497799835;
