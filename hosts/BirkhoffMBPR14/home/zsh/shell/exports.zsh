@@ -41,6 +41,10 @@ fi
 export GREP_COLOR='37;45'           # BSD.
 export GREP_COLORS="mt=$GREP_COLOR" # GNU.
 
+# Zoxide
+# https://github.com/ajeetdsouza/zoxide/blob/main/README.md#environment-variables
+export _ZO_ECHO=1 # print the matched directory before navigating to it
+
 # Pagers:
 export LESS="-R"  # argument to allow less to show colors
 
