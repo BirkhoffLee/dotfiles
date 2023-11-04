@@ -2,6 +2,13 @@
 
 # `.functions` provides helper functions for shell.
 
+# Example:
+# $ nix-pkgdir paho-mqtt-c
+# /nix/store/92h4cbrnnxcmqvdzzkdyajfm3b6yvf13-paho.mqtt.c-1.3.12
+function nix-pkgdir {
+  nix eval -f '<nixpkgs>' --raw $1
+}
+
 # https google.com 443
 # use testssl.sh for complete analysis
 function https {
