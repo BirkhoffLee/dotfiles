@@ -42,7 +42,6 @@
       "adobe-creative-cloud"
       "adoptopenjdk"
       "arc"
-      "backblaze"
       "balenaetcher"
       "cloudytabs"
       "dropbox"
