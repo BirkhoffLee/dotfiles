@@ -124,6 +124,7 @@
       "QQ" = 451108668;
       "Slack" = 803453959;
       "Tab Space" = 1473726602;
+      "Tailscale" = 1475387142;
       "TestFlight" = 899247664;
       "The Unarchiver" = 425424353;
       "WhatsApp" = 1147396723;
