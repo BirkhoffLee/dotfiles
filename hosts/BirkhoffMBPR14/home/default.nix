@@ -71,6 +71,9 @@ rec {
           "Activity Monitor"; do
           /usr/bin/killall "''${app}" &> /dev/null && echo "[+] Killed ''${app}" || true
         done
+        
+        # echo "[+] tailscaled install-system-daemon"
+        # sudo ${pkgs.tailscale}/bin/tailscaled install-system-daemon
       '';
   };
 
