@@ -9,6 +9,11 @@ function nix-pkgdir {
   nix eval -f '<nixpkgs>' --raw $1
 }
 
+function nix-cleanup {
+  sudo nix-collect-garbage -d
+  nix-store --optimise
+}
+
 # https google.com 443
 # use testssl.sh for complete analysis
 function https {
