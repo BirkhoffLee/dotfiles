@@ -31,7 +31,7 @@
     restic
     terraform
     terraformer
-    vagrant
+    # vagrant # wait until https://github.com/grpc/grpc/pull/34481 is merged
     skaffold
     ssh-copy-id
     yamllint
@@ -52,12 +52,10 @@
 
     # app
     discord
-    raycast
     rectangle
     vscode
     yubico-piv-tool
     utm
-    postman
     iterm2
     iina
 
