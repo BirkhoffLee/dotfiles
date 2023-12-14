@@ -107,7 +107,7 @@
     lsd
     entr
     bat
-    exa
+    eza
     fasd
     fd
     progress

@@ -67,8 +67,8 @@ command -v lsd > /dev/null || alias lx='ll -XB' # Lists sorted by extension
 command -v lsd > /dev/null || alias lc='lt -c' # Lists sorted by date, most recent last, shows change time
 command -v lsd > /dev/null || alias lu='lt -u' # Lists sorted by date, most recent last, shows access time
 
-command -v exa > /dev/null && {
-  alias ls='exa'
+command -v eza > /dev/null && {
+  alias ls='eza'
   alias tree='ls -lha --tree'
   alias l='ls -1a'
   alias la='ll -a'
