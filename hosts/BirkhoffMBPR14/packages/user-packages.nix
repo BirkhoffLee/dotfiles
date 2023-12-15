@@ -126,6 +126,7 @@
 
     # network
     mitmproxy
+    trippy
     knot-dns
     hey
     nexttrace
