@@ -2,13 +2,14 @@
 
 {
   home.file.".gnupg/gpg-agent.conf" = {
+    # pinentry-program ${pkgs.pinentry}/bin/pinentry
     text = ''
       # NOTE: do NOT add tailing comments in the same line of an option
       # https://github.com/drduh/config/blob/master/gpg-agent.conf
       # https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
       default-cache-ttl 60
       max-cache-ttl 120
-      pinentry-program ${pkgs.pinentry}/bin/pinentry
+      pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
       ignore-cache-for-signing
       max-cache-ttl 1; enable-ssh-support
     '';

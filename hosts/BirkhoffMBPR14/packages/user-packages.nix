@@ -19,7 +19,7 @@
     awscli2
     azure-cli
     oci-cli
-    backblaze-b2
+    # backblaze-b2 # FIXME: test failing
     aws-vault
     dnscontrol
     aiac
@@ -75,7 +75,8 @@
     jc
     lolcat
     lux
-    # magic-wormhole
+    yt-dlp
+    magic-wormhole
     neofetch
     noti
     ouch
@@ -125,7 +126,7 @@
     pkg-config
 
     # network
-    mitmproxy
+    # mitmproxy # https://github.com/NixOS/nixpkgs/issues/291753
     trippy
     knot-dns
     hey
@@ -150,7 +151,6 @@
 
     # authentication
     pam-reattach
-    pinentry
     pinentry_mac
     gnupg
     reattach-to-user-namespace
