@@ -2,6 +2,14 @@
 
 # `.functions` provides helper functions for shell.
 
+function t {
+  if [ ! -f $HOME/.cache/geoip.mmdb ]; then
+    wget -O $HOME/.cache/geoip.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
+  fi
+
+  sudo trip $1 -r google -z --geoip-mmdb-file $HOME/.cache/geoip.mmdb --tui-geoip-mode short --tui-address-mode both --tui-as-mode name
+}
+
 # Example:
 # $ nix-pkgdir paho-mqtt-c
 # /nix/store/92h4cbrnnxcmqvdzzkdyajfm3b6yvf13-paho.mqtt.c-1.3.12
