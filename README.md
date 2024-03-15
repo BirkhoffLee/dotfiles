@@ -51,6 +51,13 @@ After first successful deployment, use the following command to switch:
 darwin-rebuild switch --flake "$HOME/.config/nix#BirkhoffMBPR14"
 ```
 
+To update packages:
+
+```console
+nix flake update .
+nix flake update
+```
+
 ## Appendix: iTerm2 Profile Configuration
 
 I use iTerm2 as my terminal emulator. Here are some settings that I've been using for years:
