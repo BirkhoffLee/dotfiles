@@ -118,7 +118,7 @@ lip () {
 }
 
 dns () {
-  lip $(kdig +short $1 | tail -n1)
+  lip $(kdig @8.8.4.4 +short $1 | tail -n1)
 }
 
 testdown() {
