@@ -43,7 +43,6 @@
       "adoptopenjdk"
       "arc"
       "balenaetcher"
-      "cloudytabs"
       "dropbox"
       "font-fira-code"
       "font-hack-nerd-font"
@@ -53,20 +52,15 @@
       "handbrake"
       "imazing"
       "key-codes"
-      "linkliar"
-      "macmediakeyforwarder"
       "mounty"
-      "netnewswire"
       "nrlquaker-winbox"
       "orbstack"
-      "parsec"
       "quicklook-csv"
       "quicklook-json"
       "quicklookapk"
       "raycast"
       "setapp"
       "skype"
-      "sloth"
       "sublime-text"
       "suspicious-package"
       "teamviewer"
@@ -74,7 +68,6 @@
       "typora"
       "wechat"
       "wireshark"
-      "zoom"
     ];
 
     taps = [
@@ -108,22 +101,19 @@
     ];
 
     masApps = {
-      "Amphetamine" = 937984704;
-      "Craft" = 1487937127;
+      "1Password for Safari" = 1569813296;
       "DaisyDisk" = 411643860;
       "DevCleaner" = 1388020431;
-      "GarageBand" = 682658836;
-      "Goodnotes" = 1444383602;
+      "HP Smart" = 1474276998;
       "iMovie" = 408981434;
+      "Infuse" = 1136220934;
       "Keynote" = 409183694;
       "LINE" = 539883307;
+      "NflxMultiSubs" = 1594059167;
       "Numbers" = 409203825;
       "Pages" = 409201541;
-      "QQ" = 451108668;
       "Slack" = 803453959;
-      "Tab Space" = 1473726602;
       "Tailscale" = 1475387142;
-      "TestFlight" = 899247664;
       "The Unarchiver" = 425424353;
       "WhatsApp" = 1147396723;
       "WireGuard" = 1451685025;
