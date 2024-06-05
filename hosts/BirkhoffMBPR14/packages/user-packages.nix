@@ -2,10 +2,10 @@
 
 {
   home.packages = with pkgs; [
-    python310
-    python310Packages.pip
-    python310Packages.virtualenv
-    python310Packages.ansible
+    python311
+    python311Packages.pip
+    python311Packages.virtualenv
+    python311Packages.ansible-core
 
     zsh-completions
     zsh-fast-syntax-highlighting
