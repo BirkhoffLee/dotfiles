@@ -51,6 +51,7 @@
       "google-chrome"
       "handbrake"
       "imazing"
+      "jordanbaird-ice"
       "key-codes"
       "mounty"
       "nrlquaker-winbox"
