@@ -10,7 +10,7 @@
       "create-dmg"
       "dex2jar"
       "dns2tcp"
-      "dnslookup"
+      "ameshkov/tap/dnslookup"
       "flarectl"
       "git-delta"
       "gnu-getopt"
@@ -18,7 +18,6 @@
       "gnu-tar"
       "hashpump"
       "helm"
-      "heroku-node"
       "hopenpgp-tools"
       "hydra"
       "knock"
@@ -33,7 +32,6 @@
       "whatmask"
       "ykman"
       "ykpers"
-      "ytop"
     ];
 
     casks = [
@@ -65,7 +63,6 @@
       "sublime-text"
       "suspicious-package"
       "teamviewer"
-      "telegram"
       "typora"
       "wechat"
       "wireshark"
@@ -88,11 +85,7 @@
       "hashicorp/tap"
       "heroku/brew"
       "homebrew/bundle"
-      "homebrew/cask"
-      "homebrew/cask-fonts"
-      "homebrew/cask-versions"
       "homebrew/command-not-found"
-      "homebrew/core"
       "homebrew/services"
       "joedrago/repo"
       "louisbrunner/valgrind"
@@ -105,7 +98,6 @@
       "1Password for Safari" = 1569813296;
       "DaisyDisk" = 411643860;
       "DevCleaner" = 1388020431;
-      "HP Smart" = 1474276998;
       "iMovie" = 408981434;
       "Infuse" = 1136220934;
       "Keynote" = 409183694;
