@@ -102,6 +102,9 @@
       "Infuse" = 1136220934;
       "Keynote" = 409183694;
       "LINE" = 539883307;
+      "Microsoft Excel" = 462058435;
+      "Microsoft PowerPoint" = 462062816;
+      "Microsoft Word" = 462054704;
       "NflxMultiSubs" = 1594059167;
       "Numbers" = 409203825;
       "Pages" = 409201541;
