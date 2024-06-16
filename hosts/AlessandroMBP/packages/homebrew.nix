@@ -62,7 +62,7 @@
       "skype"
       "sublime-text"
       "suspicious-package"
-      "teamviewer"
+      "telegram"
       "typora"
       "wechat"
       "wireshark"
