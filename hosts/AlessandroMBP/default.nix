@@ -2,8 +2,8 @@
 
 let
 
-  username = "birkhoff";
-  hostname = "BirkhoffMBPR14";
+  username = "ale";
+  hostname = "AlessandroMBP";
 
 in {
   home-manager = {

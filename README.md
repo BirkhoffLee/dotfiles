@@ -38,17 +38,17 @@ printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
 # Build the dotfiles
 mkdir $HOME/.config
 git clone https://github.com/birkhofflee/dotfiles $HOME/.config/nix
-nix build "$HOME/.config/nix#darwinConfigurations.BirkhoffMBPR14.system" --extra-experimental-features "nix-command flakes"
+nix build "$HOME/.config/nix#darwinConfigurations.AlessandroMBP.system" --extra-experimental-features "nix-command flakes"
 
 # Remove default nix config to mitigate https://github.com/LnL7/nix-darwin/issues/149
 sudo rm -f /etc/nix/nix.conf
-./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#BirkhoffMBPR14"
+./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 ```
 
 After first successful deployment, use the following command to switch:
 
 ```console
-darwin-rebuild switch --flake "$HOME/.config/nix#BirkhoffMBPR14"
+darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 ```
 
 To update packages:

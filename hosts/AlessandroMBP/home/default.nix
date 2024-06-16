@@ -3,7 +3,7 @@
 rec {
   home.stateVersion = "23.11";
 
-  home.username = "birkhoff";
+  home.username = "ale";
   home.homeDirectory = "/Users/${home.username}";
 
   imports = [

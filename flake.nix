@@ -71,10 +71,10 @@
       };
 
       darwinConfigurations = {
-        BirkhoffMBPR14 = darwin.lib.darwinSystem {
+        AlessandroMBP = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = [
-            ./hosts/BirkhoffMBPR14 { nixpkgs = nixpkgsDefaults; }
+            ./hosts/AlessandroMBP { nixpkgs = nixpkgsDefaults; }
             home-manager.darwinModules.home-manager
           ];
         };
