@@ -81,6 +81,19 @@
       # Size of the icons in the dock (default 64)
       "tilesize" = 40;
     };
+    
+    CustomSystemPreferences = {
+      NSGlobalDomain = {
+        # Set system languages
+        AppleLocale = "it_IT";
+        AppleLanguages = [
+          "it-IT"
+          "en-IT"
+          "zh-Hans-IT"
+          "zh-Hant-IT"
+        ];
+      };
+    };
 
     NSGlobalDomain = {
       # Automatically switch between light and dark mode
@@ -110,6 +123,101 @@
         "WebKitDeveloperExtras" = true;
       };
 
+      "com.apple.TextInputMenu" = {
+          visible = 0;
+      };
+
+      "com.apple.assistant.support" = {
+        "Dictation Enabled" = 1;
+      };
+
+      "com.apple.inputmethod.CoreChineseEngineFramework" = {
+        TCIMExpertDictionaryList = [
+          "ExpertDict_Commerce"
+          "ExpertDict_Communications"
+          "ExpertDict_Computer"
+          "ExpertDict_Education"
+          "ExpertDict_LawPolitics"
+          "ExpertDict_Industry"
+        ];
+        addSpacesForLatinWords = 1;
+        shuangpinLayout = 4;
+        shuangpinModeEnabled = 0;
+      };
+
+      "com.apple.HIToolbox" = {
+        AppleCurrentKeyboardLayoutInputSourceID = "com.apple.keylayout.ABC";
+        AppleDictationAutoEnable = 1;
+        AppleEnabledInputSources = [
+          {
+            InputSourceKind = "Keyboard Layout";
+            "KeyboardLayout ID" = 252;
+            "KeyboardLayout Name" = "ABC";
+          }
+          {
+            "Bundle ID" = "com.apple.CharacterPaletteIM";
+            InputSourceKind = "Non Keyboard Input Method";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.ironwood";
+            InputSourceKind = "Non Keyboard Input Method";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.SCIM";
+            InputSourceKind = "Keyboard Input Method";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.SCIM";
+            "Input Mode" = "com.apple.inputmethod.SCIM.Shuangpin";
+            InputSourceKind = "Input Mode";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.TCIM";
+            InputSourceKind = "Keyboard Input Method";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.TCIM";
+            "Input Mode" = "com.apple.inputmethod.TCIM.Shuangpin";
+            InputSourceKind = "Input Mode";
+          }
+          {
+            "Bundle ID" = "com.apple.PressAndHold";
+            InputSourceKind = "Non Keyboard Input Method";
+          }
+        ];
+        AppleSelectedInputSources = [
+          {
+            "Bundle ID" = "com.apple.PressAndHold";
+            InputSourceKind = "Non Keyboard Input Method";
+          }
+          {
+            InputSourceKind = "Keyboard Layout";
+            "KeyboardLayout ID" = 252;
+            "KeyboardLayout Name" = "ABC";
+          }
+        ];
+      };
+
+      "com.apple.SpeechRecognitionCore" = {
+        AllowAudioDucking = 0;
+      };
+
+      "com.apple.speech.recognition.AppleSpeechRecognition.prefs" = {
+        DictationIMPreferredLanguageIdentifiers = [
+          "en_GB"
+          "zh_TW"
+          "it_IT"
+          "zh_CN"
+        ];
+
+        VisibleNetworkSRLocaleIdentifiers = {
+          "en_GB" = 1;
+          "it_IT" = 1;
+          "zh_CN" = 1;
+          "zh_TW" = 1;
+        };
+      };
+
       "com.apple.Safari.SandboxBroker" = {
         # Enable the Develop menu and the Web Inspector
         "ShowDevelopMenu" = 1;
@@ -118,6 +226,12 @@
       "com.apple.finder" = {
         # Keep folders on top when sorting by name
         "_FXSortFoldersFirst" = true;
+
+        DesktopViewSettings = {
+          IconViewSettings = {
+            arrangeBy = "grid";
+          };
+        };
 
         # Expand some File Info panes
         # "FXInfoPanesExpanded" = {
@@ -207,6 +321,31 @@
 
         # Avoid creating .DS_Store files on USB volumes
         "DSDontWriteUSBStores" = true;
+      };
+
+      "at.EternalStorms.Yoink" = {
+        setappDontShowAgain = 1;
+        shouldHideOnLaunch = 0;
+      };
+
+      "co.highlyopinionated.swish-setapp" = {
+        actions = "[\"snapHalves\",\"snapNinths\",\"snapThirds\",\"windowFullscreen\",\"snapQuarters\",\"windowMinimize\",\"missionControlSpace\",\"snapCenter\",\"screensMove\",\"menubarScreens\",\"snapSixths\",\"spacesMove\",\"snapAlmost\",\"windowQuit\",\"snapVertical\",\"windowClose\",\"tabClose\",\"snapMax\"]";
+        blacklist = "[\"com.apple.CharacterPaletteIM\",\"com.apple.notificationcenterui\",\"com.apple.controlcenter\",\"com.apple.PIPAgent\",\"com.apple.Spotlight\"]";
+        hotkeys = 1;
+        numberOfActions = "[\"windowMinimize\",4,\"snapMax\",12,\"snapQuarters\",2,\"snapCenter\",1,\"snapHalves\",8,\"snapVertical\",2]";
+        showInMenubar = 0;
+      };
+      
+      "com.jordanbaird.Ice" = {
+        ShowIceIcon = 0;
+        ShowOnClick = 1;
+        ShowOnHover = 1;
+        ShowOnScroll = 0;
+        ShowSectionDividers = 1;
+      };
+      
+      "com.raycast.macos" = {
+        "translator_translatorPreviousTargetLanguage" = "en";
       };
 
       # FIXME: doesn't work
