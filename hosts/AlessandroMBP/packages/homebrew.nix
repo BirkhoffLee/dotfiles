@@ -63,6 +63,7 @@
       "sublime-text"
       "suspicious-package"
       "telegram"
+      "transmit"
       "typora"
       "wechat"
       "wireshark"
