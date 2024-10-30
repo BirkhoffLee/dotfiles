@@ -40,8 +40,6 @@ mkdir $HOME/.config
 git clone https://github.com/birkhofflee/dotfiles $HOME/.config/nix
 nix build "$HOME/.config/nix#darwinConfigurations.AlessandroMBP.system" --extra-experimental-features "nix-command flakes"
 
-# Remove default nix config to mitigate https://github.com/LnL7/nix-darwin/issues/149
-sudo rm -f /etc/nix/nix.conf
 ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 ```
 
@@ -58,17 +56,42 @@ nix flake update .
 nix flake update
 ```
 
+After an upgrade of macOS:
+
+1. Upgrade Xcode CLI tools
+2. Uninstall nix: https://nix.dev/manual/nix/2.18/installation/uninstall.html#macos
+3. A restart may be required
+
+```console
+# Install nix
+bash <(curl -L https://nixos.org/nix/install) --daemon --yes --no-modify-profile
+
+# Propagate /run
+printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
+/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
+
+# Fix certs (the uninstallation of nix breaks a symbolic link)
+# https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
+# https://discourse.nixos.org/t/ssl-ca-cert-error-on-macos/31171/1
+sudo rm /etc/ssl/certs/ca-certificates.crt
+sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
+
+nix build "$HOME/.config/nix#darwinConfigurations.AlessandroMBP.system" --extra-experimental-features "nix-command flakes"
+
+./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
+```
+
 ## Appendix: iTerm2 Profile Configuration
 
 I use iTerm2 as my terminal emulator. Here are some settings that I've been using for years:
 
 * Command: Login Shell
 * Font
-  + Hack Nerd Font Mono, Regular, 14
+  + Menlo, Regular, 15
   + Anti-aliased
   + Use a different font for non-ASCII text
 * Non-ASCII Font
-  + Hack Nerd Font Mono, Regular, 12
+  + Hack Nerd Font Mono, Regular, 15
   + Use ligatures
   + Anti-aliased
 * Settings for New Windows - 144, 41
