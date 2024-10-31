@@ -1,12 +1,17 @@
 # dotfiles
 
-My dotfiles managed by [Nix](https://nixos.org/), [home-manager](https://github.com/nix-community/home-manager) and [nix-darwin](https://github.com/LnL7/nix-darwin).
+My macOS dotfiles managed by [Nix](https://nixos.org/),
+[home-manager](https://github.com/nix-community/home-manager) and
+[nix-darwin](https://github.com/LnL7/nix-darwin). Works on M1 Pro, macOS Sequoia 15.1.
 
 ## Overview
 
-I primarily use Macs, therefore this repo is (mainly) for darwin. However I do try to make it work on Linux as well.
+Nix enables reproducible builds. It manages all the packages (and those on
+Homebrew), and [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the
+environment for macOS. Some custom scripts are included for those settings that
+are not supported by [nix-darwin](https://github.com/LnL7/nix-darwin).
 
-Some features worth mentioning:
+Some shell features worth mentioning:
 
 * [Declarative](dot_nixpkgs/darwin-configuration.nix.tmpl) macOS with [nix-darwin](https://github.com/LnL7/nix-darwin)
 * zsh with [p10k](https://github.com/romkatv/powerlevel10k)
@@ -18,6 +23,7 @@ Some features worth mentioning:
     - `?` to toggle preview
     - ^S ^D: page up/down
   + ^O to open in `$VISUAL` (VS Code on macOS)
+  + ^R to fuzzy search command line history
   + Alt-C: interactive cd
 * Interactive git operations with [forgit](https://github.com/wfxr/forgit#-features)
 
@@ -52,15 +58,18 @@ darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 To update packages:
 
 ```console
+cd $HOME/.config/nix
 nix flake update .
 nix flake update
+darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 ```
 
-After an upgrade of macOS:
+After a major macOS update:
 
 1. Upgrade Xcode CLI tools
 2. Uninstall nix: https://nix.dev/manual/nix/2.18/installation/uninstall.html#macos
-3. A restart may be required
+3. A system restart may be required
+4. Review [CHANGELOG](https://github.com/LnL7/nix-darwin/blob/master/CHANGELOG) of nix-darwin
 
 ```console
 # Install nix
@@ -124,9 +133,11 @@ I use the built-in *Natural Text Editing* preset, with the following custom key 
 
 ## TODOs
 
+* enable pam_reattach in /etc/pam.d/sudo
+  * https://gist.github.com/smunix/02d7a208a8478ebb4cbc4afe47e5ea8d
+  * https://github.com/fabianishere/pam_reattach
 * manage python versions/dependencies with nix
 * manage nodejs with nix
-* pbcopy reattach to user namespace
 * https://xyno.space/post/nix-darwin-introduction
 * https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 * https://github.com/ahmedelgabri/dotfiles/blob/main/config/zsh.d/.zshrc
