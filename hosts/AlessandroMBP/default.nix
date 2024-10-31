@@ -80,6 +80,6 @@ in {
   };
 
   # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  # https://github.com/LnL7/nix-darwin/blob/master/CHANGELOG
+  system.stateVersion = 5;
 }
