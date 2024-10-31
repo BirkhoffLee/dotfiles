@@ -22,9 +22,9 @@
 
     # ops
     awscli2
-    azure-cli
+    # azure-cli # https://github.com/NixOS/nixpkgs/issues/348995
     oci-cli
-    # backblaze-b2 # FIXME: test failing
+    backblaze-b2
     aws-vault
     dnscontrol
     aiac
@@ -36,14 +36,16 @@
     restic
     terraform
     terraformer
-    # vagrant # wait until https://github.com/grpc/grpc/pull/34481 is merged
+    # vagrant # https://github.com/grpc/grpc/pull/34481
     skaffold
     ssh-copy-id
     yamllint
     wakeonlan
     gotop
+    duf
 
     # dev
+    nodejs_20
     caddy
     redis
     httpie
@@ -58,13 +60,14 @@
     # app
     discord
     rectangle
-    vscode
+    # vscode # https://github.com/microsoft/vscode/issues/229463
     yubico-piv-tool
     utm
     iterm2
     iina
 
     # util
+    mactop
     m-cli
     cht-sh
     asciinema
@@ -95,7 +98,7 @@
     tree
     vbindiff
     viddy
-    youtube-dl
+    yt-dlp
 
     osx-cpu-temp
     dockutil
@@ -131,15 +134,15 @@
     pkg-config
 
     # network
-    # mitmproxy # https://github.com/NixOS/nixpkgs/issues/291753
+    mitmproxy # https://github.com/NixOS/nixpkgs/issues/291753
     trippy
     knot-dns
     hey
-    nexttrace
+    # nexttrace # https://github.com/nxtrace/NTrace-core/issues/270
     nmap
     curl
     iperf
-    mosh
+    # mosh # https://github.com/NixOS/nixpkgs/pull/350035
     nali
     rtmpdump
     socat
