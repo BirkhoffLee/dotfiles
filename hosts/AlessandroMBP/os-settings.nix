@@ -222,6 +222,17 @@
         # Enable the Develop menu and the Web Inspector
         "ShowDevelopMenu" = 1;
       };
+      
+      # Disable Spotlight Shortcuts
+      # com.apple.symbolichotkeys = {
+      #   64 = {
+      #     enabled = 0;
+      #   };
+
+      #   65 = {
+      #     enabled = 0;
+      #   };
+      # };
 
       "com.apple.finder" = {
         # Keep folders on top when sorting by name
@@ -229,7 +240,7 @@
 
         DesktopViewSettings = {
           IconViewSettings = {
-            arrangeBy = "grid";
+            arrangeBy = "grid"; # FIXME: doesnt work
           };
         };
 
