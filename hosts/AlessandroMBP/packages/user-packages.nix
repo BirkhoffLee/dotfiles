@@ -154,6 +154,7 @@
     tcping-go
     tcpreplay
     tcptraceroute
+    testssl
     speedtest-cli
     wireguard-go
     wireguard-tools

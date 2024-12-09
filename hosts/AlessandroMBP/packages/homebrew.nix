@@ -28,7 +28,6 @@
       "screenresolution"
       "tcptrace"
       "telnet"
-      "testssl"
       "tidy-html5"
       "whatmask"
       "ykman"
