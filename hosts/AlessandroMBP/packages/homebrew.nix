@@ -53,7 +53,6 @@
       "key-codes"
       "macfuse"
       "mounty"
-      "nrlquaker-winbox"
       "orbstack"
       "quicklook-csv"
       "quicklook-json"
