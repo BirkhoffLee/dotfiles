@@ -6,6 +6,7 @@
 
     brews = [
       "blueutil"
+      "borgbackup/tap/borgbackup-fuse"
       "carthage"
       "create-dmg"
       "dex2jar"
@@ -51,6 +52,7 @@
       "imazing"
       "jordanbaird-ice"
       "key-codes"
+      "macfuse"
       "mounty"
       "nrlquaker-winbox"
       "orbstack"
@@ -65,6 +67,7 @@
       "telegram"
       "transmit"
       "typora"
+      "vorta"
       "wechat"
       "wireshark"
     ];
@@ -91,7 +94,6 @@
       "joedrago/repo"
       "louisbrunner/valgrind"
       "teamookla/speedtest"
-      "xgadget-lab/nexttrace"
       "zurawiki/brews"
     ];
 

@@ -134,15 +134,16 @@
     pkg-config
 
     # network
-    mitmproxy # https://github.com/NixOS/nixpkgs/issues/291753
+    bandwhich
+    mitmproxy
     trippy
     knot-dns
     hey
-    # nexttrace # https://github.com/nxtrace/NTrace-core/issues/270
+    nexttrace
     nmap
     curl
     iperf
-    # mosh # https://github.com/NixOS/nixpkgs/pull/350035
+    mosh
     nali
     rtmpdump
     socat
