@@ -138,6 +138,7 @@ I use the built-in *Natural Text Editing* preset, with the following custom key 
   * https://github.com/fabianishere/pam_reattach
 * manage python versions/dependencies with nix
 * manage nodejs with nix
+* [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
 * https://xyno.space/post/nix-darwin-introduction
 * https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 * https://github.com/ahmedelgabri/dotfiles/blob/main/config/zsh.d/.zshrc
