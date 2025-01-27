@@ -35,8 +35,8 @@
     ];
 
     casks = [
-      "1password"
       "1password-cli"
+      "1password"
       "adobe-creative-cloud"
       "adoptopenjdk"
       "arc"
@@ -48,6 +48,7 @@
       "font-source-code-pro"
       "google-chrome"
       "handbrake"
+      "heynote"
       "imazing"
       "jordanbaird-ice"
       "key-codes"
