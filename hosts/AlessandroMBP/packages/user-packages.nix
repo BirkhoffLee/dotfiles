@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     python311
     python311Packages.pip
-    python311Packages.virtualenv
+    # python311Packages.virtualenv
     python311Packages.ansible-core
 
     zsh-completions
@@ -49,6 +49,7 @@
     caddy
     redis
     httpie
+    uv
     go
     golangci-lint
     rustup
@@ -56,8 +57,14 @@
     rbenv
     yarn
     micromamba
+    
+    # ai
+    gfortran
+    # openblas
+    openblas.dev
 
     # app
+    spotify
     discord
     rectangle
     # vscode # https://github.com/microsoft/vscode/issues/229463
