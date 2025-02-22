@@ -35,6 +35,7 @@
     packer
     restic
     terraform
+    testssl
     terraformer
     # vagrant # https://github.com/grpc/grpc/pull/34481
     skaffold
@@ -67,7 +68,6 @@
     spotify
     discord
     rectangle
-    # vscode # https://github.com/microsoft/vscode/issues/229463
     yubico-piv-tool
     utm
     iterm2
@@ -77,6 +77,7 @@
     mactop
     m-cli
     cht-sh
+    stripe-cli
     asciinema
     bfg-repo-cleaner
     diff-so-fancy
