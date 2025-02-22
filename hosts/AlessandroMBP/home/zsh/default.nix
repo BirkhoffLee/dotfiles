@@ -53,6 +53,7 @@
         # $HOME/.rvm/bin
         $HOME/.cargo/bin
         $HOME/go/bin
+        $HOME/.local/bin
         # $HOME/Library/Python/*/bin
 
         $HOMEBREW_PREFIX/{bin,sbin}
