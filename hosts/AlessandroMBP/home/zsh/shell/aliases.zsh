@@ -110,7 +110,7 @@ command -v kdig > /dev/null && alias dig='kdig'
 
 command -v gh > /dev/null && alias gist='gh gist create'
 
-command -v tldr > /dev/null && alias help='tldr'
+command -v cht.sh > /dev/null && alias help='cht.sh'
 
 # View disk usage
 command -v ncdu > /dev/null && alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
