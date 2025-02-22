@@ -59,7 +59,7 @@ To update packages:
 
 ```console
 cd $HOME/.config/nix
-nix flake update "$HOME/.config/nix"
+nix flake update --flake "$HOME/.config/nix"
 darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 ```
 

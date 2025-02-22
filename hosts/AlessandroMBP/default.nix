@@ -31,7 +31,6 @@ in {
     bashInteractive
     zsh
   ];
-  nix.configureBuildUsers = true;
 
   nix.settings = {
     # https://github.com/NixOS/nix/issues/7273
@@ -48,9 +47,6 @@ in {
     keep-derivations = true;
     keep-outputs = true;
   };
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
 
   # Load nix-darwin in /etc/zshrc.
   programs.zsh.enable = true;
