@@ -85,12 +85,12 @@
     CustomSystemPreferences = {
       NSGlobalDomain = {
         # Set system languages
-        AppleLocale = "it_IT";
+        AppleLocale = "en_US";
         AppleLanguages = [
-          "it-IT"
-          "en-IT"
-          "zh-Hans-IT"
-          "zh-Hant-IT"
+          "en-US"
+          "it-US"
+          "zh-Hans-US"
+          "zh-Hant-US"
         ];
       };
     };
@@ -118,19 +118,82 @@
     };
 
     CustomUserPreferences = {
+      # Disable some shortcuts
+      "pbs" = {
+        "NSServicesStatus" = {
+          "at.EternalStorms.Yoink - Add Selected Text to Yoink - appServiceAddText" = {
+            "enabled_context_menu" = 0;
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 0;
+              ServicesMenu = 0;
+            };
+          };
+          "com.apple.ChineseTextConverterService - Convert Text from Simplified to Traditional Chinese - convertTextToTraditionalChinese" = {
+            "enabled_context_menu" = 0;
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 1;
+              ServicesMenu = 0;
+            };
+          };
+          "com.apple.ChineseTextConverterService - Convert Text from Traditional to Simplified Chinese - convertTextToSimplifiedChinese" = {
+            "enabled_context_menu" = 0;
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 0;
+              ServicesMenu = 0;
+            };
+          };
+          "com.apple.Safari -   Search With %WebSearchProvider@ - searchWithWebSearchProvider" = {
+            "enabled_context_menu" = 0;
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 0;
+              ServicesMenu = 0;
+            };
+          };
+          "com.apple.Stickies - Make Sticky - makeStickyFromTextService" = {
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 0;
+              ServicesMenu = 0;
+            };
+          };
+          "com.apple.Terminal - Open man Page in Terminal - openManPage" = {
+            "enabled_context_menu" = 0;
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 0;
+              ServicesMenu = 0;
+            };
+          };
+          "com.apple.Terminal - Search man Page Index in Terminal - searchManPages" = {
+            "enabled_context_menu" = 0;
+            "enabled_services_menu" = 0;
+            "presentation_modes" = {
+              ContextMenu = 0;
+              ServicesMenu = 0;
+            };
+          };
+        };
+      };
+
       "NSGlobalDomain" = {
         # Add a context menu item for showing the Web Inspector in web views
         "WebKitDeveloperExtras" = true;
       };
 
       "com.apple.TextInputMenu" = {
-          visible = 0;
+        # Do not show input menu in menu bar
+        visible = 0;
       };
 
       "com.apple.assistant.support" = {
         "Dictation Enabled" = 1;
       };
 
+      # Keyboard: Chinese Input Source Preferences
       "com.apple.inputmethod.CoreChineseEngineFramework" = {
         TCIMExpertDictionaryList = [
           "ExpertDict_Commerce"
@@ -198,6 +261,7 @@
         ];
       };
 
+      # Disable audio ducking during Dictation
       "com.apple.SpeechRecognitionCore" = {
         AllowAudioDucking = 0;
       };
@@ -224,15 +288,15 @@
       };
       
       # Disable Spotlight Shortcuts
-      # com.apple.symbolichotkeys = {
-      #   64 = {
-      #     enabled = 0;
-      #   };
+      com.apple.symbolichotkeys = {
+        "64" = {
+          enabled = 0;
+        };
 
-      #   65 = {
-      #     enabled = 0;
-      #   };
-      # };
+        "65" = {
+          enabled = 0;
+        };
+      };
 
       "com.apple.finder" = {
         # Keep folders on top when sorting by name
@@ -356,7 +420,15 @@
       };
       
       "com.raycast.macos" = {
-        "translator_translatorPreviousTargetLanguage" = "en";
+        enforcedInputSourceIDOnOpen = "com.apple.keylayout.ABC";
+        raycastShouldFollowSystemAppearance = 0;
+        "raycast_hyperKey_state" = {
+            enabled = 1;
+            includeShiftKey = 1;
+            keyCode = 57;
+        };
+        useHyperKeyIcon = 1;
+        useSystemInternetProxySettings = 1;
       };
 
       # FIXME: doesn't work
@@ -405,5 +477,6 @@
   };
 
   # Enable sudo authentication with Touch ID
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
+  # https://github.com/LnL7/nix-darwin/issues/1354
 }
