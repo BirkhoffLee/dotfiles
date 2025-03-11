@@ -35,13 +35,15 @@ rec {
       PLIST_PATH="${home.homeDirectory}/Library/Preferences/com.apple.dock.plist"
       for dockItemLabel in \
         "App Store" \
-        "System Preferences" \
+        "System Settings" \
         Calendar \
         Contacts \
         Facetime \
         Freeform \
         Launchpad \
+        Mail \
         Maps \
+        Messages \
         Music \
         News \
         Notes \
@@ -61,17 +63,21 @@ rec {
         /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
         for app in \
+          "Activity Monitor" \
           "cfprefsd" \
+          "ControlStrip" \
           "Dock" \
           "Finder" \
           "Mail" \
           "Photos" \
+          "replayd" \
           "Safari" \
           "SystemUIServer" \
-          "Activity Monitor"; do
+          "TextInputMenuAgent" \
+          "WindowManager"; do
           /usr/bin/killall "''${app}" &> /dev/null && echo "[+] Killed ''${app}" || true
         done
-        
+
         # echo "[+] tailscaled install-system-daemon"
         # sudo ${pkgs.tailscale}/bin/tailscaled install-system-daemon
       '';
