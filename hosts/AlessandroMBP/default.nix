@@ -62,6 +62,13 @@ in {
         echo "[+] Installing Homebrew"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       fi
+
+      # Configure firewall
+      echo "[+] Ensuring firewall is enabled"
+      sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+      # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned on
+      # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp on
+      sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
     '';
 
     "postActivation".text = ''
