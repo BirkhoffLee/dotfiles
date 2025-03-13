@@ -22,6 +22,11 @@ function nix-cleanup {
   nix-store --optimise
 }
 
+function nix-update-dotfiles {
+  nix flake update --flake "$HOME/.config/nix"
+  darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
+}
+
 # https google.com 443
 # use testssl.sh for complete analysis
 function https {
