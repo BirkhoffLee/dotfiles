@@ -1,6 +1,7 @@
 { hostname, ... }:
 
 {
+  # https://macos-defaults.com/
   # The trick to get those configuration keys:
   # defaults read > before
   # defaults read > after
@@ -51,17 +52,12 @@
       "FXPreferredViewStyle" = "Nlsv";
     };
 
-    screencapture = {
-      # Save screenshots to the desktop
-      "location" = "~/Desktop";
-
-      # Save screenshots in PNG format
-      "type" = "png";
-    };
-
     dock = {
       # Do not show recent apps
       "show-recents" = false;
+      
+      # Group windows by application in Mission Control
+      "expose-group-apps" = true;
 
       # Do not automatically rearrange spaces based on most recent use
       "mru-spaces" = false;
@@ -93,6 +89,10 @@
           "zh-Hans-US"
           "zh-Hant-US"
         ];
+
+        # 0: Caps Lock key toggles Caps Lock
+        # 1: Caps Lock key switches between ABC
+        TISRomanSwitchState = 0;
       };
     };
 
@@ -186,8 +186,8 @@
       };
 
       "com.apple.TextInputMenu" = {
-        # Do not show input menu in menu bar
-        visible = 0;
+        # Show input menu in menu bar
+        visible = 1;
       };
 
       "com.apple.assistant.support" = {
@@ -302,6 +302,9 @@
       "com.apple.finder" = {
         # Keep folders on top when sorting by name
         "_FXSortFoldersFirst" = true;
+        
+        # Open folder in new window by: ⌘ + double-click
+        FinderSpawnTab = false;
 
         DesktopViewSettings = {
           IconViewSettings = {
