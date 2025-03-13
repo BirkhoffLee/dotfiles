@@ -2,96 +2,83 @@
 
 {
   home.packages = with pkgs; [
+    # python
+    uv
+    # TODO: replace entirely with uv?
     python311
+    python311Packages.ansible-core
     python311Packages.pip
     # python311Packages.virtualenv
-    python311Packages.ansible-core
 
+    # shell
     zsh-completions
     zsh-fast-syntax-highlighting
     zsh-powerlevel10k
 
     # git
     git
-    # git-delta
     git-lfs
     git-extras
     git-open
     # git-recent
     gptcommit
 
-    # ops
-    awscli2
-    # azure-cli # https://github.com/NixOS/nixpkgs/issues/348995
-    oci-cli
+    # infra
+    # awscli2
+    # azure-cli
+    # oci-cli
     backblaze-b2
-    aws-vault
-    dnscontrol
-    aiac
-    k9s
-    kubectx
-    kustomize
-    nomad
-    packer
+    # aws-vault
+    # dnscontrol
+    # k9s
+    # kubectx
+    # kustomize
+    # nomad
+    # packer
     restic
     terraform
-    testssl
-    terraformer
-    # vagrant # https://github.com/grpc/grpc/pull/34481
-    skaffold
+    # terraformer
+    # vagrant # FIXME: https://github.com/grpc/grpc/pull/34481
+    # skaffold
     ssh-copy-id
-    yamllint
-    wakeonlan
-    gotop
-    duf
 
     # dev
-    nodejs_20
     caddy
-    redis
-    httpie
-    uv
     go
     golangci-lint
-    rustup
+    httpie
+    micromamba
+    nodejs_20
     R
     rbenv
+    redis
+    rustup
+    yamllint
     yarn
-    micromamba
     
     # ai
     gfortran
-    # openblas
     openblas.dev
 
-    # app
-    spotify
-    discord
-    rectangle
-    yubico-piv-tool
-    utm
-    iterm2
-    iina
-
     # util
-    mactop
-    m-cli
-    cht-sh
-    stripe-cli
     asciinema
+    autossh
     bfg-repo-cleaner
+    cht-sh
+    cowsay
     diff-so-fancy
     difftastic
-    cowsay
-    gnugrep
-    chezmoi
+    duf
     gh
+    gnugrep
+    gotop
     htop
     hub
     jc
     lolcat
     lux
-    yt-dlp
+    m-cli
+    mactop
     magic-wormhole
     neofetch
     noti
@@ -102,56 +89,56 @@
     qpdf
     rename
     slides
+    stripe-cli
     tmux
-    tree
     vbindiff
     viddy
     yt-dlp
-
+  
+    # some macos stuff
     osx-cpu-temp
-    wifi-password
-    mas
 
-    imagemagick
+    # media
     ffmpeg
+    imagemagick
     optipng
 
-    pv
-    jq
-    lsd
-    entr
+    # core utlities
     bat
+    coreutils-prefixed
+    entr
     eza
     fasd
     fd
-    progress
-    coreutils-prefixed
     fd
     fzf
+    jq
+    lsd
+    progress
+    pv
     silver-searcher
     terminal-notifier
+    tree
     zoxide
 
     # build
     autoconf
-    # gcc
     automake
-    wasm-pack
-    autossh
+    # gcc
     pkg-config
+    wasm-pack
 
     # network
     bandwhich
-    mitmproxy
-    trippy
-    knot-dns
-    hey
-    nexttrace
-    nmap
     curl
+    hey
     iperf
+    knot-dns
+    mitmproxy
     mosh
     nali
+    nexttrace
+    nmap
     rtmpdump
     socat
     sqlmap
@@ -161,15 +148,16 @@
     tcping-go
     tcpreplay
     tcptraceroute
-    testssl
-    speedtest-cli
+    trippy
+    wakeonlan
     wireguard-go
     wireguard-tools
 
     # authentication
+    gnupg
     pam-reattach
     pinentry_mac
-    gnupg
     reattach-to-user-namespace
+    yubico-piv-tool
   ];
 }
