@@ -31,35 +31,8 @@ rec {
       /usr/bin/chflags nohidden "$HOME/Library"
     '';
 
-    "removeSomeDefaultDockIcons" = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      PLIST_PATH="${home.homeDirectory}/Library/Preferences/com.apple.dock.plist"
-      for dockItemLabel in \
-        "App Store" \
-        "System Settings" \
-        Calendar \
-        Contacts \
-        Facetime \
-        Freeform \
-        Launchpad \
-        Mail \
-        Maps \
-        Messages \
-        Music \
-        News \
-        Notes \
-        Photos \
-        Podcasts \
-        Reminders \
-        Safari \
-        TV ; do
-        ${pkgs.dockutil}/bin/dockutil --find "$dockItemLabel" "$PLIST_PATH" > /dev/null 2>&1 \
-          && echo "[+] Removing $dockItemLabel on Dock" \
-          && ${pkgs.dockutil}/bin/dockutil --no-restart --remove "$dockItemLabel" "$PLIST_PATH"
-      done
-    '';
-
     "activateUserSettings" =
-      lib.hm.dag.entryAfter ["revealHomeLibraryDirectory" "removeSomeDefaultDockIcons"] ''
+      lib.hm.dag.entryAfter ["revealHomeLibraryDirectory"] ''
         /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
         for app in \

@@ -66,8 +66,9 @@
       # Do not automatically rearrange spaces based on most recent use
       "mru-spaces" = false;
 
-      # Autohide immediately
-      "autohide-delay" = 0.0;
+      # It's impossible to disable Dock, so never show it this way
+      # I use Raycast so Dock is a distraction for me.
+      "autohide-delay" = 1000.0;
 
       # Speed of the animation when hiding/showing the Dock
       "autohide-time-modifier" = 0.0;

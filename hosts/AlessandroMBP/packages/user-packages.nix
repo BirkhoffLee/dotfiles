@@ -109,7 +109,6 @@
     yt-dlp
 
     osx-cpu-temp
-    dockutil
     wifi-password
     mas
 
