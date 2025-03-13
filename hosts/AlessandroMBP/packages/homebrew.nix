@@ -24,7 +24,6 @@
       "icu4c@75"
       "knock"
       # "kubernetes-cli"
-      "locateme"
       "macvim"
       "mas"
       "ollama"
