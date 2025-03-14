@@ -5,9 +5,9 @@
     # python
     uv
     # TODO: replace entirely with uv?
-    python311
-    python311Packages.ansible-core
-    python311Packages.pip
+    # python311
+    # python311Packages.ansible-core
+    # python311Packages.pip
     # python311Packages.virtualenv
 
     # shell
@@ -63,6 +63,7 @@
     # util
     asciinema
     autossh
+    television
     bfg-repo-cleaner
     cht-sh
     cowsay
