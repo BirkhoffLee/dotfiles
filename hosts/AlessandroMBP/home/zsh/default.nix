@@ -151,14 +151,6 @@
           sha256 = "sha256-5sx3r71NGT9DokDVwfjlKomYzIgpRwaA2Ky01QRN9sY=";
         };
       }
-      {
-        name = "directory";
-        file = "";
-        src = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/sorin-ionescu/prezto/da87c79b3a35f5a4a504ea331e9ec52b4f786976/modules/directory/init.zsh";
-          sha256 = "sha256-/RFblRzQFvXvL7f5fUftwl7x/8XJ+WSH1JxjISAM1+A=";
-        };
-      }
     ];
   };
 }
