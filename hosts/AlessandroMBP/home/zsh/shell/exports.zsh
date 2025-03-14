@@ -7,12 +7,9 @@ export LANG=en_US.UTF-8
 export LC_ALL="en_US.UTF-8"
 
 # Editor
-code_insiders_path=$(which code-insiders 2>/dev/null)
 code_path=$(which code 2>/dev/null)
 
-if [ -f "$code_insiders_path" ]; then
-  export EDITOR=$code_insiders_path
-elif [ -f "$code_path" ]; then
+if [ -f "$code_path" ]; then
   export EDITOR=$code_path
 else
   export EDITOR=$(which vim)
