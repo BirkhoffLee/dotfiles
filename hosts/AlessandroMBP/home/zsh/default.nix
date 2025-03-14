@@ -100,6 +100,8 @@
     '';
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
+    # Get hash with:
+    # `nix flake prefetch github:<owner>/<repo>/<rev> --json | jq -r '.hash'`
     plugins = [
       {
         name = "forgit";
@@ -150,8 +152,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "Aloxaf";
           repo = "fzf-tab";
-          rev = "f95cdcf2c390428d271f2304698c2d45f0cd4de5";
-          sha256 = "sha256-plGAwdmHQQCEBqEKOZumS1vZ0AwLE7A4tUImgljK5kI=";
+          rev = "01dad759c4466600b639b442ca24aebd5178e799";
+          sha256 = "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY=";
         };
       }
     ];
