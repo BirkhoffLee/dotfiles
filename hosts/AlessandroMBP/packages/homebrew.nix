@@ -67,6 +67,7 @@
       "quicklook-json"
       "quicklookapk"
       "raycast"
+      "ghostty"
       "reader"
       "setapp"
       "spotify"

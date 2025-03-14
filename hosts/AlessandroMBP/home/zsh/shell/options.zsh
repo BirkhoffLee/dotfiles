@@ -6,19 +6,17 @@ set -o emacs
 # Treat slashes as word separators (https://stackoverflow.com/a/11200998/2465955)
 WORDCHARS=''${WORDCHARS/\/}
 
-if [[ "$TERM_PROGRAM" = iTerm* ]]; then
-  # https://stackoverflow.com/a/29403520/2465955
-  # note: use iTerm2 Natural Text Editing keymappings preset
-  # changes hex 0x15 and 0x18 0x7f to delete everything to the left of
-  # the cursor, rather than the whole line.
-  bindkey "^U" backward-kill-line
-  bindkey "^X\\x7f" backward-kill-line
+# https://stackoverflow.com/a/29403520/2465955
+# note: use iTerm2 Natural Text Editing keymappings preset
+# changes hex 0x15 and 0x18 0x7f to delete everything to the left of
+# the cursor, rather than the whole line.
+bindkey "^U" backward-kill-line
+bindkey "^X\\x7f" backward-kill-line
 
-  bindkey "^B" beginning-of-line
+bindkey "^B" beginning-of-line
 
-  # bind redo to 0x18 0x1f
-  bindkey "^X^_" redo
-fi
+# Adds redo to 0x18 0x1f
+bindkey "^X^_" redo
 
 setopt APPENDHISTORY             # Append history to the history file (no overwriting)
 setopt INCAPPENDHISTORY          # Immediately append to the history file, not just when a term is killed

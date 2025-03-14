@@ -13,6 +13,7 @@ rec {
     ./bundle.nix
     ./editorconfig.nix
     ./gem.nix
+    ./ghostty.nix
     ./git.nix
     ./gnupg.nix
     ./htop.nix
