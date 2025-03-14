@@ -6,7 +6,7 @@
       # https://ghostty.org/docs/config/reference
 
       font-family = Menlo
-      font-size = 18
+      font-size = 15
       # bold-is-bright = true
       # font-thicken = true
       keybind = cmd+r=reset
