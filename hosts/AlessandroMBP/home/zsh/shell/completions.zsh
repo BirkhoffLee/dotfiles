@@ -4,8 +4,8 @@
 
 # https://github.com/Aloxaf/dotfiles/blob/0619025cb2c2264cd0639b3697e3483454b2cadd/zsh/.config/zsh/snippets/completion.zsh
 
-setopt COMPLETE_IN_WORD
-setopt NO_BEEP
+setopt COMPLETE_IN_WORD # autocomplete in middle of a word
+setopt NO_BEEP # disable beep sound
 setopt AUTO_PARAM_SLASH # (autocomplete) If completed parameter is a directory, add a trailing slash
 unsetopt MENU_COMPLETE # Do not autoselect the first completion entry
 unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell editor
@@ -16,10 +16,9 @@ compctl () { }
 
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
 zstyle ':completion:*:complete:*' cache-policy _COMP_CACHING_POLICY
 _COMP_CACHING_POLICY() {
-  # 缓存策略：若不存在或 14 天以前则认定为失效
+  # If cache don't exist or are older than 14 days, consider them invalid
   [[ ! -f $1 && -n "$1"(Nm+14) ]]
 }
 
@@ -67,19 +66,18 @@ zstyle ':completion:*' regular false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # 结果样式
-zstyle ':completion:*' menu yes select # search
-zstyle ':completion:*' list-grouped false
+zstyle ':completion:*' menu no
 zstyle ':completion:*' list-separator ''
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:matches' group 'yes'
-zstyle ':completion:*:warnings' format '%F{red}%B-- No match found for: %d --%b%f'
+zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*:descriptions' format '[%d]'
 
 # 补全当前用户所有进程列表
-# zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
 zstyle ':completion:*:kill:*' ignored-patterns '0'
 
 function kubectl() {
@@ -98,16 +96,16 @@ zstyle ':completion:*:manuals.*'  insert-sections   true
 # 直接用 git-extras 提供的补全更好
 # zstyle ':completion:*:*:git:*' user-commands ${${(M)${(k)commands}:#git-*}/git-/}
 
-# zwc 什么的忽略掉吧
-# FIXME: 导致 zmodload 的补全结果出现其他文件
-# zstyle ':completion:*:*:*:*'   file-patterns '^*.(zwc|pyc):compiled-files' '*:all-files'
-# zstyle ':completion:*:*:rm:*'  file-patterns '*:all-files'
-# zstyle ':completion:*:*:gio:*' file-patterns '*:all-files'
-
-# 允许 docker 补全时识别 -it 之类的组合命令
+# Docker: Short-option stacking can be enabled
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # fg/bg 补全时使用 jobs id
 zstyle ':completion:*:jobs' verbose true
 zstyle ':completion:*:jobs' numbers true
+
+zstyle ":completion:*:git-checkout:*" sort false
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*:exa' sort false
+zstyle ':completion:*:docker' sort false
+zstyle ':completion:files' sort false

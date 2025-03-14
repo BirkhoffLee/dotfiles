@@ -12,6 +12,7 @@ AUTO_NOTIFY_IGNORE+=("tmux" "bat")
 # macOS only
 if [[ "$OSTYPE" = darwin* ]]; then
   # OrbStack
+  # This adds fpath so needs to be before compinit
   if test -f ~/.orbstack/shell/init.zsh; then
     source ~/.orbstack/shell/init.zsh 2>/dev/null || :
   fi

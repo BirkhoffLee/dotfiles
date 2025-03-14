@@ -1,10 +1,19 @@
 { home, pkgs, ... }:
 
 {
+  # https://github.com/jnunyez/home-manager/blob/master/modules/programs/zsh.nix
   programs.zsh = {
     enable = true;
 
     defaultKeymap = "emacs";
+
+    completionInit = ''
+      autoload -Uz compinit
+      for dump in ~/.zcompdump(N.mh+24); do
+        compinit
+      done
+      compinit -C
+    '';
 
     dirHashes = {
       dl = "$HOME/Downloads";
@@ -24,21 +33,6 @@
       G = "| grep";
     };
 
-    initExtraFirst = ''
-      # Powerlevel10k instant prompt
-      if [[ -r "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
-
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source "${home.homeDirectory}/.shell/p10k.zsh"
-
-      source "${home.homeDirectory}/.shell/options.zsh"
-
-      # Load Zsh's rename utility `zmv`
-      autoload -Uz zmv
-    '';
-    
     profileExtra = ''
       export HOMEBREW_PREFIX="/opt/homebrew";
 
@@ -76,28 +70,37 @@
       fi
     '';
 
+    initExtraFirst = ''
+      # Powerlevel10k instant prompt
+      if [[ -r "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+
+      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      source "${home.homeDirectory}/.shell/p10k.zsh"
+
+      source "${home.homeDirectory}/.shell/options.zsh"
+
+      # Load Zsh's rename utility `zmv`
+      autoload -Uz zmv
+    '';
+    
+    initExtraBeforeCompInit = ''
+      source "${home.homeDirectory}/.shell/completions.zsh"
+      source "${home.homeDirectory}/.shell/external.zsh"
+    '';
+
     initExtra = ''
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
 
-      source "${home.homeDirectory}/.shell/completions.zsh"
       source "${home.homeDirectory}/.shell/exports.zsh"
       source "${home.homeDirectory}/.shell/aliases.zsh"
       source "${home.homeDirectory}/.shell/functions.zsh"
-      source "${home.homeDirectory}/.shell/external.zsh"
       source "${home.homeDirectory}/.shell/proxy.zsh"
     '';
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
     plugins = [
-      {
-        name = "fzf-tab";
-        src = pkgs.fetchFromGitHub {
-          owner = "Aloxaf";
-          repo = "fzf-tab";
-          rev = "f95cdcf2c390428d271f2304698c2d45f0cd4de5";
-          sha256 = "sha256-plGAwdmHQQCEBqEKOZumS1vZ0AwLE7A4tUImgljK5kI=";
-        };
-      }
       {
         name = "forgit";
         src = pkgs.fetchFromGitHub {
@@ -126,15 +129,6 @@
         };
       }
       {
-        name = "docker-zsh-completion";
-        src = pkgs.fetchFromGitHub {
-          owner = "greymd";
-          repo = "docker-zsh-completion";
-          rev = "1f073f461caca4773ca7b4a1c13bb267ab8bd592";
-          sha256 = "sha256-jEBlJmHIVuiWkCRJ6leP5apI8vjB0VbYXxY5niI0QEo=";
-        };
-      }
-      {
         name = "auto-notify";
         src = pkgs.fetchFromGitHub {
           owner = "MichaelAquilina";
@@ -149,6 +143,15 @@
         src = pkgs.fetchurl {
           url = "https://raw.githubusercontent.com/sorin-ionescu/prezto/8d00c51900dfce3b2bc1e5bd99bd58f238c5668a/modules/gnu-utility/init.zsh";
           sha256 = "sha256-5sx3r71NGT9DokDVwfjlKomYzIgpRwaA2Ky01QRN9sY=";
+        };
+      }
+      {
+        name = "fzf-tab";
+        src = pkgs.fetchFromGitHub {
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "f95cdcf2c390428d271f2304698c2d45f0cd4de5";
+          sha256 = "sha256-plGAwdmHQQCEBqEKOZumS1vZ0AwLE7A4tUImgljK5kI=";
         };
       }
     ];
