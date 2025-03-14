@@ -27,6 +27,10 @@ function nix-update-dotfiles {
   darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 }
 
+function nix-info {
+  nix-shell -p nix-info --run "nix-info -m"
+}
+
 # https google.com 443
 # use testssl.sh for complete analysis
 function https {
@@ -118,7 +122,7 @@ pingu () {
 }
 
 # lookup ip
-lip () { 
+lip () {
   http -b https://api.birkhoff.me/v3/ip/$1
 }
 
