@@ -10,6 +10,7 @@ rec {
     ../packages/user-packages.nix
     (import ./zsh { inherit home pkgs; })
     (import ./ansible.nix { inherit home; })
+    ./1password.nix
     ./bundle.nix
     ./editorconfig.nix
     ./gem.nix
