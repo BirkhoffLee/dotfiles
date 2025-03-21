@@ -34,6 +34,8 @@
 {
   home.file.".config/1Password/ssh/agent.toml" = {
     text = ''
+      # Managed by home-manager
+
       [[ssh-keys]]
       item = "2mjyhu76qqmeex23n35wzpj4ri"
 
