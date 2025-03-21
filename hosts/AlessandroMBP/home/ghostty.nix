@@ -1,5 +1,18 @@
 { home, ... }:
 
+# Some other themes to choose from:
+# theme = Horizon
+# theme = Rapture
+# theme = Snazzy
+
+# Lighter Themes
+# theme = Sublette
+# theme = xcodedark
+
+# Darker Themes
+# theme = NightLion v2
+# theme = Peppermint
+
 {
   home.file.".config/ghostty/config" = {
     text = ''
@@ -33,20 +46,7 @@
       quick-terminal-animation-duration = 0
       ## End of Quick Terminal
 
-      ## Color Theme
-      # theme = Horizon
-      # theme = Rapture
-      # theme = Snazzy
-
-      # Lighter Themes
-      # theme = Sublette
-      # theme = xcodedark
-
-      # Darker Themes
-      # theme = NightLion v2
-      # theme = Peppermint
-
-      # Snazzy:
+      ## Color Theme - Snazzy
       palette = 0=#000000
       palette = 1=#fc4346
       palette = 2=#50fb7c
