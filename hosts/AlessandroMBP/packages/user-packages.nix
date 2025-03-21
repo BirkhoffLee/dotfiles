@@ -48,7 +48,7 @@
     golangci-lint
     httpie
     micromamba
-    nodejs_20
+    nodejs_22
     R
     rbenv
     redis
