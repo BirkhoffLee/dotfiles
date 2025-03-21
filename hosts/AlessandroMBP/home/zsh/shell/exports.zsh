@@ -7,9 +7,12 @@ export LANG=en_US.UTF-8
 export LC_ALL="en_US.UTF-8"
 
 # Editor
+cursor_path=$(which cursor 2>/dev/null)
 code_path=$(which code 2>/dev/null)
 
-if [ -f "$code_path" ]; then
+if [ -f "$cursor_path" ]; then
+  export EDITOR=$cursor_path
+elif [ -f "$code_path" ]; then
   export EDITOR=$code_path
 else
   export EDITOR=$(which vim)
