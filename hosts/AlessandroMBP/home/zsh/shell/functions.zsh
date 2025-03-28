@@ -70,6 +70,29 @@ listening() {
   fi
 }
 
+# Apply scanner effect to a PDF
+# https://gist.github.com/andyrbell/25c8632e15d17c83a54602f6acde2724
+# https://github.com/NixOS/nixpkgs/issues/138638#issuecomment-1068569761
+dirtypdf () {
+  if [ $# -ne 2 ]; then
+    echo "Usage: dirtypdf <input_pdf> <output_pdf>"
+    return 1
+  fi
+
+  input_file="$1"
+  output_file="$2"
+
+  if [ ! -f "$input_file" ]; then
+    echo "Error: Input file '$input_file' does not exist"
+    return 1
+  fi
+
+  nix-shell --packages 'imagemagickBig' --run "magick -density 90 \"$input_file\" -rotate 0.5 -attenuate 0.2 +noise Multiplicative -colorspace Gray \"$output_file\""
+  
+  # open the output file in finder
+  open -R "$output_file"
+}
+
 # `favicon 1.png` will generate 4 sizes of favicon.ico
 favicon () {
   convert $1 -background white \

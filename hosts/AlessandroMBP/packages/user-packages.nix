@@ -101,7 +101,7 @@
 
     # media
     ffmpeg
-    imagemagick
+    imagemagickBig
     optipng
 
     # core utlities
