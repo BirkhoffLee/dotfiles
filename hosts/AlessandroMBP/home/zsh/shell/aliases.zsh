@@ -166,8 +166,10 @@ else
   alias sshkey="pubkey"
 
   # Homebrew
-  alias brewery='brew update && brew upgrade && brew cleanup'
+  command -v brew > /dev/null && alias brewery='brew update && brew upgrade && brew cleanup'
 
   # Quick connect
   alias q='ssh -v'
+  
+  alias files-to-prompt='uvx files-to-prompt'
 fi
