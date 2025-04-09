@@ -63,7 +63,6 @@
     # util
     asciinema
     autossh
-    television
     bfg-repo-cleaner
     cht-sh
     cowsay
@@ -91,6 +90,7 @@
     rename
     slides
     stripe-cli
+    television
     tmux
     vbindiff
     viddy
@@ -111,12 +111,12 @@
     eza
     fasd
     fd
-    fd
     fzf
     jq
     lsd
     progress
     pv
+    rsync
     silver-searcher
     terminal-notifier
     tree
