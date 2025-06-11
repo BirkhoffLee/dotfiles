@@ -15,9 +15,8 @@
       compinit -C
       
       # Completions for git-extras doesn't load automatically
-      # due to the lack of #compdef directive. We need to load it manually.
-      autoload -Uz _git_extras
-      compdef _git_extras git-extras
+      # due to the lack of #compdef directive. We need to source it manually.
+      source ${pkgs.git-extras}/share/zsh/site-functions/_git_extras
     '';
 
     dirHashes = {

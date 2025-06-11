@@ -102,10 +102,6 @@ function kubectl() {
 zstyle ':completion:*:manuals'    separate-sections true
 zstyle ':completion:*:manuals.*'  insert-sections   true
 
-# 补全第三方 Git 子命令
-# 直接用 git-extras 提供的补全更好
-# zstyle ':completion:*:*:git:*' user-commands ${${(M)${(k)commands}:#git-*}/git-/}
-
 # Docker: Short-option stacking can be enabled
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
