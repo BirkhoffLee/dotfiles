@@ -28,6 +28,7 @@
 
       # For compatibility:
       term = xterm-256color
+      macos-option-as-alt = true
 
       ## Initial Window Size
       window-height = 35
