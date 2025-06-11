@@ -36,12 +36,19 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
-# 补全顺序:
-# _complete - 普通补全函数  _extensions - 通过 *.\t 选择扩展名
-# _match    - 和 _complete 类似但允许使用通配符
-# _expand_alias - 展开别名 _ignored - 被 ignored-patterns 忽略掉的
-# zstyle ':completion:*' completer _expand_alias _complete _extensions _match _files
-# 由于某些 completer 调用的代价比较昂贵，第一次调用时不考虑它们
+# Dynamically set the order of completion functions (completers) for Zsh.
+# On the first TAB press, only fast and common completers are used for performance:
+#   - _expand_alias: expand aliases
+#   - _complete: standard completion
+#   - _extensions: complete file extensions (*.\t)
+#   - _match: allow wildcard matching
+#   - _files: file completion
+# If the user presses TAB again (without changing the command), slower or more permissive completers are added:
+#   - _ignored: include previously ignored matches by ignored-patterns
+#   - _correct: offer spelling corrections
+#   - _approximate: offer fuzzy/approximate matches
+# This setup ensures fast completions on the first try, and more exhaustive/fuzzy completions only on repeated attempts, improving both speed and usability.
+#
 zstyle -e ':completion:*' completer '
   if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]]; then
     _last_try="$HISTNO$BUFFER$CURSOR"
@@ -50,23 +57,27 @@ zstyle -e ':completion:*' completer '
     reply=(_complete _ignored _correct _approximate)
   fi'
 
-# 增强版文件名补全
-# 0 - 完全匹配 ( Abc -> Abc )      1 - 大写修正 ( abc -> Abc )
-# 2 - 单词补全 ( f-b -> foo-bar )  3 - 后缀补全 ( .cxx -> foo.cxx )
+# Enhanced filename completion
+# 0 - Exact match ( Abc -> Abc )      1 - Case correction ( abc -> Abc )
+# 2 - Word completion ( f-b -> foo-bar )  3 - Suffix completion ( .cxx -> foo.cxx )
 zstyle ':completion:*:(argument-rest|files):*' matcher-list '' \
     'm:{[:lower:]-}={[:upper:]_}' \
     'r:|[.,_-]=* r:|=*' \
     'r:|.=* r:|=*'
-# zstyle ':completion:*' matcher-list 'b:=*'
 
-# 不展开普通别名
+# Do not complete regular shell aliases
 zstyle ':completion:*' regular false
 
-# color
+# set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# 结果样式
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
+
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+
 zstyle ':completion:*' list-separator ''
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
@@ -74,7 +85,6 @@ zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*:descriptions' format '[%d]'
 
 # 补全当前用户所有进程列表
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
@@ -104,6 +114,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 zstyle ':completion:*:jobs' verbose true
 zstyle ':completion:*:jobs' numbers true
 
+# disable sort when completing `git checkout`
 zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:exa' sort false
