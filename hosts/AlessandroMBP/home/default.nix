@@ -66,6 +66,8 @@ rec {
 
     fzf = {
       enable = true;
+      # Use C-r and C-t from fzf
+      # https://github.com/junegunn/fzf?tab=readme-ov-file#key-bindings-for-command-line
       enableZshIntegration = true;
     };
 

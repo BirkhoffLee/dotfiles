@@ -55,41 +55,43 @@ export FORGIT_FZF_DEFAULT_OPTS="
 # fzf shell integration binds C-t, C-r, Alt-C
 # docs: https://github.com/junegunn/fzf?tab=readme-ov-file#key-bindings-for-command-line
 
-typeset -AU __FZF
+typeset -AU __FZF __FZF_TAB
+
+# https://github.com/junegunn/fzf/blob/master/bin/fzf-preview.sh
 
 __FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
-__FZF[PREVIEW_FILE]="bat --style=numbers,changes --wrap never --color always {} || cat {}"
-__FZF[PREVIEW_FILE_OR_DIR]="if [ -d {} ]; then ${__FZF[PREVIEW_DIR]} {}; else ${__FZF[PREVIEW_FILE]}; fi"
+__FZF[PREVIEW_TEXT]="bat --style=numbers,changes --wrap never --color always {} || cat {}"
+__FZF[PREVIEW_FILE_OR_DIR]="if [ -d {} ]; then ${__FZF[PREVIEW_DIR]} {}; else if [[ \$(file --brief --dereference --mime {}) == text/* ]]; then ${__FZF[PREVIEW_TEXT]}; else file {}; fi; fi"
+
+__FZF_TAB[PREVIEW_TEXT]='bat --style=numbers,changes --wrap never --color always $realpath || cat $realpath'
+__FZF_TAB[PREVIEW_FILE_OR_DIR]="if [ -d \$realpath ]; then ${__FZF[PREVIEW_DIR]} \$realpath; else if [[ \$(file --brief --dereference --mime \$realpath) == text/* ]]; then ${__FZF_TAB[PREVIEW_TEXT]}; else file \$realpath; fi; fi"
 
 # TAB / Shift-TAB: multiple selections
 # ^S: preview page up, ^D: preview page down
 # ?: toggle preview window
 # ^O: open with $VISUAL (`code` on macOS)
 export FZF_DEFAULT_OPTS="
+  --header '?: preview, ^s: pgup, ^d: pgdown, ^o: open editor'
+  --color header:italic
+  --style full
   --border
-  --inline-info
-  --reverse
-  --tabstop 2
   --multi
+  --tmux
   --bind 'ctrl-s:preview-page-up'
   --bind 'ctrl-d:preview-page-down'
   --bind 'ctrl-o:execute($VISUAL {})+abort'
-  --bind '?:toggle-preview'"
+  --bind '?:toggle-preview'
+"
 
 # FZF - File Browser (C-t)
-
-# export FZF_CTRL_T_OPTS="
-#   --preview '${__FZF[PREVIEW_FILE_OR_DIR]}'
-#   --preview-window right:60%:border"
-
-# Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules,.DS_Store
+  --walker-skip .git,node_modules
   --preview '${__FZF[PREVIEW_FILE_OR_DIR]}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+  --preview-window right:60%:border:wrap"
 
 # FZF - Shell History (C-r)
 # Use `--with-nth 2..` to hide the history index
+# NOTE: right now atuin is used so this is of no use
 export FZF_CTRL_R_OPTS="
   --color header:italic
   --preview 'echo {}'
@@ -104,45 +106,57 @@ export FZF_ALT_C_OPTS="
   --walker-skip .git,node_modules
   --preview '${__FZF[PREVIEW_DIR]} {}'"
 
-export FZF_COMPLETION_OPTS='+c -x'
+# FZF - Completion Options
+# https://github.com/junegunn/fzf?tab=readme-ov-file#customizing-fzf-options-for-completion
+
+# fzf-tab (https://github.com/Aloxaf/fzf-tab)
+
+# Use tmux popup for fzf-tab
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Note: fzf-tab does not use default fzf options
-# ref: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L90
+# Note: bind **<TAB> to select multiple entries (like the default in FZF)
+# Note: some other flags are already set in fzf-tab code,
+# refer to: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L90
+zstyle ':fzf-tab:*' fzf-flags \
+  --header '?: preview, ^s: pgup, ^d: pgdown, ^o: open editor' \
+  --color header:italic \
+  --style full \
+  --height=-2 \
+  --border \
+  --preview-window 'right:40%:border:wrap' \
+  --bind 'tab:toggle-out' \
+  --bind 'shift-tab:toggle-in' \
+  --bind 'ctrl-s:preview-page-up' \
+  --bind 'ctrl-d:preview-page-down' \
+  --bind "ctrl-o:execute($VISUAL {})+abort" \
+  --bind '?:toggle-preview'
 
-# Show the value of environment variables or similar parameters in the preview window
+# FIXME: does not work
+# zstyle ':fzf-tab:complete:(-command-):*' fzf-preview 'builtin type -- {}'
+
+# Expand the value of environment variables or similar parameters in the preview window
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
 	fzf-preview 'echo ${(P)word}'
 
-# preview directory's content with lsd when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --tree --icon always --depth 2 --color=always --timesort $realpath'
+# preview directory or file's content when completing some commands
+zstyle ':fzf-tab:complete:(cd|vim|nano|e|cursor|code|mv|cp|rm):*' \
+  fzf-preview "${__FZF_TAB[PREVIEW_FILE_OR_DIR]}"
 
 # kill/ps
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \
   --height=20 \
   --preview-window 'down:3:wrap'
 
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
-
-# Bind **<TAB> to select multiple entries (like the default in FZF)
-# Default bindings: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L31
-zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle'
-
-# Use tmux popup for fzf-tab
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-
 if [[ "$OSTYPE" = darwin* ]]; then
   zstyle ':completion:*:processes-names' command "ps -wwrcau$USER -o comm | uniq" # killall
   zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,%cpu,%mem,stat,comm"
   zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
     '[[ $group == "[process ID]" ]] && ps -wwp$word -o comm='
-fi
-
-if [[ "$OSTYPE" = solaris* ]]; then
-  zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
-fi
-
-if [[ "$OSTYPE" = linux* ]]; then
+elif [[ "$OSTYPE" = linux* ]]; then
   zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
   zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
     '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
