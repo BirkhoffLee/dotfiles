@@ -52,10 +52,14 @@ export FORGIT_FZF_DEFAULT_OPTS="
 "
 
 # fzf (https://github.com/junegunn/fzf)
+# fzf shell integration binds C-t, C-r, Alt-C
+# docs: https://github.com/junegunn/fzf?tab=readme-ov-file#key-bindings-for-command-line
 
 typeset -AU __FZF
 
 __FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
+__FZF[PREVIEW_FILE]="bat --style=numbers,changes --wrap never --color always {} || cat {}"
+__FZF[PREVIEW_FILE_OR_DIR]="if [ -d {} ]; then ${__FZF[PREVIEW_DIR]} {}; else ${__FZF[PREVIEW_FILE]}; fi"
 
 # TAB / Shift-TAB: multiple selections
 # ^S: preview page up, ^D: preview page down
@@ -67,46 +71,65 @@ export FZF_DEFAULT_OPTS="
   --reverse
   --tabstop 2
   --multi
-  --prompt='» '
-  --pointer=' '
-  --marker='✓ '
   --bind 'ctrl-s:preview-page-up'
   --bind 'ctrl-d:preview-page-down'
   --bind 'ctrl-o:execute($VISUAL {})+abort'
   --bind '?:toggle-preview'"
 
-#FIXME: file type
-export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || ${__FZF[PREVIEW_DIR]} {}"
+# FZF - File Browser (C-t)
 
+# export FZF_CTRL_T_OPTS="
+#   --preview '${__FZF[PREVIEW_FILE_OR_DIR]}'
+#   --preview-window right:60%:border"
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
-  --preview '($FZF_PREVIEW_COMMAND)'
-  --preview-window right:60%:border"
+  --walker-skip .git,node_modules,.DS_Store
+  --preview '${__FZF[PREVIEW_FILE_OR_DIR]}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
+# FZF - Shell History (C-r)
+# Use `--with-nth 2..` to hide the history index
 export FZF_CTRL_R_OPTS="
-  --layout default
-  --height 20
+  --color header:italic
   --preview 'echo {}'
-  --preview-window down:3:wrap:hidden
-  --bind '?:toggle-preview,ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --header 'Press ^Y to copy command into clipboard'"
+  --preview-window up:3:hidden:wrap
+  --bind '?:toggle-preview'
+  --bind 'ctrl-t:track+clear-query'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --header 'CTRL-T: Track command, CTRL-Y: copy command to clipboard'"
 
-export FZF_ALT_C_OPTS="--preview '${__FZF[PREVIEW_DIR]} {}'"
+# FZF - Interactive change directory (Alt-C)
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules
+  --preview '${__FZF[PREVIEW_DIR]} {}'"
 
 export FZF_COMPLETION_OPTS='+c -x'
 
-zstyle ':fzf-tab:*' fzf-command fzf
+# Note: fzf-tab does not use default fzf options
+# ref: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L90
 
-# env
+# Show the value of environment variables or similar parameters in the preview window
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
 	fzf-preview 'echo ${(P)word}'
 
-# cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# preview directory's content with lsd when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --tree --icon always --depth 2 --color=always --timesort $realpath'
 
 # kill/ps
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \
   --height=20 \
   --preview-window 'down:3:wrap'
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# Bind **<TAB> to select multiple entries (like the default in FZF)
+# Default bindings: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L31
+zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle'
+
+# Use tmux popup for fzf-tab
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 if [[ "$OSTYPE" = darwin* ]]; then
   zstyle ':completion:*:processes-names' command "ps -wwrcau$USER -o comm | uniq" # killall
