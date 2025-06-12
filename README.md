@@ -1,35 +1,36 @@
 # dotfiles
 
-My macOS dotfiles managed by [Nix](https://nixos.org/),
-[home-manager](https://github.com/nix-community/home-manager) and
-[nix-darwin](https://github.com/LnL7/nix-darwin). Works on M1 Pro, macOS Sequoia 15.1.
+My macOS dotfiles managed by [nix-darwin](https://github.com/LnL7/nix-darwin) and [home-manager](https://github.com/nix-community/home-manager), powered by [Nix](https://nixos.org/).
+
+Works on M1 Pro, macOS Sequoia 15.5 (24F74).
 
 ## Overview
 
-Nix enables reproducible builds. It manages all the packages (and those on
-Homebrew), and [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the
-environment for macOS. Some custom scripts are included for those settings that
-are not supported by [nix-darwin](https://github.com/LnL7/nix-darwin).
+* [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the macOS system environment.
+  * [Nix](https://nixos.org/) enables reproducible builds.
+* [home-manager](https://github.com/nix-community/home-manager) manages the user environment, including Homebrew packages.
+  * However, I still use Homebrew for some packages, especially for GUI apps because they usually have self-update features that conflicts with the structure of Nix.
+* Some custom scripts are included for those settings that are not supported by [nix-darwin](https://github.com/LnL7/nix-darwin) or [home-manager](https://github.com/nix-community/home-manager).
 
-Some shell features worth mentioning:
+Key features:
 
-* [Declarative](dot_nixpkgs/darwin-configuration.nix.tmpl) macOS with [nix-darwin](https://github.com/LnL7/nix-darwin)
-* zsh with [p10k](https://github.com/romkatv/powerlevel10k)
-* [tj/n](https://github.com/tj/n) instead of nvm
-* [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
-* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for completion
-* [Integration](dot_shell/external.zsh.tmpl) of [fzf](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh), [fd](https://github.com/sharkdp/fd), [bat](https://github.com/sharkdp/bat) and [lsd](https://github.com/Peltoche/lsd)
-  + ^T: interactively select files in cwd recursively
-    - `?` to toggle preview
-    - ^S ^D: page up/down
-  + ^O to open in `$VISUAL` (VS Code on macOS)
-  + ^R to fuzzy search command line history
-  + Alt-C: interactive cd
-* Interactive git operations with [forgit](https://github.com/wfxr/forgit#-features)
+* zsh with [p10k](https://github.com/romkatv/powerlevel10k) [instant prompt](hosts/AlessandroMBP/home/zsh/default.nix)
+* [atuin](https://github.com/ellie/atuin) for shell history
+* tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+* [fzf shell integration](hosts/AlessandroMBP/home/zsh/shell/external.zsh)
+  * CTRL-T - Paste the path of selected files and directories onto the command-line
+  * ALT-C - cd into the selected directory
+* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for zsh completion, including a smart preview window:
+  * [fd](https://github.com/sharkdp/fd) for file search
+  * [bat](https://github.com/sharkdp/bat) for file preview
+  * [lsd](https://github.com/Peltoche/lsd) for directory listing
+* A number of handy [aliases](hosts/AlessandroMBP/home/zsh/shell/aliases.zsh) and [functions](hosts/AlessandroMBP/home/zsh/shell/functions.zsh)
+* [automatically propagated](hosts/AlessandroMBP/home/zsh/shell/proxy.zsh) shell proxy settings
+* [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlessandroMBP/home/ghostty.nix)
 
 ## Usage
 
-On a new macOS machine w/o Nix installed:
+On a new macOS machine without Nix installed:
 
 ```console
 xcode-select --install
@@ -95,6 +96,8 @@ nix build "$HOME/.config/nix#darwinConfigurations.AlessandroMBP.system" --extra-
 ```
 
 ## Appendix: iTerm2 Profile Configuration
+
+> I no longer use iTerm2, but I'll keep the configuration here for reference.
 
 I use iTerm2 as my terminal emulator. Here are some settings that I've been using for years:
 
