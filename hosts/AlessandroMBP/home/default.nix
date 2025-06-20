@@ -18,6 +18,7 @@ rec {
     ./editorconfig.nix
     ./gem.nix
     ./ghostty.nix
+    ./television.nix
     ./git.nix
     ./gnupg.nix
     ./htop.nix

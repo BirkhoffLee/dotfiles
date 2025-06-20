@@ -4,6 +4,8 @@
 #
 # This file is used as a part of `.shell_env`
 
+eval "$(tv init zsh)"
+
 ( gpg-agent --daemon > /dev/null 2>&1 & )
 
 # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
