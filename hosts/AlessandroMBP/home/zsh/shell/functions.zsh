@@ -2,6 +2,31 @@
 
 # `.functions` provides helper functions for shell.
 
+# Decrypt all PDFs in the current directory
+# Example: decrypt_pdfs "password"
+function decrypt_pdfs {
+  local password="$1"
+  for file in *.pdf; do
+    # Skip if it's not a regular file
+    [ -f "$file" ] || continue
+
+    # Check if it's encrypted
+    if qpdf --check "$file" 2>&1 | grep -q "is encrypted"; then
+      echo "Decrypting: $file"
+      local tmp_file="tmp_decrypted.pdf"
+      if qpdf --decrypt --password="$password" "$file" "$tmp_file"; then
+        mv "$tmp_file" "$file"
+        echo "Decrypted: $file"
+      else
+        echo "Failed to decrypt: $file"
+        rm -f "$tmp_file"
+      fi
+    else
+      echo "Already decrypted: $file"
+    fi
+  done
+}
+
 # Traceroute with Trippy
 function t {
   if [ ! -f $HOME/.cache/geoip.mmdb ]; then
