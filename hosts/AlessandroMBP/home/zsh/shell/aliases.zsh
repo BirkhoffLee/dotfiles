@@ -171,5 +171,6 @@ else
   # Quick connect
   alias q='ssh -v'
   
+  # LLM
   alias files-to-prompt='uvx files-to-prompt'
 fi
