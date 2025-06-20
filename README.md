@@ -27,6 +27,7 @@ Key features:
 * A number of handy [aliases](hosts/AlessandroMBP/home/zsh/shell/aliases.zsh) and [functions](hosts/AlessandroMBP/home/zsh/shell/functions.zsh)
 * [automatically propagated](hosts/AlessandroMBP/home/zsh/shell/proxy.zsh) shell proxy settings
 * [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlessandroMBP/home/ghostty.nix)
+* [Sets](hosts/AlessandroMBP/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
 
 ## Usage
 
