@@ -2,6 +2,7 @@
 
 # `.functions` provides helper functions for shell.
 
+# Traceroute with Trippy
 function t {
   if [ ! -f $HOME/.cache/geoip.mmdb ]; then
     wget -O $HOME/.cache/geoip.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
@@ -60,7 +61,8 @@ function cdls {
   builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"
 }
 
-listening() {
+# List all processes listening on a port
+function listening {
   if [ $# -eq 0 ]; then
     sudo lsof -iTCP -sTCP:LISTEN -n -P
   elif [ $# -eq 1 ]; then
@@ -73,7 +75,7 @@ listening() {
 # Apply scanner effect to a PDF
 # https://gist.github.com/andyrbell/25c8632e15d17c83a54602f6acde2724
 # https://github.com/NixOS/nixpkgs/issues/138638#issuecomment-1068569761
-dirtypdf () {
+function dirtypdf {
   if [ $# -ne 2 ]; then
     echo "Usage: dirtypdf <input_pdf> <output_pdf>"
     return 1
@@ -94,7 +96,7 @@ dirtypdf () {
 }
 
 # `favicon 1.png` will generate 4 sizes of favicon.ico
-favicon () {
+function favicon {
   convert $1 -background white \
     \( -clone 0 -resize 16x16 -extent 16x16 \) \
     \( -clone 0 -resize 32x32 -extent 32x32 \) \
@@ -104,7 +106,7 @@ favicon () {
 }
 
 # e: edit with default editor or open cwd with editor
-e () {
+function e {
   if [[ ! -z $1 ]]; then
     $VISUAL $1
   else
@@ -120,7 +122,7 @@ e () {
 #  - if you want to replace ag for rg feel free (https://blog.burntsushi.net/ripgrep/)
 #  - Same goes for bat, although ccat and others are definitely worse
 #  - the $ext extraction uses a ZSH specific text globber
-s () {
+function s {
   local margin=5 # number of lines above and below search result.
   local preview_cmd='search={};file=$(echo $search | cut -d':' -f 1 );'
   preview_cmd+="margin=$margin;" # Inject value into scope.
@@ -135,7 +137,7 @@ s () {
     (code -g "$file":$line || $VISUAL "$file" +$line)
 }
 
-pingu () {
+function pingu {
   ping_cancelled=false    # Keep track of whether the loop was cancelled, or succeeded
   until ping -c1 "$1" >/dev/null 2>&1; do :; done &    # The "&" backgrounds it
   trap "kill $!; ping_cancelled=true" SIGINT
@@ -145,30 +147,30 @@ pingu () {
 }
 
 # lookup ip
-lip () {
+function lip {
   http -b https://api.birkhoff.me/v3/ip/$1
 }
 
-dns () {
+function dns {
   lip $(kdig @8.8.4.4 +short $1 | tail -n1)
 }
 
-testdown() {
+function testdown {
   http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null
 }
 
-pyclean () {
+function pyclean {
   # Cleans py[cod] and __pychache__ dirs in the current tree:
   find . | grep -E "(__pycache__|\.py[cod]$)" | xargs rm -rf
 }
 
-pipenv-shell () {
+function pipenv-shell {
   # pipenv shell breaks sometimes. This does not.
   source "$(pipenv --venv)/bin/activate"
 }
 
 # ftpane - switch pane (@george-b)
-ftpane() {
+function ftpane {
   local panes current_window current_pane target target_window target_pane
   panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
   current_pane=$(tmux display-message -p '#I:#P')
