@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
 
+let
+  setWallpaperScript = import ../wallpaper.nix { inherit pkgs; };
+in
 rec {
   home.stateVersion = "23.11";
 
@@ -34,7 +37,7 @@ rec {
     '';
 
     "activateUserSettings" =
-      lib.hm.dag.entryAfter ["revealHomeLibraryDirectory"] ''
+      lib.hm.dag.entryAfter [ "setWallpaper" ] ''
         /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
         for app in \
@@ -56,6 +59,10 @@ rec {
         # echo "[+] tailscaled install-system-daemon"
         # sudo ${pkgs.tailscale}/bin/tailscaled install-system-daemon
       '';
+    "setWallpaper" = lib.hm.dag.entryAfter ["revealHomeLibraryDirectory"] ''
+      echo "[+] Setting wallpaper"
+      ${setWallpaperScript}/bin/set-wallpaper-script
+    '';
   };
 
   programs = {
