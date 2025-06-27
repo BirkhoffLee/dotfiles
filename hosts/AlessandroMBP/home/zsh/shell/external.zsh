@@ -39,13 +39,8 @@ if [[ "$OSTYPE" = darwin* ]]; then
 fi
 
 # forgit (https://github.com/wfxr/forgit)
-
-# --ansi is required for forgit to display colors
-
 export FORGIT_FZF_DEFAULT_OPTS="
-  --ansi
   --exact
-  --border
   --cycle
   --reverse
   --height '80%'
