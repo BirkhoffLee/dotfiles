@@ -86,17 +86,17 @@ __FZF_TAB[PREVIEW_FILE_OR_DIR]="
 "
 
 # TAB / Shift-TAB: multiple selections
-# ^S: preview page up, ^D: preview page down
+# Alt-Up: preview page up, Alt-Down: preview page down
 # ?: toggle preview window
 # ^O: open with $VISUAL (`code` on macOS)
 export FZF_DEFAULT_OPTS="
-  --header '?: preview, ^s: pgup, ^d: pgdown, ^o: open editor'
+  --header '?: preview, alt-up: pgup, alt-down: pgdown, ^o: open editor'
   --color header:italic
   --style full
   --multi
   --tmux
-  --bind 'ctrl-s:preview-page-up'
-  --bind 'ctrl-d:preview-page-down'
+  --bind 'alt-up:preview-page-up'
+  --bind 'alt-down:preview-page-down'
   --bind 'ctrl-o:execute($VISUAL {})+abort'
   --bind '?:toggle-preview'
 "
@@ -161,15 +161,15 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # Note: some other flags are already set in fzf-tab code,
 # refer to: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L90
 zstyle ':fzf-tab:*' fzf-flags \
-  --header '?: preview, ^s: pgup, ^d: pgdown, ^o: open editor' \
+  --header '?: preview, alt-up: pgup, alt-down: pgdown, ^o: open editor' \
   --color header:italic \
   --style full \
   --height=-2 \
   --preview-window 'right:40%:border:wrap' \
   --bind 'tab:toggle-out' \
   --bind 'shift-tab:toggle-in' \
-  --bind 'ctrl-s:preview-page-up' \
-  --bind 'ctrl-d:preview-page-down' \
+  --bind 'alt-up:preview-page-up' \
+  --bind 'alt-down:preview-page-down' \
   --bind "ctrl-o:execute($VISUAL {})+abort" \
   --bind '?:toggle-preview'
 
