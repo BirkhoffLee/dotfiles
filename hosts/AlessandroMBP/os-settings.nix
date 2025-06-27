@@ -490,5 +490,7 @@
 
   # Enable sudo authentication with Touch ID
   security.pam.services.sudo_local.touchIdAuth = true;
-  # https://github.com/LnL7/nix-darwin/issues/1354
+
+  # Enable pam_reattach to allow sudo to be used with Touch ID
+  security.pam.services.sudo_local.reattach = true;
 }

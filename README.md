@@ -141,9 +141,6 @@ I use the built-in *Natural Text Editing* preset, with the following custom key 
 
 ## TODOs
 
-* enable pam_reattach in /etc/pam.d/sudo
-  * https://gist.github.com/smunix/02d7a208a8478ebb4cbc4afe47e5ea8d
-  * https://github.com/fabianishere/pam_reattach
 * manage python versions/dependencies with nix
 * manage nodejs with nix
 * [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
