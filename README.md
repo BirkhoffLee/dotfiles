@@ -15,8 +15,7 @@ Works on M1 Pro, macOS Sequoia 15.5 (24F74).
 Key features:
 
 * zsh with [p10k](https://github.com/romkatv/powerlevel10k) [instant prompt](hosts/AlessandroMBP/home/zsh/default.nix)
-* [atuin](https://github.com/ellie/atuin) for shell history
-* tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+  * Prompt theme is p10k Lean style. Git status symbols docs can be found [here](https://github.com/romkatv/powerlevel10k#what-do-different-symbols-in-git-status-mean).
 * [fzf shell integration](hosts/AlessandroMBP/home/zsh/shell/external.zsh)
   * CTRL-T - Paste the path of selected files and directories onto the command-line
   * ALT-C - cd into the selected directory
@@ -24,6 +23,8 @@ Key features:
   * [fd](https://github.com/sharkdp/fd) for file search
   * [bat](https://github.com/sharkdp/bat) for file preview
   * [eza](https://github.com/eza-community/eza) for directory listing
+* [atuin](https://github.com/ellie/atuin) for shell history
+* tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 * A number of handy [aliases](hosts/AlessandroMBP/home/zsh/shell/aliases.zsh) and [functions](hosts/AlessandroMBP/home/zsh/shell/functions.zsh)
 * [automatically propagated](hosts/AlessandroMBP/home/zsh/shell/proxy.zsh) shell proxy settings
 * [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlessandroMBP/home/ghostty.nix)
@@ -143,28 +144,33 @@ I use the built-in *Natural Text Editing* preset, with the following custom key 
 
 * File completion
   * List directories first like [this](https://github.com/Aloxaf/fzf-tab/pull/518)
-
-* manage python versions/dependencies with nix
-* manage nodejs with nix
+  * When completing with fzf-tab, there's the slash in file names which i dont like
+* Manage python versions/dependencies with nix
+* Manage nodejs with nix
 * [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
-* https://xyno.space/post/nix-darwin-introduction
-* https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-* https://github.com/ahmedelgabri/dotfiles/blob/main/config/zsh.d/.zshrc
+* Use [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to ensure consistency across different platforms
+
+Some other dotfiles worth looking into:
+
+* https://github.com/ahmedelgabri/dotfiles
 * https://github.com/kornicameister/dotfiles/
 * https://github.com/Aloxaf/dotfiles/tree/master/zsh/.config/zsh
-* https://github.com/finnurtorfa/zsh/blob/master/completion.zsh
 * https://github.com/paulmillr/dotfiles
-* https://github.com/marlonrichert/.config/tree/main/zsh
+* https://github.com/marlonrichert/zsh-launchpad
 * https://github.com/mashehu/dotfiles/blob/master/zshrc
+
+Some completions setups:
+
+* https://github.com/finnurtorfa/zsh/blob/master/completion.zsh
 
 ## Articles
 
 Here are some reads you might find interesting:
 
+* [Declarative macOS Configuration Using nix-darwin And home-manager](https://xyno.space/post/nix-darwin-introduction)
 * [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
 * [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
 * [fzf examples (fzf wiki)](https://github.com/junegunn/fzf/wiki/examples)
-* [p10k git status symbols](https://github.com/romkatv/powerlevel10k#what-do-different-symbols-in-git-status-mean)
 
 ## License
 
