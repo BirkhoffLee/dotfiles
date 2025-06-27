@@ -109,19 +109,22 @@
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
     # Get hash with:
     # `nix flake prefetch github:<owner>/<repo>/<rev> --json | jq -r '.hash'`
+    # or just leave empty and apply, it will tell you the hash
     plugins = [
       {
         name = "forgit";
         src = pkgs.fetchFromGitHub {
+          # https://github.com/wfxr/forgit
           owner = "wfxr";
           repo = "forgit";
-          rev = "23.06.0";
-          sha256 = "sha256-HxdTRv4OFf7Bh3FnTB7FMjhizCLH5DbuOHzQq2SYfAE=";
+          rev = "25.06.0";
+          sha256 = "sha256-D1we3pOPXNsK8KgEaRBAmD5eH1i2ud4zX1GwYbOyZvY=";
         };
       }
       {
         name = "extract";
         src = pkgs.fetchFromGitHub {
+          # https://github.com/birkhofflee/zsh-plugin-extract
           owner = "birkhofflee";
           repo = "zsh-plugin-extract";
           rev = "1.0.0";
@@ -131,19 +134,21 @@
       {
         name = "you-should-use";
         src = pkgs.fetchFromGitHub {
+          # https://github.com/MichaelAquilina/zsh-you-should-use
           owner = "MichaelAquilina";
           repo = "zsh-you-should-use";
-          rev = "1f9cb008076d4f2011d5f814dfbcfbece94a99e0";
-          sha256 = "sha256-lKs6DhG3x/oRA5AxnRT+odCZFenpS86wPnPqxLonV2E=";
+          rev = "030ac861f5f1536747407ac7baf208fd3990602a";
+          sha256 = "sha256-iPVB1LxbE/eBsZy7U1Zo7/uMtqko3edL4LsM3Yp+pz8=";
         };
       }
       {
         name = "auto-notify";
         src = pkgs.fetchFromGitHub {
+          # https://github.com/MichaelAquilina/zsh-auto-notify
           owner = "MichaelAquilina";
           repo = "zsh-auto-notify";
-          rev = "22b2c61ed18514b4002acc626d7f19aa7cb2e34c";
-          sha256 = "sha256-x+6UPghRB64nxuhJcBaPQ1kPhsDx3HJv0TLJT5rjZpA=";
+          rev = "b51c934d88868e56c1d55d0a2a36d559f21cb2ee";
+          sha256 = "sha256-s3TBAsXOpmiXMAQkbaS5de0t0hNC1EzUUb0ZG+p9keE=";
         };
       }
       {
@@ -157,6 +162,7 @@
       {
         name = "fzf-tab";
         src = pkgs.fetchFromGitHub {
+          # https://github.com/Aloxaf/fzf-tab
           owner = "Aloxaf";
           repo = "fzf-tab";
           rev = "2abe1f2f1cbcb3d3c6b879d849d683de5688111f";
