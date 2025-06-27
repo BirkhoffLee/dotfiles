@@ -3,7 +3,7 @@
 let
 
   username = "ale";
-  hostname = "AlessandroMBP";
+  hostname = "AlexMBP";
 
 in {
   home-manager = {

@@ -71,10 +71,10 @@
       };
 
       darwinConfigurations = {
-        AlessandroMBP = darwin.lib.darwinSystem {
+        AlexMBP = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = [
-            ./hosts/AlessandroMBP { nixpkgs = nixpkgsDefaults; }
+            ./hosts/AlexMBP { nixpkgs = nixpkgsDefaults; }
             home-manager.darwinModules.home-manager
           ];
         };

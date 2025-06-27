@@ -1,5 +1,5 @@
 all:
-	darwin-rebuild switch --flake ".#AlessandroMBP"
+	darwin-rebuild switch --flake ".#AlexMBP"
 
 repair:
 	nix-collect-garbage -d
