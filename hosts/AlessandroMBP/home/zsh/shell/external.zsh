@@ -8,7 +8,7 @@
 export LS_COLORS="$(vivid generate snazzy)"
 
 # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
-AUTO_NOTIFY_IGNORE+=("tmux" "bat")
+AUTO_NOTIFY_IGNORE+=("tmux" "bat" "cat" "less" "man")
 
 # macOS only
 if [[ "$OSTYPE" = darwin* ]]; then
