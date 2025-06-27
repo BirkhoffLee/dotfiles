@@ -97,49 +97,6 @@ nix build "$HOME/.config/nix#darwinConfigurations.AlessandroMBP.system" --extra-
 ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlessandroMBP"
 ```
 
-## Appendix: iTerm2 Profile Configuration
-
-> I no longer use iTerm2, but I'll keep the configuration here for reference.
-
-I use iTerm2 as my terminal emulator. Here are some settings that I've been using for years:
-
-* Command: Login Shell
-* Font
-  + Menlo, Regular, 15
-  + Anti-aliased
-  + Use a different font for non-ASCII text
-* Non-ASCII Font
-  + Hack Nerd Font Mono, Regular, 15
-  + Use ligatures
-  + Anti-aliased
-* Settings for New Windows - 144, 41
-* Enable mouse reporting
-* Silence bell
-* Left Option Key: Esc+
-* Right Option Key: Normal
-
-### Key Mappings (included in [Terminal.itermkeymap](Terminal.itermkeymap)):
-
-I use the built-in *Natural Text Editing* preset, with the following custom key mappings:
-
-| Key     | Send Hex Codes | Description                          |
-| ------- | -------------- | ------------------------------------ |
-| ⌘Z     | `0x1f`       | undo                                 |
-| ⇧⌘Z   | `0x18 0x1f`  | redo                                 |
-| ⌥Del→ | `0x17`       | delete word                          |
-| ⌘←    | `0x2`        | go to beginning of line              |
-| ⇧⌘↵  | `0x1 0x7a`   | maximize pane in current window      |
-| ⌃⌘F   | `0x1 0x2b`   | move pane to new window              |
-| ⇧⌘D   | `0x1 0x2d`   | splits the current pane vertically   |
-| ⌘D     | `0x1 0x5f`   | splits the current pane horizontally |
-| ⇧⌘R   | `0x1 0x72`   | reload tmux config                   |
-| ⇧⌘←  | `0x1 0x68`   | navigate to the pane on the left     |
-| ⇧⌘↓  | `0x1 0x6a`   | navigate to the pane on the bottom   |
-| ⇧⌘↑  | `0x1 0x6b`   | navigate to the pane on the top      |
-| ⇧⌘→  | `0x1 0x6c`   | navigate to the pane on the right    |
-| ⌥⌘←  | `0x1 0x8`    | switch to previous window            |
-| ⌥⌘→  | `0x1 0xc`    | switch to next window                |
-
 ## TODOs
 
 * File completion
