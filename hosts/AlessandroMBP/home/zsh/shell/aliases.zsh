@@ -53,30 +53,30 @@ if zstyle -T ':prezto:module:utility' safe-ops; then
   alias ln="${aliases[ln]:-ln} -i"
 fi
 
-alias l='ls -1A'         # Lists in one column, hidden files.
-alias ll='ls -lh'        # Lists human readable sizes.
-alias lr='ll -R'         # Lists human readable sizes, recursively.
-alias la='ll -A'         # Lists human readable sizes, hidden files.
-alias lm='la | "$PAGER"' # Lists human readable sizes, hidden files through pager.
-alias lk='ll -Sr'        # Lists sorted by size, largest last.
-alias lt='ll -tr'        # Lists sorted by date, most recent last.
-alias sl='ls'            # I often screw this up.
-
-# GNU ls only
-command -v lsd > /dev/null || alias lx='ll -XB' # Lists sorted by extension
-command -v lsd > /dev/null || alias lc='lt -c' # Lists sorted by date, most recent last, shows change time
-command -v lsd > /dev/null || alias lu='lt -u' # Lists sorted by date, most recent last, shows access time
+# ls
+alias sl='ls'
+alias l='ls'
 
 command -v eza > /dev/null && {
-  alias ls='eza'
-  alias tree='ls -lha --tree'
-  alias l='ls -1a'
-  alias la='ll -a'
-}
+  alias ls='eza -1 --group-directories-first --icons --hyperlink --no-quotes'
+  alias ll='ls -l' # long format
+  alias la='ls -la' # long format + show hidden and 'dot' files
+  alias tree='ls --tree --level 3'
+} || {
+  # command -v lsd > /dev/null && {
+  #   alias ls='lsd --group-dirs first --hyperlink auto --icon always'
+  #   alias tree='ls -lhA --tree'
+  # }
 
-command -v lsd > /dev/null && {
-  alias ls='lsd --group-dirs first'
-  alias tree='ls -lhA --tree'
+  alias ls='ls -1A'
+  alias ll='ls -lh'
+  alias lr='ll -R'
+  alias la='ll -A'
+  
+  # GNU ls only
+  alias lx='ll -XB' # Lists sorted by extension
+  alias lc='lt -c' # Lists sorted by date, most recent last, shows change time
+  alias lu='lt -u' # Lists sorted by date, most recent last, shows access time
 }
 
 alias grep="${aliases[grep]:-grep} --color=auto"

@@ -116,7 +116,7 @@
     fd
     fzf
     jq
-    lsd
+    # lsd
     progress
     pv
     rsync

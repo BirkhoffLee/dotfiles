@@ -23,7 +23,7 @@ Key features:
 * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for zsh completion, including a smart preview window:
   * [fd](https://github.com/sharkdp/fd) for file search
   * [bat](https://github.com/sharkdp/bat) for file preview
-  * [lsd](https://github.com/Peltoche/lsd) for directory listing
+  * [eza](https://github.com/eza-community/eza) for directory listing
 * A number of handy [aliases](hosts/AlessandroMBP/home/zsh/shell/aliases.zsh) and [functions](hosts/AlessandroMBP/home/zsh/shell/functions.zsh)
 * [automatically propagated](hosts/AlessandroMBP/home/zsh/shell/proxy.zsh) shell proxy settings
 * [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlessandroMBP/home/ghostty.nix)
@@ -140,6 +140,9 @@ I use the built-in *Natural Text Editing* preset, with the following custom key 
 | ⌥⌘→  | `0x1 0xc`    | switch to next window                |
 
 ## TODOs
+
+* File completion
+  * List directories first like [this](https://github.com/Aloxaf/fzf-tab/pull/518)
 
 * manage python versions/dependencies with nix
 * manage nodejs with nix

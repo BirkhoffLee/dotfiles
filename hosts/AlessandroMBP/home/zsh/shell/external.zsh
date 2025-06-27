@@ -60,12 +60,35 @@ typeset -AU __FZF __FZF_TAB
 
 # https://github.com/junegunn/fzf/blob/master/bin/fzf-preview.sh
 
-__FZF[PREVIEW_DIR]="lsd --tree --icon always --depth 2 --color=always --timesort"
+__FZF[PREVIEW_DIR]="eza -a --tree --level 3 --color=always --icons --no-quotes --group-directories-first --show-symlinks"
+
 __FZF[PREVIEW_TEXT]="bat --style=numbers,changes --wrap never --color always {} || cat {}"
-__FZF[PREVIEW_FILE_OR_DIR]="if [ -d {} ]; then ${__FZF[PREVIEW_DIR]} {}; else if [[ \$(file --brief --dereference --mime {}) == text/* ]]; then ${__FZF[PREVIEW_TEXT]}; else file {}; fi; fi"
+
+__FZF[PREVIEW_FILE_OR_DIR]="
+  if [ -d {} ]; then
+    ${__FZF[PREVIEW_DIR]} {};
+  else
+    if [[ \$(file --brief --dereference --mime {}) == text/* ]]; then
+      ${__FZF[PREVIEW_TEXT]};
+    else
+      file {};
+    fi;
+  fi
+"
 
 __FZF_TAB[PREVIEW_TEXT]='bat --style=numbers,changes --wrap never --color always $realpath || cat $realpath'
-__FZF_TAB[PREVIEW_FILE_OR_DIR]="if [ -d \$realpath ]; then ${__FZF[PREVIEW_DIR]} \$realpath; else if [[ \$(file --brief --dereference --mime \$realpath) == text/* ]]; then ${__FZF_TAB[PREVIEW_TEXT]}; else file \$realpath; fi; fi"
+
+__FZF_TAB[PREVIEW_FILE_OR_DIR]="
+  if [ -d \$realpath ]; then
+    ${__FZF[PREVIEW_DIR]} \$realpath;
+  else
+    if [[ \$(file --brief --dereference --mime \$realpath) == text/* ]]; then
+      ${__FZF_TAB[PREVIEW_TEXT]};
+    else
+      file \$realpath;
+    fi;
+  fi
+"
 
 # TAB / Shift-TAB: multiple selections
 # ^S: preview page up, ^D: preview page down
@@ -84,11 +107,36 @@ export FZF_DEFAULT_OPTS="
   --bind '?:toggle-preview'
 "
 
+# FZF - File Browser (C-t) and Alt-C
+# Override FZF_CTRL_T_COMMAND and FZF_ALT_C_COMMAND to use fd and xargs
+#
+# Ref: https://github.com/niksingh710/cdots/blob/bc79fa30cd62f5655b45c64cc79401082b4bd791/home/.shell/fzf.zsh#L101-L106
+#
+# Explanation of the options:
+# -0: tells both fd and xargs to use a null character (\0) as a separator
+#     instead of whitespace, which avoids issues with filenames containing
+#     spaces, quotes, or other special characters.
+# -tf: only regular files
+# --follow: follow symlinks
+# -H: follow hidden files
+# -d: only directories
+# -t: sort by modification time
+exclude_list=(
+  "--exclude .git"
+  "--exclude node_modules"
+  "--exclude .DS_Store"
+)
+export FZF_CTRL_T_COMMAND="fd -H -tf --follow ${exclude_list[*]} -0 | xargs -0 ls -t"
+export FZF_ALT_C_COMMAND="fd $dirPATH -td ${exclude_list[*]} -0 | xargs -0 ls -dt"
+
 # FZF - File Browser (C-t)
 export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules
   --preview '${__FZF[PREVIEW_FILE_OR_DIR]}'
   --preview-window right:60%:border:wrap"
+
+# FZF - Interactive change directory (Alt-C)
+export FZF_ALT_C_OPTS="
+  --preview '${__FZF[PREVIEW_DIR]} {}'"
 
 # FZF - Shell History (C-r)
 # Use `--with-nth 2..` to hide the history index
@@ -101,11 +149,6 @@ export FZF_CTRL_R_OPTS="
   --bind 'ctrl-t:track+clear-query'
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --header 'CTRL-T: Track command, CTRL-Y: copy command to clipboard'"
-
-# FZF - Interactive change directory (Alt-C)
-export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules
-  --preview '${__FZF[PREVIEW_DIR]} {}'"
 
 # FZF - Completion Options
 # https://github.com/junegunn/fzf?tab=readme-ov-file#customizing-fzf-options-for-completion
@@ -127,7 +170,6 @@ zstyle ':fzf-tab:*' fzf-flags \
   --color header:italic \
   --style full \
   --height=-2 \
-  --border \
   --preview-window 'right:40%:border:wrap' \
   --bind 'tab:toggle-out' \
   --bind 'shift-tab:toggle-in' \
@@ -144,7 +186,7 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 	fzf-preview 'echo ${(P)word}'
 
 # preview directory or file's content when completing some commands
-zstyle ':fzf-tab:complete:(cd|vim|nano|e|cursor|code|mv|cp|rm):*' \
+zstyle ':fzf-tab:complete:(cd|vim|nano|e|cursor|code|mv|cp|rm|file):*' \
   fzf-preview "${__FZF_TAB[PREVIEW_FILE_OR_DIR]}"
 
 # kill/ps
