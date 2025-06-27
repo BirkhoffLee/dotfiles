@@ -74,7 +74,7 @@ function nix-cleanup {
 
 function nix-update-dotfiles {
   nix flake update --flake "$HOME/.config/nix"
-  darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+  sudo darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 }
 
 function nix-info {

@@ -52,20 +52,20 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 nix build "$HOME/.config/nix#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
 
 # Apply the dotfiles
-./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 ```
 
 After first successful deployment, use the following command to switch:
 
 ```console
-darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+sudo darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 ```
 
 To update packages:
 
 ```console
 nix flake update --flake "$HOME/.config/nix"
-darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+sudo darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 ```
 
 To clean up:
@@ -102,7 +102,7 @@ sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt /etc/ssl/ce
 
 nix build "$HOME/.config/nix#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
 
-./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 ```
 
 ## TODOs

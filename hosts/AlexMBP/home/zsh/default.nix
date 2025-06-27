@@ -1,4 +1,4 @@
-{ home, pkgs, ... }:
+{ home, pkgs, lib, ... }:
 
 {
   # https://github.com/jnunyez/home-manager/blob/master/modules/programs/zsh.nix
@@ -74,37 +74,50 @@
       fi
     '';
 
-    initExtraFirst = ''
-      # Powerlevel10k instant prompt
-      if [[ -r "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
+    # Content to be added to `.zshrc`.
+    #
+    # To specify the order, use `lib.mkOrder`. Common order values:
+    # - 500 (mkBefore): Early initialization (replaces initExtraFirst)
+    # - 550: Before completion initialization (replaces initExtraBeforeCompInit)
+    # - 1000 (default): General configuration (replaces initExtra)
+    # - 1500 (mkAfter): Last to run configuration
+    initContent = let
+      # This runs instantly
+      zshConfigEarlyInit = lib.mkBefore ''
+        # Powerlevel10k instant prompt
+        if [[ -r "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
 
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source "${home.homeDirectory}/.shell/p10k.zsh"
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        source "${home.homeDirectory}/.shell/p10k.zsh"
 
-      source "${home.homeDirectory}/.shell/options.zsh"
+        source "${home.homeDirectory}/.shell/options.zsh"
 
-      # Load Zsh's rename utility `zmv`
-      autoload -Uz zmv
-    '';
-    
-    initExtraBeforeCompInit = ''
-      source "${home.homeDirectory}/.shell/external.zsh"
-      source "${home.homeDirectory}/.shell/completions.zsh"
-    '';
+        # Load Zsh's rename utility `zmv`
+        autoload -Uz zmv
+      '';
 
-    initExtra = ''
-      source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+      # This runs before compinit (completion initialization)
+      zshConfigBeforeCompInit = lib.mkOrder 550 ''
+        source "${home.homeDirectory}/.shell/external.zsh"
+        source "${home.homeDirectory}/.shell/completions.zsh"
+      '';
 
-      source "${home.homeDirectory}/.shell/exports.zsh"
-      source "${home.homeDirectory}/.shell/aliases.zsh"
-      source "${home.homeDirectory}/.shell/functions.zsh"
-      source "${home.homeDirectory}/.shell/proxy.zsh"
+      # General configuration
+      zshConfig = ''
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
 
-      # atuin
-      eval "$(${pkgs.atuin}/bin/atuin init zsh)"
-    '';
+        source "${home.homeDirectory}/.shell/exports.zsh"
+        source "${home.homeDirectory}/.shell/aliases.zsh"
+        source "${home.homeDirectory}/.shell/functions.zsh"
+        source "${home.homeDirectory}/.shell/proxy.zsh"
+
+        # atuin
+        eval "$(${pkgs.atuin}/bin/atuin init zsh)"
+      '';
+    in
+      lib.mkMerge [ zshConfigEarlyInit zshConfigBeforeCompInit zshConfig ];
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
     # Get hash with:

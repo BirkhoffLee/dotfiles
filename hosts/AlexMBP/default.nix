@@ -12,6 +12,8 @@ in {
     users.${username} = (import ./home);
   };
 
+  system.primaryUser = "${username}";
+
   users.users.${username} = {
     name = "${username}";
     home = "/Users/${username}";
@@ -26,6 +28,16 @@ in {
     ./packages/homebrew.nix
     ./packages/system-packages.nix
   ];
+  
+  networking = {
+    applicationFirewall = {
+      enable = true;
+      enableStealthMode = true;
+      # allowSigned = true; # Whether to enable built-in software to receive incoming connections.
+      # allowSignedApp = true; # Whether to enable downloaded signed software to receive incoming connections.
+      # blockAllIncoming = true; # Whether to enable blocking all incoming connections.
+    };
+  };
 
   environment.shells = with pkgs; [
     bashInteractive
@@ -51,8 +63,9 @@ in {
   # Load nix-darwin in /etc/zshrc.
   programs.zsh.enable = true;
 
+  # https://github.com/nix-darwin/nix-darwin/blob/master/modules/system/activation-scripts.nix#L83
   system.activationScripts = {
-    "preUserActivation".text = ''
+    "preActivation".text = ''
       if ! /usr/bin/pgrep -q oahd >/dev/null 2>&1; then
         echo "[+] Installing Rosetta"
         /usr/sbin/softwareupdate --install-rosetta --agree-to-license
@@ -60,15 +73,8 @@ in {
 
       if ! [[ -f "/opt/homebrew/bin/brew" ]] && ! [[ -f "/usr/local/bin/brew" ]]; then
         echo "[+] Installing Homebrew"
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        sudo -u ${username} /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       fi
-
-      # Configure firewall
-      echo "[+] Ensuring firewall is enabled"
-      sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
-      # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned on
-      # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp on
-      sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
     '';
 
     "postActivation".text = ''
