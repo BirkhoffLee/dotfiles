@@ -90,8 +90,8 @@
     '';
     
     initExtraBeforeCompInit = ''
-      source "${home.homeDirectory}/.shell/completions.zsh"
       source "${home.homeDirectory}/.shell/external.zsh"
+      source "${home.homeDirectory}/.shell/completions.zsh"
     '';
 
     initExtra = ''

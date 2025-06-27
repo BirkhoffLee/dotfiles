@@ -108,6 +108,7 @@
 
     # core utlities
     bat
+    vivid
     coreutils-prefixed
     entr
     eza

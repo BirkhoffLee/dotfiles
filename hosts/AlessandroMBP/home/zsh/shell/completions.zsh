@@ -69,6 +69,7 @@ zstyle ':completion:*:(argument-rest|files):*' matcher-list '' \
 zstyle ':completion:*' regular false
 
 # set list-colors to enable filename colorizing
+# LS_COLORS is set in external.zsh
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix

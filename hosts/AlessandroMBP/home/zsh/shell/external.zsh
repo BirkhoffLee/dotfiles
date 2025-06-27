@@ -1,10 +1,11 @@
 #!/usr/bin/env zsh
 
-# `.external` handles all external tools.
-#
-# This file is used as a part of `.shell_env`
-
+# GPG AGENT
 ( gpg-agent --daemon > /dev/null 2>&1 & )
+
+# LS_COLORS
+# https://github.com/sharkdp/vivid?tab=readme-ov-file#usage
+export LS_COLORS="$(vivid generate snazzy)"
 
 # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
 AUTO_NOTIFY_IGNORE+=("tmux" "bat")
