@@ -43,7 +43,7 @@ export FORGIT_FZF_DEFAULT_OPTS="
   --exact
   --cycle
   --reverse
-  --height '80%'
+  --height '100%'
   --preview-window='right:55%:nohidden:nowrap'
 "
 
@@ -93,7 +93,6 @@ export FZF_DEFAULT_OPTS="
   --header '?: preview, ^s: pgup, ^d: pgdown, ^o: open editor'
   --color header:italic
   --style full
-  --border
   --multi
   --tmux
   --bind 'ctrl-s:preview-page-up'
