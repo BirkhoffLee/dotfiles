@@ -156,7 +156,7 @@ else
   alias yoink="open -a Yoink"
 
   # Bell when the program is finished, e.g.: `npm install | a`
-  alias a="terminal-notifier -sound default -message 'Command complete' -title 'iTerm 2'"
+  alias a="terminal-notifier -sound default -message 'Command complete' -title 'Shell'"
 
   # Lock the screen (when going AFK)
   alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
