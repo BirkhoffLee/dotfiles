@@ -128,6 +128,7 @@ exclude_list=(
 )
 export FZF_CTRL_T_COMMAND="fd -H -tf --follow ${exclude_list[*]} -0 | xargs -0 ls -t"
 export FZF_ALT_C_COMMAND="fd $dirPATH -td ${exclude_list[*]} -0 | xargs -0 ls -dt"
+unset exclude_list
 
 # FZF - File Browser (C-t)
 export FZF_CTRL_T_OPTS="
@@ -204,3 +205,6 @@ elif [[ "$OSTYPE" = linux* ]]; then
   zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
     '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
 fi
+
+unset __FZF
+unset __FZF_TAB

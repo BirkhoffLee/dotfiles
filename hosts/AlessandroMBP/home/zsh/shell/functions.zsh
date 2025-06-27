@@ -187,6 +187,7 @@ function s {
 }
 
 function pingu {
+  local ping_cancelled
   ping_cancelled=false    # Keep track of whether the loop was cancelled, or succeeded
   until ping -c1 "$1" >/dev/null 2>&1; do :; done &    # The "&" backgrounds it
   trap "kill $!; ping_cancelled=true" SIGINT
