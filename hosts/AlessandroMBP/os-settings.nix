@@ -85,10 +85,18 @@
         AppleLocale = "en_US";
         AppleLanguages = [
           "en-US"
-          "it-US"
+          "it-IT"
           "zh-Hans-US"
           "zh-Hant-US"
         ];
+        
+        AppleICUNumberSymbols = {
+            "0" = ".";
+            "1" = ",";
+            "10" = ".";
+            "17" = ",";
+        };
+        AppleMeasurementUnit = "Celsius";
 
         # 0: Caps Lock key toggles Caps Lock
         # 1: Caps Lock key switches between ABC
