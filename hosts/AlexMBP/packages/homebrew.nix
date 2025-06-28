@@ -16,6 +16,7 @@
       "icu4c@75"
       "knock"
       # "kubernetes-cli"
+      "macvim"
       "screenresolution"
       "tidy-html5"
       "whatmask"

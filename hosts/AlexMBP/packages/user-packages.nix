@@ -137,14 +137,10 @@
     tcptrace
     dnslookup
     
-    # SSH
-    putty
-    
     # VPN & security
     wireguard-go
     wireguard-tools
     sqlmap
-    hashpump
     testssl
     
     # ============================================================================
@@ -219,16 +215,14 @@
     
     # File manipulation
     create-dmg
-    diff-so-fancy
     difftastic
-    ouch
     qpdf
-    rename
-    vbindiff
+    vbindiff # Visual Binary Diff compares files in hex & ASCII formats
     
     # Communication
     autossh
     magic-wormhole
+    putty
     
     # Documentation & help
     cht-sh
@@ -246,7 +240,6 @@
     m-cli
     blueutil
     mas
-    macvim
     
     # Download & media
     lux
