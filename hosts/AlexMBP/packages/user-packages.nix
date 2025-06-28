@@ -2,142 +2,122 @@
 
 {
   home.packages = with pkgs; [
-    # python
+    # ============================================================================
+    # DEVELOPMENT TOOLS
+    # ============================================================================
+    
+    # Python
     uv
     # TODO: replace entirely with uv?
     # python311
     # python311Packages.ansible-core
     # python311Packages.pip
     # python311Packages.virtualenv
-
-    # shell
-    zsh-completions
-    zsh-fast-syntax-highlighting
-    zsh-powerlevel10k
     
-    atuin
-
-    # git
-    git
-    git-lfs
-    git-extras
-    git-open
-    # git-recent
-    gptcommit
-
-    # infra
-    # awscli2
-    # azure-cli
-    # oci-cli
-    backblaze-b2
-    # aws-vault
-    # dnscontrol
-    # k9s
-    # kubectx
-    # kustomize
-    # nomad
-    # packer
-    restic
-    terraform
-    # terraformer
-    # vagrant # FIXME: https://github.com/grpc/grpc/pull/34481
-    # skaffold
-    ssh-copy-id
-
-    # dev
-    caddy
+    # Go
     go
     golangci-lint
-    httpie
-    micromamba
+    
+    # Node.js
     nodejs_22
-    R
-    rbenv
-    redis
-    rustup
-    yamllint
     yarn
     
-    # ai
-    gfortran
-    openblas.dev
-
-    # util
-    asciinema
-    autossh
-    bfg-repo-cleaner
-    cht-sh
-    cowsay
-    diff-so-fancy
-    difftastic
-    duf
-    gh
-    gnugrep
-    gotop
-    htop
-    hub
-    jc
-    lolcat
-    lux
-    m-cli
-    mactop
-    magic-wormhole
-    neofetch
-    noti
-    ouch
-    powershell
-    procs
-    putty
-    qpdf
-    rename
-    slides
-    stripe-cli
-    television
-    tmux
-    vbindiff
-    viddy
-    yt-dlp
-  
-    # some macos stuff
-    osx-cpu-temp
-
-    # media
-    ffmpeg
-    imagemagickBig
-    optipng
-
-    # core utlities
-    bat
-    vivid
-    coreutils-prefixed
-    entr
-    eza
-    fasd
-    fd
-    fzf
-    jq
-    # lsd
-    progress
-    pv
-    rsync
-    silver-searcher
-    terminal-notifier
-    tree
-    zoxide
-
-    # build
+    # Ruby
+    rbenv
+    
+    # Rust
+    rustup
+    
+    # R
+    R
+    
+    # Build tools
     autoconf
     automake
     # gcc
     pkg-config
     wasm-pack
-
-    # network
+    
+    # Package managers
+    micromamba
+    
+    # ============================================================================
+    # SHELL & TERMINAL
+    # ============================================================================
+    
+    # Shell enhancements
+    zsh-completions
+    zsh-fast-syntax-highlighting
+    zsh-powerlevel10k
+    atuin
+    
+    # Terminal utilities
+    tmux
+    htop
+    gotop
+    mactop
+    procs
+    viddy
+    
+    # ============================================================================
+    # VERSION CONTROL
+    # ============================================================================
+    
+    # Git
+    git
+    git-lfs
+    git-extras # https://github.com/tj/git-extras/blob/main/Commands.md
+    git-open # `git open` to open the GitHub page or website for a repo
+    git-recent # `git recent` to browse latest local git branches interactively
+    gptcommit
+    
+    # Git tools
+    bfg-repo-cleaner
+    
+    # ============================================================================
+    # INFRASTRUCTURE & DEVOPS
+    # ============================================================================
+    
+    # Cloud providers
+    # awscli2
+    # azure-cli
+    # oci-cli
+    backblaze-b2
+    # aws-vault
+    
+    # Container & orchestration
+    # k9s
+    # kubectx
+    # kustomize
+    # nomad
+    # packer
+    # skaffold
+    # helm
+    
+    # Infrastructure as code
+    terraform
+    # terraformer
+    # vagrant
+    
+    # DNS & networking
+    # dnscontrol
+    knot-dns
+    
+    # Backup & storage
+    restic
+    
+    # SSH
+    ssh-copy-id
+    
+    # ============================================================================
+    # NETWORKING & SECURITY
+    # ============================================================================
+    
+    # Network analysis
     bandwhich
     curl
     hey
     iperf
-    knot-dns
     mitmproxy
     mosh
     nali
@@ -145,7 +125,6 @@
     nmap
     rtmpdump
     socat
-    sqlmap
     sslscan
     stress
     tcpflow
@@ -154,14 +133,145 @@
     tcptraceroute
     trippy
     wakeonlan
+    dns2tcp
+    tcptrace
+    dnslookup
+    
+    # SSH
+    putty
+    
+    # VPN & security
     wireguard-go
     wireguard-tools
-
-    # authentication
+    sqlmap
+    hashpump
+    testssl
+    
+    # ============================================================================
+    # AUTHENTICATION & SECURITY
+    # ============================================================================
+    
     gnupg
     pam-reattach
     pinentry_mac
     reattach-to-user-namespace
     yubico-piv-tool
+    
+    # ============================================================================
+    # AI & MACHINE LEARNING
+    # ============================================================================
+    
+    gfortran
+    openblas.dev
+    gemini-cli
+    ollama
+    
+    # ============================================================================
+    # DEVELOPMENT UTILITIES
+    # ============================================================================
+    
+    # Web development
+    caddy
+    httpie
+    
+    # Code quality
+    yamllint
+    
+    # Databases
+    redis
+    
+    # ============================================================================
+    # SYSTEM UTILITIES
+    # ============================================================================
+    
+    # File operations
+    bat
+    vivid
+    coreutils-prefixed
+    entr
+    eza
+    fasd
+    fd
+    fzf
+    gnugrep
+    jq
+    # lsd
+    progress
+    pv
+    rsync
+    silver-searcher
+    television
+    tree
+    zoxide
+    
+    # System monitoring
+    duf
+    jc
+    osx-cpu-temp
+    
+    # ============================================================================
+    # UTILITIES & TOOLS
+    # ============================================================================
+    
+    # Recording & presentation
+    asciinema
+    slides
+    
+    # File manipulation
+    create-dmg
+    diff-so-fancy
+    difftastic
+    ouch
+    qpdf
+    rename
+    vbindiff
+    
+    # Communication
+    autossh
+    magic-wormhole
+    
+    # Documentation & help
+    cht-sh
+    
+    # Fun & misc
+    cowsay
+    lolcat
+    neofetch
+    
+    # Notifications
+    noti
+    terminal-notifier
+    
+    # macOS specific
+    m-cli
+    blueutil
+    mas
+    macvim
+    
+    # Download & media
+    lux
+    yt-dlp
+    
+    # ============================================================================
+    # MEDIA PROCESSING
+    # ============================================================================
+    
+    ffmpeg
+    imagemagickBig
+    optipng
+    
+    # ============================================================================
+    # CLI TOOLS
+    # ============================================================================
+    
+    powershell
+    stripe-cli
+    flarectl
+    # dex2jar
+
+    # GitHub CLI Tools
+    # @see https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md#should-i-use-gh-or-hub
+    gh
+    hub
   ];
 }
