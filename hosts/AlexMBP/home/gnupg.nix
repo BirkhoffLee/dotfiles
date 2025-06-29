@@ -2,7 +2,6 @@
 
 {
   home.file.".gnupg/gpg-agent.conf" = {
-    # pinentry-program ${pkgs.pinentry}/bin/pinentry
     text = ''
       # NOTE: do NOT add tailing comments in the same line of an option
       # https://github.com/drduh/config/blob/master/gpg-agent.conf
