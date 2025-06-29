@@ -25,10 +25,11 @@
       keybind = cmd+r=reset
       keybind = cmd+z=text:\x1f
       keybind = cmd+shift+z=text:\x18\x1f
+      macos-option-as-alt = true
 
       # For compatibility:
-      term = xterm-256color
-      macos-option-as-alt = true
+      # @see https://ghostty.org/docs/help/terminfo
+      # term = xterm-256color
 
       ## Initial Window Size
       window-height = 35
