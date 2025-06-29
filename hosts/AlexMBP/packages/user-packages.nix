@@ -7,8 +7,6 @@
     # ============================================================================
     
     # Python
-    uv
-    # TODO: replace entirely with uv?
     # python311
     # python311Packages.ansible-core
     # python311Packages.pip
@@ -39,7 +37,7 @@
     wasm-pack
     
     # Package managers
-    micromamba
+    uv
     
     # ============================================================================
     # SHELL & TERMINAL

@@ -22,7 +22,6 @@ rec {
     ./gnupg.nix
     ./htop.nix
     ./hushlogin.nix
-    ./mamba.nix
     ./nano.nix
     ./tmux.nix
   ];
