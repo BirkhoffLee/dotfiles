@@ -414,14 +414,6 @@
         setappDontShowAgain = 1;
         shouldHideOnLaunch = 0;
       };
-
-      "co.highlyopinionated.swish-setapp" = {
-        actions = "[\"snapHalves\",\"snapNinths\",\"snapThirds\",\"windowFullscreen\",\"snapQuarters\",\"windowMinimize\",\"missionControlSpace\",\"snapCenter\",\"screensMove\",\"menubarScreens\",\"snapSixths\",\"spacesMove\",\"snapAlmost\",\"windowQuit\",\"snapVertical\",\"windowClose\",\"tabClose\",\"snapMax\"]";
-        blacklist = "[\"com.apple.CharacterPaletteIM\",\"com.apple.notificationcenterui\",\"com.apple.controlcenter\",\"com.apple.PIPAgent\",\"com.apple.Spotlight\"]";
-        hotkeys = 1;
-        numberOfActions = "[\"windowMinimize\",4,\"snapMax\",12,\"snapQuarters\",2,\"snapCenter\",1,\"snapHalves\",8,\"snapVertical\",2]";
-        showInMenubar = 0;
-      };
       
       "com.jordanbaird.Ice" = {
         ShowIceIcon = 0;
