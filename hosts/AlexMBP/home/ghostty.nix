@@ -33,7 +33,7 @@
 
       ## Initial Window Size
       window-height = 35
-      window-width = 110
+      window-width = 98
       ## End of Initial Window Size
 
       ## Cursor & Shell Integration
