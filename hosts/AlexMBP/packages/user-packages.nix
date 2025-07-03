@@ -27,7 +27,7 @@
     rustup
     
     # R
-    R
+    # R # FIXME: doesn't build
     
     # Build tools
     autoconf
@@ -248,6 +248,7 @@
     # ============================================================================
     
     ffmpeg
+    exiftool
     imagemagickBig
     optipng
     
