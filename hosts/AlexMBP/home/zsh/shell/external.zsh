@@ -17,6 +17,12 @@ if [[ "$OSTYPE" = darwin* ]]; then
   export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
   export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
   export HOMEBREW_NO_ANALYTICS=1
+  
+  # OrbStack
+  # This adds fpath so needs to be before compinit
+  if test -f ~/.orbstack/shell/init.zsh; then
+    source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+  fi
 fi
 
 # Zoxide
@@ -55,15 +61,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
 AUTO_NOTIFY_IGNORE+=("tmux" "bat" "cat" "less" "man" "zi")
-
-# macOS only
-if [[ "$OSTYPE" = darwin* ]]; then
-  # OrbStack
-  # This adds fpath so needs to be before compinit
-  if test -f ~/.orbstack/shell/init.zsh; then
-    source ~/.orbstack/shell/init.zsh 2>/dev/null || :
-  fi
-fi
 
 # forgit (https://github.com/wfxr/forgit)
 export FORGIT_FZF_DEFAULT_OPTS="
