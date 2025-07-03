@@ -1,6 +1,30 @@
 #!/usr/bin/env zsh
 
-# `.functions` provides helper functions for shell.
+# `functions.zsh` provides helper functions and utilities.
+
+function take {
+  [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
+}
+
+function tt {
+  builtin cd $(mktemp -d)
+}
+
+# Changes to a directory and lists its contents.
+function cdls {
+  builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"
+}
+
+# e: edit with default editor or open cwd with editor
+function e {
+  if [[ ! -z $1 ]]; then
+    $VISUAL $1
+  else
+    # file=$(__fsel); [[ ! -z $file ]] && $VISUAL $file
+    # # __fsel is the actual selector function used by fzf-file-widget
+    $VISUAL .
+  fi
+}
 
 # Remove history entries with fzf
 # Note: doesn't work with atuin
@@ -53,11 +77,67 @@ function decrypt_pdfs {
 
 # Traceroute with Trippy
 function t {
-  if [ ! -f $HOME/.cache/geoip.mmdb ]; then
+  # Update geoip.mmdb if it's older than 30 days
+  if [ ! -f $HOME/.cache/geoip.mmdb ] || [ $(find $HOME/.cache/geoip.mmdb -mtime +30 2>/dev/null | wc -l) -gt 0 ]; then
     wget -O $HOME/.cache/geoip.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
   fi
 
   sudo trip $1 -r google -z --geoip-mmdb-file $HOME/.cache/geoip.mmdb --tui-geoip-mode short --tui-address-mode both --tui-as-mode name
+}
+
+# Show TLS certificate details for a given domain
+# @note     use testssl.sh for complete analysis
+# @example  `https google.com 443`
+function https {
+  local port=${2:-443}
+  echo | openssl s_client -showcerts -servername $1 -connect $1:$port 2>/dev/null | openssl x509 -inform pem -noout -text | less
+}
+
+# Measure TTFB (Time To First Byte)
+# https://gist.github.com/sandeepraju/1f5fbdbdd89551ba7925abe2645f92b5
+# @example  `ttfb google.com`
+function ttfb {
+  curl -Is \
+    -H 'Cache-Control: no-cache' \
+    -w "Connect: %{time_connect}s TTFB: %{time_starttransfer}s Total time: %{time_total}s\n" \
+    "$@"
+}
+
+# List all processes listening on a port
+function listening {
+  if [ $# -eq 0 ]; then
+    sudo lsof -iTCP -sTCP:LISTEN -n -P
+  elif [ $# -eq 1 ]; then
+    sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+  else
+    echo "Usage: listening [pattern]"
+  fi
+}
+
+# ping until success or cancelled
+function pingu {
+  local ping_cancelled
+  ping_cancelled=false    # Keep track of whether the loop was cancelled, or succeeded
+  until ping -c1 "$1" >/dev/null 2>&1; do :; done &    # The "&" backgrounds it
+  trap "kill $!; ping_cancelled=true" SIGINT
+  wait $!          # Wait for the loop to exit, one way or another
+  trap - SIGINT    # Remove the trap, now we're done with it
+  echo "Done pinging, cancelled=$ping_cancelled"
+}
+
+# Lookup an IP address
+function lip {
+  http -b https://api.birkhoff.me/v3/ip/$1
+}
+
+# Lookup IP address of an A record of a domain
+function dns {
+  lip $(kdig @8.8.4.4 +short $1 | tail -n1)
+}
+
+# Test download speed from Apple CDN
+function testdown {
+  http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null
 }
 
 # Example:
@@ -79,46 +159,6 @@ function nix-update-dotfiles {
 
 function nix-info {
   nix-shell -p nix-info --run "nix-info -m"
-}
-
-# https google.com 443
-# use testssl.sh for complete analysis
-function https {
-  echo | openssl s_client -showcerts -servername $1 -connect $1:$2 2>/dev/null | openssl x509 -inform pem -noout -text | less
-}
-
-# https://gist.github.com/sandeepraju/1f5fbdbdd89551ba7925abe2645f92b5
-function ttfb {
-  curl -Is \
-    -H 'Cache-Control: no-cache' \
-    -w "Connect: %{time_connect}s TTFB: %{time_starttransfer}s Total time: %{time_total}s\n" \
-    "$@"
-}
-
-# https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
-
-function take {
-  [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
-}
-
-function taketemp {
-  builtin cd $(mktemp -d)
-}
-
-# Changes to a directory and lists its contents.
-function cdls {
-  builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"
-}
-
-# List all processes listening on a port
-function listening {
-  if [ $# -eq 0 ]; then
-    sudo lsof -iTCP -sTCP:LISTEN -n -P
-  elif [ $# -eq 1 ]; then
-    sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
-  else
-    echo "Usage: listening [pattern]"
-  fi
 }
 
 # Apply scanner effect to a PDF
@@ -154,17 +194,6 @@ function favicon {
     -delete 0 -alpha off -colors 256 favicon.ico
 }
 
-# e: edit with default editor or open cwd with editor
-function e {
-  if [[ ! -z $1 ]]; then
-    $VISUAL $1
-  else
-    # file=$(__fsel); [[ ! -z $file ]] && $VISUAL $file
-    # # __fsel is the actual selector function used by fzf-file-widget
-    $VISUAL .
-  fi
-}
-
 # Search in files, then pipe files with 10 line buffer into fzf preview using bat.
 # https://github.com/issmirnov/dotfiles/blob/df92f79a760740a7d389605f2f0f5085ca95a713/zsh/config/fzf.zsh#L149-L161
 # Notes:
@@ -184,29 +213,6 @@ function s {
   local line="$(echo $full | awk -F: '{print $2}')"
   [ -n "$file" ] && \
     (code -g "$file":$line || $VISUAL "$file" +$line)
-}
-
-function pingu {
-  local ping_cancelled
-  ping_cancelled=false    # Keep track of whether the loop was cancelled, or succeeded
-  until ping -c1 "$1" >/dev/null 2>&1; do :; done &    # The "&" backgrounds it
-  trap "kill $!; ping_cancelled=true" SIGINT
-  wait $!          # Wait for the loop to exit, one way or another
-  trap - SIGINT    # Remove the trap, now we're done with it
-  echo "Done pinging, cancelled=$ping_cancelled"
-}
-
-# lookup ip
-function lip {
-  http -b https://api.birkhoff.me/v3/ip/$1
-}
-
-function dns {
-  lip $(kdig @8.8.4.4 +short $1 | tail -n1)
-}
-
-function testdown {
-  http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null
 }
 
 function pyclean {
