@@ -3,26 +3,24 @@
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
 
 # Disable correction.
+# By default, Zsh can try to auto-correct mistyped commands (e.g., if you type sl instead of ls, it might ask if you meant ls).
 alias ack='nocorrect ack'
 alias cd='nocorrect cd'
 alias cp='nocorrect cp'
-alias ebuild='nocorrect ebuild'
 alias gcc='nocorrect gcc'
-alias gist='nocorrect gist'
 alias grep='nocorrect grep'
-alias heroku='nocorrect heroku'
 alias ln='nocorrect ln'
 alias man='nocorrect man'
 alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
-alias mysql='nocorrect mysql'
 alias rm='nocorrect rm'
 
 # Disable globbing.
-alias bower='noglob bower'
+# By default, Zsh will expand wildcards (*,?) in command arguments.
+alias curl='noglob curl'
+alias wget='noglob wget'
 alias fc='noglob fc'
 alias find='noglob find'
-alias ftp='noglob ftp'
 alias history='noglob history'
 alias locate='noglob locate'
 alias rake='noglob rake'
@@ -30,30 +28,16 @@ alias rsync='noglob rsync'
 alias scp='noglob scp'
 alias sftp='noglob sftp'
 
-# Define general aliases.
-alias _='sudo'
-alias b='${(z)BROWSER}'
-
-alias diffu="diff --unified"
-alias p='${(z)PAGER}'
-alias po='popd'
-alias pu='pushd'
-alias sa='alias | grep -i'
-alias type='type -a'
-
 # Safe ops. Ask the user before doing anything destructive.
-alias rmi="${aliases[rm]:-rm} -i"
-alias mvi="${aliases[mv]:-mv} -i"
-alias cpi="${aliases[cp]:-cp} -i"
-alias lni="${aliases[ln]:-ln} -i"
-if zstyle -T ':prezto:module:utility' safe-ops; then
-  alias rm="${aliases[rm]:-rm} -i"
-  alias mv="${aliases[mv]:-mv} -i"
-  alias cp="${aliases[cp]:-cp} -i"
-  alias ln="${aliases[ln]:-ln} -i"
-fi
+alias rm="${aliases[rm]:-rm} -i"
+alias mv="${aliases[mv]:-mv} -i"
+alias cp="${aliases[cp]:-cp} -i"
+alias ln="${aliases[ln]:-ln} -i"
 
-# ls
+# Open with default app
+command -v open > /dev/null && alias o='open' || alias o='${(z)BROWSER}'
+
+# List files
 alias sl='ls'
 alias l='ls'
 
@@ -79,7 +63,24 @@ command -v eza > /dev/null && {
   alias lu='lt -u' # Lists sorted by date, most recent last, shows access time
 }
 
+# Pager
+alias p='${(z)PAGER}'
+
+# Directory stack
+alias po='popd'
+alias pu='pushd'
+
+# Search shell aliases
+alias sa='alias | grep -i'
+
+# Show all definitions of a command
+alias type='type -a'
+
+# grep
 alias grep="${aliases[grep]:-grep} --color=auto"
+
+# diff
+alias diffu="diff --unified"
 
 # jq with pager
 alias j="jq -C | less -R"
@@ -126,13 +127,13 @@ command -v docker > /dev/null && {
   alias dvp='docker volume inspect --format ''{{ .Mountpoint }}'''
 
   # compose
-  alias dc='docker-compose'
-  alias dclf='docker-compose logs -f'
-  alias dcu='docker-compose up -d'
-  alias dcr='docker-compose restart'
-  alias dcub='docker-compose up -d --build'
-  alias dcb='docker-compose build'
-  alias dcd='docker-compose down'
+  alias dc='docker compose'
+  alias dclf='docker compose logs -f'
+  alias dcu='docker compose up -d'
+  alias dcr='docker compose restart'
+  alias dcub='docker compose up -d --build'
+  alias dcb='docker compose build'
+  alias dcd='docker compose down'
 }
 
 if [[ "$OSTYPE" != darwin* ]]; then
@@ -150,13 +151,11 @@ else
   alias pbc='pbcopy'
   alias pbp='pbpaste'
 
-  alias o='open'
-
   # Send file to yoink
   alias yoink="open -a Yoink"
 
   # Bell when the program is finished, e.g.: `npm install | a`
-  alias a="terminal-notifier -sound default -message 'Command complete' -title 'Shell'"
+  command -v terminal-notifier > /dev/null && alias a="terminal-notifier -sound default -message 'Command complete' -title 'Shell'"
 
   # Lock the screen (when going AFK)
   alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
