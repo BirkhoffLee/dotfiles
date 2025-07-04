@@ -216,6 +216,7 @@
     difftastic
     qpdf
     vbindiff # Visual Binary Diff compares files in hex & ASCII formats
+    helix
     
     # Communication
     autossh
