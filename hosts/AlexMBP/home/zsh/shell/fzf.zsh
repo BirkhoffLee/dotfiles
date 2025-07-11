@@ -1,67 +1,5 @@
 #!/usr/bin/env zsh
 
-# `external.zsh` is used to load external shell tools and their configs.
-
-# GPG AGENT
-( gpg-agent --daemon > /dev/null 2>&1 & )
-
-# rbenv
-eval "$(rbenv init - zsh)"
-
-# macOS only
-if [[ "$OSTYPE" = darwin* ]]; then
-  # Workaround for Ansible forking: https://github.com/ansible/ansible/issues/76322
-  export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-  # Homebrew
-  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
-  export HOMEBREW_NO_ANALYTICS=1
-  
-  # OrbStack
-  # This adds fpath so needs to be before compinit
-  if test -f ~/.orbstack/shell/init.zsh; then
-    source ~/.orbstack/shell/init.zsh 2>/dev/null || :
-  fi
-fi
-
-# Zoxide
-# https://github.com/ajeetdsouza/zoxide/blob/main/README.md#environment-variables
-export _ZO_ECHO=1 # print the matched directory before navigating to it
-
-# dotnet
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
-export PYTHONIOENCODING='UTF-8'
-
-# virtualenv
-export PIPENV_VENV_IN_PROJECT=true # look for `.venv` dir inside project
-export PIPENV_HIDE_EMOJIS=true # no emojis!
-export PIPENV_COLORBLIND=true # disables colors, so colorful!
-export PIPENV_NOSPIN=true # disables spinner for cleaner logs
-
-# virtualenvwrapper
-if command -v "virtualenvwrapper_lazy.sh" &> /dev/null; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Devel
-  export VIRTUALENVWRAPPER_PYTHON=$commands[python3]
-  export VIRTUALENVWRAPPER_SCRIPT=$commands[virtualenvwrapper.sh]
-  source $commands[virtualenvwrapper_lazy.sh]
-fi
-
-# Enable persistent REPL history for `node`.
-export NODE_REPL_HISTORY="$HOME/.node_history"
-
-# Use sloppy mode by default, matching web browsers.
-export NODE_REPL_MODE='sloppy'
-
-# Erlang and Elixir shell history:
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-# zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
-AUTO_NOTIFY_IGNORE+=("tmux" "bat" "cat" "less" "man" "zi")
-
 # forgit (https://github.com/wfxr/forgit)
 export FORGIT_FZF_DEFAULT_OPTS="
   --exact
@@ -181,7 +119,7 @@ zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Note: fzf-tab does not use default fzf options
-# Note: bind **<TAB> to select multiple entries (like the default in FZF)
+# default_binds=tab:down,btab:up,change:top,ctrl-space:toggle,bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof
 # Note: some other flags are already set in fzf-tab code,
 # refer to: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L90
 zstyle ':fzf-tab:*' fzf-flags \
@@ -190,8 +128,6 @@ zstyle ':fzf-tab:*' fzf-flags \
   --style full \
   --height=-2 \
   --preview-window 'right:40%:border:wrap' \
-  --bind 'tab:toggle-out' \
-  --bind 'shift-tab:toggle-in' \
   --bind 'alt-up:preview-page-up' \
   --bind 'alt-down:preview-page-down' \
   --bind "ctrl-o:execute($VISUAL {})+abort" \
@@ -234,6 +170,3 @@ fi
 
 unset __FZF
 unset __FZF_TAB
-
-# Atuin (shell history)
-eval "$(atuin init zsh)"

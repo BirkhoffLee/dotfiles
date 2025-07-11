@@ -7,20 +7,8 @@
 
     defaultKeymap = "emacs";
 
-    completionInit = ''
-      autoload -Uz compinit
-      for dump in ~/.zcompdump(N.mh+24); do
-        compinit
-      done
-      compinit -C
-      
-      # Completions for git-extras doesn't load automatically
-      # due to the lack of #compdef directive. We need to source it manually.
-      source ${pkgs.git-extras}/share/zsh/site-functions/_git_extras
-    '';
-
     dirHashes = {
-      dl = "$HOME/Downloads";
+      dl = "${home.homeDirectory}/Downloads";
     };
 
     history = {
@@ -154,41 +142,80 @@
           macAliases
         ];
 
+    sessionVariables = lib.mkMerge [
+      {
+        LANG = "en_US.UTF-8";
+        LC_ALL = "en_US.UTF-8";
+        
+        # Set the default Less options.
+        # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+        # Remove -X and -F (exit if the content fits on one screen) to enable it.
+        LESS = "-F -g -i -M -R -S -w -X -z-4";
+        
+        # Set the Less input preprocessor.
+        # Try both `lesspipe` and `lesspipe.sh`
+        LESSOPEN="| /usr/bin/env lesspipe.sh %s 2>&-";
+        
+        # Editor
+        EDITOR = "hx";
+        VISUAL = "cursor";
+        PAGER = "less";
+        
+        # Workaround for Ansible forking: https://github.com/ansible/ansible/issues/76322
+        OBJC_DISABLE_INITIALIZE_FORK_SAFETY = lib.mkIf pkgs.stdenv.isDarwin "YES";
+        
+        ## External Tools
+
+        # LLM (https://llm.datasette.io/en/stable/setup.html#configuration)
+        LLM_USER_PATH = "${home.homeDirectory}/.config/llm";
+        LLM_MODEL = "gpt-4.1-mini";
+
+        # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
+        AUTO_NOTIFY_IGNORE = [ "tmux" "bat" "cat" "less" "man" "zi" "hx" ];
+        
+        # Zoxide (https://github.com/ajeetdsouza/zoxide/blob/main/README.md#environment-variables)
+        _ZO_ECHO = 1;
+
+        # dotnet
+        DOTNET_CLI_TELEMETRY_OPTOUT = 1;
+
+        # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+        PYTHONIOENCODING = "utf-8";
+
+        # Enable persistent REPL history for `node`.
+        NODE_REPL_HISTORY = "${home.homeDirectory}/.node_history";
+
+        # Use sloppy mode by default, matching web browsers.
+        NODE_REPL_MODE = "sloppy";
+
+        # Erlang and Elixir shell history:
+        ERL_AFLAGS = "-kernel shell_history enabled";
+      }
+      (lib.optionalAttrs pkgs.stdenv.isDarwin {
+        SSH_AUTH_SOCK = "${home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+        OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES";
+      })
+    ];
+
     profileExtra = ''
-      export HOMEBREW_PREFIX="/opt/homebrew";
-
-      export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:";
-      export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}";
-
       # Ensure path arrays do not contain duplicates.
       typeset -gU cdpath fpath mailpath path
-
-      # Set the list of directories that Zsh searches for programs.
-      path=(
-        # $HOME/.rvm/bin
-        $HOME/.cargo/bin
-        $HOME/go/bin
-        $HOME/.local/bin
-        # $HOME/Library/Python/*/bin
-
-        $HOMEBREW_PREFIX/{bin,sbin}
-        # $HOMEBREW_PREFIX/opt/binutils/bin
-
-        $path
-      )
-
-      # Less
-
-      # Set the default Less options.
-      # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-      # Remove -X and -F (exit if the content fits on one screen) to enable it.
-      export LESS='-F -g -i -M -R -S -w -X -z-4'
-
-      # Set the Less input preprocessor.
-      # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-      if (( $#commands[(i)lesspipe(|.sh)] )); then
-        export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-      fi
+      
+      ${lib.optionalString pkgs.stdenv.isDarwin ''
+        eval "$(${if pkgs.stdenv.isAarch64 then "/opt/homebrew/bin" else "/usr/local/bin"}/brew shellenv)"
+      ''}
+    '';
+    
+    completionInit = ''
+      autoload -Uz compinit
+      for dump in ~/.zcompdump(N.mh+24); do
+        compinit
+      done
+      compinit -C
+      
+      # Completions for git-extras doesn't load automatically
+      # due to the lack of #compdef directive. We need to source it manually.
+      source ${pkgs.git-extras}/share/zsh/site-functions/_git_extras
     '';
 
     # Content to be added to `.zshrc`.
@@ -205,7 +232,7 @@
         # This ensures that shell integration works in more scenarios (such as when you switch shells within Ghostty).
         # @see https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
         if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
-            builtin source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
+          builtin source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
         fi
 
         # Powerlevel10k instant prompt
@@ -224,7 +251,14 @@
 
       # This runs before compinit (completion initialization)
       zshConfigBeforeCompInit = lib.mkOrder 550 ''
-        source "${home.homeDirectory}/.shell/external.zsh"
+        source "${home.homeDirectory}/.shell/fzf.zsh"
+        
+        # OrbStack
+        # This adds fpath so needs to be before compinit
+        if test -f ~/.orbstack/shell/init.zsh; then
+          source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+        fi
+        
         source "${home.homeDirectory}/.shell/completions.zsh"
       '';
 
@@ -232,9 +266,13 @@
       zshConfig = ''
         source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
 
-        source "${home.homeDirectory}/.shell/exports.zsh"
+        source "${home.homeDirectory}/.shell/colors.zsh"
         source "${home.homeDirectory}/.shell/functions.zsh"
         source "${home.homeDirectory}/.shell/proxy.zsh"
+        
+        ( ${pkgs.gnupg}/bin/gpg-agent --daemon > /dev/null 2>&1 & )
+        
+        eval "$(rbenv init - zsh)"
 
         # atuin
         eval "$(${pkgs.atuin}/bin/atuin init zsh)"

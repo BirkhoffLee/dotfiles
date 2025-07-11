@@ -36,6 +36,13 @@
       window-width = 98
       ## End of Initial Window Size
 
+      ## Window Padding
+      # window-padding-balance = true
+      # window-padding-color = extend
+      # window-padding-x = 2
+      window-padding-y = 2,0
+      ## End of Window Padding
+
       ## Cursor & Shell Integration
       cursor-style = block
       cursor-style-blink = true

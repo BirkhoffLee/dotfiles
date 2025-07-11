@@ -1,4 +1,7 @@
-# credits to https://github.com/SukkaW/zsh-osx-autoproxy
+# MIT License
+# Copyright (c) 2020 Sukka
+
+# https://github.com/SukkaW/zsh-osx-autoproxy
 
 __ZSH_OSX_AUTOPROXY_SCUTIL_PROXY=$(scutil --proxy)
 

@@ -18,14 +18,31 @@ rec {
     ./editorconfig.nix
     ./gem.nix
     ./ghostty.nix
-    ./helix.nix
     ./git.nix
     ./gnupg.nix
+    ./helix.nix
     ./htop.nix
     ./hushlogin.nix
+    ./llm.nix
     ./nano.nix
     ./tmux.nix
   ];
+  
+  home.sessionPath = [
+    # Note: Homebrew is loaded with `brew shellenv` in `zsh/default.nix`
+
+    # Rust
+    "${home.homeDirectory}/.cargo/bin"
+    # Golang
+    "${home.homeDirectory}/go/bin"
+    # uv tool
+    "${home.homeDirectory}/.local/bin"
+    # Apple
+    "/Library/Apple/usr/bin"
+    # Wireshark
+    "/Applications/Wireshark.app/Contents/MacOS"
+  ];
+
 
   home.file = {
     ".shell".source = ./zsh/shell;
@@ -86,6 +103,8 @@ rec {
 
     yazi = {
       enable = true;
+      enableZshIntegration = true;
+      shellWrapperName = "y";
     };
   };
 }
