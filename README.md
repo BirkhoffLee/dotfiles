@@ -25,7 +25,7 @@ Key features:
   * [eza](https://github.com/eza-community/eza) for directory listing
 * [atuin](https://github.com/ellie/atuin) for shell history
 * tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
-* A number of handy [aliases](hosts/AlexMBP/home/zsh/shell/aliases.zsh) and [functions](hosts/AlexMBP/home/zsh/shell/functions.zsh)
+* A number of handy [aliases](hosts/AlexMBP/home/zsh/default.nix) and [functions](hosts/AlexMBP/home/zsh/shell/functions.zsh)
 * [automatically propagated](hosts/AlexMBP/home/zsh/shell/proxy.zsh) shell proxy settings
 * [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlexMBP/home/ghostty.nix)
 * [Sets](hosts/AlexMBP/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)

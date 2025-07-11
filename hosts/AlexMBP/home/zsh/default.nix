@@ -37,6 +37,118 @@
       G = "| grep";
     };
 
+    shellAliases =
+      let
+        macAliases = lib.mkIf (pkgs.stdenv.isDarwin) {
+          pbcopy = "pbcopy";
+          mtr = "sudo mtr";
+          htop = "sudo htop";
+          pbc = "pbcopy";
+          pbp = "pbpaste";
+          yoink = "open -a Yoink";
+          a = "terminal-notifier -sound default -message 'Command complete' -title 'Shell'";
+          afk = "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession -suspend";
+          pubkey = "cat ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key (ed25519) copied to pasteboard.'";
+          sshkey = "pubkey";
+          brewery = "brew update && brew upgrade && brew cleanup";
+          files-to-prompt = "uvx files-to-prompt";
+        };
+        generalAliases = {
+          # Disable correction
+          ack = "nocorrect ack";
+          cd = "nocorrect cd";
+          cp = "nocorrect cp -i"; # Safe ops
+          gcc = "nocorrect gcc";
+          grep = "nocorrect grep --color=auto"; # use color
+          ln = "nocorrect ln -i"; # Safe ops
+          man = "nocorrect man";
+          mkdir = "nocorrect mkdir";
+          mv = "nocorrect mv -i"; # Safe ops
+          rm = "nocorrect rm -i"; # Safe ops
+
+          # Disable globbing
+          curl = "noglob curl";
+          wget = "noglob wget";
+          fc = "noglob fc";
+          find = "noglob find";
+          history = "noglob history";
+          locate = "noglob locate";
+          rake = "noglob rake";
+          rsync = "noglob rsync";
+          scp = "noglob scp";
+          sftp = "noglob sftp";
+
+          # Open with default app
+          o = "open";
+
+          # List files
+          sl = "ls";
+          l = "ls";
+          ls = "eza -1 --group-directories-first --icons --hyperlink --no-quotes";
+          ll = "ls -l";
+          la = "ls -la";
+          tree = "ls --tree --level 3";
+          lr = "ll -R";
+          lx = "ll -XB";
+          lc = "lt -c";
+          lu = "lt -u";
+
+          # Pager
+          p = "$PAGER";
+
+          # Directory stack
+          po = "popd";
+          pu = "pushd";
+
+          # Search shell aliases
+          sa = "alias | grep -i";
+
+          # Show all definitions of a command
+          type = "type -a";
+
+          # diff
+          diffu = "diff --unified";
+
+          # jq with pager
+          j = "jq -C | less -R";
+
+          # Lists the ten most used commands
+          history-stat = "history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head";
+
+          # Utilities
+          http-serve = "python3 -m http.server";
+          urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'";
+          urlencode = "python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'";
+          clear_history = "> ~/.zsh_history ; exec $SHELL -l";
+          get = "curl --continue-at - --location --progress-bar --remote-name --remote-time";
+          dig = "kdig";
+          gist = "gh gist create";
+          help = "cht.sh";
+          du = "ncdu --color dark -rr -x --exclude .git --exclude node_modules";
+          q = "ssh -v";
+
+          # Docker
+          d = "docker";
+          dp = "docker ps -a";
+          dr = "docker rm";
+          di = "docker inspect";
+          dvl = "docker volume ls";
+          dvi = "docker volume inspect";
+          dvp = "docker volume inspect --format '{{ .Mountpoint }}'";
+          dc = "docker compose";
+          dclf = "docker compose logs -f";
+          dcu = "docker compose up -d";
+          dcr = "docker compose restart";
+          dcub = "docker compose up -d --build";
+          dcb = "docker compose build";
+          dcd = "docker compose down";
+        };
+      in
+        lib.mkMerge [
+          generalAliases
+          macAliases
+        ];
+
     profileExtra = ''
       export HOMEBREW_PREFIX="/opt/homebrew";
 
@@ -116,7 +228,6 @@
         source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
 
         source "${home.homeDirectory}/.shell/exports.zsh"
-        source "${home.homeDirectory}/.shell/aliases.zsh"
         source "${home.homeDirectory}/.shell/functions.zsh"
         source "${home.homeDirectory}/.shell/proxy.zsh"
 
