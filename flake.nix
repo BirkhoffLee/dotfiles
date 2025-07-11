@@ -1,6 +1,17 @@
 {
   description = "birkhoff's darwin configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://birkhoff.cachix.org"
+      "https://yazi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "birkhoff.cachix.org-1:m7WmdU7PKc6fsKedC278lhLtiqjz6ZUJ6v2nkVGyJjQ="
+      "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+    ];
+  };
+
   inputs = {
     # nixpkgs set
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
