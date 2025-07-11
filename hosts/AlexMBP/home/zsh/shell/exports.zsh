@@ -10,6 +10,11 @@ export LC_ALL="en_US.UTF-8"
 # https://github.com/sharkdp/vivid?tab=readme-ov-file#usage
 export LS_COLORS="$(vivid generate snazzy)"
 
+# LLM
+# https://llm.datasette.io/en/stable/setup.html#configuration
+export LLM_USER_PATH="$HOME/.config/llm"
+export LLM_MODEL=gpt-4.1-mini
+
 # Editor
 if command -v hx &>/dev/null; then
   export EDITOR="hx"

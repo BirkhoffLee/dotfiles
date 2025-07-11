@@ -135,11 +135,6 @@ function dns {
   lip $(kdig @8.8.4.4 +short $1 | tail -n1)
 }
 
-# Test download speed from Apple CDN
-function testdown {
-  http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null
-}
-
 # Example:
 # $ nix-pkgdir paho-mqtt-c
 # /nix/store/92h4cbrnnxcmqvdzzkdyajfm3b6yvf13-paho.mqtt.c-1.3.12
@@ -147,18 +142,28 @@ function nix-pkgdir {
   nix eval -f '<nixpkgs>' --raw $1
 }
 
-function nix-cleanup {
-  sudo nix-collect-garbage -d
-  nix-store --optimise
+# Run a nix package from nixpkgs
+# @example  `nr paho-mqtt-c`
+function nr {
+  nix run "nixpkgs#$1"
 }
 
-function nix-update-dotfiles {
-  nix flake update --flake "$HOME/.config/nix"
-  sudo darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+# Run a nix package from nixpkgs unstable
+# @example  `nru paho-mqtt-c`
+function nru {
+  nix run "github:NixOS/nixpkgs/nixpkgs-unstable#$1"
 }
 
-function nix-info {
-  nix-shell -p nix-info --run "nix-info -m"
+# Get a shell for a nix package from nixpkgs
+# @example  `ns paho-mqtt-c`
+function ns {
+  nix shell nixpkgs#$1
+}
+
+# Get a shell for a nix package from nixpkgs unstable
+# @example  `nsu paho-mqtt-c`
+function nsu {
+  nix shell "github:NixOS/nixpkgs/nixpkgs-unstable#$1"
 }
 
 # Apply scanner effect to a PDF

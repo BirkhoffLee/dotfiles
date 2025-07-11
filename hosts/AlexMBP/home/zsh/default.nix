@@ -40,11 +40,10 @@
     shellAliases =
       let
         macAliases = lib.mkIf (pkgs.stdenv.isDarwin) {
-          pbcopy = "pbcopy";
           mtr = "sudo mtr";
           htop = "sudo htop";
-          pbc = "pbcopy";
-          pbp = "pbpaste";
+          pbc = "pbcopy"; # Copy to clipboard
+          pbp = "pbpaste"; # Paste from clipboard
           yoink = "open -a Yoink";
           a = "terminal-notifier -sound default -message 'Command complete' -title 'Shell'";
           afk = "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession -suspend";
@@ -52,6 +51,7 @@
           sshkey = "pubkey";
           brewery = "brew update && brew upgrade && brew cleanup";
           files-to-prompt = "uvx files-to-prompt";
+          o = "open"; # Open with default app
         };
         generalAliases = {
           # Disable correction
@@ -78,9 +78,6 @@
           scp = "noglob scp";
           sftp = "noglob sftp";
 
-          # Open with default app
-          o = "open";
-
           # List files
           sl = "ls";
           l = "ls";
@@ -93,39 +90,47 @@
           lc = "lt -c";
           lu = "lt -u";
 
-          # Pager
-          p = "$PAGER";
-
           # Directory stack
           po = "popd";
           pu = "pushd";
 
-          # Search shell aliases
-          sa = "alias | grep -i";
+          # Shell
+          sa = "alias | grep -i"; # Search shell aliases
+          history-stat = "history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head"; # Lists the ten most used commands
+          type = "type -a"; # Show all definitions of a command
+          
+          # Nix
+          nix-update-dotfiles = "nix flake update --flake \"$HOME/.config/nix\" && sudo darwin-rebuild switch --flake \"$HOME/.config/nix#AlexMBP\"";
+          nix-info = "nix-shell -p nix-info --run \"nix-info -m\"";
+          nix-gc = "sudo nix-collect-garbage -d && nix-store --optimise";
+          
+          # LLM
+          llm = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm";
+          llmf = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm --no-stream";
+          # uvx --with llm-anthropic llm -m claude-3.5-haiku 'fun facts about skunks'
+          chat = "llm chat -m chatgpt";
 
-          # Show all definitions of a command
-          type = "type -a";
-
-          # diff
-          diffu = "diff --unified";
-
-          # jq with pager
-          j = "jq -C | less -R";
-
-          # Lists the ten most used commands
-          history-stat = "history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head";
+          # Text processing
+          p = "$PAGER"; # Pager
+          j = "jq -C | less -R"; # jq with pager
+          diffu = "diff --unified"; # diff
 
           # Utilities
           http-serve = "python3 -m http.server";
           urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'";
           urlencode = "python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'";
+          
+          # Utilities
           clear_history = "> ~/.zsh_history ; exec $SHELL -l";
-          get = "curl --continue-at - --location --progress-bar --remote-name --remote-time";
-          dig = "kdig";
-          gist = "gh gist create";
           help = "cht.sh";
           du = "ncdu --color dark -rr -x --exclude .git --exclude node_modules";
+          gist = "gh gist create";
+          
+          # Network
+          get = "curl --continue-at - --location --progress-bar --remote-name --remote-time";
+          dig = "kdig";
           q = "ssh -v";
+          testdown = "http https://mensura.cdn-apple.com/api/v1/gm/config | jq -r .urls.large_https_download_url | xargs wget -O /dev/null"; # Test download speed from Apple CDN
 
           # Docker
           d = "docker";
