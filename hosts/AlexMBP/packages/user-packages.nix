@@ -65,7 +65,7 @@
     git
     git-lfs
     git-extras # https://github.com/tj/git-extras/blob/main/Commands.md
-    git-open # `git open` to open the GitHub page or website for a repo
+    # git-open # `git open` to open the GitHub page or website for a repo FIXME: doesn't work
     git-recent # `git recent` to browse latest local git branches interactively
     gptcommit
     
@@ -197,6 +197,7 @@
     television
     tree
     zoxide
+    yazi
     
     # System monitoring
     duf
@@ -252,6 +253,7 @@
     exiftool
     imagemagickBig
     optipng
+    pngpaste
     
     # ============================================================================
     # CLI TOOLS
@@ -260,11 +262,15 @@
     powershell
     stripe-cli
     flarectl
+    tldx
     # dex2jar
 
     # GitHub CLI Tools
     # @see https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md#should-i-use-gh-or-hub
     gh
     hub
+
+    # Nix Tools
+    cachix
   ];
 }
