@@ -11,20 +11,21 @@ export LC_ALL="en_US.UTF-8"
 export LS_COLORS="$(vivid generate snazzy)"
 
 # Editor
-export EDITOR="$(which vim)"
-cursor_path=$(which cursor 2>/dev/null)
-code_path=$(which code 2>/dev/null)
+if command -v hx &>/dev/null; then
+  export EDITOR="hx"
+elif command -v vim &>/dev/null; then
+  export EDITOR="vim"
+else
+  export EDITOR="nano"
+fi
 
-if [ -f "$cursor_path" ]; then
-  export VISUAL=$cursor_path
-elif [ -f "$code_path" ]; then
-  export VISUAL=$code_path
+if command -v cursor &>/dev/null; then
+  export VISUAL="cursor"
+elif command -v code &>/dev/null; then
+  export VISUAL="code"
 else
   export VISUAL=$EDITOR
 fi
-
-unset cursor_path
-unset code_path
 
 # macOS only
 if [[ "$OSTYPE" = darwin* ]]; then
