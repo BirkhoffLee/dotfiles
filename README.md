@@ -117,6 +117,7 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 
 Some other dotfiles worth looking into:
 
+* https://github.com/malob/nixpkgs
 * https://github.com/ahmedelgabri/dotfiles
 * https://github.com/kornicameister/dotfiles/
 * https://github.com/Aloxaf/dotfiles/tree/master/zsh/.config/zsh
