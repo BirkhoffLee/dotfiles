@@ -77,6 +77,13 @@
 
       # Size of the icons in the dock (default 64)
       "tilesize" = 40;
+
+      # Hot Corners (wvous-*-corner)
+      # 0 = no action, 1 = disabled, 2 = Mission Control, 3 = Application Windows, 4 = Desktop, 5 = Start Screen Saver, 6 = Disable Screen Saver, 7 = Dashboard, 10 = Put Display to Sleep, 11 = Launchpad, 12 = Notification Center
+      "wvous-tl-corner" = 1;
+      "wvous-tr-corner" = 1;
+      "wvous-bl-corner" = 1;
+      "wvous-br-corner" = 1;
     };
     
     CustomSystemPreferences = {
@@ -444,7 +451,7 @@
       #   # Show the full URL in the address bar (note: this still hides the scheme)
       #   "ShowFullURLInSmartSearchField" = true;
 
-      #   # Prevent Safari from opening ‘safe’ files automatically after downloading
+      #   # Prevent Safari from opening 'safe' files automatically after downloading
       #   "AutoOpenSafeDownloads" = false;
 
       #   # Enable continuous spellchecking
@@ -462,7 +469,7 @@
       #   # Set home page to `about:blank` for faster loading
       #   "HomePage" = "about:blank";
 
-      #   # Enable Safari’s debug menu
+      #   # Enable Safari's debug menu
       #   "IncludeInternalDebugMenu" = true;
 
       #   # Enable the Develop menu and the Web Inspector
