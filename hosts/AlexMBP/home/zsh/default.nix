@@ -7,14 +7,23 @@
 
     # TODO: use helix mode
     defaultKeymap = "emacs";
+    
+    # Automatically enter into a directory if typed directly into shell.
+    autocd = true;
 
     dirHashes = {
       dl = "${home.homeDirectory}/Downloads";
     };
 
     history = {
-      extended = true;
-      expireDuplicatesFirst = true;
+      append = true; # Append history to the history file, instead of replaceing
+      ignoreAllDups = true; # Delete an old recorded event if a new event is a duplicate.
+      saveNoDups = true; # Do not write a duplicate event to the history file.
+      findNoDups = true; # Do not display a previously found event.
+      ignoreSpace = true; # Do not save commands that begin with a space.
+      expireDuplicatesFirst = true; # Expire duplicates first when trimming history.
+      extended = true; # Save the time and duration of each command in the history file.
+      
       ignorePatterns = [ "rm * " ];
     };
 
@@ -204,6 +213,7 @@
     '';
     
     completionInit = ''
+      # Regenerate the completion cache file (~/.zcompdump) if it's older than 24 hours
       autoload -Uz compinit
       for dump in ~/.zcompdump(N.mh+24); do
         compinit
