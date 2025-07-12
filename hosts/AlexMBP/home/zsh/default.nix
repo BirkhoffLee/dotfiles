@@ -5,6 +5,7 @@
   programs.zsh = {
     enable = true;
 
+    # TODO: use helix mode
     defaultKeymap = "emacs";
 
     dirHashes = {
@@ -161,9 +162,6 @@
         VISUAL = "cursor";
         PAGER = "less";
         
-        # Workaround for Ansible forking: https://github.com/ansible/ansible/issues/76322
-        OBJC_DISABLE_INITIALIZE_FORK_SAFETY = lib.mkIf pkgs.stdenv.isDarwin "YES";
-        
         ## External Tools
 
         # LLM (https://llm.datasette.io/en/stable/setup.html#configuration)
@@ -193,14 +191,13 @@
       }
       (lib.optionalAttrs pkgs.stdenv.isDarwin {
         SSH_AUTH_SOCK = "${home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+        
+        # Ansible (https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-control-node)
         OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES";
       })
     ];
 
     profileExtra = ''
-      # Ensure path arrays do not contain duplicates.
-      typeset -gU cdpath fpath mailpath path
-      
       ${lib.optionalString pkgs.stdenv.isDarwin ''
         eval "$(${if pkgs.stdenv.isAarch64 then "/opt/homebrew/bin" else "/usr/local/bin"}/brew shellenv)"
       ''}
