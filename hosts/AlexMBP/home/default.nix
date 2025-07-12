@@ -28,6 +28,11 @@ rec {
     ./tmux.nix
   ];
   
+  # Expressions like $HOME are expanded by the shell.
+  # However, since expressions like ~ or * are escaped,
+  # they will end up in the PATH verbatim.
+  #
+  # @see https://nix-community.github.io/home-manager/options.xhtml#opt-home.sessionPath
   home.sessionPath = [
     # Note: Homebrew is loaded with `brew shellenv` in `zsh/default.nix`
 
@@ -43,7 +48,6 @@ rec {
     "/Applications/Wireshark.app/Contents/MacOS"
   ];
 
-
   home.file = {
     ".shell".source = ./zsh/shell;
   };
@@ -51,6 +55,11 @@ rec {
   home.activation = {
     "revealHomeLibraryDirectory" = lib.hm.dag.entryAfter ["writeBoundary"] ''
       /usr/bin/chflags nohidden "$HOME/Library"
+    '';
+
+    "setWallpaper" = lib.hm.dag.entryAfter ["revealHomeLibraryDirectory"] ''
+      echo "[+] Setting wallpaper"
+      ${setWallpaperScript}/bin/set-wallpaper-script
     '';
 
     "activateUserSettings" =
@@ -72,14 +81,7 @@ rec {
           "WindowManager"; do
           /usr/bin/killall "''${app}" &> /dev/null && echo "[+] Killed ''${app}" || true
         done
-
-        # echo "[+] tailscaled install-system-daemon"
-        # sudo ${pkgs.tailscale}/bin/tailscaled install-system-daemon
       '';
-    "setWallpaper" = lib.hm.dag.entryAfter ["revealHomeLibraryDirectory"] ''
-      echo "[+] Setting wallpaper"
-      ${setWallpaperScript}/bin/set-wallpaper-script
-    '';
   };
 
   programs = {
