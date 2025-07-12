@@ -271,8 +271,6 @@
 
       # General configuration
       zshConfig = ''
-        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-
         source "${home.homeDirectory}/.shell/colors.zsh"
         source "${home.homeDirectory}/.shell/functions.zsh"
         source "${home.homeDirectory}/.shell/proxy.zsh"
@@ -283,15 +281,26 @@
 
         # atuin
         eval "$(${pkgs.atuin}/bin/atuin init zsh)"
+        
+        # `zsh-syntax-highlighting` must be sourced at the end of the .zshrc file
+        # @see https://github.com/zsh-users/zsh-syntax-highlighting?tab=readme-ov-file#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       '';
     in
       lib.mkMerge [ zshConfigEarlyInit zshConfigBeforeCompInit zshConfig ];
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
-    # Get hash with:
-    # `nix flake prefetch github:<owner>/<repo>/<rev> --json | jq -r '.hash'`
-    # or just leave empty and apply, it will tell you the hash
     plugins = [
+      # {
+      #   name = "zsh-helix-mode";
+      #   src = pkgs.fetchFromGitHub {
+      #     # https://github.com/Multirious/zsh-helix-mode
+      #     owner = "Multirious";
+      #     repo = "zsh-helix-mode";
+      #     rev = "97bbe550dbbeba3c402b6b3cda0abddf6e12f73c";
+      #     sha256 = "sha256-9AXeKtZw3iXxBO+jgYvFv/y7fZo+ebR5CfoZIemG47I=";
+      #   };
+      # }
       {
         name = "forgit";
         src = pkgs.fetchFromGitHub {
