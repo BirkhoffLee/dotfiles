@@ -45,13 +45,7 @@
       };
 
       merge = {
-        tool = "code";
-        # tool = "hx";
-      };
-
-      diff = {
-        algorithm = "histogram";
-        indentHeuristic = "on";
+        conflictstyle = "zdiff3";
       };
 
       gpg = {
