@@ -167,7 +167,8 @@
         # @see https://github.com/wofr06/lesspipe?tab=readme-ov-file#4-supported-file-formats
         LESSOPEN="| ${pkgs.lesspipe}/bin/lesspipe.sh %s";
         LESSCOLORIZER="bat --theme=default";
-        
+        LESSQUIET="1"; # Suppress lesspipe help messages in output
+
         # Editor
         EDITOR = "hx";
         VISUAL = "cursor";

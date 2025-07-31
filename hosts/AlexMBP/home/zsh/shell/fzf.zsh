@@ -25,11 +25,7 @@ __FZF[PREVIEW_FILE_OR_DIR]="
   if [ -d {} ]; then
     ${__FZF[PREVIEW_DIR]} {};
   else
-    if [[ \$(file --brief --dereference --mime {}) == text/* ]]; then
-      ${__FZF[PREVIEW_TEXT]};
-    else
-      file {};
-    fi;
+    less {};
   fi
 "
 
@@ -39,11 +35,7 @@ __FZF_TAB[PREVIEW_FILE_OR_DIR]="
   if [ -d \$realpath ]; then
     ${__FZF[PREVIEW_DIR]} \$realpath;
   else
-    if [[ \$(file --brief --dereference --mime \$realpath) == text/* ]]; then
-      ${__FZF_TAB[PREVIEW_TEXT]};
-    else
-      file \$realpath;
-    fi;
+    less \$realpath;
   fi
 "
 
