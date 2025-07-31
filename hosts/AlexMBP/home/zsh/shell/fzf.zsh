@@ -125,6 +125,10 @@ zstyle ':fzf-tab:*' fzf-flags \
   --bind "ctrl-o:execute($VISUAL {})+abort" \
   --bind '?:toggle-preview'
 
+# disable or override preview for command options and subcommands
+zstyle ':fzf-tab:complete:*:options' fzf-preview 
+zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
+
 # FIXME: does not work
 # zstyle ':fzf-tab:complete:(-command-):*' fzf-preview 'builtin type -- {}'
 
