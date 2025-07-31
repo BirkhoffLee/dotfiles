@@ -267,13 +267,13 @@
           source ~/.orbstack/shell/init.zsh 2>/dev/null || :
         fi
         
+        source "${home.homeDirectory}/.shell/colors.zsh"
         source "${home.homeDirectory}/.shell/completions.zsh"
         source "${home.homeDirectory}/.shell/fzf.zsh"
       '';
 
       # General configuration
       zshConfig = ''
-        source "${home.homeDirectory}/.shell/colors.zsh"
         source "${home.homeDirectory}/.shell/functions.zsh"
         source "${home.homeDirectory}/.shell/proxy.zsh"
         
