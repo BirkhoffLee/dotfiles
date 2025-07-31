@@ -144,6 +144,14 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 zstyle ':fzf-tab:complete:(cd|vim|nano|e|cursor|code|mv|cp|rm|file):*' \
   fzf-preview "${__FZF_TAB[PREVIEW_FILE_OR_DIR]}"
 
+# homebrew
+zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-flags \
+  --height=-2 \
+  --preview-window 'right:70%:nowrap' \
+  --bind 'alt-up:preview-page-up' \
+  --bind 'alt-down:preview-page-down'
+zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word | bat --color=always' 
+
 # kill/ps
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \
   --height=20 \
