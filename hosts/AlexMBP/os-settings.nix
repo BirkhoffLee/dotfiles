@@ -308,6 +308,16 @@
       
       # Disable Spotlight Shortcuts
       com.apple.symbolichotkeys = {
+        # Input Sources (^Space, ^⌥Space)
+        "60" = {
+          enabled = 0;
+        };
+
+        "61" = {
+          enabled = 0;
+        };
+
+        # These should be disabling Spotlight shortcuts
         "64" = {
           enabled = 0;
         };
