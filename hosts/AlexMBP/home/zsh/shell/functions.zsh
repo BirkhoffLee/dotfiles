@@ -2,6 +2,24 @@
 
 # `functions.zsh` provides helper functions and utilities.
 
+# Use `llm` to generate a conventional commit draft using cached diff
+function aic {
+  echo "Working..."
+
+  git commit -F <(git diff --cached | llm -s "Write a commit message in the Conventional Commits format. Use the structure:
+  <type>(<optional scope>): <short description>
+
+  <optional body>
+
+  <optional footer>
+
+  Example types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+  Optionally, include a body for more details in bullet points.
+  Optionally, in the footer, use BREAKING CHANGE: followed by a detailed explanation of the breaking change.
+
+  Just return the commit message, do not include any other text.") -e
+}
+
 function take {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }
