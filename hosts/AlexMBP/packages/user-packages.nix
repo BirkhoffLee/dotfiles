@@ -47,6 +47,7 @@
     zsh-completions
     zsh-fast-syntax-highlighting
     zsh-powerlevel10k
+    emojify
     atuin
     
     # Terminal utilities

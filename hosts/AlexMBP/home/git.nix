@@ -29,6 +29,7 @@
       pager = {
         show = "delta";
         diff = "delta";
+        log = "emojify";
       };
 
       core = {
