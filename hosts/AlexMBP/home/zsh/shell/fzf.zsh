@@ -145,7 +145,7 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 	fzf-preview 'echo ${(P)word}'
 
 # preview directory or file's content when completing some commands
-zstyle ':fzf-tab:complete:(cd|vim|nano|e|cursor|code|mv|cp|rm|file):*' \
+zstyle ':fzf-tab:complete:(cd|vim|nano|e|hx|cursor|code|mv|cp|rm|file):*' \
   fzf-preview "${__FZF_TAB[PREVIEW_FILE_OR_DIR]}"
 
 # git
