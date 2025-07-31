@@ -13,6 +13,7 @@
 
     dirHashes = {
       dl = "${home.homeDirectory}/Downloads";
+      nix = "${home.homeDirectory}/.config/nix";
     };
 
     history = {
