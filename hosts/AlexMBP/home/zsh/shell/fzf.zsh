@@ -144,6 +144,29 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 zstyle ':fzf-tab:complete:(cd|vim|nano|e|cursor|code|mv|cp|rm|file):*' \
   fzf-preview "${__FZF_TAB[PREVIEW_FILE_OR_DIR]}"
 
+# git
+__FZF_TAB[PREVIEW_DELTA]='DELTA_FEATURES=decorations delta --hunk-header-decoration-style="cyan box"'
+zstyle ':fzf-tab:complete:git-(add|diff|restore|show|checkout):*' fzf-flags \
+  --height=-2 \
+  --preview-window 'right:40%:nowrap' \
+  --bind 'alt-up:preview-page-up' \
+  --bind 'alt-down:preview-page-down'
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview "git diff \$word | ${__FZF_TAB[PREVIEW_DELTA]}"
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | '"${__FZF_TAB[PREVIEW_DELTA]}"' ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | '"${__FZF_TAB[PREVIEW_DELTA]}"' ;;
+	"recent commit object name") git show --color=always $word | '"${__FZF_TAB[PREVIEW_DELTA]}"' ;;
+	*) git log --color=always $word ;;
+	esac'
+
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
+
 # homebrew
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-flags \
   --height=-2 \
