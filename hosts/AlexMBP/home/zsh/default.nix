@@ -163,9 +163,10 @@
         # Remove -X and -F (exit if the content fits on one screen) to enable it.
         LESS = "-F -g -i -M -R -S -w -X -z-4";
         
-        # Set the Less input preprocessor.
-        # Try both `lesspipe` and `lesspipe.sh`
-        LESSOPEN="| /usr/bin/env lesspipe.sh %s 2>&-";
+        # Use lesspipe to read non-text files
+        # @see https://github.com/wofr06/lesspipe?tab=readme-ov-file#4-supported-file-formats
+        LESSOPEN="| ${pkgs.lesspipe}/bin/lesspipe.sh %s";
+        LESSCOLORIZER="bat --theme=default";
         
         # Editor
         EDITOR = "hx";
