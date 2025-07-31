@@ -334,8 +334,8 @@
           # https://github.com/MichaelAquilina/zsh-you-should-use
           owner = "MichaelAquilina";
           repo = "zsh-you-should-use";
-          rev = "030ac861f5f1536747407ac7baf208fd3990602a";
-          sha256 = "sha256-iPVB1LxbE/eBsZy7U1Zo7/uMtqko3edL4LsM3Yp+pz8=";
+          rev = "64dd9e3ff977e4ae7d024602b2d9a7a4f05fd8f6";
+          sha256 = "sha256-u3abhv9ewq3m4QsnsxT017xdlPm3dYq5dqHNmQhhcpI=";
         };
       }
       {
