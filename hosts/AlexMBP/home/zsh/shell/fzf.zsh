@@ -103,6 +103,8 @@ export FZF_CTRL_R_OPTS="
 # https://github.com/junegunn/fzf?tab=readme-ov-file#customizing-fzf-options-for-completion
 
 # fzf-tab (https://github.com/Aloxaf/fzf-tab)
+# `${(Q)realpath:a}`
+# (Q) removes a level of quoting, :a converts it to an absolute path
 
 # Use tmux popup for fzf-tab
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
