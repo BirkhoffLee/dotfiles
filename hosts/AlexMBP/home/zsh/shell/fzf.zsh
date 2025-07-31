@@ -132,7 +132,7 @@ zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 # FIXME: does not work
 # zstyle ':fzf-tab:complete:(-command-):*' fzf-preview 'builtin type -- {}'
 
-zstyle ':fzf-tab:*:file:*' fzf-flags --height=~80% --style=full --query='!^.' --header-label=' File Type '
+zstyle ':fzf-tab:*:file:*' fzf-flags --height=-2 --style=full --header-label=' File Type '
 zstyle ':fzf-tab:*:file:*' fzf-bindings 'focus:transform-header(
     {_FTB_INIT_} {
         file -LIb ${realpath} || echo "No file selected";
