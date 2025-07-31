@@ -1,5 +1,5 @@
 {
-  description = "birkhoff's darwin configuration";
+  description = "birkhoff's dotfiles";
 
   nixConfig = {
     extra-substituters = [
