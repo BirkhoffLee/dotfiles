@@ -151,7 +151,7 @@ zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \
 
 if [[ "$OSTYPE" = darwin* ]]; then
   zstyle ':completion:*:processes-names' command "ps -wwrcau$USER -o comm | uniq" # killall
-  zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,%cpu,%mem,stat,comm"
+  zstyle ':completion:*:*:*:*:processes' command "ps -wwrcau$USER -o pid,user,comm"
   zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
     '[[ $group == "[process ID]" ]] && ps -wwp$word -o comm='
 elif [[ "$OSTYPE" = linux* ]]; then
