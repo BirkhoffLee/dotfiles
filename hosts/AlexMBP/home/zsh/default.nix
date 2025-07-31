@@ -52,7 +52,6 @@
           pubkey = "cat ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key (ed25519) copied to pasteboard.'";
           sshkey = "pubkey";
           brewery = "brew update && brew upgrade && brew cleanup";
-          files-to-prompt = "uvx files-to-prompt";
           o = "open"; # Open with default app
         };
         generalAliases = {
@@ -111,6 +110,7 @@
           llmf = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm --no-stream";
           # uvx --with llm-anthropic llm -m claude-3.5-haiku 'fun facts about skunks'
           chat = "llm chat -m chatgpt";
+          files-to-prompt = "uvx files-to-prompt";
 
           # Text processing
           p = "$PAGER"; # Pager
