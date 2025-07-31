@@ -117,11 +117,9 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # Note: some other flags are already set in fzf-tab code,
 # refer to: https://github.com/Aloxaf/fzf-tab/blob/master/lib/-ftb-fzf#L90
 zstyle ':fzf-tab:*' fzf-flags \
-  --header '?: preview, alt-up: pgup, alt-down: pgdown, ^o: open editor' \
   --color header:italic \
-  --style full \
   --height=-2 \
-  --preview-window 'right:40%:border:wrap' \
+  --preview-window 'right:40%:wrap' \
   --bind 'alt-up:preview-page-up' \
   --bind 'alt-down:preview-page-down' \
   --bind "ctrl-o:execute($VISUAL {})+abort" \
