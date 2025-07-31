@@ -260,8 +260,6 @@
 
       # This runs before compinit (completion initialization)
       zshConfigBeforeCompInit = lib.mkOrder 550 ''
-        source "${home.homeDirectory}/.shell/fzf.zsh"
-        
         # OrbStack
         # This adds fpath so needs to be before compinit
         if test -f ~/.orbstack/shell/init.zsh; then
@@ -269,6 +267,7 @@
         fi
         
         source "${home.homeDirectory}/.shell/completions.zsh"
+        source "${home.homeDirectory}/.shell/fzf.zsh"
       '';
 
       # General configuration
