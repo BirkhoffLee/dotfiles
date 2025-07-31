@@ -121,7 +121,8 @@
           http-serve = "python3 -m http.server";
           urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'";
           urlencode = "python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'";
-          
+          lg = "${pkgs.lazygit}/bin/lazygit";
+
           # Utilities
           clear_history = "> ~/.zsh_history ; exec $SHELL -l";
           help = "cht.sh";
@@ -184,7 +185,8 @@
         LLM_MODEL = "gpt-4.1-mini";
 
         # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
-        AUTO_NOTIFY_IGNORE = [ "tmux" "bat" "cat" "less" "man" "zi" "hx" ];
+        # Note: `lg` is alias for `lazygit`
+        AUTO_NOTIFY_IGNORE = [ "tmux" "bat" "cat" "less" "man" "zi" "hx" "lazygit" "lg" ];
         
         # Zoxide (https://github.com/ajeetdsouza/zoxide/blob/main/README.md#environment-variables)
         _ZO_ECHO = 1;

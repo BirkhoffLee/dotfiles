@@ -29,6 +29,8 @@ Key features:
 * [automatically propagated](hosts/AlexMBP/home/zsh/shell/proxy.zsh) shell proxy settings
 * [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlexMBP/home/ghostty.nix)
 * [Sets](hosts/AlexMBP/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
+* git utilities include [lazygit](https://github.com/jesseduffield/lazygit) and [forgit](https://github.com/wfxr/forgit) because I'm lazy
+  * [a quick starter video about lazygit](https://www.youtube.com/watch?v=CPLdltN7wgE)
 
 ## Usage
 

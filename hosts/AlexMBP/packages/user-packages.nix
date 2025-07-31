@@ -69,6 +69,8 @@
     git-extras # https://github.com/tj/git-extras/blob/main/Commands.md
     # git-open # `git open` to open the GitHub page or website for a repo FIXME: doesn't work
     git-recent # `git recent` to browse latest local git branches interactively
+    lazygit
+        
     # Git tools
     bfg-repo-cleaner
     
