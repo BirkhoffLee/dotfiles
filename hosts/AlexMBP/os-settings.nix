@@ -96,6 +96,9 @@
           "zh-Hans-US"
           "zh-Hant-US"
         ];
+        ApplePerAppLanguageSelectionBundleIdentifiers = [
+          "com.apple.Music"
+        ];
         
         AppleICUNumberSymbols = {
             "0" = ".";
@@ -333,6 +336,18 @@
         #   "OpenWith" = true;
         #   "Privileges" = true;
         # };
+      };
+
+      "com.apple.Music" = {
+        AppleLanguages = [
+          "zh-Hant-US"
+        ];
+        audioPassthroughSetting = 1;
+        dontAskForPlaylistItemRemoval = 1;
+        downloadDolbyAtmos = 1;
+        losslessEnabled = 1;
+        preferredDownloadAudioQuality = 20;
+        preferredStreamPlaybackAudioQuality = 15;
       };
 
       "com.apple.terminal" = {
