@@ -99,7 +99,7 @@
           type = "type -a"; # Show all definitions of a command
           
           # Nix
-          nix-update-dotfiles = "nix flake update --flake \"$HOME/.config/nix\" && sudo darwin-rebuild switch --flake \"$HOME/.config/nix#AlexMBP\"";
+          nix-update-dotfiles = "sudo nix flake update --flake \"$HOME/.config/nix\" && sudo darwin-rebuild switch --flake \"$HOME/.config/nix#AlexMBP\"";
           nix-info = "nix-shell -p nix-info --run \"nix-info -m\"";
           nix-gc = "sudo nix-collect-garbage -d && nix-store --optimise";
           
