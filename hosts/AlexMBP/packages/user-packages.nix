@@ -69,8 +69,6 @@
     git-extras # https://github.com/tj/git-extras/blob/main/Commands.md
     # git-open # `git open` to open the GitHub page or website for a repo FIXME: doesn't work
     git-recent # `git recent` to browse latest local git branches interactively
-    gptcommit
-    
     # Git tools
     bfg-repo-cleaner
     
@@ -161,6 +159,7 @@
     openblas.dev
     gemini-cli
     ollama
+    aichat
     
     # ============================================================================
     # DEVELOPMENT UTILITIES
