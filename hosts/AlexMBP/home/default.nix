@@ -85,6 +85,23 @@ rec {
   };
 
   programs = {
+    atuin = {
+      enable = true;
+      enableBashIntegration = false;
+      enableZshIntegration = true;
+      settings = {
+        ## Invert the UI - put the search bar at the top , Default to `false`
+        invert = true;
+        
+        # Defaults to true. If enabled, upon hitting enter Atuin will immediately execute the command. Press tab to return to the shell and edit.
+        enter_accept = false;
+
+        ## Set this to true and Atuin will minimize motion in the UI - timers will not update live, etc.
+        ## Alternatively, set env NO_MOTION=true
+        prefers_reduced_motion = true;
+      };
+    };
+
     zoxide = {
       enable = true;
       enableZshIntegration = true;

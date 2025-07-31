@@ -5,6 +5,11 @@
   programs.zsh = {
     enable = true;
 
+    autosuggestion = {
+      enable = true;
+      strategy = [];
+    };
+
     # TODO: use helix mode
     defaultKeymap = "emacs";
     
@@ -27,8 +32,6 @@
       
       ignorePatterns = [ "rm * " ];
     };
-
-    historySubstringSearch.enable = true;
 
     # Substituted anywhere on a line
     shellGlobalAliases = {
@@ -281,9 +284,11 @@
         
         eval "$(rbenv init - zsh)"
 
-        # atuin
-        eval "$(${pkgs.atuin}/bin/atuin init zsh)"
-        
+        # Empty the autosuggestion strategy array. Later atuin will
+        # automatically add itself into this array, so we're sure
+        # that it's the only source where autosuggestions are fetched
+        ZSH_AUTOSUGGEST_STRATEGY=()
+
         # `zsh-syntax-highlighting` must be sourced at the end of the .zshrc file
         # @see https://github.com/zsh-users/zsh-syntax-highlighting?tab=readme-ov-file#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
         source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
