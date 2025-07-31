@@ -33,7 +33,7 @@
 
       core = {
         preloadindex = "yes";
-        editor = "vim";
+        editor = "hx";
       };
 
       credential = {
@@ -42,7 +42,7 @@
 
       merge = {
         tool = "code";
-        # tool = "vim";
+        # tool = "hx";
       };
 
       diff = {
