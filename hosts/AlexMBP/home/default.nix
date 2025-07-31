@@ -89,10 +89,8 @@ rec {
       enable = true;
       enableBashIntegration = false;
       enableZshIntegration = true;
+      flags = [ "--disable-up-arrow" ];
       settings = {
-        ## Invert the UI - put the search bar at the top , Default to `false`
-        invert = true;
-        
         # Defaults to true. If enabled, upon hitting enter Atuin will immediately execute the command. Press tab to return to the shell and edit.
         enter_accept = false;
 
