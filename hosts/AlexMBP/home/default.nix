@@ -153,6 +153,10 @@ rec {
             colorArg = "always";
             pager = "DELTA_FEATURES=decorations delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
           };
+
+          commit = {
+            signOff = true;
+          };
         };
       };
     };
