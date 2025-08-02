@@ -12,8 +12,8 @@ rec {
   imports = [
     ../packages/user-packages.nix
     (import ./zsh { inherit home pkgs lib; })
-    (import ./ansible.nix { inherit home; })
     ./1password.nix
+    ./ansible.nix
     ./bundle.nix
     ./editorconfig.nix
     ./gem.nix
