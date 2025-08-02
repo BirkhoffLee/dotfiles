@@ -155,6 +155,7 @@
     sslscan
     stress
     tcpflow
+    ookla-speedtest
     tcping-go
     tcpreplay
     tcptraceroute
