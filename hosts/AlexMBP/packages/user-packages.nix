@@ -234,6 +234,7 @@
     duf
     jc
     osx-cpu-temp
+    bottom # btm (https://github.com/ClementTsang/bottom)
     
     # ============================================================================
     # UTILITIES & TOOLS
