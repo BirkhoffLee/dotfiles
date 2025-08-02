@@ -306,8 +306,13 @@
         "ShowDevelopMenu" = 1;
       };
       
-      # Disable Spotlight Shortcuts
+      # System Keyboard Shortcuts
       com.apple.symbolichotkeys = {
+        # Record Screen (⇧⌘5)
+        "184" = {
+          enabled = 1;
+        };
+
         # Input Sources (^Space, ^⌥Space)
         "60" = {
           enabled = 0;
@@ -317,11 +322,12 @@
           enabled = 0;
         };
 
-        # These should be disabling Spotlight shortcuts
+        # Disable Spotlight shortcuts (use Raycast instead)
         "64" = {
           enabled = 0;
         };
 
+        # Disable Finder search window shortcut
         "65" = {
           enabled = 0;
         };
