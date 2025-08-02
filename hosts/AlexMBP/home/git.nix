@@ -1,4 +1,14 @@
-{
+{ config, ... }:
+
+let
+
+  name = "birkhoff";
+  email = "git@birkhoff.me";
+  key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM";
+
+in {
+  home.file.".ssh/allowed_signers".text = "${email} namespaces=\"git\" ${key}";
+
   programs.git = {
     enable = true;
 
@@ -21,12 +31,12 @@
     
     lfs.enable = true;
     
-    userEmail = "git@birkhoff.me";
-    userName = "birkhoff";
+    userName = "${name}";
+    userEmail = "${email}";
 
     extraConfig = {
       user = {
-        signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM";
+        signingkey = "${key}";
       };
       
       pager = {
@@ -53,6 +63,7 @@
 
         ssh = {
           program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+          allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
         };
       };
       
