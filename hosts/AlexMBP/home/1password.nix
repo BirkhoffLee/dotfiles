@@ -1,5 +1,3 @@
-{ home, ... }:
-
 # This is the 1Password SSH agent config file, which allows you to customize the
 # behavior of the SSH agent running on this machine.
 #

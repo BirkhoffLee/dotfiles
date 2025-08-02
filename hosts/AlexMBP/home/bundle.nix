@@ -1,5 +1,3 @@
-{ home, ... }:
-
 {
   # TODO
   # number_of_cores=$(/usr/sbin/sysctl -n hw.ncpu)

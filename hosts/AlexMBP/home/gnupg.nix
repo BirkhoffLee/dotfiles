@@ -1,4 +1,4 @@
-{ home, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.file.".gnupg/gpg-agent.conf" = {

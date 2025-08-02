@@ -1,5 +1,3 @@
-{ home, ... }:
-
 {
   home.file.".gemrc" = {
     text = ''

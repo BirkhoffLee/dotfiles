@@ -1,5 +1,3 @@
-{ home, ... }:
-
 # Some other themes to choose from:
 # theme = Horizon
 # theme = Rapture
