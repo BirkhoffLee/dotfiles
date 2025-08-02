@@ -480,6 +480,63 @@
         useSystemInternetProxySettings = 1;
       };
 
+      "cc.ffitch.shottr" = {
+        # OCR (⇧⌘2)
+        KeyboardShortcuts_ocr = "{\"carbonKeyCode\":19,\"carbonModifiers\":768}";
+        # Fullscreen screenshot (⇧⌘3)
+        KeyboardShortcuts_fullscreen = "{\"carbonKeyCode\":20,\"carbonModifiers\":768}";
+        # Area screenshot (⇧⌘4)
+        KeyboardShortcuts_area = "{\"carbonModifiers\":768,\"carbonKeyCode\":21}";
+        "Shottr.ObjArrow: size" = 6;
+        afterGrabCopy = 0;
+        afterGrabSave = 0;
+        afterGrabShow = 1;
+        allowDeeplinks = 1;
+        allowTelemetry = 0;
+        altZoomDirection = 0;
+        alwaysOnTop = 0;
+        areaCaptureMode = "editor";
+        captureCursor = "auto";
+        cmdQAction = "quit";
+        colorFormat = "HEX";
+        contrastType = "wcag2";
+        copyOnEsc = 1;
+      };
+
+      # TODO: remove `-setapp`
+      "com.sindresorhus.Supercharge-setapp" = {
+        # Disable the ⌘Q prevention
+        accidentalQuitPreventionMode = "disabled";
+
+        # Auto-open and trash downloaded calendar event (ics) files
+        autoOpenICalendarFiles = 1;
+        # Remove alarms from events
+        "autoOpenICalendarFiles_removeAlarms" = 1;
+
+        # ⌥N in Finder to create new file
+        finderNewFileShortcut = "optionN";
+        "finderNewFileShortcut_defaultExtension" = "";
+        "finderNewFileShortcut_openAfter" = 0;
+
+        # Offer to install apps from mounted DMG files
+        # Move DMG to trash after installation
+        isDMGAppInstallerEnabled = 1;
+
+        # Ensure file ext are lowercase in Downloads
+        lowercaseFileExtensionsInDownloadsDirectory = 1;
+
+        # Enable ⌘W ⌘Q ⌘H ⌘M in Mission Control
+        missionControlImprovements = 1;
+        missionControlRightClickAction = "nothing";
+
+        # ⌥⇧C to copy Deep Link in Mail and Note
+        mailCopyMessageLinkShortcut = "optionShiftC";
+        notesCopyNoteLinkShortcut = "optionShiftC";
+
+        # Unminimize windows when app becomes active
+        unminimizeWindowsOnAppActivationMode = "allWindowsOnlyIfAllMinimized";
+      };
+
       # FIXME: doesn't work
       # "com.apple.Safari" = {
       #   # Press Tab to highlight each item on a web page
