@@ -53,6 +53,7 @@
       "input-source-pro"
       "iterm2"
       "jordanbaird-ice"
+      "keycastr"
       "key-codes"
       "macfuse"
       "mounty"
