@@ -336,6 +336,9 @@
       "com.apple.finder" = {
         # Keep folders on top when sorting by name
         "_FXSortFoldersFirst" = true;
+
+        # Auto-adjust column widths to filenames in "Columns" view
+        "_FXEnableColumnAutoSizing" = 1;
         
         # Open folder in new window by: ⌘ + double-click
         FinderSpawnTab = false;
