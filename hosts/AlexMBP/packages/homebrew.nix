@@ -5,6 +5,8 @@
     enable = true;
 
     brews = [
+      "mas"
+      "telnet"
       # "carthage"
       "displayplacer"
       "git-delta"
@@ -23,41 +25,42 @@
       "ykman"
       "ykpers"
       "borgbackup/tap/borgbackup-fuse"
-      "cjbassi/ytop/ytop"
     ];
 
     casks = [
-      "1password-cli"
       "1password"
+      "1password-cli"
       "adoptopenjdk"
       "anki"
       "arc"
       "balenaetcher"
       "claude"
       "cursor"
+      "deskpad"
       "discord"
       "dropbox"
       "figma"
       "font-fira-code"
-      "font-geist-mono"
       "font-geist"
+      "font-geist-mono"
       "font-hack-nerd-font"
       "font-menlo-for-powerline"
       "font-source-code-pro"
       "ghostty"
       "google-chrome"
-      "handbrake"
+      "handbrake-app"
       "heynote"
       "iina"
       "imazing"
       "input-source-pro"
       "iterm2"
       "jordanbaird-ice"
-      "keycastr"
       "key-codes"
+      "keycastr"
       "macfuse"
       "mounty"
       "notion"
+      "obs"
       "obsidian"
       "orbstack"
       "quicklook-csv"
@@ -68,6 +71,7 @@
       "setapp"
       "shottr"
       "spotify"
+      "steam"
       "sublime-text"
       "suspicious-package"
       "teamviewer"
@@ -86,38 +90,19 @@
     ];
 
     taps = [
-      "adoptopenjdk/openjdk"
-      "ameshkov/tap"
-      "birkhofflee/birkhoff"
       "borgbackup/tap"
-      "bramstein/webfonttools"
-      "buo/cask-upgrade"
-      "cjbassi/ytop"
-      "cloudflare/cloudflare"
-      "derailed/k9s"
-      "dteoh/sqa"
-      "fabianishere/personal"
-      "getantibody/tap"
-      "gofireflyio/aiac"
-      "golangci/tap"
-      "hashicorp/tap"
-      "heroku/brew"
-      "homebrew/bundle"
-      "homebrew/command-not-found"
-      "homebrew/services"
-      "joedrago/repo"
-      "louisbrunner/valgrind"
-      "teamookla/speedtest"
-      "xgadget-lab/nexttrace"
-      "zurawiki/brews"
     ];
 
     masApps = {
       "1Password for Safari" = 1569813296;
+      "Actions" = 1586435171;
       "AmorphousDiskMark" = 1168254295;
+      "CrystalFetch" = 6454431289;
       "DaisyDisk" = 411643860;
       "DevCleaner" = 1388020431;
+      "Gifski" = 1351639930;
       "Goodnotes" = 1444383602;
+      "Hyperduck" = 6444667067;
       "Infuse" = 1136220934;
       "Keynote" = 409183694;
       "LINE" = 539883307;
@@ -127,6 +112,8 @@
       "NflxMultiSubs" = 1594059167;
       "Numbers" = 409203825;
       "Pages" = 409201541;
+      "Playlisty for Apple Music" = 1459275972;
+      "Second Clock" = 6450279539;
       "Slack" = 803453959;
       "Tailscale" = 1475387142;
       "The Unarchiver" = 425424353;
