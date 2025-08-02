@@ -452,6 +452,10 @@
       };
 
       "at.EternalStorms.Yoink" = {
+        useHapticFeedback = 1;
+        windowCorner = 0;
+        fnToIgnore = 1;
+        forceTouchAction = 2;
         setappDontShowAgain = 1;
         shouldHideOnLaunch = 0;
       };
