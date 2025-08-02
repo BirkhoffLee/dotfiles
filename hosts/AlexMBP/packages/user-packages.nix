@@ -22,13 +22,7 @@
     
     # Ruby
     rbenv
-    
-    # Rust
-    rustup
-    
-    # R
-    # R # FIXME: doesn't build
-    
+
     # Build tools
     autoconf
     automake
@@ -38,6 +32,39 @@
     
     # Package managers
     uv
+
+    # Language Servers (and/or its toolchains)
+    bash-language-server
+    cmake-language-server
+    vscode-css-languageserver # css, scss
+    beam28Packages.elixir-ls
+    gopls # go
+    graphql-language-service-cli # graphql
+    helm-ls # helm
+    haskell-language-server # haskell
+    docker-language-server # dockerfile, compose files, bake
+    terraform-ls # hcl
+    superhtml # html
+    typescript-language-server # js, ts, tsx
+    jq-lsp # jq
+    vscode-json-languageserver # json
+    kotlin-language-server
+    texlab # latex
+    lua-language-server # lua
+    marksman # markdown
+    nil # nix
+    perlnavigator # perl
+    intelephense # php
+    ruff # python
+    R
+    rustup # rust
+    solc # solidity
+    svelte-language-server # svelte
+    systemd-lsp # systemd
+    taplo # TOML
+    vue-language-server
+    yaml-language-server
+    zls # zig
     
     # ============================================================================
     # SHELL & TERMINAL
