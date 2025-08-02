@@ -174,7 +174,7 @@
         LESSQUIET = "1"; # Suppress lesspipe help messages in output
 
         # Editor
-        EDITOR = "hx";
+        EDITOR = "hx"; # Managed by `programs.helix.defaultEditor`
         VISUAL = "cursor";
         PAGER = "less";
         
