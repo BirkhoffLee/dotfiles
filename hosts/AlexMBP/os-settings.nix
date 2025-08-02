@@ -27,8 +27,8 @@
     };
 
     finder = {
-      # Always show hidden files
-      "AppleShowAllFiles" = true;
+      # Don't show hidden files
+      "AppleShowAllFiles" = false;
 
       # Always show file extensions
       "AppleShowAllExtensions" = true;
