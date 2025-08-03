@@ -152,6 +152,12 @@
     croc # p2p file transfer
     putty
 
+    # TLS
+    mkcert
+
+    # Encryption
+    age
+
     # Network analysis
     knot-dns
     tldx # domain availability search
