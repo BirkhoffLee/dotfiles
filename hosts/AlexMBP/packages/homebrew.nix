@@ -46,6 +46,7 @@
       "font-hack-nerd-font"
       "font-menlo-for-powerline"
       "font-source-code-pro"
+      "font-commit-mono-nerd-font"
       "ghostty"
       "google-chrome"
       "handbrake-app"
