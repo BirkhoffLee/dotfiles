@@ -179,13 +179,13 @@ zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' 
   --bind 'alt-down:preview-page-down'
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word | bat --color=always' 
 
-# tldr
-zstyle ':fzf-tab:complete:(help|tldr):argument-1' fzf-flags \
+# cht.sh
+zstyle ':fzf-tab:complete:(help|cht.sh):argument-1' fzf-flags \
   --height=-2 \
   --preview-window 'right:70%:nowrap' \
   --bind 'alt-up:preview-page-up' \
   --bind 'alt-down:preview-page-down'
-zstyle ':fzf-tab:complete:(help|tldr):argument-1' fzf-preview 'tldr $word'
+zstyle ':fzf-tab:complete:(help|cht.sh):argument-1' fzf-preview 'cht.sh $word'
 
 # kill/ps
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags \

@@ -125,7 +125,7 @@
 
           # Utilities
           clear_history = "> ~/.zsh_history ; exec $SHELL -l";
-          help = "tldr";
+          help = "cht.sh";
           du = "ncdu --color dark -rr -x --exclude .git --exclude node_modules";
           gist = "gh gist create";
           
