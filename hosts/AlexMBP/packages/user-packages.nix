@@ -85,6 +85,7 @@
     procs
     viddy
     lesspipe
+    glow # markdown in the terminal (https://github.com/charmbracelet/glow)
     
     # ============================================================================
     # VERSION CONTROL
@@ -105,6 +106,8 @@
     # INFRASTRUCTURE & DEVOPS
     # ============================================================================
     
+    # Utilities
+    lnav # log file navigator (https://github.com/tstack/lnav)
     # Cloud providers
     # awscli2
     # azure-cli
@@ -120,6 +123,7 @@
     # packer
     # skaffold
     # helm
+    ctop # top for containers
     
     # Infrastructure as code
     terraform
@@ -128,7 +132,6 @@
     
     # DNS & networking
     # dnscontrol
-    knot-dns
     
     # Backup & storage
     restic
@@ -140,13 +143,23 @@
     # NETWORKING & SECURITY
     # ============================================================================
     
-    # Network analysis
-    bandwhich
+    curlie
     curl
+    xh
+    mosh
+    autossh
+    magic-wormhole # p2p file transfer
+    croc # p2p file transfer
+    putty
+
+    # Network analysis
+    knot-dns
+    tldx # domain availability search
+    bandwhich
+    doggo # modern dig
     hey
     iperf
     mitmproxy
-    mosh
     nali
     nexttrace
     nmap
@@ -204,37 +217,67 @@
     
     # Databases
     redis
+    pgcli
     
     # ============================================================================
     # SYSTEM UTILITIES
     # ============================================================================
     
+    moreutils # https://joeyh.name/code/moreutils/
+
     # File operations
+    entr # run arbitrary commands when files change
     bat
-    vivid
+    hexyl # modern hex viewer
     coreutils-prefixed
-    entr
     eza
-    fasd
-    fd
-    fzf
-    gnugrep
-    jq
-    # lsd
     progress
-    pv
+    pv # progress bar for a pipe
     rsync
-    silver-searcher
     television
     tree
-    zoxide
     yazi
+    dust # du in rust (https://github.com/bootandy/dust)
+    create-dmg
+    difftastic
+    qpdf
+    vbindiff # Visual Binary Diff compares files in hex & ASCII formats
+    helix
+       
+    vivid # LS_COLORS generator (https://github.com/sharkdp/vivid)
+    zoxide
     
+    # Searcher
+    fd
+    fzf
+    ripgrep
+    silver-searcher
+    pdfgrep
+
+    # Data Science
+    xan # csv file processing (https://github.com/medialab/xan)
+    qsv # csv manipulation (https://github.com/dathere/qsv)
+    visidata # Interactive terminal multitool for tabular data
+    miller # awk, sed, cut, join, and sort for CSV, TSV, JSON
+    gron # greppable JSON (https://github.com/tomnomnom/gron)
+
+    # Text operations
+    jq
+    fx # terminal JSON viewer
+    choose # modern cut+awk (https://github.com/theryangeary/choose)
+    gnugrep
+    sd
+    jc # convert output of common cli tools to JSON (https://github.com/kellyjonbrazil/jc?tab=readme-ov-file#parsers)
+    jo # generate JSON by simple commands
+    yq-go # jq for YAML, JSON, XML, CSV, TOML and properties     
+    htmlq # jq for HTML (https://github.com/mgdm/htmlq)
+
     # System monitoring
     duf
     jc
     osx-cpu-temp
     bottom # btm (https://github.com/ClementTsang/bottom)
+    glances
     
     # ============================================================================
     # UTILITIES & TOOLS
@@ -244,20 +287,9 @@
     asciinema
     slides
     
-    # File manipulation
-    create-dmg
-    difftastic
-    qpdf
-    vbindiff # Visual Binary Diff compares files in hex & ASCII formats
-    helix
-    
-    # Communication
-    autossh
-    magic-wormhole
-    putty
-    
     # Documentation & help
     cht-sh
+    tldr
     
     # Fun & misc
     cowsay
@@ -267,11 +299,6 @@
     # Notifications
     noti
     terminal-notifier
-    
-    # macOS specific
-    m-cli
-    blueutil
-    mas
     
     # Download & media
     lux
@@ -294,8 +321,8 @@
     powershell
     stripe-cli
     flarectl
-    tldx
     # dex2jar
+    hyperfine # cli command benchmarking
 
     # GitHub CLI Tools
     # @see https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md#should-i-use-gh-or-hub
@@ -304,5 +331,18 @@
 
     # Nix Tools
     cachix
-  ];
+
+    # macOS-only packages
+  ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+
+    m-cli
+    blueutil
+    mas
+    
+    # Linux-only packages
+  ]) ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
+
+    plocate # very fast `locate`
+    
+  ]);
 }
