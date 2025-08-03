@@ -67,27 +67,6 @@
     zls # zig
     
     # ============================================================================
-    # SHELL & TERMINAL
-    # ============================================================================
-    
-    # Shell enhancements
-    zsh-completions
-    zsh-fast-syntax-highlighting
-    zsh-powerlevel10k
-    emojify
-    atuin
-    
-    # Terminal utilities
-    tmux
-    htop
-    gotop
-    mactop
-    procs
-    viddy
-    lesspipe
-    glow # markdown in the terminal (https://github.com/charmbracelet/glow)
-    
-    # ============================================================================
     # VERSION CONTROL
     # ============================================================================
     
@@ -108,17 +87,20 @@
     
     # Utilities
     lnav # log file navigator (https://github.com/tstack/lnav)
+
     # Cloud providers
     # awscli2
     # azure-cli
     # oci-cli
-    backblaze-b2
     # aws-vault
+    backblaze-b2
+    flarectl
     
     # Container & orchestration
     # k9s
     # kubectx
     # kustomize
+    # kubernetes-cli
     # nomad
     # packer
     # skaffold
@@ -189,6 +171,7 @@
     wireguard-go
     wireguard-tools
     sqlmap
+    thc-hydra # network logon cracker
     testssl
     
     # ============================================================================
@@ -230,6 +213,27 @@
     # SYSTEM UTILITIES
     # ============================================================================
     
+    # Shell enhancements
+    zsh-completions
+    zsh-fast-syntax-highlighting
+    zsh-powerlevel10k
+    emojify
+    atuin
+    progress
+    pv # progress bar for a pipe
+    television
+    yazi
+    
+    # Terminal utilities
+    tmux
+    htop
+    gotop
+    mactop
+    procs
+    viddy
+    lesspipe
+    glow # markdown in the terminal (https://github.com/charmbracelet/glow)
+    
     moreutils # https://joeyh.name/code/moreutils/
 
     # File operations
@@ -238,19 +242,20 @@
     hexyl # modern hex viewer
     coreutils-prefixed
     eza
-    progress
-    pv # progress bar for a pipe
     rsync
-    television
     tree
-    yazi
     dust # du in rust (https://github.com/bootandy/dust)
     create-dmg
-    difftastic
     qpdf
-    vbindiff # Visual Binary Diff compares files in hex & ASCII formats
+
+    # Editors
     helix
-       
+
+    # Diff
+    difftastic
+    delta
+    vbindiff # Visual Binary Diff compares files in hex & ASCII formats
+
     vivid # LS_COLORS generator (https://github.com/sharkdp/vivid)
     zoxide
     
@@ -327,7 +332,6 @@
     
     powershell
     stripe-cli
-    flarectl
     # dex2jar
     hyperfine # cli command benchmarking
 
