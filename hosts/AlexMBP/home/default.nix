@@ -111,7 +111,7 @@ rec {
           cursorline = true;
           line-number = "relative";
           statusline = {
-            left = ["mode" "spinner" "file-absolute-path" "read-only-indicator" "file-modification-indicator"];
+            left = ["mode" "spinner" "file-name" "read-only-indicator" "file-modification-indicator"];
             right = ["version-control" "diagnostics" "selections" "register" "position" "position-percentage" "file-encoding"];
           };
         };
