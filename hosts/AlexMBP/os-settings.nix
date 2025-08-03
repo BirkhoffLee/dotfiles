@@ -586,6 +586,7 @@
 
       #   # Enable the Develop menu and the Web Inspector
       #   "IncludeDevelopMenu" = 1;
+      #   "IncludeInternalDebugMenu" = 1;
       #   "WebKitPreferences.developerExtrasEnabled" = 1;
       #   "WebKitDeveloperExtrasEnabledPreferenceKey" = true;
       #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
