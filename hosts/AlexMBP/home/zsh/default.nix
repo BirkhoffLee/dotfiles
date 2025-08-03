@@ -175,7 +175,7 @@
 
         # Editor
         EDITOR = "hx"; # Managed by `programs.helix.defaultEditor`
-        VISUAL = "cursor";
+        VISUAL = "hx";
         PAGER = "less";
         
         ## External Tools
