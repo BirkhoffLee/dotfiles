@@ -6,17 +6,10 @@
 
     brews = [
       "mas"
-      "telnet"
       # "carthage"
       "displayplacer"
-      "gnu-getopt"
-      "gnu-sed"
-      "gnu-tar"
       "hopenpgp-tools"
       "screenresolution"
-      "tidy-html5"
-      "ykman"
-      "ykpers"
       "borgbackup/tap/borgbackup-fuse"
     ];
 

@@ -140,6 +140,8 @@
 
     # Encryption
     age
+    yubikey-manager
+    yubikey-personalization
 
     # Network analysis
     knot-dns
@@ -234,8 +236,10 @@
     viddy
     lesspipe
     glow # markdown in the terminal (https://github.com/charmbracelet/glow)
-    
+
+    # General shell utilities
     moreutils # https://joeyh.name/code/moreutils/
+    getopt
 
     # File operations
     entr # run arbitrary commands when files change
@@ -248,6 +252,9 @@
     dust # du in rust (https://github.com/bootandy/dust)
     create-dmg
     qpdf
+    html-tidy
+    gnutar
+    gnused
 
     # Editors
     helix
