@@ -212,6 +212,9 @@
         "Dictation Enabled" = 1;
       };
 
+      "com.apple.CrashReporter" = {
+        DialogType = "none";
+      };
       # Keyboard: Chinese Input Source Preferences
       "com.apple.inputmethod.CoreChineseEngineFramework" = {
         TCIMExpertDictionaryList = [
