@@ -13,7 +13,6 @@
       "gnu-sed"
       "gnu-tar"
       "hopenpgp-tools"
-      "icu4c@75"
       "screenresolution"
       "tidy-html5"
       "ykman"

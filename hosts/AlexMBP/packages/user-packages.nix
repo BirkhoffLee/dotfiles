@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     # ============================================================================
-    # DEVELOPMENT TOOLS
+    # DEVELOPMENT TOOLS AND LIBRARIES
     # ============================================================================
     
     # Python
@@ -23,12 +23,13 @@
     # Ruby
     rbenv
 
-    # Build tools
+    # Build tools/libraries
     autoconf
     automake
     # gcc
     pkg-config
     wasm-pack
+    icu77
     
     # Package managers
     uv
