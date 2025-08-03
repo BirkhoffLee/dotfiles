@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  commitmonoNF = import ./commitmono-nerd-font.nix  { inherit pkgs; };
+in
 {
   home.packages = with pkgs; [
     # ============================================================================
@@ -350,6 +353,11 @@
 
     # Nix Tools
     cachix
+
+    # ============================================================================
+    # FONTS
+    # ============================================================================
+    commitmonoNF
 
     # macOS-only packages
   ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [

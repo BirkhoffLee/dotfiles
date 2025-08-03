@@ -16,7 +16,7 @@
     text = ''
       # https://ghostty.org/docs/config/reference
 
-      font-family = Menlo
+      font-family = CommitMono Nerd Font
       font-size = 15
       # bold-is-bright = true
       # font-thicken = true
