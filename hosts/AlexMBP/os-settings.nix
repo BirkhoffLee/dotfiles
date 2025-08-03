@@ -215,6 +215,7 @@
       "com.apple.CrashReporter" = {
         DialogType = "none";
       };
+
       # Keyboard: Chinese Input Source Preferences
       "com.apple.inputmethod.CoreChineseEngineFramework" = {
         TCIMExpertDictionaryList = [
@@ -337,6 +338,19 @@
       };
 
       "com.apple.finder" = {
+        # Keep the desktop clean
+        ShowHardDrivesOnDesktop = false;
+        ShowRemovableMediaOnDesktop = false;
+        ShowExternalHardDrivesOnDesktop = false;
+        ShowMountedServersOnDesktop = false;
+
+        # New window use the $HOME path
+        NewWindowTarget = "PfHm";
+        NewWindowTargetPath = "file://$HOME/";
+
+        # Allow text selection in Quick Look
+        QLEnableTextSelection = true;
+
         # Keep folders on top when sorting by name
         "_FXSortFoldersFirst" = true;
 
