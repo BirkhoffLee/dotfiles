@@ -21,7 +21,6 @@
       "macvim"
       "screenresolution"
       "tidy-html5"
-      "whatmask"
       "ykman"
       "ykpers"
       "borgbackup/tap/borgbackup-fuse"

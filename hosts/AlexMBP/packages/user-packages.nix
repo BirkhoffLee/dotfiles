@@ -165,6 +165,7 @@
     doggo # modern dig
     hey
     iperf
+    ipcalc # network address calculations for IPv4 and IPv6 (https://gitlab.com/ipcalc/ipcalc)
     mitmproxy
     nali
     nexttrace
