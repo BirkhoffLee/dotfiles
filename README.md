@@ -9,26 +9,28 @@ Works on M1 Pro, macOS Sequoia 15.5 (24F74).
 * [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the macOS system environment.
   * [Nix](https://nixos.org/) enables reproducible builds.
 * [home-manager](https://github.com/nix-community/home-manager) manages the user environment, including Homebrew packages.
-  * However, I still use Homebrew for some packages, especially for GUI apps because they usually have self-update features that conflicts with the structure of Nix.
-* Some custom scripts are included for those settings that are not supported by [nix-darwin](https://github.com/LnL7/nix-darwin) or [home-manager](https://github.com/nix-community/home-manager).
+  * Most GUI apps are managed by Homebrew due to the conflicting nature of Nix and their self-updating capabilities
 
 Key features:
 
-* zsh with [p10k](https://github.com/romkatv/powerlevel10k) [instant prompt](hosts/AlexMBP/home/zsh/default.nix)
+* [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlexMBP/home/programs/ghostty.nix)
+* zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k)
   * Prompt theme is p10k Lean style. Git status symbols docs can be found [here](https://github.com/romkatv/powerlevel10k#what-do-different-symbols-in-git-status-mean).
-* [fzf shell integration](hosts/AlexMBP/home/zsh/shell/external.zsh)
+* [Helix](https://helix-editor.com/) keymap with [Multirious/zsh-helix-mode](https://github.com/Multirious/zsh-helix-mode)
+* Terminal Multiplexer:
+  * [Zellij](https://zellij.dev/) Unlock-First (non-colliding) preset with [minor customization](hosts/AlexMBP/home/programs/zellij.nix)
+  * tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+* [atuin](https://github.com/ellie/atuin) for shell history
+* A number of handy [aliases](hosts/AlexMBP/home/programs/zsh.nix) and [functions](hosts/AlexMBP/home/files/shell/functions.zsh)
+* [fzf shell integration](hosts/AlexMBP/home/programs/fzf.nix)
   * CTRL-T - Paste the path of selected files and directories onto the command-line
   * ALT-C - cd into the selected directory
-* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for zsh completion, including a smart preview window:
+* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for zsh completion, including a [smart preview window](hosts/AlexMBP/home/files/shell/fzf.zsh):
   * [fd](https://github.com/sharkdp/fd) for file search
   * [bat](https://github.com/sharkdp/bat) for file preview
   * [eza](https://github.com/eza-community/eza) for directory listing
-* [atuin](https://github.com/ellie/atuin) for shell history
-* tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
-* A number of handy [aliases](hosts/AlexMBP/home/zsh/default.nix) and [functions](hosts/AlexMBP/home/zsh/shell/functions.zsh)
-* [automatically propagated](hosts/AlexMBP/home/zsh/shell/proxy.zsh) shell proxy settings
-* [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlexMBP/home/ghostty.nix)
-* [Sets](hosts/AlexMBP/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
+* [automatically propagated](hosts/AlexMBP/home/files/shell/proxy.zsh) shell proxy settings
+* [Sets](hosts/AlexMBP/home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
 * git utilities include [lazygit](https://github.com/jesseduffield/lazygit) and [forgit](https://github.com/wfxr/forgit) because I'm lazy
   * [a quick starter video about lazygit](https://www.youtube.com/watch?v=CPLdltN7wgE)
 
