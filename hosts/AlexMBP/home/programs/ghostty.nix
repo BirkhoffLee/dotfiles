@@ -3,42 +3,54 @@
     enable = true;
     package = null; # broken on Darwin
 
+    # Clear the default keybinds so we have super
+    # key (i.e. Command) key available to terminal
+    # programs.
+    clearDefaultKeybinds = true;
+
     # This ensures that shell integration works in more scenarios (such as when you switch shells within Ghostty).
     # @see https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
     enableZshIntegration = true;
 
     # https://ghostty.org/docs/config/reference
 
-    # Some other themes to choose from:
-    # theme = Horizon
-    # theme = Rapture
-    # theme = Snazzy
-
-    # Lighter Themes
-    # theme = Sublette
-    # theme = xcodedark
-
-    # Darker Themes
-    # theme = NightLion v2
-    # theme = Peppermint
-
     settings = {
+      # Some other themes to choose from:
+      # theme = Horizon
+      # theme = Rapture
+      # theme = Snazzy
+
+      # Lighter Themes
+      # theme = Sublette
+      # theme = xcodedark
+
+      # Darker Themes
+      # theme = NightLion v2
+      # theme = Peppermint
+
       theme = "Snazzy";
       font-family = "CommitMono Nerd Font";
       font-size = 15;
       # bold-is-bright = true
       # font-thicken = true
-      keybind = [
-        "cmd+r=reset"
-        "cmd+z=text:\x1f"
-        "cmd+shift+z=text:\x18\x1f"
-        "global:cmd+escape=toggle_quick_terminal"
-      ];
-      macos-option-as-alt = true;
 
       # For compatibility:
       # @see https://ghostty.org/docs/help/terminfo
       # term = xterm-256color
+
+      macos-option-as-alt = true;
+      keybind = [
+        "super+q=quit"
+        "super+shift+comma=reload_config"
+        "super+c=copy_to_clipboard"
+        "super+v=paste_from_clipboard"
+        "super+backspace=text:\\x15"
+        "super+right:text:\\x05"
+        "super+left:text:\\x01"
+        "super+z=text:\\x1f"
+        "super+shift+z=text:\\x18\\x1f"
+        "global:super+escape=toggle_quick_terminal"
+      ];
 
       ## Initial Window Size
       window-height = 35;
