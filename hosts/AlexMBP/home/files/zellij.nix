@@ -142,6 +142,7 @@
               }
           }
           shared_among "normal" "locked" {
+              bind "Super Shift Enter" { ToggleFocusFullscreen; }
               bind "Super left" { MoveFocusOrTab "left"; }
               bind "Super down" { MoveFocus "down"; }
               bind "Super up" { MoveFocus "up"; }
@@ -157,7 +158,8 @@
               bind "Super j" { MoveFocus "down"; }
               bind "Super k" { MoveFocus "up"; }
               bind "Super l" { MoveFocusOrTab "right"; }
-              bind "Super n" { NewPane; }
+              bind "Super n" { NewTab; }
+              bind "Super d" { NewPane; }
               bind "Super o" { MoveTab "right"; }
           }
           shared_except "locked" "renametab" "renamepane" {
