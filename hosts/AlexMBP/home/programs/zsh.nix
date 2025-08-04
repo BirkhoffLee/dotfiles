@@ -181,10 +181,6 @@
         LLM_USER_PATH = "${config.home.homeDirectory}/.config/llm";
         LLM_MODEL = "gpt-4.1-mini";
 
-        # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
-        # Note: `lg` is alias for `lazygit`
-        AUTO_NOTIFY_IGNORE = [ "tmux" "bat" "cat" "less" "man" "zi" "hx" "lazygit" "lg" ];
-
         # Zoxide (https://github.com/ajeetdsouza/zoxide/blob/main/README.md#environment-variables)
         _ZO_ECHO = 1;
 
@@ -292,6 +288,26 @@
         source "${config.home.homeDirectory}/.shell/proxy.zsh"
 
         eval "$(rbenv init - zsh)"
+
+        # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
+        # Note: `lg` is alias for `lazygit`
+        AUTO_NOTIFY_IGNORE=(
+          "vim" "nvim" "hx" "nano"
+          "tmux"
+          "zellij"
+          "bat"
+          "cat"
+          "less"
+          "more"
+          "watch"
+          "top"
+          "htop"
+          "ssh"
+          "man"
+          "zi"
+          "lazygit"
+          "lg"
+        );
 
         # zsh-helix-mode
         source ${zsh-helix-mode}/zsh-helix-mode.plugin.zsh
