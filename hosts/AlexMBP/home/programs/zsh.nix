@@ -12,7 +12,7 @@
 
     # TODO: use helix mode
     defaultKeymap = "emacs";
-    
+
     # Automatically enter into a directory if typed directly into shell.
     autocd = true;
 
@@ -29,7 +29,7 @@
       ignoreSpace = true; # Do not save commands that begin with a space.
       expireDuplicatesFirst = true; # Expire duplicates first when trimming history.
       extended = true; # Save the time and duration of each command in the history file.
-      
+
       ignorePatterns = [ "rm * " ];
     };
 
@@ -99,12 +99,12 @@
           sa = "alias | grep -i"; # Search shell aliases
           history-stat = "history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head"; # Lists the ten most used commands
           type = "type -a"; # Show all definitions of a command
-          
+
           # Nix
           nix-update-dotfiles = "sudo nix flake update --flake \"$HOME/.config/nix\" && sudo darwin-rebuild switch --flake \"$HOME/.config/nix#AlexMBP\"";
           nix-info = "nix-shell -p nix-info --run \"nix-info -m\"";
           nix-gc = "sudo nix-collect-garbage -d && nix-store --optimise";
-          
+
           # LLM
           llm = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm";
           llmf = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm --no-stream";
@@ -128,7 +128,7 @@
           help = "cht.sh";
           du = "ncdu --color dark -rr -x --exclude .git --exclude node_modules";
           gist = "gh gist create";
-          
+
           # Network
           get = "curl --continue-at - --location --progress-bar --remote-name --remote-time";
           dig = "kdig";
@@ -161,12 +161,12 @@
       {
         LANG = "en_US.UTF-8";
         LC_ALL = "en_US.UTF-8";
-        
+
         # Set the default Less options.
         # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
         # Remove -X and -F (exit if the content fits on one screen) to enable it.
         LESS = "-F -g -i -M -R -S -w -X -z-4";
-        
+
         # Use lesspipe to read non-text files
         # @see https://github.com/wofr06/lesspipe?tab=readme-ov-file#4-supported-file-formats
         LESSOPEN = "| ${pkgs.lesspipe}/bin/lesspipe.sh %s";
@@ -177,7 +177,7 @@
         EDITOR = "hx"; # Managed by `programs.helix.defaultEditor`
         VISUAL = "hx";
         PAGER = "less";
-        
+
         ## External Tools
 
         # LLM (https://llm.datasette.io/en/stable/setup.html#configuration)
@@ -187,7 +187,7 @@
         # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
         # Note: `lg` is alias for `lazygit`
         AUTO_NOTIFY_IGNORE = [ "tmux" "bat" "cat" "less" "man" "zi" "hx" "lazygit" "lg" ];
-        
+
         # Zoxide (https://github.com/ajeetdsouza/zoxide/blob/main/README.md#environment-variables)
         _ZO_ECHO = 1;
 
@@ -208,7 +208,7 @@
       }
       (lib.optionalAttrs pkgs.stdenv.isDarwin {
         SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-        
+
         # Ansible (https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-control-node)
         OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES";
       })
@@ -219,7 +219,7 @@
         eval "$(${if pkgs.stdenv.isAarch64 then "/opt/homebrew/bin" else "/usr/local/bin"}/brew shellenv)"
       ''}
     '';
-    
+
     completionInit = ''
       # Regenerate the completion cache file (~/.zcompdump) if it's older than 24 hours
       autoload -Uz compinit
@@ -227,7 +227,7 @@
         compinit
       done
       compinit -C
-      
+
       # Completions for git-extras doesn't load automatically
       # due to the lack of #compdef directive. We need to source it manually.
       source ${pkgs.git-extras}/share/zsh/site-functions/_git_extras
@@ -271,7 +271,7 @@
         if test -f ~/.orbstack/shell/init.zsh; then
           source ~/.orbstack/shell/init.zsh 2>/dev/null || :
         fi
-        
+
         source "${config.home.homeDirectory}/.shell/colors.zsh"
         source "${config.home.homeDirectory}/.shell/completions.zsh"
         source "${config.home.homeDirectory}/.shell/fzf.zsh"
@@ -281,9 +281,7 @@
       zshConfig = ''
         source "${config.home.homeDirectory}/.shell/functions.zsh"
         source "${config.home.homeDirectory}/.shell/proxy.zsh"
-        
-        ( ${pkgs.gnupg}/bin/gpg-agent --daemon > /dev/null 2>&1 & )
-        
+
         eval "$(rbenv init - zsh)"
 
         # Empty the autosuggestion strategy array. Later atuin will
