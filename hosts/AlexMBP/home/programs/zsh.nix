@@ -10,9 +10,6 @@
       strategy = [];
     };
 
-    # TODO: use helix mode
-    defaultKeymap = "emacs";
-
     # Automatically enter into a directory if typed directly into shell.
     autocd = true;
 
@@ -278,36 +275,62 @@
       '';
 
       # General configuration
-      zshConfig = ''
+      zshConfig = let
+        # We have to load this after fzf, so we cannot
+        # put this into the `plugins` offered by home-manager
+        #
+        # @see https://github.com/Multirious/zsh-helix-mode
+        zsh-helix-mode = pkgs.fetchFromGitHub {
+          owner = "Multirious";
+          repo = "zsh-helix-mode";
+          rev = "7e02a697695c88f9b23ed7f07184dd672be3f4b1";
+          sha256 = "sha256-Lfdou5SK/69KqBc7V5pJsGUIlV9EJ1UoM2gxNRzXBHI=";
+        };
+      in
+      ''
         source "${config.home.homeDirectory}/.shell/functions.zsh"
         source "${config.home.homeDirectory}/.shell/proxy.zsh"
 
         eval "$(rbenv init - zsh)"
 
+        # zsh-helix-mode
+        source ${zsh-helix-mode}/zsh-helix-mode.plugin.zsh
+
+        # For compatibility of zsh-helix-mode
+        # @see https://github.com/Multirious/zsh-helix-mode?tab=readme-ov-file#compatibility
+        bindkey '^I' fzf-tab-complete
+
+        ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+          zhm_history_prev
+          zhm_history_next
+          zhm_prompt_accept
+          zhm_accept
+          zhm_accept_or_insert_newline
+        )
+        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
+          zhm_move_right
+        )
+        ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
+          zhm_move_next_word_start
+          zhm_move_next_word_end
+        )
         # Empty the autosuggestion strategy array. Later atuin will
         # automatically add itself into this array, so we're sure
         # that it's the only source where autosuggestions are fetched
         ZSH_AUTOSUGGEST_STRATEGY=()
+      '';
 
+      # This loads at the end of zshrc
+      zshEndOfConfig = lib.mkAfter ''
         # `zsh-syntax-highlighting` must be sourced at the end of the .zshrc file
         # @see https://github.com/zsh-users/zsh-syntax-highlighting?tab=readme-ov-file#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
         source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       '';
     in
-      lib.mkMerge [ zshConfigEarlyInit zshConfigBeforeCompInit zshConfig ];
+      lib.mkMerge [ zshConfigEarlyInit zshConfigBeforeCompInit zshConfig zshEndOfConfig ];
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
     plugins = [
-      # {
-      #   name = "zsh-helix-mode";
-      #   src = pkgs.fetchFromGitHub {
-      #     # https://github.com/Multirious/zsh-helix-mode
-      #     owner = "Multirious";
-      #     repo = "zsh-helix-mode";
-      #     rev = "97bbe550dbbeba3c402b6b3cda0abddf6e12f73c";
-      #     sha256 = "sha256-9AXeKtZw3iXxBO+jgYvFv/y7fZo+ebR5CfoZIemG47I=";
-      #   };
-      # }
       {
         name = "forgit";
         src = pkgs.fetchFromGitHub {
