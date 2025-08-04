@@ -331,6 +331,11 @@
 
       # This loads at the end of zshrc
       zshEndOfConfig = lib.mkAfter ''
+        # For compatibility of zsh-helix-mode
+        # @see https://github.com/Multirious/zsh-helix-mode/issues/17#issuecomment-2810277661
+        bindkey -M hxnor '^r' atuin-up-search-vicmd
+        bindkey '^r' atuin-up-search-vicmd
+
         # `zsh-syntax-highlighting` must be sourced at the end of the .zshrc file
         # @see https://github.com/zsh-users/zsh-syntax-highlighting?tab=readme-ov-file#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
         source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
