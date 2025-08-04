@@ -11,8 +11,8 @@ pkgs.stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    mkdir -p $out/share/fonts/truetype
-    find . -type f -name '*.otf' -exec cp -v {} $out/share/fonts/truetype/ \;
+    mkdir -p $out/share/fonts/opentype
+    find . -type f -name '*.otf' -exec cp -v {} $out/share/fonts/opentype/ \;
   '';
 
   meta = with pkgs.lib; {
