@@ -9,6 +9,8 @@
         mouse = false;
         cursorline = true;
         line-number = "relative";
+        # Show currently open buffers, only when more than one exists.
+        bufferline = "multiple";
         statusline = {
           left = ["mode" "spinner" "file-name" "read-only-indicator" "file-modification-indicator"];
           right = ["version-control" "diagnostics" "selections" "register" "position" "position-percentage" "file-encoding"];
@@ -37,6 +39,7 @@
       # This include recommended Smart Tab keybinds
       # @ see https://docs.helix-editor.com/editor.html#editorsmart-tab-section
       keys.normal = {
+        "A-w" = ":buffer-close";
         "tab" = "move_parent_node_end";
         "S-tab" = "move_parent_node_start";
         "Cmd-s" = ":write";
@@ -44,8 +47,12 @@
         "Cmd-b" = "page_up";
         "C-j" = "half_page_down";
         "C-k" = "half_page_up";
+        "X" = "select_line_above"; # Shift-x undos the last X
+
+        # Move line up/down
         "A-down" = ["extend_to_line_bounds" "delete_selection" "paste_after"];
         "A-up" = ["extend_to_line_bounds" "delete_selection" "move_line_up" "paste_before"];
+
         "space" = {
           # Print the current line's git blame information to the statusline.
           "B" = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}";
@@ -65,6 +72,7 @@
         "Cmd-s" = ":write";
         "Cmd-b" = "page_up";
         "Cmd-f" = "page_down";
+        "X" = "select_line_above"; # Shift-x undos the last X
       };
     };
   };
