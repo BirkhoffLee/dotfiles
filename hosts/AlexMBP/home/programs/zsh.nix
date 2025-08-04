@@ -236,13 +236,6 @@
     initContent = let
       # This runs instantly
       zshConfigEarlyInit = lib.mkBefore ''
-        # Ghostty shell integration
-        # This ensures that shell integration works in more scenarios (such as when you switch shells within Ghostty).
-        # @see https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
-        if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
-          builtin source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
-        fi
-
         # Powerlevel10k instant prompt
         if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
           source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
