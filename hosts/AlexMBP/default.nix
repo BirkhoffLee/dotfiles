@@ -1,3 +1,6 @@
+# nix-darwin configuration
+# @see https://nix-darwin.github.io/nix-darwin/manual/
+
 { pkgs, lib, ... }:
 
 let
@@ -5,7 +8,28 @@ let
   username = "ale";
   hostname = "AlexMBP";
 
+  # List of all .nix files in ./programs
+  serviceImports = builtins.map (file: ./services/${file}) (
+    builtins.filter
+      (f: lib.hasSuffix ".nix" f)
+      (builtins.attrNames (builtins.readDir ./services))
+  );
+
+  packageImports = [
+    ./packages/homebrew.nix
+    ./packages/system-packages.nix
+  ];
+
+
 in {
+  imports = [
+    (
+      import ./os-settings.nix (
+        { inherit hostname; }
+      )
+    )
+  ] ++ serviceImports ++ packageImports;
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -18,16 +42,6 @@ in {
     name = "${username}";
     home = "/Users/${username}";
   };
-
-  imports = [
-    (
-      import ./os-settings.nix (
-        { inherit hostname; }
-      )
-    )
-    ./packages/homebrew.nix
-    ./packages/system-packages.nix
-  ];
 
   networking = {
     applicationFirewall = {
