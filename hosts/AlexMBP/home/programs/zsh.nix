@@ -1,4 +1,4 @@
-{ home, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # https://github.com/jnunyez/home-manager/blob/master/modules/programs/zsh.nix
@@ -17,8 +17,8 @@
     autocd = true;
 
     dirHashes = {
-      dl = "${home.homeDirectory}/Downloads";
-      nix = "${home.homeDirectory}/.config/nix";
+      dl = "${config.home.homeDirectory}/Downloads";
+      nix = "${config.home.homeDirectory}/.config/nix";
     };
 
     history = {
@@ -181,7 +181,7 @@
         ## External Tools
 
         # LLM (https://llm.datasette.io/en/stable/setup.html#configuration)
-        LLM_USER_PATH = "${home.homeDirectory}/.config/llm";
+        LLM_USER_PATH = "${config.home.homeDirectory}/.config/llm";
         LLM_MODEL = "gpt-4.1-mini";
 
         # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
@@ -198,7 +198,7 @@
         PYTHONIOENCODING = "utf-8";
 
         # Enable persistent REPL history for `node`.
-        NODE_REPL_HISTORY = "${home.homeDirectory}/.node_history";
+        NODE_REPL_HISTORY = "${config.home.homeDirectory}/.node_history";
 
         # Use sloppy mode by default, matching web browsers.
         NODE_REPL_MODE = "sloppy";
@@ -207,7 +207,7 @@
         ERL_AFLAGS = "-kernel shell_history enabled";
       }
       (lib.optionalAttrs pkgs.stdenv.isDarwin {
-        SSH_AUTH_SOCK = "${home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+        SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
         
         # Ansible (https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-control-node)
         OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES";
@@ -251,14 +251,14 @@
         fi
 
         # Powerlevel10k instant prompt
-        if [[ -r "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "${home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
+        if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
 
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source "${home.homeDirectory}/.shell/p10k.zsh"
+        source "${config.home.homeDirectory}/.shell/p10k.zsh"
 
-        source "${home.homeDirectory}/.shell/options.zsh"
+        source "${config.home.homeDirectory}/.shell/options.zsh"
 
         # Load Zsh's rename utility `zmv`
         autoload -Uz zmv
@@ -272,15 +272,15 @@
           source ~/.orbstack/shell/init.zsh 2>/dev/null || :
         fi
         
-        source "${home.homeDirectory}/.shell/colors.zsh"
-        source "${home.homeDirectory}/.shell/completions.zsh"
-        source "${home.homeDirectory}/.shell/fzf.zsh"
+        source "${config.home.homeDirectory}/.shell/colors.zsh"
+        source "${config.home.homeDirectory}/.shell/completions.zsh"
+        source "${config.home.homeDirectory}/.shell/fzf.zsh"
       '';
 
       # General configuration
       zshConfig = ''
-        source "${home.homeDirectory}/.shell/functions.zsh"
-        source "${home.homeDirectory}/.shell/proxy.zsh"
+        source "${config.home.homeDirectory}/.shell/functions.zsh"
+        source "${config.home.homeDirectory}/.shell/proxy.zsh"
         
         ( ${pkgs.gnupg}/bin/gpg-agent --daemon > /dev/null 2>&1 & )
         

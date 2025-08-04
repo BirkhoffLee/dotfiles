@@ -28,7 +28,7 @@ in {
     ./packages/homebrew.nix
     ./packages/system-packages.nix
   ];
-  
+
   networking = {
     applicationFirewall = {
       enable = true;

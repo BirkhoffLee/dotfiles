@@ -1,22 +1,21 @@
 { pkgs, lib, ... }:
 
 let
-  # Import all .nix files from ./programs
-  programModules = builtins.listToAttrs (
-    builtins.map
-      (file:
-        let
-          name = lib.removeSuffix ".nix" file;
-        in {
-          inherit name;
-          value = import ./programs/${file};
-        })
-      (builtins.filter
-        (f: lib.hasSuffix ".nix" f)
-        (builtins.attrNames (builtins.readDir ./programs)))
+  # List of all .nix files in ./programs
+  programImports = builtins.map (file: ./programs/${file}) (
+    builtins.filter
+      (f: lib.hasSuffix ".nix" f)
+      (builtins.attrNames (builtins.readDir ./programs))
   );
 
-  setWallpaperScript = import ../wallpaper.nix { inherit pkgs; };
+  # List of all .nix files in ./files
+  fileImports = builtins.map (file: ./files/${file}) (
+    builtins.filter
+      (f: lib.hasSuffix ".nix" f)
+      (builtins.attrNames (builtins.readDir ./files))
+  );
+
+  setWallpaperScript = import ./libs/wallpaper.nix { inherit pkgs; };
 in
 rec {
   home.stateVersion = "23.11";
@@ -25,21 +24,10 @@ rec {
   home.homeDirectory = "/Users/${home.username}";
 
   imports = [
-    ../packages/user-packages.nix
-    (import ./zsh { inherit home pkgs lib; })
-    ./1password.nix
-    ./ansible.nix
-    ./bundle.nix
+    ./packages/user-packages.nix
     ./editorconfig.nix
-    ./gem.nix
-    ./git.nix
-    ./gnupg.nix
-    ./hushlogin.nix
-    ./llm.nix
-    ./nano.nix
-    ./tmux.nix
-  ];
-  
+  ] ++ programImports ++ fileImports;
+
   # Expressions like $HOME are expanded by the shell.
   # However, since expressions like ~ or * are escaped,
   # they will end up in the PATH verbatim.
@@ -59,10 +47,6 @@ rec {
     # Wireshark
     "/Applications/Wireshark.app/Contents/MacOS"
   ];
-
-  home.file = {
-    ".shell".source = ./zsh/shell;
-  };
 
   home.activation = {
     "revealHomeLibraryDirectory" = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -96,5 +80,4 @@ rec {
       '';
   };
 
-  programs = programModules;
-}
+  }

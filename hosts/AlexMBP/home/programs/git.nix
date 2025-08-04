@@ -7,7 +7,7 @@ let
   key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM";
 
 in {
-  home.file.".ssh/allowed_signers".text = "${email} namespaces=\"git\" ${key}";
+  home.file.".config/git/allowed_signers".text = "${email} namespaces=\"git\" ${key}";
 
   programs.git = {
     enable = true;
@@ -28,9 +28,9 @@ in {
         navigate = true;
       };
     };
-    
+
     lfs.enable = true;
-    
+
     userName = "${name}";
     userEmail = "${email}";
 
@@ -38,7 +38,7 @@ in {
       user = {
         signingkey = "${key}";
       };
-      
+
       pager = {
         show = "delta";
         diff = "delta";
@@ -63,10 +63,10 @@ in {
 
         ssh = {
           program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-          allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
+          allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
         };
       };
-      
+
       commit = {
         gpgsign = true;
       };
@@ -83,7 +83,7 @@ in {
       http = {
         postBuffer = "52428800";
       };
-      
+
       color = {
         ui = "true";
       };
