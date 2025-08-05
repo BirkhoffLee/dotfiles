@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754225444,
-        "narHash": "sha256-mv01SQtqlhBMavc1dgNjgqJw4WfZxy+w3xBgwJU3YmU=",
+        "lastModified": 1754263839,
+        "narHash": "sha256-ck7lILfCNuunsLvExPI4Pw9OOCJksxXwozum24W8b+8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0de18bd5c6681280d7ae017fa34ffd91bdcf0557",
+        "rev": "1d7abbd5454db97e0af51416f4960b3fb64a4773",
         "type": "github"
       },
       "original": {
@@ -40,13 +40,33 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754195341,
+        "narHash": "sha256-YL71IEf2OugH3gmAsxQox6BJI0KOcHKtW2QqT/+s2SA=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "b7fcd4e26d67fca48e77de9b0d0f954b18ae9562",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1754233913,
-        "narHash": "sha256-YdBAMWB4Ph0z1Eu+xjXjvfLrgCwma59C16sGzouBG7I=",
+        "lastModified": 1754358429,
+        "narHash": "sha256-tiEnD5UYiNh9nBpbz8dTVOyGYHIA8XL4KRTAnzLMX/0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c88aab4286f9f5caebfb2d4fa637c9ea89a305b1",
+        "rev": "32905dc51d746e9e95d068609740d153df243032",
         "type": "github"
       },
       "original": {
@@ -74,11 +94,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1754151594,
-        "narHash": "sha256-S30TWshtDmNlU30u842RidFUraKj1f2dd4nrKRHm3gE=",
+        "lastModified": 1754278406,
+        "narHash": "sha256-jvIQTMN5EzoOP5RaGztpVese8a3wqy0M/h6tNzycW28=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7b6929d8b900de3142638310f8bc40cff4f2c507",
+        "rev": "6a489c9482ca676ce23c0bcd7f2e1795383325fa",
         "type": "github"
       },
       "original": {
@@ -92,6 +112,7 @@
       "inputs": {
         "darwin": "darwin",
         "home-manager": "home-manager",
+        "nix-index-database": "nix-index-database",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable"
