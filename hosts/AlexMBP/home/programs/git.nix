@@ -58,6 +58,10 @@ in {
         conflictstyle = "zdiff3";
       };
 
+      format = {
+        pretty = "oneline";
+      };
+
       gpg = {
         format = "ssh";
 
