@@ -12,8 +12,22 @@
         # Show currently open buffers, only when more than one exists.
         bufferline = "multiple";
         statusline = {
-          left = ["mode" "spinner" "file-name" "read-only-indicator" "file-modification-indicator"];
-          right = ["version-control" "diagnostics" "selections" "register" "position" "position-percentage" "file-encoding"];
+          left = [
+            "mode"
+            "spinner"
+            "file-name"
+            "read-only-indicator"
+            "file-modification-indicator"
+          ];
+          right = [
+            "version-control"
+            "diagnostics"
+            "selections"
+            "register"
+            "position"
+            "position-percentage"
+            "file-encoding"
+          ];
         };
         # Recommended default diagnostics settings
         # @see https://docs.helix-editor.com/editor.html#editorinline-diagnostics-section
@@ -50,8 +64,17 @@
         "X" = "select_line_above"; # Shift-x undos the last X
 
         # Move line up/down
-        "A-down" = ["extend_to_line_bounds" "delete_selection" "paste_after"];
-        "A-up" = ["extend_to_line_bounds" "delete_selection" "move_line_up" "paste_before"];
+        "A-down" = [
+          "extend_to_line_bounds"
+          "delete_selection"
+          "paste_after"
+        ];
+        "A-up" = [
+          "extend_to_line_bounds"
+          "delete_selection"
+          "move_line_up"
+          "paste_before"
+        ];
 
         "space" = {
           # Print the current line's git blame information to the statusline.

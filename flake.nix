@@ -29,7 +29,14 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { self, darwin, home-manager, nix-index-database, ... }@inputs:
+  outputs =
+    {
+      self,
+      darwin,
+      home-manager,
+      nix-index-database,
+      ...
+    }@inputs:
     # https://github.com/malob/nixpkgs/blob/61d4809925a523296278885ff8a75d3776a5c813/flake.nix#L34
     let
       inherit (inputs.nixpkgs-unstable.lib) attrValues optionalAttrs singleton;
@@ -38,17 +45,21 @@
         config = {
           allowUnfree = true;
         };
-        overlays = attrValues self.overlays ++ singleton (
-          final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-            # Sub in x86 version of packages that don't build on Apple Silicon.
-            inherit (final.pkgs-x86)
-              agda
-              idris2
-              ;
-          }) // {
-            # Add other overlays here if needed.
-          }
-        );
+        overlays =
+          attrValues self.overlays
+          ++ singleton (
+            final: prev:
+            (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+              # Sub in x86 version of packages that don't build on Apple Silicon.
+              inherit (final.pkgs-x86)
+                agda
+                idris2
+                ;
+            })
+            // {
+              # Add other overlays here if needed.
+            }
+          );
       };
     in
     {
@@ -72,13 +83,15 @@
             inherit (nixpkgsDefaults) config;
           };
         };
-        apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-          # Add access to x86 packages system is running Apple Silicon
-          pkgs-x86 = import inputs.nixpkgs-unstable {
-            system = "x86_64-darwin";
-            inherit (nixpkgsDefaults) config;
+        apple-silicon =
+          _: prev:
+          optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+            # Add access to x86 packages system is running Apple Silicon
+            pkgs-x86 = import inputs.nixpkgs-unstable {
+              system = "x86_64-darwin";
+              inherit (nixpkgsDefaults) config;
+            };
           };
-        };
 
         tweaks = _: _: {
           # Add temporary overrides here
@@ -89,7 +102,8 @@
         AlexMBP = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = [
-            ./hosts/AlexMBP { nixpkgs = nixpkgsDefaults; }
+            ./hosts/AlexMBP
+            { nixpkgs = nixpkgsDefaults; }
             home-manager.darwinModules.home-manager
             nix-index-database.darwinModules.nix-index
             { programs.nix-index-database.comma.enable = true; }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # https://github.com/jnunyez/home-manager/blob/master/modules/programs/zsh.nix
@@ -7,7 +12,7 @@
 
     autosuggestion = {
       enable = true;
-      strategy = [];
+      strategy = [ ];
     };
 
     # Automatically enter into a directory if typed directly into shell.
@@ -149,10 +154,10 @@
           dcd = "docker compose down";
         };
       in
-        lib.mkMerge [
-          generalAliases
-          macAliases
-        ];
+      lib.mkMerge [
+        generalAliases
+        macAliases
+      ];
 
     sessionVariables = lib.mkMerge [
       {
@@ -233,115 +238,122 @@
     # - 550: Before completion initialization (replaces initExtraBeforeCompInit)
     # - 1000 (default): General configuration (replaces initExtra)
     # - 1500 (mkAfter): Last to run configuration
-    initContent = let
-      # This runs instantly
-      zshConfigEarlyInit = lib.mkBefore ''
-        # Powerlevel10k instant prompt
-        if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
+    initContent =
+      let
+        # This runs instantly
+        zshConfigEarlyInit = lib.mkBefore ''
+          # Powerlevel10k instant prompt
+          if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+            source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
 
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source "${config.home.homeDirectory}/.shell/p10k.zsh"
+          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+          source "${config.home.homeDirectory}/.shell/p10k.zsh"
 
-        source "${config.home.homeDirectory}/.shell/options.zsh"
+          source "${config.home.homeDirectory}/.shell/options.zsh"
 
-        # Load Zsh's rename utility `zmv`
-        autoload -Uz zmv
-      '';
+          # Load Zsh's rename utility `zmv`
+          autoload -Uz zmv
+        '';
 
-      # This runs before compinit (completion initialization)
-      zshConfigBeforeCompInit = lib.mkOrder 550 ''
-        # OrbStack
-        # This adds fpath so needs to be before compinit
-        if test -f ~/.orbstack/shell/init.zsh; then
-          source ~/.orbstack/shell/init.zsh 2>/dev/null || :
-        fi
+        # This runs before compinit (completion initialization)
+        zshConfigBeforeCompInit = lib.mkOrder 550 ''
+          # OrbStack
+          # This adds fpath so needs to be before compinit
+          if test -f ~/.orbstack/shell/init.zsh; then
+            source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+          fi
 
-        source "${config.home.homeDirectory}/.shell/colors.zsh"
-        source "${config.home.homeDirectory}/.shell/completions.zsh"
-        source "${config.home.homeDirectory}/.shell/fzf.zsh"
-      '';
+          source "${config.home.homeDirectory}/.shell/colors.zsh"
+          source "${config.home.homeDirectory}/.shell/completions.zsh"
+          source "${config.home.homeDirectory}/.shell/fzf.zsh"
+        '';
 
-      # General configuration
-      zshConfig = let
-        # We have to load this after fzf, so we cannot
-        # put this into the `plugins` offered by home-manager
-        #
-        # @see https://github.com/Multirious/zsh-helix-mode
-        zsh-helix-mode = pkgs.fetchFromGitHub {
-          owner = "Multirious";
-          repo = "zsh-helix-mode";
-          rev = "7e02a697695c88f9b23ed7f07184dd672be3f4b1";
-          sha256 = "sha256-Lfdou5SK/69KqBc7V5pJsGUIlV9EJ1UoM2gxNRzXBHI=";
-        };
+        # General configuration
+        zshConfig =
+          let
+            # We have to load this after fzf, so we cannot
+            # put this into the `plugins` offered by home-manager
+            #
+            # @see https://github.com/Multirious/zsh-helix-mode
+            zsh-helix-mode = pkgs.fetchFromGitHub {
+              owner = "Multirious";
+              repo = "zsh-helix-mode";
+              rev = "7e02a697695c88f9b23ed7f07184dd672be3f4b1";
+              sha256 = "sha256-Lfdou5SK/69KqBc7V5pJsGUIlV9EJ1UoM2gxNRzXBHI=";
+            };
+          in
+          ''
+            source "${config.home.homeDirectory}/.shell/functions.zsh"
+            source "${config.home.homeDirectory}/.shell/proxy.zsh"
+
+            eval "$(rbenv init - zsh)"
+
+            # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
+            # Note: `lg` is alias for `lazygit`
+            AUTO_NOTIFY_IGNORE=(
+              "vim" "nvim" "hx" "nano"
+              "tmux"
+              "zellij"
+              "bat"
+              "cat"
+              "less"
+              "more"
+              "watch"
+              "top"
+              "htop"
+              "ssh"
+              "man"
+              "zi"
+              "lazygit"
+              "lg"
+            );
+
+            # zsh-helix-mode
+            source ${zsh-helix-mode}/zsh-helix-mode.plugin.zsh
+
+            # For compatibility of zsh-helix-mode
+            # @see https://github.com/Multirious/zsh-helix-mode?tab=readme-ov-file#compatibility
+            bindkey '^I' fzf-tab-complete
+
+            ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+              zhm_history_prev
+              zhm_history_next
+              zhm_prompt_accept
+              zhm_accept
+              zhm_accept_or_insert_newline
+            )
+            ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
+              zhm_move_right
+            )
+            ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
+              zhm_move_next_word_start
+              zhm_move_next_word_end
+            )
+            # Empty the autosuggestion strategy array. Later atuin will
+            # automatically add itself into this array, so we're sure
+            # that it's the only source where autosuggestions are fetched
+            ZSH_AUTOSUGGEST_STRATEGY=()
+          '';
+
+        # This loads at the end of zshrc
+        zshEndOfConfig = lib.mkAfter ''
+          # For compatibility of zsh-helix-mode
+          # @see https://github.com/Multirious/zsh-helix-mode/issues/17#issuecomment-2810277661
+          bindkey -M hxnor '^r' atuin-up-search-vicmd
+          bindkey '^r' atuin-up-search-vicmd
+
+          # `zsh-syntax-highlighting` must be sourced at the end of the .zshrc file
+          # @see https://github.com/zsh-users/zsh-syntax-highlighting?tab=readme-ov-file#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
+          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+        '';
       in
-      ''
-        source "${config.home.homeDirectory}/.shell/functions.zsh"
-        source "${config.home.homeDirectory}/.shell/proxy.zsh"
-
-        eval "$(rbenv init - zsh)"
-
-        # zsh-auto-notify (https://github.com/MichaelAquilina/zsh-auto-notify)
-        # Note: `lg` is alias for `lazygit`
-        AUTO_NOTIFY_IGNORE=(
-          "vim" "nvim" "hx" "nano"
-          "tmux"
-          "zellij"
-          "bat"
-          "cat"
-          "less"
-          "more"
-          "watch"
-          "top"
-          "htop"
-          "ssh"
-          "man"
-          "zi"
-          "lazygit"
-          "lg"
-        );
-
-        # zsh-helix-mode
-        source ${zsh-helix-mode}/zsh-helix-mode.plugin.zsh
-
-        # For compatibility of zsh-helix-mode
-        # @see https://github.com/Multirious/zsh-helix-mode?tab=readme-ov-file#compatibility
-        bindkey '^I' fzf-tab-complete
-
-        ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-          zhm_history_prev
-          zhm_history_next
-          zhm_prompt_accept
-          zhm_accept
-          zhm_accept_or_insert_newline
-        )
-        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
-          zhm_move_right
-        )
-        ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
-          zhm_move_next_word_start
-          zhm_move_next_word_end
-        )
-        # Empty the autosuggestion strategy array. Later atuin will
-        # automatically add itself into this array, so we're sure
-        # that it's the only source where autosuggestions are fetched
-        ZSH_AUTOSUGGEST_STRATEGY=()
-      '';
-
-      # This loads at the end of zshrc
-      zshEndOfConfig = lib.mkAfter ''
-        # For compatibility of zsh-helix-mode
-        # @see https://github.com/Multirious/zsh-helix-mode/issues/17#issuecomment-2810277661
-        bindkey -M hxnor '^r' atuin-up-search-vicmd
-        bindkey '^r' atuin-up-search-vicmd
-
-        # `zsh-syntax-highlighting` must be sourced at the end of the .zshrc file
-        # @see https://github.com/zsh-users/zsh-syntax-highlighting?tab=readme-ov-file#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
-        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-      '';
-    in
-      lib.mkMerge [ zshConfigEarlyInit zshConfigBeforeCompInit zshConfig zshEndOfConfig ];
+      lib.mkMerge [
+        zshConfigEarlyInit
+        zshConfigBeforeCompInit
+        zshConfig
+        zshEndOfConfig
+      ];
 
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
     plugins = [

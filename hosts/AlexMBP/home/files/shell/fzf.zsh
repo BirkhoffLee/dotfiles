@@ -126,7 +126,7 @@ zstyle ':fzf-tab:*' fzf-flags \
   --bind '?:toggle-preview'
 
 # disable or override preview for command options and subcommands
-zstyle ':fzf-tab:complete:*:options' fzf-preview 
+zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 
 # FIXME: does not work
@@ -177,7 +177,7 @@ zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' 
   --preview-window 'right:70%:nowrap' \
   --bind 'alt-up:preview-page-up' \
   --bind 'alt-down:preview-page-down'
-zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word | bat --color=always' 
+zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word | bat --color=always'
 
 # cht.sh
 zstyle ':fzf-tab:complete:(help|cht.sh):argument-1' fzf-flags \
@@ -208,3 +208,4 @@ fi
 
 unset __FZF
 unset __FZF_TAB
+

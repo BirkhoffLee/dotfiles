@@ -6,7 +6,8 @@ let
   email = "git@birkhoff.me";
   key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM";
 
-in {
+in
+{
   home.file.".config/git/allowed_signers".text = "${email} namespaces=\"git\" ${key}";
 
   programs.git = {
@@ -95,8 +96,8 @@ in {
 
     aliases = {
       # add
-      a = "add";                           # add
-      chunkyadd = "add --patch";           # stage commits chunk by chunk
+      a = "add"; # add
+      chunkyadd = "add --patch"; # stage commits chunk by chunk
 
       # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
       snapshot = "!git stash save \"snapshot: $(date)\" && git stash apply \"stash@{0}\"";
@@ -106,26 +107,26 @@ in {
       recent-branches = "!git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'";
 
       # branch
-      b = "branch -v";                     # branch (verbose)
+      b = "branch -v"; # branch (verbose)
 
       # commit
-      c = "commit -m";                     # commit with message
-      ca = "commit -am";                   # commit all with message
-      ci = "commit";                       # commit
-      amend = "commit --amend";            # ammend your last commit
-      ammend = "commit --amend";           # ammend your last commit
+      c = "commit -m"; # commit with message
+      ca = "commit -am"; # commit all with message
+      ci = "commit"; # commit
+      amend = "commit --amend"; # ammend your last commit
+      ammend = "commit --amend"; # ammend your last commit
 
       # checkout
-      co = "checkout";                     # checkout
-      nb = "checkout -b";                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
+      co = "checkout"; # checkout
+      nb = "checkout -b"; # create and switch to a new branch (mnemonic: "git new branch branchname...")
 
       # cherry-pick
-      cp = "cherry-pick -x";               # grab a change from a branch
+      cp = "cherry-pick -x"; # grab a change from a branch
 
       # diff
-      d = "diff";                          # diff unstaged changes
-      dc = "diff --cached";                # diff staged changes
-      last = "diff HEAD^";                 # diff last committed change
+      d = "diff"; # diff unstaged changes
+      dc = "diff --cached"; # diff staged changes
+      last = "diff HEAD^"; # diff last committed change
 
       # log
       l = "log --graph --date=short";
@@ -135,37 +136,37 @@ in {
       shortnocolor = "log --pretty=format:\"%h %cr %cn %s\"";
 
       # pull
-      pl = "pull";                         # pull
+      pl = "pull"; # pull
 
       # push
-      ps = "push";                         # push
+      ps = "push"; # push
 
       # rebase
-      rc = "rebase --continue";            # continue rebase
-      rs = "rebase --skip";                # skip rebase
+      rc = "rebase --continue"; # continue rebase
+      rs = "rebase --skip"; # skip rebase
 
       # remote
-      r = "remote -v";                     # show remotes (verbose)
+      r = "remote -v"; # show remotes (verbose)
 
       # reset
-      unstage = "reset HEAD";              # remove files from index (tracking)
-      uncommit = "reset --soft HEAD^";     # go back before last commit, with files in uncommitted state
-      filelog = "log -u";                   # show changes to a file
-      mt = "mergetool";                    # fire up the merge tool
+      unstage = "reset HEAD"; # remove files from index (tracking)
+      uncommit = "reset --soft HEAD^"; # go back before last commit, with files in uncommitted state
+      filelog = "log -u"; # show changes to a file
+      mt = "mergetool"; # fire up the merge tool
 
       # stash
-      ss = "stash";                        # stash changes
-      sl = "stash list";                   # list stashes
-      sa = "stash apply";                  # apply stash (restore changes)
-      sd = "stash drop";                   # drop stashes (destory changes)
+      ss = "stash"; # stash changes
+      sl = "stash list"; # list stashes
+      sa = "stash apply"; # apply stash (restore changes)
+      sd = "stash drop"; # drop stashes (destory changes)
 
       # status
-      s = "status";                        # status
-      st = "status";                       # status
-      stat = "status";                     # status
+      s = "status"; # status
+      st = "status"; # status
+      stat = "status"; # status
 
       # tag
-      t = "tag -n";                        # show tags with <n> lines of each tag message
+      t = "tag -n"; # show tags with <n> lines of each tag message
 
       # svn helpers
       svnr = "svn rebase";

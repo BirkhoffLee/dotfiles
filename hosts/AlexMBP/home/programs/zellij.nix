@@ -13,6 +13,6 @@
 
     # Layouts
     # @see https://zellij.dev/documentation/layouts.html
-    layouts = {};
+    layouts = { };
   };
 }

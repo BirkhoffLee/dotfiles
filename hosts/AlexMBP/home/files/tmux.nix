@@ -9,7 +9,8 @@ let
     sha256 = "sha256-LkoRWds7PHsteJCDvsBpZ80zvlLtFenLU3CPAxdEHYA=";
   };
 
-in {
+in
+{
   home.file.".config/tmux/tmux.conf" = {
     source = "${tmux}/.tmux.conf";
     target = ".config/tmux/tmux.conf";
@@ -436,7 +437,7 @@ in {
       #set -g @plugin 'tmux-plugins/tmux-resurrect'
       #set -g @plugin 'tmux-plugins/tmux-continuum'
       #set -g @continuum-restore 'on'
-      
+
       bind-key X set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}"
 
 

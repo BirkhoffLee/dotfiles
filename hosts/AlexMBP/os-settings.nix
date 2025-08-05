@@ -55,7 +55,7 @@
     dock = {
       # Do not show recent apps
       "show-recents" = false;
-      
+
       # Group windows by application in Mission Control
       "expose-group-apps" = true;
 
@@ -85,7 +85,7 @@
       "wvous-bl-corner" = 1;
       "wvous-br-corner" = 1;
     };
-    
+
     CustomSystemPreferences = {
       NSGlobalDomain = {
         # Set system languages
@@ -99,12 +99,12 @@
         ApplePerAppLanguageSelectionBundleIdentifiers = [
           "com.apple.Music"
         ];
-        
+
         AppleICUNumberSymbols = {
-            "0" = ".";
-            "1" = ",";
-            "10" = ".";
-            "17" = ",";
+          "0" = ".";
+          "1" = ",";
+          "10" = ".";
+          "17" = ",";
         };
         AppleMeasurementUnit = "Celsius";
 
@@ -148,22 +148,24 @@
               ServicesMenu = 0;
             };
           };
-          "com.apple.ChineseTextConverterService - Convert Text from Simplified to Traditional Chinese - convertTextToTraditionalChinese" = {
-            "enabled_context_menu" = 0;
-            "enabled_services_menu" = 0;
-            "presentation_modes" = {
-              ContextMenu = 1;
-              ServicesMenu = 0;
+          "com.apple.ChineseTextConverterService - Convert Text from Simplified to Traditional Chinese - convertTextToTraditionalChinese" =
+            {
+              "enabled_context_menu" = 0;
+              "enabled_services_menu" = 0;
+              "presentation_modes" = {
+                ContextMenu = 1;
+                ServicesMenu = 0;
+              };
             };
-          };
-          "com.apple.ChineseTextConverterService - Convert Text from Traditional to Simplified Chinese - convertTextToSimplifiedChinese" = {
-            "enabled_context_menu" = 0;
-            "enabled_services_menu" = 0;
-            "presentation_modes" = {
-              ContextMenu = 0;
-              ServicesMenu = 0;
+          "com.apple.ChineseTextConverterService - Convert Text from Traditional to Simplified Chinese - convertTextToSimplifiedChinese" =
+            {
+              "enabled_context_menu" = 0;
+              "enabled_services_menu" = 0;
+              "presentation_modes" = {
+                ContextMenu = 0;
+                ServicesMenu = 0;
+              };
             };
-          };
           "com.apple.Safari -   Search With %WebSearchProvider@ - searchWithWebSearchProvider" = {
             "enabled_context_menu" = 0;
             "enabled_services_menu" = 0;
@@ -309,7 +311,7 @@
         # Enable the Develop menu and the Web Inspector
         "ShowDevelopMenu" = 1;
       };
-      
+
       # System Keyboard Shortcuts
       com.apple.symbolichotkeys = {
         # Record Screen (⇧⌘5)
@@ -356,7 +358,7 @@
 
         # Auto-adjust column widths to filenames in "Columns" view
         "_FXEnableColumnAutoSizing" = 1;
-        
+
         # Open folder in new window by: ⌘ + double-click
         FinderSpawnTab = false;
 
@@ -476,7 +478,7 @@
         setappDontShowAgain = 1;
         shouldHideOnLaunch = 0;
       };
-      
+
       "com.jordanbaird.Ice" = {
         ShowIceIcon = 0;
         ShowOnClick = 1;
@@ -484,14 +486,14 @@
         ShowOnScroll = 0;
         ShowSectionDividers = 1;
       };
-      
+
       "com.raycast.macos" = {
         enforcedInputSourceIDOnOpen = "com.apple.keylayout.ABC";
         raycastShouldFollowSystemAppearance = 0;
         "raycast_hyperKey_state" = {
-            enabled = 1;
-            includeShiftKey = 1;
-            keyCode = 57;
+          enabled = 1;
+          includeShiftKey = 1;
+          keyCode = 57;
         };
         useHyperKeyIcon = 1;
         useSystemInternetProxySettings = 1;

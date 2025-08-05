@@ -1,4 +1,6 @@
 {
   # disable logging
-  home.file.".config/llm/logs-off" = { text = ""; };
+  home.file.".config/llm/logs-off" = {
+    text = "";
+  };
 }

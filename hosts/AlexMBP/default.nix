@@ -5,7 +5,8 @@ let
   username = "ale";
   hostname = "AlexMBP";
 
-in {
+in
+{
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -20,11 +21,7 @@ in {
   };
 
   imports = [
-    (
-      import ./os-settings.nix (
-        { inherit hostname; }
-      )
-    )
+    (import ./os-settings.nix ({ inherit hostname; }))
     ./packages/homebrew.nix
     ./packages/system-packages.nix
   ];
@@ -53,7 +50,10 @@ in {
       "flakes"
     ];
 
-    extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
+    extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
 
     # Recommended when using `direnv` etc.
     keep-derivations = true;
