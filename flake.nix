@@ -21,14 +21,18 @@
     # Environment managers
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { self, darwin, home-manager, ... }@inputs:
+  outputs = { self, darwin, home-manager, nix-index-database, ... }@inputs:
     # https://github.com/malob/nixpkgs/blob/61d4809925a523296278885ff8a75d3776a5c813/flake.nix#L34
     let
-      inherit (inputs.nixpkgs-unstable.lib) attrValues makeOverridable mkForce optionalAttrs singleton;
+      inherit (inputs.nixpkgs-unstable.lib) attrValues optionalAttrs singleton;
 
       nixpkgsDefaults = {
         config = {
@@ -87,6 +91,8 @@
           modules = [
             ./hosts/AlexMBP { nixpkgs = nixpkgsDefaults; }
             home-manager.darwinModules.home-manager
+            nix-index-database.darwinModules.nix-index
+            { programs.nix-index-database.comma.enable = true; }
           ];
         };
       };
