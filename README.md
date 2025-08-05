@@ -33,6 +33,8 @@ Key features:
 * [Sets](hosts/AlexMBP/home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
 * git utilities include [lazygit](https://github.com/jesseduffield/lazygit) and [forgit](https://github.com/wfxr/forgit) because I'm lazy
   * [a quick starter video about lazygit](https://www.youtube.com/watch?v=CPLdltN7wgE)
+* [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) to remind me using shell aliases
+* [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
 
 ## Usage
 
@@ -57,25 +59,28 @@ nix build "$HOME/.config/nix#darwinConfigurations.AlexMBP.system" --extra-experi
 
 # Apply the dotfiles
 sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+
+# Optionally, delete the build artifacts
+rm -rf ./result
 ```
 
 After first successful deployment, use the following command to switch:
 
 ```console
-sudo darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
-```
+# This only switchs to the latest config
+nh darwin switch --hostname AlexMBP "$HOME/.config/nix"
 
-To update packages:
+# This updates all flake inputs and switches to the latest config
+nh darwin switch --update --hostname AlexMBP "$HOME/.config/nix"
 
-```console
-nix flake update --flake "$HOME/.config/nix"
-sudo darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+# This updates one flake input and switches to the latest config
+nh darwin switch --update-input <name> --hostname AlexMBP "$HOME/.config/nix"
 ```
 
 To clean up:
 
 ```console
-nix-cleanup
+nh clean all
 ```
 
 > [!IMPORTANT]

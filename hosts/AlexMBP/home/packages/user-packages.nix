@@ -8,21 +8,21 @@ in
     # ============================================================================
     # DEVELOPMENT TOOLS AND LIBRARIES
     # ============================================================================
-    
+
     # Python
     # python311
     # python311Packages.ansible-core
     # python311Packages.pip
     # python311Packages.virtualenv
-    
+
     # Go
     go
     golangci-lint
-    
+
     # Node.js
     nodejs_22
     yarn
-    
+
     # Ruby
     rbenv
 
@@ -33,7 +33,7 @@ in
     pkg-config
     wasm-pack
     icu77
-    
+
     # Package managers
     uv
 
@@ -69,11 +69,11 @@ in
     vue-language-server
     yaml-language-server
     zls # zig
-    
+
     # ============================================================================
     # VERSION CONTROL
     # ============================================================================
-    
+
     # Git
     git
     git-lfs
@@ -81,14 +81,14 @@ in
     # git-open # `git open` to open the GitHub page or website for a repo FIXME: doesn't work
     git-recent # `git recent` to browse latest local git branches interactively
     lazygit
-        
+
     # Git tools
     bfg-repo-cleaner
-    
+
     # ============================================================================
     # INFRASTRUCTURE & DEVOPS
     # ============================================================================
-    
+
     # Utilities
     lnav # log file navigator (https://github.com/tstack/lnav)
 
@@ -99,7 +99,7 @@ in
     # aws-vault
     backblaze-b2
     flarectl
-    
+
     # Container & orchestration
     # k9s
     # kubectx
@@ -110,25 +110,25 @@ in
     # skaffold
     # helm
     ctop # top for containers
-    
+
     # Infrastructure as code
     terraform
     # terraformer
     # vagrant
-    
+
     # DNS & networking
     # dnscontrol
-    
+
     # Backup & storage
     restic
-    
+
     # SSH
     ssh-copy-id
-    
+
     # ============================================================================
     # NETWORKING & SECURITY
     # ============================================================================
-    
+
     curlie
     curl
     xh
@@ -172,53 +172,53 @@ in
     dns2tcp
     tcptrace
     dnslookup
-    
+
     # VPN & security
     wireguard-go
     wireguard-tools
     sqlmap
     thc-hydra # network logon cracker
     testssl
-    
+
     # ============================================================================
     # AUTHENTICATION & SECURITY
     # ============================================================================
-    
+
     gnupg
     pam-reattach
     pinentry_mac
     reattach-to-user-namespace
     yubico-piv-tool
-    
+
     # ============================================================================
     # AI & MACHINE LEARNING
     # ============================================================================
-    
+
     gfortran
     openblas.dev
     gemini-cli
     ollama
     aichat
-    
+
     # ============================================================================
     # DEVELOPMENT UTILITIES
     # ============================================================================
-    
+
     # Web development
     caddy
     httpie
-    
+
     # Code quality
     yamllint
-    
+
     # Databases
     redis
     pgcli
-    
+
     # ============================================================================
     # SYSTEM UTILITIES
     # ============================================================================
-    
+
     # Shell enhancements
     zsh-completions
     zsh-fast-syntax-highlighting
@@ -229,7 +229,7 @@ in
     pv # progress bar for a pipe
     television
     yazi
-    
+
     # Terminal utilities
     tmux
     htop
@@ -269,7 +269,7 @@ in
 
     vivid # LS_COLORS generator (https://github.com/sharkdp/vivid)
     zoxide
-    
+
     # Searcher
     fd
     fzf
@@ -292,7 +292,7 @@ in
     sd
     jc # convert output of common cli tools to JSON (https://github.com/kellyjonbrazil/jc?tab=readme-ov-file#parsers)
     jo # generate JSON by simple commands
-    yq-go # jq for YAML, JSON, XML, CSV, TOML and properties     
+    yq-go # jq for YAML, JSON, XML, CSV, TOML and properties
     htmlq # jq for HTML (https://github.com/mgdm/htmlq)
 
     # System monitoring
@@ -301,46 +301,46 @@ in
     osx-cpu-temp
     bottom # btm (https://github.com/ClementTsang/bottom)
     glances
-    
+
     # ============================================================================
     # UTILITIES & TOOLS
     # ============================================================================
-    
+
     # Recording & presentation
     asciinema
     slides
-    
+
     # Documentation & help
     cht-sh
     tldr
-    
+
     # Fun & misc
     cowsay
     lolcat
     neofetch
-    
+
     # Notifications
     noti
     terminal-notifier
-    
+
     # Download & media
     lux
     yt-dlp
-    
+
     # ============================================================================
     # MEDIA PROCESSING
     # ============================================================================
-    
+
     ffmpeg
     exiftool
     imagemagickBig
     optipng
     pngpaste
-    
+
     # ============================================================================
     # CLI TOOLS
     # ============================================================================
-    
+
     powershell
     stripe-cli
     # dex2jar
@@ -352,6 +352,7 @@ in
     hub
 
     # Nix Tools
+    nh # https://github.com/nix-community/nh
     cachix
 
     # ============================================================================
@@ -365,11 +366,11 @@ in
     m-cli
     blueutil
     mas
-    
+
     # Linux-only packages
   ]) ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
 
     plocate # very fast `locate`
-    
+
   ]);
 }
