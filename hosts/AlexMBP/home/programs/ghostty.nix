@@ -54,6 +54,7 @@
       ];
 
       ## Initial Window Size
+      maximize = true;
       window-height = 35;
       window-width = 98;
       ## End of Initial Window Size
