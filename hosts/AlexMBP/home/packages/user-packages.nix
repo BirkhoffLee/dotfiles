@@ -11,12 +11,6 @@ in
       # DEVELOPMENT TOOLS AND LIBRARIES
       # ============================================================================
 
-      # Python
-      # python311
-      # python311Packages.ansible-core
-      # python311Packages.pip
-      # python311Packages.virtualenv
-
       # Go
       go
       golangci-lint
@@ -260,9 +254,6 @@ in
       html-tidy
       gnutar
       gnused
-
-      # Editors
-      helix
 
       # Diff
       difftastic

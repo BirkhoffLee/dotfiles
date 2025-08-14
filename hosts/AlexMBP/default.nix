@@ -21,9 +21,9 @@ in
   };
 
   imports = [
+    ./packages/system-packages.nix
     (import ./os-settings.nix ({ inherit hostname; }))
     ./packages/homebrew.nix
-    ./packages/system-packages.nix
   ];
 
   networking = {

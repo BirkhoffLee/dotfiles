@@ -15,6 +15,7 @@
 
     casks = [
       "1password"
+      "transmission"
       "1password-cli"
       "adoptopenjdk"
       "anki"
@@ -79,7 +80,6 @@
       "AmorphousDiskMark" = 1168254295;
       "CrystalFetch" = 6454431289;
       "DaisyDisk" = 411643860;
-      "DevCleaner" = 1388020431;
       "Gifski" = 1351639930;
       "Goodnotes" = 1444383602;
       "Hyperduck" = 6444667067;
