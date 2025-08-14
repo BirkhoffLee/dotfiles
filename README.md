@@ -119,8 +119,6 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
 * File completion
   * List directories first like [this](https://github.com/Aloxaf/fzf-tab/pull/518)
   * When completing with fzf-tab, there's the slash in file names which i dont like
-* Manage python versions/dependencies with nix
-* Manage nodejs with nix
 * [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
 * Use [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to ensure consistency across different platforms
 
