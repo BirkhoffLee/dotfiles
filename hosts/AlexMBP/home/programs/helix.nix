@@ -1,6 +1,7 @@
 {
   programs.helix = {
     enable = true;
+
     defaultEditor = true;
     settings = {
       theme = "snazzy";
@@ -8,6 +9,7 @@
       editor = {
         mouse = false;
         cursorline = true;
+        cursor-shape.insert = "bar";
         line-number = "relative";
         # Show currently open buffers, only when more than one exists.
         bufferline = "multiple";
@@ -79,6 +81,7 @@
         "space" = {
           # Print the current line's git blame information to the statusline.
           "B" = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}";
+          "A-d" = ":pipe awk '!s[$0]++'";
         };
       };
 
@@ -100,3 +103,4 @@
     };
   };
 }
+
