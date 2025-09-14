@@ -36,6 +36,10 @@ Key features:
 * [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) to remind me using shell aliases
 * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
 
+macOS Apps to mention and some notes:
+
+* [Supercharge](https://sindresorhus.com/supercharge) has to be downloaded manually due to licensing constraints.
+
 ## Usage
 
 On a new macOS machine without Nix installed:
