@@ -111,6 +111,8 @@
         # 0: Caps Lock key toggles Caps Lock
         # 1: Caps Lock key switches between ABC
         TISRomanSwitchState = 0;
+
+        NSApplicationShowExceptions = true;
       };
     };
 
@@ -215,7 +217,8 @@
       };
 
       "com.apple.CrashReporter" = {
-        DialogType = "none";
+        DialogType = "developer";
+        UseUNC = true;
       };
 
       # Keyboard: Chinese Input Source Preferences
