@@ -1,6 +1,6 @@
 {
   # Homebrew has to be installed first.
-  # This installs system-wide packages and Mac App Store apps.
+  # This installs brew packages and Mac App Store apps.
   homebrew = {
     enable = true;
 
@@ -14,6 +14,15 @@
     ];
 
     casks = [
+      "imageoptim"
+      "keka"
+      "superwhisper"
+      "menuwhere"
+      "bloom"
+      "betterdisplay"
+      "brilliant"
+      "lulu"
+      "knockknock"
       "1password"
       "transmission"
       "1password-cli"
