@@ -3,9 +3,9 @@
 {
   # https://macos-defaults.com/
   # The trick to get those configuration keys:
-  # defaults read > before
-  # defaults read > after
-  # diff before after
+  # $ defaults read > before
+  # $ defaults read > after
+  # $ diff before after
 
   # Hostname
   networking.computerName = "${hostname}";
