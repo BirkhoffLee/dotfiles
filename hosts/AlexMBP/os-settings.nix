@@ -531,8 +531,7 @@
         copyOnEsc = 1;
       };
 
-      # TODO: remove `-setapp`
-      "com.sindresorhus.Supercharge-setapp" = {
+      "com.sindresorhus.Supercharge" = {
         # Disable the ⌘Q prevention
         accidentalQuitPreventionMode = "disabled";
 
