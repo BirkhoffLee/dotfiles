@@ -342,6 +342,12 @@
         };
       };
 
+      "com.apple.dock" = {
+        "springboard-hide-duration" = 0;
+        "springboard-page-duration" = 0;
+        "springboard-show-duration" = 0;
+      };
+
       "com.apple.finder" = {
         # Keep the desktop clean
         ShowHardDrivesOnDesktop = false;
