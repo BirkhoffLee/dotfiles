@@ -360,6 +360,7 @@ in
       m-cli
       blueutil
       mas
+      stats
 
       # Linux-only packages
     ])
