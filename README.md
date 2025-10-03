@@ -53,7 +53,9 @@ git clone https://github.com/birkhofflee/dotfiles $HOME/.config/nix
 
 # Install nix with Determinate Systems installer
 # Choose "no" to use the upstream nix instead of their own one
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+# @see https://determinate.systems/blog/installer-dropping-upstream/
+# @see https://github.com/NixOS/experimental-nix-installer
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm --prefer-upstream-nix
 
 # Source the nix daemon so that the nix command is available immediately
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -88,8 +90,8 @@ nh clean all
 ```
 
 > [!IMPORTANT]
-> The following steps were applicable to installations with the original Nix
-> installer. It is unknown whether they are needed to follow for a Determinate
+> The following steps were applicable to installations with upstream Nix installations.
+> It is unknown whether they are needed to follow for a Determinate
 > Systems installation.
 
 After a major macOS update:
