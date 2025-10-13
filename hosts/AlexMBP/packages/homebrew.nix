@@ -14,22 +14,15 @@
     ];
 
     casks = [
-      "imageoptim"
-      "keka"
-      "superwhisper"
-      "menuwhere"
-      "bloom"
-      "betterdisplay"
-      "brilliant"
-      "lulu"
-      "knockknock"
       "1password"
-      "transmission"
       "1password-cli"
       "adoptopenjdk"
       "anki"
       "arc"
       "balenaetcher"
+      "betterdisplay"
+      "bloom"
+      "brilliant"
       "claude"
       "cursor"
       "deskpad"
@@ -41,13 +34,17 @@
       "handbrake-app"
       "heynote"
       "iina"
+      "imageoptim"
       "imazing"
       "input-source-pro"
       "iterm2"
       "jordanbaird-ice"
+      "keka"
       "key-codes"
       "keycastr"
+      "knockknock"
       "macfuse"
+      "menuwhere"
       "mounty"
       "notion"
       "obs"
@@ -63,9 +60,11 @@
       "spotify"
       "steam"
       "sublime-text"
+      "superwhisper"
       "suspicious-package"
       "teamviewer"
       "telegram"
+      "transmission"
       "transmit"
       "utm"
       "visual-studio-code"
@@ -74,7 +73,7 @@
       "wechat"
       "wifi-explorer"
       "winbox"
-      "wireshark"
+      "wireshark-app"
       "zed"
       "zoom"
     ];
@@ -101,7 +100,7 @@
       "NflxMultiSubs" = 1594059167;
       "Numbers" = 409203825;
       "Pages" = 409201541;
-      "Playlisty for Apple Music" = 1459275972;
+      "Playlisty Apple Music" = 1459275972;
       "Second Clock" = 6450279539;
       "Slack" = 803453959;
       "Tailscale" = 1475387142;
