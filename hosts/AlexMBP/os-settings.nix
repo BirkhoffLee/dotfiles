@@ -98,6 +98,7 @@
         ];
         ApplePerAppLanguageSelectionBundleIdentifiers = [
           "com.apple.Music"
+          "com.nssurge.surge-mac"
         ];
 
         AppleICUNumberSymbols = {
@@ -494,6 +495,12 @@
         ShowOnHover = 1;
         ShowOnScroll = 0;
         ShowSectionDividers = 1;
+      };
+
+      "com.nssurge.surge-mac" = {
+        AppleLanguages = [
+          "zh-Hant-US"
+        ];
       };
 
       "com.raycast.macos" = {
