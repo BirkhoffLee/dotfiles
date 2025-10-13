@@ -325,7 +325,7 @@
 
         # Input Sources (^Space, ^⌥Space)
         "60" = {
-          enabled = 0;
+          enabled = 1;
         };
 
         "61" = {
