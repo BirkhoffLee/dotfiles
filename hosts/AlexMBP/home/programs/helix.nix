@@ -83,6 +83,18 @@
           "B" = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}";
           "A-d" = ":pipe awk '!s[$0]++'";
         };
+
+        # yazi integration
+        # https://github.com/sxyazi/yazi/pull/2461
+        "C-y" = [
+          ":sh rm -f /tmp/helix-yazi-tmpfile"
+          ":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/helix-yazi-tmpfile"
+          ":insert-output echo \"\x1b[?1049h\x1b[?2004h\" > /dev/tty"
+          ":open %sh{cat /tmp/helix-yazi-tmpfile}"
+          ":redraw"
+          ":set mouse false"
+          ":set mouse true"
+        ];
       };
 
       keys.insert = {
