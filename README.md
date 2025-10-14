@@ -39,6 +39,7 @@ Key features:
 macOS Apps to mention and some notes:
 
 * [Supercharge](https://sindresorhus.com/supercharge) has to be downloaded manually due to licensing constraints.
+* Development Environments [should be managed using nix-shell](https://joshblais.com/blog/nixos-is-the-endgame-of-distrohopping/#development-environments).
 
 ## Usage
 
