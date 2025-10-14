@@ -78,6 +78,9 @@ export FZF_CTRL_T_COMMAND="fd -H -tf --follow ${exclude_list[*]} -0 | xargs -0 l
 export FZF_ALT_C_COMMAND="fd $dirPATH -td ${exclude_list[*]} -0 | xargs -0 ls -dt"
 unset exclude_list
 
+# atuin is used for the history search instead.
+export FZF_CTRL_R_COMMAND=""
+
 # FZF - File Browser (C-t)
 export FZF_CTRL_T_OPTS="
   --preview '${__FZF[PREVIEW_FILE_OR_DIR]}'
