@@ -25,8 +25,12 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    # Some other packages
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    _1password-shell-plugins.url = "github:1Password/shell-plugins";
+    helix.url = "github:helix-editor/helix/25.07.1";
   };
 
   outputs =
@@ -101,6 +105,8 @@
       darwinConfigurations = {
         AlexMBP = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+
           modules = [
             ./hosts/AlexMBP
             { nixpkgs = nixpkgsDefaults; }
