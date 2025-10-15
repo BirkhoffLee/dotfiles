@@ -86,6 +86,7 @@
       "1Password for Safari" = 1569813296;
       "Actions" = 1586435171;
       "AmorphousDiskMark" = 1168254295;
+      "BrightIntosh" = 6452471855;
       "CrystalFetch" = 6454431289;
       "DaisyDisk" = 411643860;
       "Gifski" = 1351639930;
@@ -94,6 +95,7 @@
       "Infuse" = 1136220934;
       "Keynote" = 409183694;
       "LINE" = 539883307;
+      "Mactracker" = 430255202;
       "Microsoft Excel" = 462058435;
       "Microsoft PowerPoint" = 462062816;
       "Microsoft Word" = 462054704;
@@ -102,6 +104,7 @@
       "Pages" = 409201541;
       "Playlisty Apple Music" = 1459275972;
       "Second Clock" = 6450279539;
+      "SenPlayer" = 6443975850;
       "Slack" = 803453959;
       "Tailscale" = 1475387142;
       "The Unarchiver" = 425424353;
