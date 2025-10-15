@@ -41,16 +41,15 @@
       macos-option-as-alt = true;
       keybind = [
         "super+q=quit"
-        "super+n=new_window"
         "super+shift+comma=reload_config"
         "super+c=copy_to_clipboard"
         "super+v=paste_from_clipboard"
-        "super+backspace=text:\\x15"
+        # "super+backspace=text:\\x15"
         # "super+right=etext:\\x05"
         # "super+left=etext:\\x01"
         "super+z=text:\\x1f"
         "super+shift+z=text:\\x18\\x1f"
-        "global:super+escape=toggle_quick_terminal"
+        # "global:super+escape=toggle_quick_terminal"
       ];
 
       ## Initial Window Size
