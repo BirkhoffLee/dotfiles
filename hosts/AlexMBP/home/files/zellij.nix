@@ -6,6 +6,7 @@
           }
           locked {
               bind "Ctrl g" { SwitchToMode "normal"; }
+              bind "Super t" { NewTab; }
           }
           pane {
               bind "left" { MoveFocus "left"; }
