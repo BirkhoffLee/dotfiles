@@ -1,4 +1,17 @@
+{ lib, ... }:
 {
+  # This is an attempt to fix a rare bug where after we go into a new
+  # zellij session, the shell is completely broken with the message
+  # `tput: No value for $TERM and no -T specified`
+  #
+  # This ensures that shell integration works in more scenarios (such as when you switch shells within Ghostty).
+  # @see https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
+  programs.zsh.initContent = lib.mkOrder 150 ''
+    if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+      source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+    fi
+  '';
+
   programs.ghostty = {
     enable = true;
     package = null; # broken on Darwin
@@ -8,9 +21,10 @@
     # programs.
     clearDefaultKeybinds = true;
 
-    # This ensures that shell integration works in more scenarios (such as when you switch shells within Ghostty).
-    # @see https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
-    enableZshIntegration = true;
+    # We do this ourselves because this puts the init code
+    # too late (we need it to be at top of .zshrc)
+    # but this fix is largely a guess.
+    enableZshIntegration = false;
 
     # https://ghostty.org/docs/config/reference
 
