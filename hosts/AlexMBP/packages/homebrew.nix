@@ -26,7 +26,6 @@
       "claude"
       "cursor"
       "deskpad"
-      "discord"
       "dropbox"
       "figma"
       "ghostty"
