@@ -33,6 +33,7 @@
       # theme = Horizon
       # theme = Rapture
       # theme = Snazzy
+      # theme = Arcoiris (with the modification of cursor-color = ffc656)
 
       # Lighter Themes
       # theme = Sublette
@@ -40,9 +41,13 @@
 
       # Darker Themes
       # theme = NightLion v2
-      # theme = Peppermint
 
-      theme = "Snazzy";
+      # Use the following to preview all available
+      # builtin themes in Ghostty:
+      #
+      # ghostty +list-themes
+
+      theme = "Snazzy Soft";
       font-family = "CommitMono Nerd Font";
       font-size = 15;
       # bold-is-bright = true
@@ -72,6 +77,8 @@
       window-height = 35;
       window-width = 98;
       ## End of Initial Window Size
+
+      macos-titlebar-style = "transparent";
 
       ## Window Padding
       # window-padding-balance = true;
