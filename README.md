@@ -16,7 +16,6 @@ Key features:
 * [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlexMBP/home/programs/ghostty.nix)
 * zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k)
   * Prompt theme is p10k Lean style. Git status symbols docs can be found [here](https://github.com/romkatv/powerlevel10k#what-do-different-symbols-in-git-status-mean).
-* [Helix](https://helix-editor.com/) keymap with [Multirious/zsh-helix-mode](https://github.com/Multirious/zsh-helix-mode)
 * Terminal Multiplexer:
   * [Zellij](https://zellij.dev/) Unlock-First (non-colliding) preset with [minor customization](hosts/AlexMBP/home/programs/zellij.nix)
   * tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
