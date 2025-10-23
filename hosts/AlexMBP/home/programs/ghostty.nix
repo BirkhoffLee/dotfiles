@@ -55,6 +55,7 @@
       macos-option-as-alt = true;
       keybind = [
         "super+q=quit"
+        "super+n=new_window"
         "super+shift+comma=reload_config"
         "super+c=copy_to_clipboard"
         "super+v=paste_from_clipboard"
