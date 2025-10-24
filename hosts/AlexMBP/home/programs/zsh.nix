@@ -118,6 +118,7 @@
           # uvx --with llm-anthropic llm -m claude-3.5-haiku 'fun facts about skunks'
           chat = "llm chat -m chatgpt";
           files-to-prompt = "uvx files-to-prompt";
+          md = "llmf -t md -a"; # convert image to markdown
 
           # Text processing
           p = "$PAGER"; # Pager
