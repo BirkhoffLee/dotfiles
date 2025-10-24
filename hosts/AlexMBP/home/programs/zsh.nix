@@ -113,8 +113,8 @@
           nix-gc = "sudo nix-collect-garbage -d && nix-store --optimise";
 
           # LLM
-          llm = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm";
-          llmf = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') uvx llm --no-stream";
+          llm = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') OPENROUTER_KEY=$(op read 'op://Private/OpenRouter API Key/credential') uvx --with llm-openrouter llm";
+          llmf = "llm --no-stream";
           # uvx --with llm-anthropic llm -m claude-3.5-haiku 'fun facts about skunks'
           chat = "llm chat -m chatgpt";
           files-to-prompt = "uvx files-to-prompt";
