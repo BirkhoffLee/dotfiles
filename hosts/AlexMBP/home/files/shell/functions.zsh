@@ -2,6 +2,26 @@
 
 # `functions.zsh` provides helper functions and utilities.
 
+# Output the image data in clipboard to stdout.
+# @example impaste > /tmp/image.png
+# @see https://til.simonwillison.net/macos/impaste
+function impaste {
+   # Generate a unique temporary filename
+   tempfile=$(mktemp -t clipboard.XXXXXXXXXX.png)
+
+   # Save the clipboard image to the temporary file
+   osascript -e 'set theImage to the clipboard as «class PNGf»' \
+     -e "set theFile to open for access POSIX file \"$tempfile\" with write permission" \
+     -e 'write theImage to theFile' \
+     -e 'close access theFile'
+
+   # Output the image data to stdout
+   cat "$tempfile"
+
+   # Delete the temporary file
+   rm "$tempfile"
+}
+
 # Use `llm` to generate a conventional commit draft using cached diff
 function aic {
   echo "Working..."
@@ -202,7 +222,7 @@ function dirtypdf {
   fi
 
   nix-shell --packages 'imagemagickBig' --run "magick -density 90 \"$input_file\" -rotate 0.5 -attenuate 0.2 +noise Multiplicative -colorspace Gray \"$output_file\""
-  
+
   # open the output file in finder
   open -R "$output_file"
 }
