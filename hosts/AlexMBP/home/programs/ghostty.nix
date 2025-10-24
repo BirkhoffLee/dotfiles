@@ -61,15 +61,25 @@
       keybind = [
         "super+q=quit"
         "super+n=new_window"
+
         "super+shift+comma=reload_config"
+        "super+shift+p=toggle_command_palette"
+        # "global:super+escape=toggle_quick_terminal"
+
         "super+c=copy_to_clipboard"
         "super+v=paste_from_clipboard"
-        "super+backspace=text:\\x15"
-        "super+right=text:\\x05"
+
         "super+left=text:\\x01"
+        "super+right=text:\\x05"
+
+        "alt+left=esc:b"
+        "alt+right=esc:f"
+
+        "super+backspace=text:\\x15"
+
+        # Undo & Redo
         "super+z=text:\\x1f"
         "super+shift+z=text:\\x18\\x1f"
-        # "global:super+escape=toggle_quick_terminal"
       ];
 
       ## Initial Window Size
