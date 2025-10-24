@@ -40,11 +40,10 @@ in
       beam28Packages.elixir-ls
       gopls # go
       graphql-language-service-cli # graphql
-      helm-ls # helm
-      haskell-language-server # haskell
       docker-language-server # dockerfile, compose files, bake
       terraform-ls # hcl
       superhtml # html
+      jdt-language-server # java
       typescript-language-server # js, ts, tsx
       jq-lsp # jq
       vscode-json-languageserver # json
@@ -57,6 +56,7 @@ in
       intelephense # php
       ruff # python
       R
+      ruby-lsp # Ruby
       rustup # rust
       solc # solidity
       svelte-language-server # svelte
