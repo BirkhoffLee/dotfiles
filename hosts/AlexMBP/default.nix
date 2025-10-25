@@ -42,6 +42,19 @@ in
   ];
 
   nix.settings = {
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://birkhoff.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "birkhoff.cachix.org-1:m7WmdU7PKc6fsKedC278lhLtiqjz6ZUJ6v2nkVGyJjQ="
+    ];
+
+    # @admin means all users in the wheel group
+    trusted-users = [ "@admin" ];
+
     # https://github.com/NixOS/nix/issues/7273
     auto-optimise-store = false;
 
