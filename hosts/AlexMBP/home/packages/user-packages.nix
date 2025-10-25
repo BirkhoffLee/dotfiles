@@ -131,7 +131,7 @@ in
       autossh
       magic-wormhole # p2p file transfer
       croc # p2p file transfer
-      putty
+      # putty # FIXME: https://github.com/NixOS/nixpkgs/pull/449689
 
       # TLS
       mkcert

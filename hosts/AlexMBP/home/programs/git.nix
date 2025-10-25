@@ -13,30 +13,12 @@ in
   programs.git = {
     enable = true;
 
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side line-numbers decorations";
-        syntax-theme = "ansi";
-
-        decorations = {
-          commit-decoration-style = "bold yellow box ul";
-          file-style = "bold yellow ul";
-          file-decoration-style = "none";
-          hunk-header-decoration-style = "cyan box ul";
-        };
-
-        navigate = true;
-      };
-    };
-
     lfs.enable = true;
 
-    userName = "${name}";
-    userEmail = "${email}";
-
-    extraConfig = {
+    settings = {
       user = {
+        name = "${name}";
+        email = "${email}";
         signingkey = "${key}";
       };
 
@@ -92,86 +74,86 @@ in
       color = {
         ui = "true";
       };
-    };
 
-    aliases = {
-      # add
-      a = "add"; # add
-      chunkyadd = "add --patch"; # stage commits chunk by chunk
+      alias = {
+        # add
+        a = "add"; # add
+        chunkyadd = "add --patch"; # stage commits chunk by chunk
 
-      # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
-      snapshot = "!git stash save \"snapshot: $(date)\" && git stash apply \"stash@{0}\"";
-      snapshots = "!git stash list --grep snapshot";
+        # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+        snapshot = "!git stash save \"snapshot: $(date)\" && git stash apply \"stash@{0}\"";
+        snapshots = "!git stash list --grep snapshot";
 
-      # via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
-      recent-branches = "!git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'";
+        # via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+        recent-branches = "!git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'";
 
-      # branch
-      b = "branch -v"; # branch (verbose)
+        # branch
+        b = "branch -v"; # branch (verbose)
 
-      # commit
-      c = "commit -m"; # commit with message
-      ca = "commit -am"; # commit all with message
-      ci = "commit"; # commit
-      amend = "commit --amend"; # ammend your last commit
-      ammend = "commit --amend"; # ammend your last commit
+        # commit
+        c = "commit -m"; # commit with message
+        ca = "commit -am"; # commit all with message
+        ci = "commit"; # commit
+        amend = "commit --amend"; # ammend your last commit
+        ammend = "commit --amend"; # ammend your last commit
 
-      # checkout
-      co = "checkout"; # checkout
-      nb = "checkout -b"; # create and switch to a new branch (mnemonic: "git new branch branchname...")
+        # checkout
+        co = "checkout"; # checkout
+        nb = "checkout -b"; # create and switch to a new branch (mnemonic: "git new branch branchname...")
 
-      # cherry-pick
-      cp = "cherry-pick -x"; # grab a change from a branch
+        # cherry-pick
+        cp = "cherry-pick -x"; # grab a change from a branch
 
-      # diff
-      d = "diff"; # diff unstaged changes
-      dc = "diff --cached"; # diff staged changes
-      last = "diff HEAD^"; # diff last committed change
+        # diff
+        d = "diff"; # diff unstaged changes
+        dc = "diff --cached"; # diff staged changes
+        last = "diff HEAD^"; # diff last committed change
 
-      # log
-      l = "log --graph --date=short";
-      changes = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status";
-      short = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"";
-      simple = "log --pretty=format:\" * %s\"";
-      shortnocolor = "log --pretty=format:\"%h %cr %cn %s\"";
+        # log
+        l = "log --graph --date=short";
+        changes = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status";
+        short = "log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"";
+        simple = "log --pretty=format:\" * %s\"";
+        shortnocolor = "log --pretty=format:\"%h %cr %cn %s\"";
 
-      # pull
-      pl = "pull"; # pull
+        # pull
+        pl = "pull"; # pull
 
-      # push
-      ps = "push"; # push
+        # push
+        ps = "push"; # push
 
-      # rebase
-      rc = "rebase --continue"; # continue rebase
-      rs = "rebase --skip"; # skip rebase
+        # rebase
+        rc = "rebase --continue"; # continue rebase
+        rs = "rebase --skip"; # skip rebase
 
-      # remote
-      r = "remote -v"; # show remotes (verbose)
+        # remote
+        r = "remote -v"; # show remotes (verbose)
 
-      # reset
-      unstage = "reset HEAD"; # remove files from index (tracking)
-      uncommit = "reset --soft HEAD^"; # go back before last commit, with files in uncommitted state
-      filelog = "log -u"; # show changes to a file
-      mt = "mergetool"; # fire up the merge tool
+        # reset
+        unstage = "reset HEAD"; # remove files from index (tracking)
+        uncommit = "reset --soft HEAD^"; # go back before last commit, with files in uncommitted state
+        filelog = "log -u"; # show changes to a file
+        mt = "mergetool"; # fire up the merge tool
 
-      # stash
-      ss = "stash"; # stash changes
-      sl = "stash list"; # list stashes
-      sa = "stash apply"; # apply stash (restore changes)
-      sd = "stash drop"; # drop stashes (destory changes)
+        # stash
+        ss = "stash"; # stash changes
+        sl = "stash list"; # list stashes
+        sa = "stash apply"; # apply stash (restore changes)
+        sd = "stash drop"; # drop stashes (destory changes)
 
-      # status
-      s = "status"; # status
-      st = "status"; # status
-      stat = "status"; # status
+        # status
+        s = "status"; # status
+        st = "status"; # status
+        stat = "status"; # status
 
-      # tag
-      t = "tag -n"; # show tags with <n> lines of each tag message
+        # tag
+        t = "tag -n"; # show tags with <n> lines of each tag message
 
-      # svn helpers
-      svnr = "svn rebase";
-      svnd = "svn dcommit";
-      svnl = "svn log --oneline --show-commit";
+        # svn helpers
+        svnr = "svn rebase";
+        svnd = "svn dcommit";
+        svnl = "svn log --oneline --show-commit";
+      };
     };
   };
 }

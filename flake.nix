@@ -13,14 +13,12 @@
   };
 
   inputs = {
-    # nixpkgs set
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # Environment managers
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -29,14 +27,18 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    _1password-shell-plugins.url = "github:1Password/shell-plugins";
-    helix.url = "github:helix-editor/helix/25.07.1";
+    # _1password-shell-plugins.url = "github:1Password/shell-plugins";
+    # helix.url = "github:helix-editor/helix/25.07.1";
+
+    # Zellij stuff
+    zjstatus.url = "github:dj95/zjstatus";
+    zjstatus-hints.url = "github:b0o/zjstatus-hints";
   };
 
   outputs =
     {
       self,
-      darwin,
+      nix-darwin,
       home-manager,
       nix-index-database,
       ...
@@ -97,13 +99,18 @@
             };
           };
 
+        zellij-plugins = _: prev: {
+          zjstatus = inputs.zjstatus.packages.${prev.system}.default;
+          zjstatus-hints = inputs.zjstatus-hints.packages.${prev.system}.default;
+        };
+
         tweaks = _: _: {
           # Add temporary overrides here
         };
       };
 
       darwinConfigurations = {
-        AlexMBP = darwin.lib.darwinSystem {
+        AlexMBP = nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = { inherit inputs; };
 

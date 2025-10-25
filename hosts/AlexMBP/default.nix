@@ -90,5 +90,5 @@ in
 
   # Used for backwards compatibility, please read the changelog before changing.
   # https://github.com/LnL7/nix-darwin/blob/master/CHANGELOG
-  system.stateVersion = 5;
+  system.stateVersion = 6;
 }
