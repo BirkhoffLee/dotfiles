@@ -104,7 +104,6 @@ in
       # nomad
       # packer
       # skaffold
-      # helm
       ctop # top for containers
 
       # Infrastructure as code
