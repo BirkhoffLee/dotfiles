@@ -22,6 +22,7 @@
     # Zellij stuff
     zjstatus.url = "github:dj95/zjstatus";
     zjstatus-hints.url = "github:b0o/zjstatus-hints";
+    zj-quit.url = "github:dj95/zj-quit";
   };
 
   outputs =
@@ -91,6 +92,7 @@
         zellij-plugins = _: prev: {
           zjstatus = inputs.zjstatus.packages.${prev.system}.default;
           zjstatus-hints = inputs.zjstatus-hints.packages.${prev.system}.default;
+          zj-quit = inputs.zj-quit.packages.${prev.system}.default;
         };
 
         tweaks = _: _: {

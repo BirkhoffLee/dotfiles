@@ -8,19 +8,108 @@
     ZELLIJ_AUTO_EXIT = "true";
   };
 
-  programs.zsh.initContent = lib.mkOrder 155 ''
-    # Go into a Zellij session only if we're using Ghostty,
-    # so we don't go into Zellij sessions when in VSCode or
-    # Terminal.app.
-    #
-    # In the future let's detect Quick Terminal (Ghostty)
-    # and skip this part when there's Quick Terminal.
-    #
-    # @see https://github.com/ghostty-org/ghostty/discussions/3985
-    if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
-      eval "$(${pkgs.zellij}/bin/zellij setup --generate-auto-start zsh)"
-    fi
-  '';
+  programs.zsh.initContent = lib.mkMerge [
+    (lib.mkOrder 155 ''
+      # Go into a Zellij session only if we're using Ghostty,
+      # so we don't go into Zellij sessions when in VSCode or
+      # Terminal.app.
+      #
+      # In the future let's detect Quick Terminal (Ghostty)
+      # and skip this part when there's Quick Terminal.
+      #
+      # @see https://github.com/ghostty-org/ghostty/discussions/3985
+      if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+        eval "$(${pkgs.zellij}/bin/zellij setup --generate-auto-start zsh)"
+      fi
+    '')
+    # Hook to auto set the zellij tab title to the running command line, or the current directory
+    # @see https://gist.github.com/JonnieCache/1e2fdc2f5737f640e150ea40da5b9d1d
+    (lib.mkOrder 1000 ''
+      function current_dir() {
+          local current_dir=$PWD
+          if [[ $current_dir == $HOME ]]; then
+              current_dir="~"
+          else
+              current_dir=''${current_dir##*/}
+          fi
+
+          echo $current_dir
+      }
+
+      function change_tab_title() {
+          local title=$1
+          command nohup zellij action rename-tab $title >/dev/null 2>&1
+      }
+
+      function set_tab_to_working_dir() {
+          local tab_name cwd git_root git_prefix base
+          cwd=$PWD
+
+          if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+              # get repo root basename
+              git_root=$(git rev-parse --show-toplevel 2>/dev/null) || git_root=""
+              git_prefix=$(git rev-parse --show-prefix 2>/dev/null) || git_prefix=""
+              base=$(
+                  if [[ -n $git_root ]]; then
+                      basename -- "$git_root"
+                  else
+                      ""
+                  fi
+              )
+              # remove trailing slash from prefix and only include when non-empty
+              git_prefix=''${git_prefix%/}
+              if [[ -n $git_prefix ]]; then
+                  tab_name="''${base}/''${git_prefix}"
+              else
+                  tab_name="''${base}"
+              fi
+          else
+              # not a git repo: use ~ for home, otherwise last path component
+              if [[ "$cwd" == "$HOME" ]]; then
+                  tab_name="~"
+              else
+                  tab_name=''${cwd##*/}
+              fi
+          fi
+
+          change_tab_title $tab_name
+      }
+
+      function set_tab_to_command_line() {
+          local first word exe
+          first=''${1%% *}
+          # If first is an absolute/relative path, take basename
+          if [[ $first == */* ]]; then
+              exe=''${first##*/}
+          else
+              # strip common wrappers like sudo/env -u VAR ... command
+              # remove leading sudo
+              if [[ $first == sudo ]]; then
+                  # get the next word from the full command
+                  word=''${1#* }
+                  first=''${word%% *}
+              fi
+              # remove leading env invocations
+              if [[ $first == env ]]; then
+                  # skip env and its options/assignments to find the actual command
+                  local rest=''${1#* }
+                  while [[ $rest && $rest == *=* || $rest == -* ]]; do
+                      rest=''${rest#* }
+                  done
+                  first=''${rest%% *}
+              fi
+              exe=''${first##*/}
+          fi
+          change_tab_title ''$exe
+      }
+
+      if [[ -n $ZELLIJ ]]; then
+          add-zsh-hook precmd set_tab_to_working_dir
+          add-zsh-hook preexec set_tab_to_command_line
+      fi
+    '')
+  ];
+
 
   programs.zellij = {
     enable = true;
@@ -29,56 +118,6 @@
     enableBashIntegration = false;
     enableZshIntegration = false; # We do it manually.
   };
-
-  xdg.configFile."zellij/layouts/default.kdl".text = ''
-    layout {
-        default_tab_template {
-            children
-            pane size=1 borderless=true {
-                plugin location="zjstatus" {
-                    format_left   "{mode} #[fg=#89B4FA,bold]{tabs}"
-                    // format_center "{tabs}"
-                    format_right  "{command_git_branch}{pipe_zjstatus_hints}"
-                    format_space  ""
-
-                    // Note: this is necessary or else zjstatus won't render the pipe:
-                    pipe_zjstatus_hints_format "{output}"
-
-                    border_enabled  "false"
-                    border_char     "─"
-                    border_format   "#[fg=#6C7086]{char}"
-                    border_position "top"
-
-                    // Setting to true can cause some issues during rapid resizing.
-                    // Also this reduces visual discomfort when switching between
-                    // tabs.
-                    hide_frame_for_single_pane "false"
-
-                    mode_locked      "#[bg=#6e5fb7,fg=#ffffff] "
-                    mode_normal      "#[bg=blue] "
-                    mode_resize      "#[bg=#ff9969,fg=#7f3513,bold] RESIZE "
-                    mode_pane        "#[bg=#9FFBB6,fg=#30563a,bold] PANE "
-                    mode_move        "#[bg=#FFD896,fg=#905b00,bold] MOVE "
-                    mode_tab         "#[bg=#80BDFF,fg=#0051a8,bold] TAB "
-                    mode_scroll      "#[bg=#412da2,fg=#c9c0ff,bold] SCROLL "
-                    mode_search      "#[bg=#e28e00,fg=#ffe9c4,bold] SEARCH "
-                    mode_entersearch "#[bg=#e28e00,fg=#ffe9c4,bold] ENTER SEARCH "
-                    mode_renametab   "#[bg=#0051a8,fg=#80BDFF,bold] RENAME TAB "
-                    mode_renamepane  "#[bg=#30563a,fg=#9FFBB6,bold] RENAME PANE "
-                    mode_session     "#[bg=#FF87A5,fg=#7d001f,bold] SESSION "
-
-                    tab_normal   "#[fg=#6C7086] {name} "
-                    tab_active   "#[fg=#9399B2,bold,italic] {name} "
-
-                    command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-                    command_git_branch_format      "#[fg=blue] {stdout} "
-                    command_git_branch_interval    "10"
-                    command_git_branch_rendermode  "static"
-                }
-            }
-        }
-    }
-  '';
 
   xdg.configFile."zellij/config.kdl".text = ''
     keybinds clear-defaults=true {
@@ -242,6 +281,7 @@
             bind "Alt ]" { NextSwapLayout; }
 
             bind "Super f" { ToggleFloatingPanes; }
+            bind "Super p" { TogglePanePinned; }
 
             // bind "Super i" { MoveTab "left"; }
             // bind "Super o" { MoveTab "right"; }
@@ -252,7 +292,11 @@
         }
         shared_except "locked" "renametab" "renamepane" {
             bind "Super g" { SwitchToMode "locked"; }
-            bind "Ctrl q" { Quit; }
+            bind "Ctrl q" {
+                LaunchOrFocusPlugin "zj-quit" {
+                    floating true
+                }
+            }
         }
         shared_except "locked" "entersearch" {
             bind "enter" { SwitchToMode "locked"; }
@@ -328,11 +372,13 @@
         welcome-screen location="zellij:session-manager" {
             welcome_screen true
         }
+        zj-quit location="file:${pkgs.zj-quit}/bin/zj-quit.wasm"
         zjstatus location="file:${pkgs.zjstatus}/bin/zjstatus.wasm"
         zjstatus-hints location="file:${pkgs.zjstatus-hints}/bin/zjstatus-hints.wasm" {
             max_length "0"
             overflow_str ""
             pipe_name "zjstatus_hints"
+            hide_in_base_mode true
         }
     }
 
@@ -394,11 +440,8 @@
     // mouse_mode false
 
     // Toggle having pane frames around the panes
-    // Options:
-    //   - true (default, enabled)
-    //   - false
-    //
-    // pane_frames false
+    // We have to disable this for zjstatus to work correctly.
+    pane_frames false
 
     // When attaching to an existing session with other users,
     // should the session be mirrored (true)
@@ -536,109 +579,92 @@
     // show_release_notes false
   '';
 
-  # Reconfigure Swap Layouts since we are overriding the layout configuration
-  # due to the usage of zjstatus.
+  # In layouts, we overrite the default to a zjstatus configuration, however
+  # we will have to also reconfigure Swap Layouts.
   #
-  # The following is from `zellij setup --dump-swap-layout default`
-  xdg.configFile."zellij/layouts/default.swap.kdl".text = ''
-    // tab_template name="ui" {
-    //     pane size=1 borderless=true {
-    //         plugin location="tab-bar"
-    //     }
-    //     children
-    //     pane size=1 borderless=true {
-    //         plugin location="status-bar"
-    //     }
-    // }
+  # The default Swap Layouts can be obtained from `zellij setup --dump-swap-layout default`
+  # `tab` was renamed to `ui` to reflect zjstatus setup. `tab_template` was removed.
 
-    swap_tiled_layout name="vertical" {
-        tab max_panes=5 {
-            pane split_direction="vertical" {
-                pane
-                pane { children; }
-            }
-        }
-        tab max_panes=8 {
-            pane split_direction="vertical" {
-                pane { children; }
-                pane { pane; pane; pane; pane; }
-            }
-        }
-        tab max_panes=12 {
-            pane split_direction="vertical" {
-                pane { children; }
-                pane { pane; pane; pane; pane; }
-                pane { pane; pane; pane; pane; }
-            }
-        }
-    }
+  # xdg.configFile."zellij/layouts".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/dotfiles/hosts/AlexMBP/home/files/zellij/layouts";
+  # xdg.configFile."zellij/layouts".recursive = true;
 
-    swap_tiled_layout name="horizontal" {
-        tab max_panes=4 {
-            pane
-            pane
-        }
-        tab max_panes=8 {
-            pane {
-                pane split_direction="vertical" { children; }
-                pane split_direction="vertical" { pane; pane; pane; pane; }
+  xdg.configFile."zellij/layouts/default.swap.kdl".source = ../files/zellij/layouts/default.swap.kdl;
+  xdg.configFile."zellij/layouts/default.kdl".text = ''
+    layout {
+        default_tab_template {
+            pane size=1 borderless=true {
+                plugin location="zjstatus" {
+                    // Snazzy
+                    color_black "#686868"
+                    color_red "#ff5c57"
+                    color_green "#5af78e"
+                    color_yellow "#f3f99d"
+                    color_blue "#57c7ff"
+                    color_magenta "#ff6ac1"
+                    color_cyan "#9aedfe"
+                    color_white "#f1f1f0"
+                    color_bg "#282a36"
+                    color_fg "#eff0eb"
+                    // This one isn't from Snazzy
+                    color_orange "#D08770"
+
+                    // Note: this is necessary or else zjstatus won't render the pipe:
+                    pipe_zjstatus_hints_format "{output}"
+
+                    format_left   "{mode}#[bg=$bg] {tabs}"
+                    format_center ""
+                    format_right "{pipe_zjstatus_hints} {datetime}"
+                    format_space  ""
+
+                    format_hide_on_overlength "true"
+                    format_precedence "rlc"
+
+                    border_enabled  "false"
+                    border_char     "─"
+                    border_format   "#[fg=#6C7086]{char}"
+                    border_position "top"
+
+                    hide_frame_for_single_pane "true"
+
+                    mode_normal        "#[bg=$green,fg=$bg,bold] NOR#[bg=$bg,fg=$green]█"
+                    mode_locked        "#[bg=$red,fg=$bg,bold] #[bg=$bg,fg=$red]█"
+                    mode_resize        "#[bg=$blue,fg=$bg,bold] RESIZE#[bg=$bg,fg=$blue]█"
+                    mode_pane          "#[bg=$blue,fg=$bg,bold] PANE#[bg=$bg,fg=$blue]█"
+                    mode_tab           "#[bg=$yellow,fg=$bg,bold] TAB#[bg=$bg,fg=$yellow]█"
+                    mode_scroll        "#[bg=$blue,fg=$bg,bold] SCROLL#[bg=$bg,fg=$blue]█"
+                    mode_enter_search  "#[bg=$orange,fg=$bg,bold] ENT-SEARCH#[bg=$bg,fg=$orange]█"
+                    mode_search        "#[bg=$orange,fg=$bg,bold] SEARCHARCH#[bg=$bg,fg=$orange]█"
+                    mode_rename_tab    "#[bg=$yellow,fg=$bg,bold] RENAME-TAB#[bg=$bg,fg=$yellow]█"
+                    mode_rename_pane   "#[bg=$blue,fg=$bg,bold] RENAME-PANE#[bg=$bg,fg=$blue]█"
+                    mode_session       "#[bg=$blue,fg=$bg,bold] SESSION#[bg=$bg,fg=$blue]█"
+                    mode_move          "#[bg=$blue,fg=$bg,bold] MOVE#[bg=$bg,fg=$blue]█"
+                    mode_prompt        "#[bg=$blue,fg=$bg,bold] PROMPT#[bg=$bg,fg=$blue]█"
+                    mode_tmux          "#[bg=$magenta,fg=$bg,bold] TMUX#[bg=$bg,fg=$magenta]█"
+
+                    // formatting for inactive tabs
+                    tab_normal              "#[bg=$bg,fg=$cyan]█#[bg=$cyan,fg=$bg,bold]{index} #[bg=$bg,fg=$cyan,bold] {name}{floating_indicator}#[bg=$bg,fg=$bg,bold]█"
+                    tab_normal_fullscreen   "#[bg=$bg,fg=$cyan]█#[bg=$cyan,fg=$bg,bold]{index} #[bg=$bg,fg=$cyan,bold] {name}{fullscreen_indicator}#[bg=$bg,fg=$bg,bold]█"
+                    tab_normal_sync         "#[bg=$bg,fg=$cyan]█#[bg=$cyan,fg=$bg,bold]{index} #[bg=$bg,fg=$cyan,bold] {name}{sync_indicator}#[bg=$bg,fg=$bg,bold]█"
+
+                    // formatting for the current active tab
+                    tab_active              "#[bg=$bg,fg=$yellow]█#[bg=$yellow,fg=$bg,bold]{index} #[bg=$bg,fg=$yellow,bold] {name}{floating_indicator}#[bg=$bg,fg=$bg,bold]█"
+                    tab_active_fullscreen   "#[bg=$bg,fg=$yellow]█#[bg=$yellow,fg=$bg,bold]{index} #[bg=$bg,fg=$yellow,bold] {name}{fullscreen_indicator}#[bg=$bg,fg=$bg,bold]█"
+                    tab_active_sync         "#[bg=$bg,fg=$yellow]█#[bg=$yellow,fg=$bg,bold]{index} #[bg=$bg,fg=$yellow,bold] {name}{sync_indicator}#[bg=$bg,fg=$bg,bold]█"
+
+                    // separator between the tabs
+                    tab_separator           "#[bg=$bg] "
+
+                    // indicators
+                    tab_sync_indicator       " "
+                    tab_fullscreen_indicator " 󰊓"
+                    tab_floating_indicator   " 󰹙"
+
+                    datetime        "#[fg=#fg,bold] {format} "
+                    datetime_format "%d %b %H:%M"
+                    datetime_timezone "Europe/Rome"
+                }
             }
-        }
-        tab max_panes=12 {
-            pane {
-                pane split_direction="vertical" { children; }
-                pane split_direction="vertical" { pane; pane; pane; pane; }
-                pane split_direction="vertical" { pane; pane; pane; pane; }
-            }
-        }
-    }
-
-    swap_tiled_layout name="stacked" {
-        tab min_panes=5 {
-            pane split_direction="vertical" {
-                pane
-                pane stacked=true { children; }
-            }
-        }
-    }
-
-    swap_floating_layout name="staggered" {
-        floating_panes
-    }
-
-    swap_floating_layout name="enlarged" {
-        floating_panes max_panes=10 {
-            pane { x "5%"; y 1; width "90%"; height "90%"; }
-            pane { x "5%"; y 2; width "90%"; height "90%"; }
-            pane { x "5%"; y 3; width "90%"; height "90%"; }
-            pane { x "5%"; y 4; width "90%"; height "90%"; }
-            pane { x "5%"; y 5; width "90%"; height "90%"; }
-            pane { x "5%"; y 6; width "90%"; height "90%"; }
-            pane { x "5%"; y 7; width "90%"; height "90%"; }
-            pane { x "5%"; y 8; width "90%"; height "90%"; }
-            pane { x "5%"; y 9; width "90%"; height "90%"; }
-            pane { x 10; y 10; width "90%"; height "90%"; }
-        }
-    }
-
-    swap_floating_layout name="spread" {
-        floating_panes max_panes=1 {
-            pane {y "50%"; x "50%"; }
-        }
-        floating_panes max_panes=2 {
-            pane { x "1%"; y "25%"; width "45%"; }
-            pane { x "50%"; y "25%"; width "45%"; }
-        }
-        floating_panes max_panes=3 {
-            pane { y "55%"; width "45%"; height "45%"; }
-            pane { x "1%"; y "1%"; width "45%"; }
-            pane { x "50%"; y "1%"; width "45%"; }
-        }
-        floating_panes max_panes=4 {
-            pane { x "1%"; y "55%"; width "45%"; height "45%"; }
-            pane { x "50%"; y "55%"; width "45%"; height "45%"; }
-            pane { x "1%"; y "1%"; width "45%"; height "45%"; }
-            pane { x "50%"; y "1%"; width "45%"; height "45%"; }
+            children
         }
     }
   '';
