@@ -110,7 +110,6 @@
     '')
   ];
 
-
   programs.zellij = {
     enable = true;
 
