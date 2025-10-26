@@ -28,9 +28,6 @@
   outputs =
     {
       self,
-      nix-darwin,
-      home-manager,
-      nix-index-database,
       ...
     }@inputs:
     # https://github.com/malob/nixpkgs/blob/61d4809925a523296278885ff8a75d3776a5c813/flake.nix#L34
@@ -101,15 +98,15 @@
       };
 
       darwinConfigurations = {
-        AlexMBP = nix-darwin.lib.darwinSystem {
+        AlexMBP = inputs.nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = { inherit inputs; };
 
           modules = [
             ./hosts/AlexMBP
             { nixpkgs = nixpkgsDefaults; }
-            home-manager.darwinModules.home-manager
-            nix-index-database.darwinModules.nix-index
+            inputs.home-manager.darwinModules.home-manager
+            inputs.nix-index-database.darwinModules.nix-index
             { programs.nix-index-database.comma.enable = true; }
           ];
         };
