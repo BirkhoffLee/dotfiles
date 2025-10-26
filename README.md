@@ -49,7 +49,7 @@ xcode-select --install
 
 # Clone the dotfiles
 mkdir $HOME/.config
-git clone https://github.com/birkhofflee/dotfiles $HOME/.config/nix
+git clone https://github.com/birkhofflee/dotfiles $HOME/.config/dotfiles
 
 # Install nix with Determinate Systems installer
 # Choose "no" to use the upstream nix instead of their own one
@@ -61,10 +61,10 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confi
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 # Build the dotfiles
-nix build "$HOME/.config/nix#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
+nix build "$HOME/.config/dotfiles#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
 
 # Apply the dotfiles
-sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexMBP"
 
 # Optionally, delete the build artifacts
 rm -rf ./result
@@ -74,13 +74,13 @@ After first successful deployment, use the following command to switch:
 
 ```console
 # This only switchs to the latest config
-nh darwin switch --hostname AlexMBP "$HOME/.config/nix"
+nh darwin switch --hostname AlexMBP "$HOME/.config/dotfiles"
 
 # This updates all flake inputs and switches to the latest config
-nh darwin switch --update --hostname AlexMBP "$HOME/.config/nix"
+nh darwin switch --update --hostname AlexMBP "$HOME/.config/dotfiles"
 
 # This updates one flake input and switches to the latest config
-nh darwin switch --update-input <name> --hostname AlexMBP "$HOME/.config/nix"
+nh darwin switch --update-input <name> --hostname AlexMBP "$HOME/.config/dotfiles"
 ```
 
 To clean up:
@@ -115,9 +115,9 @@ printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
 sudo rm /etc/ssl/certs/ca-certificates.crt
 sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
 
-nix build "$HOME/.config/nix#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
+nix build "$HOME/.config/dotfiles#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
 
-sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/nix#AlexMBP"
+sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexMBP"
 ```
 
 ## TODOs

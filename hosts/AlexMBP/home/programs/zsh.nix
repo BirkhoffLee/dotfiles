@@ -24,8 +24,8 @@
     autocd = true;
 
     dirHashes = {
-      dl = "${config.home.homeDirectory}/Downloads";
-      nix = "${config.home.homeDirectory}/.config/nix";
+      dl = "$HOME/Downloads";
+      nix = "$HOME/.config/dotfiles";
     };
 
     history = {
