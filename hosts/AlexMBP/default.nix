@@ -41,6 +41,12 @@ in
     zsh
   ];
 
+  # stylix = {
+  #   enable = true;
+  #   autoEnable = false;
+  #   base16Scheme = "${pkgs.base16-schemes}/share/themes/snazzy.yaml";
+  # };
+
   nix.settings = {
     substituters = [
       "https://cache.nixos.org/"

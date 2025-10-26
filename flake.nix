@@ -12,6 +12,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    # stylix.url = "github:nix-community/stylix";
+    # stylix.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     # Some other packages
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -108,6 +111,7 @@
             inputs.home-manager.darwinModules.home-manager
             inputs.nix-index-database.darwinModules.nix-index
             { programs.nix-index-database.comma.enable = true; }
+            # inputs.stylix.darwinModules.stylix
           ];
         };
       };
