@@ -41,6 +41,12 @@ in
         conflictstyle = "zdiff3";
       };
 
+      # reuse recorded resolution
+      # @see https://git-scm.com/book/en/v2/Git-Tools-Rerere
+      rerere = {
+        enable = true;
+      };
+
       format = {
         pretty = "oneline";
       };
