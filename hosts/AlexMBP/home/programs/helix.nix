@@ -11,6 +11,7 @@
         cursorline = true;
         cursor-shape.insert = "bar";
         line-number = "relative";
+        color-modes = true; # Make the mode indicator colored
         # Show currently open buffers, only when more than one exists.
         bufferline = "multiple";
         statusline = {
