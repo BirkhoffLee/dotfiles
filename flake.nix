@@ -23,6 +23,11 @@
     zjstatus.url = "github:dj95/zjstatus";
     zjstatus-hints.url = "github:b0o/zjstatus-hints";
     zj-quit.url = "github:dj95/zj-quit";
+
+    secrets = {
+      url = "git+ssh://git@github.com/BirkhoffLee/dotfiles.secret.git?ref=main&shallow=1";
+      flake = false;
+    };
   };
 
   outputs =
@@ -90,6 +95,10 @@
           zjstatus = inputs.zjstatus.packages.${prev.system}.default;
           zjstatus-hints = inputs.zjstatus-hints.packages.${prev.system}.default;
           zj-quit = inputs.zj-quit.packages.${prev.system}.default;
+        };
+
+        unfree-fonts = _: prev: with _; {
+          berkeley-mono = callPackage ./hosts/AlexMBP/packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
         };
 
         tweaks = _: _: {

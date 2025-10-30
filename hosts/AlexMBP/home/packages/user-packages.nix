@@ -355,6 +355,7 @@ in
       # FONTS
       # ============================================================================
       lcdf-typetools
+      berkeley-mono
       commitmonoNF
       noto-fonts-cjk-sans-static
     ]

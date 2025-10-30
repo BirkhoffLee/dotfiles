@@ -263,6 +263,7 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "secrets": "secrets",
         "zj-quit": "zj-quit",
         "zjstatus": "zjstatus",
         "zjstatus-hints": "zjstatus-hints"
@@ -329,6 +330,24 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761872371,
+        "narHash": "sha256-WQ/lI2+burNJcwlYv9yVuWvSI7IJZ2aKAd7v5IAoRe0=",
+        "ref": "main",
+        "rev": "5b129e83306041d5654b59202670a0d8f63fdbdd",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/BirkhoffLee/dotfiles.secret.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/BirkhoffLee/dotfiles.secret.git"
       }
     },
     "systems": {

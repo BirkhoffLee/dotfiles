@@ -48,7 +48,16 @@
       # ghostty +list-themes
 
       theme = "Snazzy Soft";
-      font-family = "CommitMono Nerd Font";
+
+      # Noto Sans as fallback for CJK characters.
+      font-family = [
+        "Berkeley Mono" # https://luke.hsiao.dev/blog/berkeley-mono-ghostty
+        # "CommitMono Nerd Font"
+        # "SF Mono"
+        # "IBM Plex Mono"
+        # "JuliaMono" # For the glyph. https://juliamono.netlify.app/
+        "Noto Sans"
+      ];
       font-size = 15;
       # bold-is-bright = true
       # font-thicken = true
