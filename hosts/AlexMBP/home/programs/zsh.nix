@@ -53,6 +53,7 @@
           htop = "sudo htop";
           pbc = "pbcopy"; # Copy to clipboard
           pbp = "pbpaste"; # Paste from clipboard
+          cpwd = "pwd | pbcopy";
           yoink = "open -a Yoink";
           a = "terminal-notifier -sound default -message 'Command complete' -title 'Shell'";
           afk = "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession -suspend";
@@ -85,6 +86,7 @@
           rsync = "noglob rsync";
           scp = "noglob scp";
           sftp = "noglob sftp";
+          nix = "noglob nix";
 
           # List files
           sl = "ls";
@@ -119,6 +121,7 @@
           chat = "llm chat -m chatgpt";
           files-to-prompt = "uvx files-to-prompt";
           md = "llmf -t md -a"; # convert image to markdown
+          crush = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') OPENROUTER_API_KEY=$(op read 'op://Private/OpenRouter API Key/credential') crush";
 
           # Text processing
           p = "$PAGER"; # Pager
@@ -129,7 +132,12 @@
           http-serve = "python3 -m http.server";
           urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'";
           urlencode = "python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'";
-          lg = "${pkgs.lazygit}/bin/lazygit";
+          lg = "lazygit";
+          pop = "RESEND_API_KEY=$(op read 'op://Private/Resend API Key/credential') POP_FROM='Alex <alex@birkhoff.me>' pop"; # https://github.com/charmbracelet/pop
+          scratch = "$EDITOR $(mktemp)";
+          rn = "date; echo && cal";
+          oggi = "echo -n \"$(date '+%Y-%m-%d')\"";
+          ds-destroy = "find . -name .DS_Store -delete"; # https://codeberg.org/EvanHahn/dotfiles/src/commit/843b9ee13d949d346a4a73ccee2a99351aed285b/home/bin/bin/ds-destroy
 
           # Utilities
           clear_history = "> ~/.zsh_history ; exec $SHELL -l";
