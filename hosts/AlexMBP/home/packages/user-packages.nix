@@ -192,6 +192,8 @@ in
       gfortran
       openblas.dev
       gemini-cli
+      claude-code
+      crush
       ollama
       aichat
 
@@ -234,6 +236,8 @@ in
       viddy
       lesspipe
       glow # markdown in the terminal (https://github.com/charmbracelet/glow)
+      termdown # timer https://github.com/trehn/termdown
+      pop # email sender https://github.com/charmbracelet/pop
 
       # General shell utilities
       moreutils # https://joeyh.name/code/moreutils/
@@ -278,6 +282,7 @@ in
 
       # Text operations
       jq
+      up # https://github.com/akavel/up
       fx # terminal JSON viewer
       choose # modern cut+awk (https://github.com/theryangeary/choose)
       gnugrep
@@ -350,19 +355,19 @@ in
       # ============================================================================
       # FONTS
       # ============================================================================
+      lcdf-typetools
       commitmonoNF
-
-      # macOS-only packages
+      noto-fonts-cjk-sans-static
     ]
+    # macOS-only packages
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
 
       m-cli
       blueutil
       mas
       stats
-
-      # Linux-only packages
     ])
+    # Linux-only packages
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
 
       plocate # very fast `locate`
