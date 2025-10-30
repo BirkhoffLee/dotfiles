@@ -22,6 +22,11 @@ function impaste {
    rm "$tempfile"
 }
 
+# Timer from terminal on macOS, with a notification on completion
+function timer {
+  command termdown "$@" && terminal-notifier -message "Time's up" -title "Termdown" -ignoreDnD -group termdown -sound Glass
+}
+
 # Use `llm` to generate a conventional commit draft using cached diff
 function aic {
   echo "Working..."
