@@ -12,7 +12,12 @@
       };
 
       "*.py" = {
+        "indent_style" = "space";
         "indent_size" = 4;
+      };
+
+      "*.go" = {
+        "indent_style" = "tab";
       };
 
       "Makefile" = {
