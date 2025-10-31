@@ -48,7 +48,6 @@ export FZF_DEFAULT_OPTS="
   --color header:italic
   --style full
   --multi
-  --tmux
   --bind 'alt-up:preview-page-up'
   --bind 'alt-down:preview-page-down'
   --bind 'ctrl-o:execute($VISUAL {})+abort'
@@ -108,9 +107,6 @@ export FZF_CTRL_R_OPTS="
 # fzf-tab (https://github.com/Aloxaf/fzf-tab)
 # `${(Q)realpath:a}`
 # (Q) removes a level of quoting, :a converts it to an absolute path
-
-# Use tmux popup for fzf-tab
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'

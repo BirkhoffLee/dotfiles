@@ -18,7 +18,6 @@ Key features:
   * Customized [Pure prompt](https://starship.rs/presets/pure-preset#pure-preset)
 * Terminal Multiplexer:
   * [Zellij](https://zellij.dev/) Unlock-First (non-colliding) preset with [minor customization](hosts/AlexMBP/home/programs/zellij.nix)
-  * tmux configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 * [atuin](https://github.com/ellie/atuin) for shell history
 * A number of handy [aliases](hosts/AlexMBP/home/programs/zsh.nix) and [functions](hosts/AlexMBP/home/files/shell/functions.zsh)
 * [fzf shell integration](hosts/AlexMBP/home/programs/fzf.nix)
