@@ -97,8 +97,9 @@
           zj-quit = inputs.zj-quit.packages.${prev.system}.default;
         };
 
-        unfree-fonts = _: prev: with _; {
-          berkeley-mono = callPackage ./hosts/AlexMBP/packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
+        fonts = _: prev: with _; {
+          berkeley-mono = callPackage ./packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
+          commit-mono-nf = callPackage ./packages/fonts/commit-mono-nf.nix { };
         };
 
         tweaks = _: _: {

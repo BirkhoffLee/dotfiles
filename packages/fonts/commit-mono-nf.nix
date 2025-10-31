@@ -3,7 +3,7 @@
 }:
 
 pkgs.stdenv.mkDerivation rec {
-  pname = "commitmono-nerd-font";
+  pname = "commit-mono-nf";
   version = "1.143";
 
   src = pkgs.fetchzip {

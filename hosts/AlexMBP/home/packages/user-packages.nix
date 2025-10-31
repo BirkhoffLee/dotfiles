@@ -1,8 +1,5 @@
 { pkgs, ... }:
 
-let
-  commitmonoNF = import ./commitmono-nerd-font.nix { inherit pkgs; };
-in
 {
   home.packages =
     with pkgs;
@@ -356,7 +353,7 @@ in
       # ============================================================================
       lcdf-typetools
       berkeley-mono
-      commitmonoNF
+      commit-mono-nf
       noto-fonts-cjk-sans-static
     ]
     # macOS-only packages
