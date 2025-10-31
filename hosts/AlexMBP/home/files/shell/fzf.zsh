@@ -1,14 +1,5 @@
 #!/usr/bin/env zsh
 
-# forgit (https://github.com/wfxr/forgit)
-export FORGIT_FZF_DEFAULT_OPTS="
-  --exact
-  --cycle
-  --reverse
-  --height '100%'
-  --preview-window='right:55%:nohidden:nowrap'
-"
-
 # fzf (https://github.com/junegunn/fzf)
 # fzf shell integration binds C-t, C-r, Alt-C
 # docs: https://github.com/junegunn/fzf?tab=readme-ov-file#key-bindings-for-command-line

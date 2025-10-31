@@ -29,7 +29,7 @@ Key features:
   * [eza](https://github.com/eza-community/eza) for directory listing
 * [automatically propagated](hosts/AlexMBP/home/files/shell/proxy.zsh) shell proxy settings
 * [Sets](hosts/AlexMBP/home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
-* git utilities include [lazygit](https://github.com/jesseduffield/lazygit) and [forgit](https://github.com/wfxr/forgit) because I'm lazy
+* [lazygit](https://github.com/jesseduffield/lazygit)
   * [a quick starter video about lazygit](https://www.youtube.com/watch?v=CPLdltN7wgE)
 * [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) to remind me using shell aliases
 * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.

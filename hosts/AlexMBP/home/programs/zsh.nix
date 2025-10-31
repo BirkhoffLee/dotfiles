@@ -330,16 +330,6 @@
     # https://nix-community.github.io/home-manager/options.html#opt-programs.zsh.plugins
     plugins = [
       {
-        name = "forgit";
-        src = pkgs.fetchFromGitHub {
-          # https://github.com/wfxr/forgit
-          owner = "wfxr";
-          repo = "forgit";
-          rev = "25.06.0";
-          sha256 = "sha256-D1we3pOPXNsK8KgEaRBAmD5eH1i2ud4zX1GwYbOyZvY=";
-        };
-      }
-      {
         name = "extract";
         src = pkgs.fetchFromGitHub {
           # https://github.com/birkhofflee/zsh-plugin-extract
