@@ -10,6 +10,9 @@
   programs.zsh = {
     enable = true;
 
+    # Zsh startup profiling for performance analysis.
+    zprof.enable = false;
+
     autosuggestion = {
       enable = true;
       strategy = [ ];
@@ -252,6 +255,8 @@
     # - 550: Before completion initialization (replaces initExtraBeforeCompInit)
     # - 1000 (default): General configuration (replaces initExtra)
     # - 1500 (mkAfter): Last to run configuration
+    #
+    # Note: zprof starts with order 400 and ends with order 1450
     initContent =
       let
         # This runs instantly

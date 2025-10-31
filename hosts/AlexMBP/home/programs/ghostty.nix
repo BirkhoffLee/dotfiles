@@ -6,7 +6,7 @@
   #
   # This ensures that shell integration works in more scenarios (such as when you switch shells within Ghostty).
   # @see https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
-  programs.zsh.initContent = lib.mkOrder 150 ''
+  programs.zsh.initContent = lib.mkOrder 450 ''
     if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
       source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
     fi

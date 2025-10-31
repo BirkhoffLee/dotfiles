@@ -9,7 +9,7 @@
   };
 
   programs.zsh.initContent = lib.mkMerge [
-    (lib.mkOrder 155 ''
+    (lib.mkOrder 455 ''
       # Go into a Zellij session only if we're using Ghostty,
       # so we don't go into Zellij sessions when in VSCode or
       # Terminal.app.
