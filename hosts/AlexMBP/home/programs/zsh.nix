@@ -256,14 +256,6 @@
       let
         # This runs instantly
         zshConfigEarlyInit = lib.mkBefore ''
-          # Powerlevel10k instant prompt
-          if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-            source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
-          fi
-
-          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-          source "${config.home.homeDirectory}/.shell/p10k.zsh"
-
           source "${config.home.homeDirectory}/.shell/options.zsh"
 
           # Load Zsh's rename utility `zmv`
