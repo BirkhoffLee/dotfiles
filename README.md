@@ -6,9 +6,9 @@ Works on M1 Pro, macOS Sequoia 15.5 (24F74).
 
 ## Overview
 
+* [Nix](https://nixos.org/) enables reproducible builds.
 * [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the macOS system environment.
-  * [Nix](https://nixos.org/) enables reproducible builds.
-* [home-manager](https://github.com/nix-community/home-manager) manages the user environment, including Homebrew packages.
+* [home-manager](https://github.com/nix-community/home-manager) manages the user environment (partially), including Homebrew packages.
   * Most GUI apps are managed by Homebrew due to the conflicting nature of Nix and their self-updating capabilities
 
 Key features:
