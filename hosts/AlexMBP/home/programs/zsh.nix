@@ -27,6 +27,8 @@
 
     dirHashes = {
       dl = "$HOME/Downloads";
+      desk = "$HOME/Desktop";
+      docs = "$HOME/Documents";
       nix = "$HOME/.config/dotfiles";
     };
 
