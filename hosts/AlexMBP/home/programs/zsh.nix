@@ -195,6 +195,8 @@
         VISUAL = "hx";
         PAGER = "less";
 
+        DO_NOT_TRACK = 1;
+
         ## External Tools
 
         # LLM (https://llm.datasette.io/en/stable/setup.html#configuration)
