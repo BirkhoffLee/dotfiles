@@ -113,9 +113,7 @@
           type = "type -a"; # Show all definitions of a command
 
           # Nix
-          nix-update-dotfiles = "sudo nix flake update --flake \"$HOME/.config/nix\" && sudo darwin-rebuild switch --flake \"$HOME/.config/nix#AlexMBP\"";
           nix-info = "nix-shell -p nix-info --run \"nix-info -m\"";
-          nix-gc = "sudo nix-collect-garbage -d && nix-store --optimise";
 
           # LLM
           llm = "OPENAI_API_KEY=$(op read 'op://Private/OpenAI API Key/api key') OPENROUTER_KEY=$(op read 'op://Private/OpenRouter API Key/credential') uvx --with llm-openrouter llm";

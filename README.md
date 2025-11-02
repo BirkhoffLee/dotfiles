@@ -69,23 +69,20 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexM
 rm -rf ./result
 ```
 
-After first successful deployment, use the following command to switch:
+Some commonly used commands are already baked into [justfile](justfile):
 
 ```console
 # This only switchs to the latest config
-nh darwin switch --hostname AlexMBP "$HOME/.config/dotfiles"
+just switch
 
-# This updates all flake inputs and switches to the latest config
-nh darwin switch --update --hostname AlexMBP "$HOME/.config/dotfiles"
+# This updates all flake inputs
+just update
 
-# This updates one flake input and switches to the latest config
-nh darwin switch --update-input <name> --hostname AlexMBP "$HOME/.config/dotfiles"
-```
+# This updates one flake input
+just update-input <flake-input-name>
 
-To clean up:
-
-```console
-nh clean all
+# Clean up to save disk space
+just clean
 ```
 
 > [!IMPORTANT]
