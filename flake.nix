@@ -20,7 +20,7 @@
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # _1password-shell-plugins.url = "github:1Password/shell-plugins";
-    # helix.url = "github:helix-editor/helix/25.07.1";
+    helix.url = "github:helix-editor/helix/master";
 
     # Zellij stuff
     zjstatus.url = "github:dj95/zjstatus";

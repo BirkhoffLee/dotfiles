@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 let
 
@@ -10,6 +10,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
     users.${username} = (import ./home);
   };
 
@@ -45,11 +46,13 @@ in
     substituters = [
       "https://cache.nixos.org/"
       "https://birkhoff.cachix.org"
+      "https://helix.cachix.org"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "birkhoff.cachix.org-1:m7WmdU7PKc6fsKedC278lhLtiqjz6ZUJ6v2nkVGyJjQ="
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
     ];
 
     # @admin means all users in the wheel group
