@@ -12,6 +12,10 @@
   networking.hostName = "${hostname}";
   system.defaults.smb.NetBIOSName = "${hostname}";
 
+  # Keyboard
+  system.keyboard.enableKeyMapping = true;
+  system.keyboard.remapCapsLockToControl = true;
+
   system.defaults = {
     LaunchServices = {
       # Disable quarantine for downloaded applications.
