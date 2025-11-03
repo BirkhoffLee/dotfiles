@@ -16,6 +16,9 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     # _1password-shell-plugins.url = "github:1Password/shell-plugins";
     # helix.url = "github:helix-editor/helix/25.07.1";
 
@@ -90,6 +93,8 @@
               inherit (nixpkgsDefaults) config;
             };
           };
+
+        rust = inputs.rust-overlay.overlays.default;
 
         zellij-plugins = _: prev: {
           zjstatus = inputs.zjstatus.packages.${prev.system}.default;

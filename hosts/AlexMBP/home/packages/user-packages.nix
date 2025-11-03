@@ -70,7 +70,7 @@ in {
       ruff # python
       R
       ruby-lsp # Ruby
-      rustup # rust
+      rust-bin.stable.latest.default # rust
       solc # solidity
       svelte-language-server # svelte
       systemd-lsp # systemd
