@@ -63,4 +63,6 @@
       linkConfig.RequiredForOnline = "routable";
     };
   };
+
+  system.stateVersion = "25.11";
 }
