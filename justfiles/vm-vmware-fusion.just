@@ -1,3 +1,7 @@
+NIXADDR := env_var_or_default("NIXADDR", "unset")
+NIXPORT := env_var_or_default("NIXPORT", "22")
+NIXUSER := env_var_or_default("NIXUSER", "ale")
+
 # Partition, format, generate config, enable SSH, install, reboot. Run on a fresh NixOS ISO with root password set to 'root'
 [group('vmware')]
 vm-bootstrap0 ip:
@@ -28,7 +32,7 @@ vm-sync:
 # nixos-rebuild switch on the VM
 [group('vmware')]
 vm-switch:
-  @NIXUSER=root just _vm-ssh "ulimit -n 65536 && NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 {{NH_COMMAND}} os switch --bypass-root-check --accept-flake-config --hostname nixos-vm-aarch64 /nix-config"
+  @NIXUSER=root just _vm-ssh "ulimit -n 65536 && NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 {{NH_COMMAND}} os switch --bypass-root-check --hostname nixos-vm-aarch64 /nix-config -- --accept-flake-config "
 
 _vm-ssh command='':
   ssh {{SSH_OPTIONS}} -p{{NIXPORT}} {{NIXUSER}}@{{NIXADDR}} -- "{{command}}"

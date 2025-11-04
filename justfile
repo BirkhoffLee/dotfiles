@@ -3,19 +3,11 @@
 # Use bash for better shell features
 set shell := ["bash", "-cu"]
 
-# Connectivity info for Linux VM
-# `NIXADDR=1.2.3.4 just task`
-NIXADDR := env_var_or_default("NIXADDR", "unset")
-NIXPORT := env_var_or_default("NIXPORT", "22")
-NIXUSER := env_var_or_default("NIXUSER", "ale")
-
-HOSTNAME := env_var_or_default("HOSTNAME", "AlexMBP")
-
 # Get the path to this directory
 FLAKES_PATH := justfile_directory()
 
 SSH_OPTIONS := "-o PubkeyAuthentication=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-NH_COMMAND := "nix run nixpkgs#nh --"
+NH_COMMAND := "env NIX_CONFIG=\"experimental-features = nix-command flakes\" nix run nixpkgs#nh --"
 CACHIX_COMMAND := "op plugin run -- cachix"
 
 import 'justfiles/vm-vmware-fusion.just'

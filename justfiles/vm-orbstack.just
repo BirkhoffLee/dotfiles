@@ -9,8 +9,7 @@ image := "nixos:25.05"
 orb-create:
   #!/usr/bin/env bash
   if {{orbctlPath}} list | grep -q "{{machineName}}"; then
-    echo "Error: Machine {{machineName}} already exists."
-    exit 1
+    echo "Machine {{machineName}} already exists."
   else
     echo "Creating {{image}} machine \"{{machineName}}\"..."
     {{orbctlPath}} create {{image}} {{machineName}}
@@ -33,9 +32,10 @@ orb-remove:
 [group('orbstack')]
 orb-configure:
   @echo "Running configuration on the VM using orbctl run..."
-  {{orbctlPath}} run sudo cp -r {{FLAKES_PATH}} /nix-config
-  @echo "Installing git..."
-  {{orbctlPath}} run sudo env NIX_CONFIG="experimental-features = nix-command flakes" nix profile install nixpkgs#git
+  @echo "Installing git if not present..."
+  {{orbctlPath}} run sudo sh -c 'command -v git >/dev/null 2>&1 || env NIX_CONFIG="experimental-features = nix-command flakes" nix profile install nixpkgs#git'
+  @echo "Importing GitHub SSH public key..."
+  {{orbctlPath}} run sh -c 'grep -q "github.com ssh-ed25519" $HOME/.ssh/known_hosts 2>/dev/null || echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl" >> $HOME/.ssh/known_hosts'
   @echo "Applying NixOS configuration..."
-  {{orbctlPath}} run sudo env NIX_CONFIG="experimental-features = nix-command flakes" {{NH_COMMAND}} os switch --bypass-root-check --hostname nixos-vm-aarch64 /nix-config -- --accept-flake-config
+  {{orbctlPath}} run {{NH_COMMAND}} os switch --hostname nixos-orbstack {{FLAKES_PATH}} -- --accept-flake-config --impure
   @echo "NixOS configuration completed."
