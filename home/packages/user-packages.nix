@@ -263,7 +263,6 @@ in
       rsync
       tree
       dust # du in rust (https://github.com/bootandy/dust)
-      create-dmg
       qpdf
       html-tidy
       gnutar
@@ -328,7 +327,6 @@ in
 
       # Notifications
       noti
-      terminal-notifier
 
       # Download & media
       lux
@@ -388,6 +386,8 @@ in
 
       ocrBin
       pngpaste
+      create-dmg
+      terminal-notifier
     ])
     # Linux-only packages
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
