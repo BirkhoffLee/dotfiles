@@ -42,7 +42,8 @@ rec {
     "${home.homeDirectory}/go/bin"
     # uv tool
     "${home.homeDirectory}/.local/bin"
-  ] ++ lib.optionals isDarwin [
+  ]
+  ++ lib.optionals isDarwin [
     # macOS-specific paths
     # Apple
     "/Library/Apple/usr/bin"

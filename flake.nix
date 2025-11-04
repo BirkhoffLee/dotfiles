@@ -43,19 +43,21 @@
       inherit (inputs.nixpkgs-unstable.lib) attrValues optionalAttrs singleton;
 
       # Overlays configuration
-      overlaysList = attrValues self.overlays ++ singleton (
-        final: prev:
-        (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-          # Sub in x86 version of packages that don't build on Apple Silicon.
-          inherit (final.pkgs-x86)
-            agda
-            idris2
-            ;
-        })
-        // {
-          # Add other overlays here if needed.
-        }
-      );
+      overlaysList =
+        attrValues self.overlays
+        ++ singleton (
+          final: prev:
+          (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+            # Sub in x86 version of packages that don't build on Apple Silicon.
+            inherit (final.pkgs-x86)
+              agda
+              idris2
+              ;
+          })
+          // {
+            # Add other overlays here if needed.
+          }
+        );
 
       nixpkgsDefaults = {
         config = {
@@ -110,10 +112,11 @@
           zj-quit = inputs.zj-quit.packages.${prev.system}.default;
         };
 
-        fonts = _: prev: with _; {
-          berkeley-mono = callPackage ./packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
-          commit-mono-nf = callPackage ./packages/fonts/commit-mono-nf.nix { };
-        };
+        fonts =
+          _: prev: with _; {
+            berkeley-mono = callPackage ./packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
+            commit-mono-nf = callPackage ./packages/fonts/commit-mono-nf.nix { };
+          };
 
         tweaks = _: _: {
           # Add temporary overrides here

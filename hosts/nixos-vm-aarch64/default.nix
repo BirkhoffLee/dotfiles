@@ -1,4 +1,11 @@
-{ config, pkgs, lib, inputs, currentSystemUser, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  currentSystemUser,
+  ...
+}:
 
 let
   username = currentSystemUser;
@@ -11,7 +18,7 @@ in
   ];
 
   # Setup qemu so we can run x86_64 binaries
-  boot.binfmt.emulatedSystems = ["x86_64-linux"];
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
   # Networking
   networking.hostName = hostname;
@@ -42,7 +49,10 @@ in
     isNormalUser = true;
     home = "/home/${username}";
     # extraGroups = [ "wheel" "networkmanager" ];
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.zsh;
     hashedPassword = "$y$j9T$NyO3jDlhxZvG1xEfAZ21i.$K2iEBoqfPs009g1mFI1Td8t00gd8/m.BIUSyFo9QqX9";
     openssh.authorizedKeys.keys = [

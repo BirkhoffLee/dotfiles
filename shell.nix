@@ -1,8 +1,10 @@
 let
   nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixpkgs-unstable";
   pkgs = import nixpkgs {
-    config = { allowUnfree = true; };
-    overlays = [];
+    config = {
+      allowUnfree = true;
+    };
+    overlays = [ ];
   };
 in
 

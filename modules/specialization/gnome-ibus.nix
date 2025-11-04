@@ -1,5 +1,6 @@
 # Gnome with ibus
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   specialisation."gnome-ibus".configuration = {
     services.desktopManager.gnome.enable = true;
     services.displayManager.gdm.enable = true;

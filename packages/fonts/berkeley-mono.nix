@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, secrets
-, unzip
+{
+  lib,
+  stdenvNoCC,
+  secrets,
+  unzip,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {

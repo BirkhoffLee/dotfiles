@@ -1,11 +1,15 @@
-{ nixpkgs, overlays, inputs }:
+{
+  nixpkgs,
+  overlays,
+  inputs,
+}:
 
 name:
 {
   system,
   user,
   darwin ? false,
-  wsl ? false
+  wsl ? false,
 }:
 
 let
@@ -23,8 +27,10 @@ let
 
   # NixOS vs nix-darwin functions
   systemFunc = if darwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
-  home-manager = if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
-in systemFunc rec {
+  home-manager =
+    if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+in
+systemFunc rec {
   inherit system;
 
   specialArgs = { inherit inputs; };
@@ -39,13 +45,14 @@ in systemFunc rec {
     { nixpkgs.config.allowUnfree = true; }
 
     # Bring in WSL if this is a WSL build
-    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
+    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
 
     # Machine-specific configuration
     machineConfig
 
     # Home-manager integration
-    home-manager.home-manager {
+    home-manager.home-manager
+    {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit inputs; };

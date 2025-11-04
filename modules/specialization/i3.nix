@@ -1,5 +1,6 @@
 # i3 (X11)
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   specialisation.i3.configuration = {
     # We need an XDG portal for various applications to work properly,
     # such as Flatpak applications.

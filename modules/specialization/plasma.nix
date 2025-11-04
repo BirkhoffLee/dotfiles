@@ -1,5 +1,6 @@
 # KDE Plasma (Wayland)
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   specialisation.plasma.configuration = {
     # Disable the default GDM/GNOME and use SDDM for Plasma
     services.displayManager.gdm.enable = lib.mkForce false;
