@@ -14,7 +14,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../vm-shared.nix
+    ../gui-vm-shared.nix
   ];
 
   # Setup qemu so we can run x86_64 binaries
