@@ -19,6 +19,7 @@ in
   };
 
   imports = [
+    ../shared-nix-settings.nix
     ./packages/system-packages.nix
     (import ./os-settings.nix ({ inherit hostname; }))
     ./packages/homebrew.nix
@@ -40,37 +41,13 @@ in
   ];
 
   nix.settings = {
-    substituters = [
-      "https://cache.nixos.org/"
-      "https://birkhoff.cachix.org"
-      "https://helix.cachix.org"
-    ];
-
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "birkhoff.cachix.org-1:m7WmdU7PKc6fsKedC278lhLtiqjz6ZUJ6v2nkVGyJjQ="
-      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-    ];
-
-    # @admin means all users in the wheel group
-    trusted-users = [ "@admin" ];
-
     # https://github.com/NixOS/nix/issues/7273
     auto-optimise-store = false;
-
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
 
     extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-
-    # Recommended when using `direnv` etc.
-    keep-derivations = true;
-    keep-outputs = true;
   };
 
   # Load nix-darwin in /etc/zshrc.
