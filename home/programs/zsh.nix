@@ -285,7 +285,10 @@
         # General configuration
         zshConfig = ''
           source "${config.home.homeDirectory}/.shell/functions.zsh"
-          source "${config.home.homeDirectory}/.shell/proxy.zsh"
+
+          ${lib.optionalString pkgs.stdenv.isDarwin ''
+            source "${config.home.homeDirectory}/.shell/proxy.zsh"
+          ''}
 
           eval "$(rbenv init - zsh)"
 

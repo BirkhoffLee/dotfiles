@@ -42,25 +42,33 @@
     let
       inherit (inputs.nixpkgs-unstable.lib) attrValues optionalAttrs singleton;
 
+      # Overlays configuration
+      overlaysList = attrValues self.overlays ++ singleton (
+        final: prev:
+        (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          # Sub in x86 version of packages that don't build on Apple Silicon.
+          inherit (final.pkgs-x86)
+            agda
+            idris2
+            ;
+        })
+        // {
+          # Add other overlays here if needed.
+        }
+      );
+
       nixpkgsDefaults = {
         config = {
           allowUnfree = true;
         };
-        overlays =
-          attrValues self.overlays
-          ++ singleton (
-            final: prev:
-            (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-              # Sub in x86 version of packages that don't build on Apple Silicon.
-              inherit (final.pkgs-x86)
-                agda
-                idris2
-                ;
-            })
-            // {
-              # Add other overlays here if needed.
-            }
-          );
+        overlays = overlaysList;
+      };
+
+      # Helper function to create system configurations
+      mkSystem = import ./lib/mksystem.nix {
+        nixpkgs = inputs.nixpkgs-unstable;
+        overlays = overlaysList;
+        inherit inputs;
       };
     in
     {
@@ -113,17 +121,17 @@
       };
 
       darwinConfigurations = {
-        AlexMBP = inputs.nix-darwin.lib.darwinSystem {
+        AlexMBP = mkSystem "AlexMBP" {
           system = "aarch64-darwin";
-          specialArgs = { inherit inputs; };
+          user = "ale";
+          darwin = true;
+        };
+      };
 
-          modules = [
-            ./hosts/AlexMBP
-            { nixpkgs = nixpkgsDefaults; }
-            inputs.home-manager.darwinModules.home-manager
-            inputs.nix-index-database.darwinModules.nix-index
-            { programs.nix-index-database.comma.enable = true; }
-          ];
+      nixosConfigurations = {
+        nixos-vm-aarch64 = mkSystem "nixos-vm-aarch64" {
+          system = "aarch64-linux";
+          user = "ale";
         };
       };
     };

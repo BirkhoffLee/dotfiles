@@ -1,19 +1,10 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, inputs, currentSystemUser, ... }:
 
 let
-
-  username = "ale";
+  username = currentSystemUser;
   hostname = "AlexMBP";
-
 in
 {
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
-    users.${username} = (import ./home);
-  };
-
   system.primaryUser = "${username}";
 
   users.users.${username} = {
