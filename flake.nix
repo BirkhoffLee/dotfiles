@@ -153,6 +153,11 @@
           system = "aarch64-linux";
           user = "ale";
         };
+
+        nixos-orbstack = mkSystem "nixos-orbstack" {
+          system = "aarch64-linux";
+          user = "ale";
+        };
       };
     };
 }
