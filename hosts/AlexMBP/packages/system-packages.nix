@@ -4,7 +4,6 @@
   environment.systemPackages = with pkgs; [
     ack
     bashInteractive
-    ghostty.terminfo
     cmake
     dialog
     foremost
