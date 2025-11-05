@@ -64,5 +64,10 @@
     };
   };
 
+  # System packages
+  environment.systemPackages = with pkgs; [
+    ghostty.terminfo
+  ];
+
   system.stateVersion = "25.11";
 }
