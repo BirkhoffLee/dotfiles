@@ -33,13 +33,13 @@ alias s := switch
 # Switch darwin configuration
 [group('darwin')]
 switch:
-  {{NH_COMMAND}} darwin switch --show-trace
+  {{NH_COMMAND}} darwin switch --show-trace -- --accept-flake-config
 
 alias sf := switch-fast
 # Switch darwin configuration with --offline flag
 [group('darwin')]
 switch-fast:
-  {{NH_COMMAND}} darwin switch --show-trace --offline
+  {{NH_COMMAND}} darwin switch --show-trace --offline -- --accept-flake-config
 
 alias o := optimize
 # Frees up space by optimizing the Nix Store
