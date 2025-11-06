@@ -53,7 +53,7 @@ repair:
   nix-store --verify --check-contents --repair
 
 alias u := update
-# Updates all the flake inputs
+# Updates all flake inputs
 [group('flake')]
 update:
   nix flake update --commit-lock-file
