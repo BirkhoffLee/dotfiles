@@ -23,7 +23,15 @@
     # bear. (Oct 2025)
     defaultKeymap = "emacs";
 
-    # Automatically enter into a directory if typed directly into shell.
+    # This lets you change to any dir without having to type `cd`, that is, by just
+    # typing its name. Be warned, though: This can misfire if there exists an alias,
+    # function, builtin or command with the same name.
+    # In general, I would recommend you use only the following without `cd`:
+    #   ..  to go one dir up
+    #   ~   to go to your home dir
+    #   ~-2 to go to the 2nd mostly recently visited dir
+    #   /   to go to the root dir
+    # @credits https://github.com/marlonrichert/zsh-launchpad
     autocd = true;
 
     dirHashes = {
@@ -105,7 +113,17 @@
           lc = "lt -c";
           lu = "lt -u";
 
-          # Directory stack
+          # zmv lets you batch rename (or copy or link) files by using pattern matching.
+          # https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#index-zmv
+          zmv = "zmv -Mv";
+          zcp = "zmv -Cv";
+          zln = "zmv -Lv";
+
+          # Directory switching
+          "-" = "cd -";
+          "2" = "cd +2";
+          "3" = "cd +3";
+          "4" = "cd +4";
           po = "popd";
           pu = "pushd";
 
@@ -263,6 +281,7 @@
       let
         # This runs instantly
         zshConfigEarlyInit = lib.mkBefore ''
+          source "${config.home.homeDirectory}/.shell/keys.zsh"
           source "${config.home.homeDirectory}/.shell/options.zsh"
 
           # Load Zsh's rename utility `zmv`

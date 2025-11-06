@@ -1,14 +1,12 @@
 #!/usr/bin/env zsh
 
-# `.completions` is used to configure completion-related settings.
-
+# Credits:
 # https://github.com/Aloxaf/dotfiles/blob/0619025cb2c2264cd0639b3697e3483454b2cadd/zsh/.config/zsh/snippets/completion.zsh
 
 setopt COMPLETE_IN_WORD # autocomplete in middle of a word
 setopt NO_BEEP # disable beep sound
 setopt AUTO_PARAM_SLASH # (autocomplete) If completed parameter is a directory, add a trailing slash
 unsetopt MENU_COMPLETE # Do not autoselect the first completion entry
-unsetopt FLOW_CONTROL # Disable start/stop characters (^Z, ^C, etc) in shell editor
 
 # Use new completion system
 zstyle ':completion:*' use-compctl false
