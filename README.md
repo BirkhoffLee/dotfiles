@@ -1,49 +1,38 @@
 # dotfiles
 
-My macOS dotfiles managed by [nix-darwin](https://github.com/LnL7/nix-darwin) and [home-manager](https://github.com/nix-community/home-manager), powered by [Nix](https://nixos.org/).
-
-Works on M1 Pro, macOS Sequoia 15.5 (24F74).
+My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) configuration. Works on Apple Silicon.
 
 ## Overview
 
 * [Nix](https://nixos.org/) enables reproducible builds.
-* [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the macOS system environment.
-* [home-manager](https://github.com/nix-community/home-manager) manages the user environment (partially), including Homebrew packages.
-  * Most GUI apps are managed by Homebrew due to the conflicting nature of Nix and their self-updating capabilities
+* On macOS, [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the system configuration.
+* [home-manager](https://github.com/nix-community/home-manager) manages the user environment (mostly), including Homebrew packages.
 
-Key features:
+## Features
 
-* [Ghostty](https://ghostty.org/) as the terminal emulator, config: [ghostty.nix](hosts/AlexMBP/home/programs/ghostty.nix)
-* zsh with [Starship](https://starship.rs) prompt
-  * Customized [Pure prompt](https://starship.rs/presets/pure-preset#pure-preset)
-* Terminal Multiplexer:
-  * [Zellij](https://zellij.dev/) Unlock-First (non-colliding) preset with [minor customization](hosts/AlexMBP/home/programs/zellij.nix)
-* [atuin](https://github.com/ellie/atuin) for shell history
-* A number of handy [aliases](hosts/AlexMBP/home/programs/zsh.nix) and [functions](hosts/AlexMBP/home/files/shell/functions.zsh)
-* [fzf shell integration](hosts/AlexMBP/home/programs/fzf.nix)
-  * CTRL-T - Paste the path of selected files and directories onto the command-line
-  * ALT-C - cd into the selected directory
-* [fzf-tab](https://github.com/Aloxaf/fzf-tab) for zsh completion, including a [smart preview window](hosts/AlexMBP/home/files/shell/fzf.zsh):
-  * [fd](https://github.com/sharkdp/fd) for file search
-  * [bat](https://github.com/sharkdp/bat) for file preview
-  * [eza](https://github.com/eza-community/eza) for directory listing
-* [automatically propagated](hosts/AlexMBP/home/files/shell/proxy.zsh) shell proxy settings
-* [Sets](hosts/AlexMBP/home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
-* [lazygit](https://github.com/jesseduffield/lazygit)
-  * [a quick starter video about lazygit](https://www.youtube.com/watch?v=CPLdltN7wgE)
-* [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) to remind me using shell aliases
-* [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
-
-macOS Apps to mention and some notes:
-
-* [Supercharge](https://sindresorhus.com/supercharge) has to be downloaded manually due to licensing constraints.
-* Development Environments [should be managed using nix-shell](https://joshblais.com/blog/nixos-is-the-endgame-of-distrohopping/#development-environments).
+* [Ghostty](https://ghostty.org/) as the terminal emulator
+* On macOS, [it sets](home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
+* Shell configuration:
+  * Zsh with a customized [Pure prompt](https://starship.rs/presets/pure-preset#pure-preset) using [Starship](https://starship.rs)
+  * Terminal Multiplexer: [Zellij](https://zellij.dev/) Unlock-First (non-colliding) preset with [minor customization](home/programs/zellij.nix)
+  * A number of handy [aliases](home/programs/zsh.nix) and [functions](home/files/shell/functions.zsh)
+  * [Automatically propagated](home/files/shell/proxy.zsh) shell proxy settings
+  * Some third-party shell integrations:
+    * [Atuin](https://github.com/ellie/atuin) for interactive shell history search
+    * [fzf shell integration](home/programs/fzf.nix)
+      * CTRL-T - Paste the path of selected files and directories onto the command-line
+      * ALT-C - cd into the selected directory
+    * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for fuzzy-searching zsh completion results, including a [smart preview window](home/files/shell/fzf.zsh)
+    * [lazygit](https://github.com/jesseduffield/lazygit) ([a quick starter video](https://www.youtube.com/watch?v=CPLdltN7wgE))
+    * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
 
 ## Usage
 
-On a new macOS machine without Nix installed:
+<details>
 
-```console
+<summary>Installation instructions on a new macOS machine without Nix installed</summary>
+
+```shell
 xcode-select --install
 
 # Clone the dotfiles
@@ -64,40 +53,40 @@ nix build "$HOME/.config/dotfiles#darwinConfigurations.AlexMBP.system" --extra-e
 
 # Apply the dotfiles
 sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexMBP"
-
-# Optionally, delete the build artifacts
-rm -rf ./result
 ```
 
-Some commonly used commands are already baked into [justfile](justfile):
+</details>
 
-```console
-# This only switchs to the latest config
+Commonly used commands are already baked into [justfile](justfile):
+
+```shell
+# Switch darwin configuration
 just switch
 
-# This updates all flake inputs
+# Updates all flake inputs
 just update
 
-# This updates one flake input
+# Updates one flake input
 just update-input <flake-input-name>
 
-# Clean up to save disk space
-just clean
+# For more, run `just` to get all receipes.
 ```
+
+<details>
+
+<summary>Repairing the setup after a major macOS update</summary>
 
 > [!IMPORTANT]
 > The following steps were applicable to installations with upstream Nix installations.
 > It is unknown whether they are needed to follow for a Determinate
 > Systems installation.
 
-After a major macOS update:
-
 1. Upgrade Xcode CLI tools
 2. Uninstall nix: https://nix.dev/manual/nix/2.18/installation/uninstall.html#macos
 3. A system restart may be required
 4. Review [CHANGELOG](https://github.com/LnL7/nix-darwin/blob/master/CHANGELOG) of nix-darwin
 
-```console
+```shell
 # Install nix
 bash <(curl -L https://nixos.org/nix/install) --daemon --yes --no-modify-profile
 
@@ -116,12 +105,21 @@ nix build "$HOME/.config/dotfiles#darwinConfigurations.AlexMBP.system" --extra-e
 sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexMBP"
 ```
 
+</details>
+
+## Other Notes
+
+* Development Environments [should be managed using nix-shell](https://joshblais.com/blog/nixos-is-the-endgame-of-distrohopping/#development-environments).
+* [Supercharge](https://sindresorhus.com/supercharge) has to be downloaded manually due to licensing constraints.
+* While I'd like Nix to handle every app on my Mac, most GUI apps are better managed by Homebrew due to the conflicting nature of Nix and the self-updating capabilities of those apps.
+
 ## TODOs
 
 * File completion
   * List directories first like [this](https://github.com/Aloxaf/fzf-tab/pull/518)
   * When completing with fzf-tab, there's the slash in file names which i dont like
 * [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
+* env check https://github.com/marlonrichert/zsh-launchpad/blob/main/.config/zsh/rc.d/04-env.zsh
 * Use [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to ensure consistency across different platforms
 
 Some other dotfiles worth looking into:
@@ -131,22 +129,20 @@ Some other dotfiles worth looking into:
 * https://github.com/kornicameister/dotfiles/
 * https://github.com/Aloxaf/dotfiles/tree/master/zsh/.config/zsh
 * https://github.com/paulmillr/dotfiles
-* https://github.com/marlonrichert/zsh-launchpad
-* https://github.com/mashehu/dotfiles/blob/master/zshrc
 
 Some completions setups:
 
+* https://github.com/mashehu/dotfiles/blob/236af8d7d71989f9755a6ea29ee66e33cbbce1f8/zshrc#L89-L105
 * https://github.com/finnurtorfa/zsh/blob/master/completion.zsh
 
 ## Articles
 
 Here are some reads you might find interesting:
 
-* [Declarative macOS Configuration Using nix-darwin And home-manager](https://xyno.space/post/nix-darwin-introduction)
 * [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
 * [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
 * [fzf examples (fzf wiki)](https://github.com/junegunn/fzf/wiki/examples)
 
 ## License
 
-This project is released under [The Unlicense](LICENSE).
+This project is released under the [MIT License](LICENSE).
