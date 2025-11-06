@@ -1,12 +1,12 @@
 # dotfiles
 
-My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) configuration. Works on Apple Silicon.
+My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) configuration. Works on Apple Silicon. The daily driver is macOS, however the NixOS VM setups are recently added for experiment.
 
 ## Overview
 
 * [Nix](https://nixos.org/) enables reproducible builds.
 * On macOS, [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the system configuration.
-* [home-manager](https://github.com/nix-community/home-manager) manages the user environment (mostly), including Homebrew packages.
+* [home-manager](https://github.com/nix-community/home-manager) manages most of the user environment, including Homebrew packages.
 
 ## Features
 
@@ -26,7 +26,7 @@ My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) confi
     * [lazygit](https://github.com/jesseduffield/lazygit) ([a quick starter video](https://www.youtube.com/watch?v=CPLdltN7wgE))
     * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
 
-## Usage
+## Usage Instructions
 
 <details>
 
@@ -74,12 +74,50 @@ just update-input <flake-input-name>
 
 <details>
 
-<summary>Repairing the setup after a major macOS update</summary>
+<summary>NixOS VM bootstrap instructions on macOS (VMware Fusion)</summary>
 
-> [!IMPORTANT]
-> The following steps were applicable to installations with upstream Nix installations.
-> It is unknown whether they are needed to follow for a Determinate
-> Systems installation.
+Note that a desktop environment is yet to be properly implemented.
+
+My personal settings are hardcoded in the [justfile](https://github.com/BirkhoffLee/dotfiles/blob/2ddd6e468fa073f8aa5a2d49c0063afda89522eb/justfiles/vm-vmware-fusion.just), you should inspect and modify accordingly, otherwise it is going to fail. After that, proceed to follow the instructions on configuring VMWare Fusion, which can be found in [this YouTube video by Mitchell](https://youtu.be/ubDMLoWz76U?si=pgso1-k7lUuGzAEg&t=86). 
+
+After setting the root password, execute the following to bootstrap the VM automatically:
+
+```shell
+# This will run `./vm-installer.sh`, that erases the disk, makes partitions on it, configures Nix for the next step.
+$ just vm-bootstrap0 <vm-ipv4-address>
+
+# Ensure the VM reboots into the disk instead of the installer.
+# After that, run this to initiate the flake switch:
+$ just vm-bootstrap <vm-ipv4-address>
+
+# When it finishes, you will be able to SSH into the machine:
+$ just vm-ssh [user]
+```
+
+</details>
+
+<details>
+
+<summary>NixOS VM bootstrap instructions on macOS (OrbStack)</summary>
+
+Note that there's no GUI support on OrbStack Linux VMs. This setup focuses on usage only via SSH. It's fairly simple to setup on OrbStack compared to doing that on VMWare Fusion. This dotfiles intends to use the default system configurations provided by OrbStack, since it's heavily customized to be used with macOS shell.
+
+```shell
+# Ensure OrbStack is running, and create the VM:
+$ just orb-create
+
+# After that, simply run this to bootstrap it:
+$ just orb-configure
+```
+
+</details>
+
+<details>
+
+<summary>Repairing the Nix setup on macOS after a major update from Apple</summary>
+
+> The following steps were applicable to installations with upstream Nix installations.  
+> It is unknown whether they are needed to follow for a Determinate Systems installation.
 
 1. Upgrade Xcode CLI tools
 2. Uninstall nix: https://nix.dev/manual/nix/2.18/installation/uninstall.html#macos
@@ -121,6 +159,15 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexM
 * [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
 * env check https://github.com/marlonrichert/zsh-launchpad/blob/main/.config/zsh/rc.d/04-env.zsh
 * Use [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to ensure consistency across different platforms
+* check https://github.com/zhaofengli/nix-homebrew
+
+## Articles
+
+Here are some reads you might find interesting:
+
+* [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
+* [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
+* [fzf examples (fzf wiki)](https://github.com/junegunn/fzf/wiki/examples)
 
 Some other dotfiles worth looking into:
 
@@ -135,13 +182,13 @@ Some completions setups:
 * https://github.com/mashehu/dotfiles/blob/236af8d7d71989f9755a6ea29ee66e33cbbce1f8/zshrc#L89-L105
 * https://github.com/finnurtorfa/zsh/blob/master/completion.zsh
 
-## Articles
+## Acknowledgements
 
-Here are some reads you might find interesting:
+This project was heavily inspired by other open-source dotfiles. A non-exhaustive list:
 
-* [Faster and enjoyable ZSH (maybe)](https://htr3n.github.io/2018/07/faster-zsh/)
-* [Comparison of ZSH frameworks and plugin managers](https://gist.github.com/laggardkernel/4a4c4986ccdcaf47b91e8227f9868ded)
-* [fzf examples (fzf wiki)](https://github.com/junegunn/fzf/wiki/examples)
+* https://github.com/mitchellh/nixos-config
+
+Credits are given in the source code where applicable.
 
 ## License
 
