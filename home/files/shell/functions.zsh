@@ -177,7 +177,9 @@ function decrypt_pdfs {
     [ -f "$file" ] || continue
 
     # Check if it's encrypted
-    if qpdf --check "$file" 2>&1 | grep -q "is encrypted"; then
+    if qpdf --check "$file" 2>&1 | grep -q "is not encrypted"; then
+      echo "Already decrypted: $file"
+    else
       echo "Decrypting: $file"
       local tmp_file="tmp_decrypted.pdf"
       if qpdf --decrypt --password="$password" "$file" "$tmp_file"; then
@@ -187,8 +189,6 @@ function decrypt_pdfs {
         echo "Failed to decrypt: $file"
         rm -f "$tmp_file"
       fi
-    else
-      echo "Already decrypted: $file"
     fi
   done
 }
