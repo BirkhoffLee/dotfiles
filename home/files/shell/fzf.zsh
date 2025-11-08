@@ -6,6 +6,17 @@
 
 typeset -AU __FZF __FZF_TAB
 
+# Determine clipboard copy command based on OS
+if [[ "$OSTYPE" == darwin* ]]; then
+  __FZF_COPY_CMD="pbcopy"
+elif command -v xclip &> /dev/null; then
+  __FZF_COPY_CMD="xclip -selection clipboard"
+elif command -v wl-copy &> /dev/null; then
+  __FZF_COPY_CMD="wl-copy"
+else
+  __FZF_COPY_CMD="cat"  # Fallback: just output to stdout
+fi
+
 # https://github.com/junegunn/fzf/blob/master/bin/fzf-preview.sh
 
 __FZF[PREVIEW_DIR]="eza -a --tree --level 3 --color=always --icons --no-quotes --group-directories-first --show-symlinks"
@@ -89,7 +100,7 @@ export FZF_CTRL_R_OPTS="
   --preview-window up:3:hidden:wrap
   --bind '?:toggle-preview'
   --bind 'ctrl-t:track+clear-query'
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | $__FZF_COPY_CMD)+abort'
   --header 'CTRL-T: Track command, CTRL-Y: copy command to clipboard'"
 
 # FZF - Completion Options
@@ -198,4 +209,5 @@ fi
 
 unset __FZF
 unset __FZF_TAB
+unset __FZF_COPY_CMD
 

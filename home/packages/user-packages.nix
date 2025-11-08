@@ -1,21 +1,25 @@
 { pkgs, ... }:
 
 let
-  ocrBin = pkgs.runCommand "ocr-1.0.0" {
-    # Disable sandbox to access Xcode/Swift tools on macOS
-    __noChroot = pkgs.stdenv.isDarwin;
-  } ''
-    # Copy source file to build directory
-    cp ${./ocr.swift} ocr.swift
+  ocrBin =
+    pkgs.runCommand "ocr-1.0.0"
+      {
+        # Disable sandbox to access Xcode/Swift tools on macOS
+        __noChroot = pkgs.stdenv.isDarwin;
+      }
+      ''
+        # Copy source file to build directory
+        cp ${./ocr.swift} ocr.swift
 
-    # Compile with Swift (frameworks auto-linked from imports)
-    /usr/bin/xcrun swiftc ocr.swift -o ocr -O
+        # Compile with Swift (frameworks auto-linked from imports)
+        /usr/bin/xcrun swiftc ocr.swift -o ocr -O
 
-    # Install binary
-    mkdir -p $out/bin
-    cp ocr $out/bin/ocr
-  '';
-in {
+        # Install binary
+        mkdir -p $out/bin
+        cp ocr $out/bin/ocr
+      '';
+in
+{
   home.packages =
     with pkgs;
     [
@@ -70,7 +74,7 @@ in {
       ruff # python
       R
       ruby-lsp # Ruby
-      rust-bin.stable.latest.default # rust
+      # rust-bin.stable.latest.default # rust
       solc # solidity
       svelte-language-server # svelte
       systemd-lsp # systemd
@@ -99,7 +103,7 @@ in {
       # ============================================================================
 
       # Utilities
-      lnav # log file navigator (https://github.com/tstack/lnav)
+      # lnav # log file navigator (https://github.com/tstack/lnav)
 
       # Cloud providers
       # awscli2
@@ -107,7 +111,7 @@ in {
       # oci-cli
       # aws-vault
       backblaze-b2
-      flarectl
+      # flarectl
 
       # Container & orchestration
       # k9s
@@ -117,10 +121,10 @@ in {
       # nomad
       # packer
       # skaffold
-      ctop # top for containers
+      # ctop # top for containers
 
       # Infrastructure as code
-      terraform
+      # terraform
       # terraformer
       # vagrant
 
@@ -151,12 +155,12 @@ in {
 
       # Encryption
       age
-      yubikey-manager
-      yubikey-personalization
+      # yubikey-manager
+      # yubikey-personalization
 
       # Network analysis
       knot-dns
-      tldx # domain availability search
+      # tldx # domain availability search
       bandwhich
       doggo # modern dig
       hey
@@ -193,37 +197,33 @@ in {
       # ============================================================================
 
       gnupg
-      pam-reattach
-      pinentry_mac
-      reattach-to-user-namespace
-      yubico-piv-tool
+      # yubico-piv-tool
 
       # ============================================================================
       # AI & MACHINE LEARNING
       # ============================================================================
 
-      gfortran
-      openblas.dev
-      gemini-cli
-      claude-code
-      crush
-      ollama
-      aichat
+      # gfortran
+      # openblas.dev
+      # gemini-cli
+      # crush
+      # ollama
+      # aichat
 
       # ============================================================================
       # DEVELOPMENT UTILITIES
       # ============================================================================
 
       # Web development
-      caddy
+      # caddy
       httpie
 
       # Code quality
       yamllint
 
       # Databases
-      redis
-      pgcli
+      # redis
+      # pgcli
 
       # ============================================================================
       # SYSTEM UTILITIES
@@ -243,7 +243,6 @@ in {
       tmux
       htop
       gotop
-      mactop
       procs
       viddy
       lesspipe
@@ -264,7 +263,6 @@ in {
       rsync
       tree
       dust # du in rust (https://github.com/bootandy/dust)
-      create-dmg
       qpdf
       html-tidy
       gnutar
@@ -291,7 +289,6 @@ in {
       visidata # Interactive terminal multitool for tabular data
       miller # awk, sed, cut, join, and sort for CSV, TSV, JSON
       gron # greppable JSON (https://github.com/tomnomnom/gron)
-      ocrBin
 
       # Text operations
       jq
@@ -308,7 +305,6 @@ in {
       # System monitoring
       duf
       jc
-      osx-cpu-temp
       bottom # btm (https://github.com/ClementTsang/bottom)
       glances
 
@@ -331,7 +327,6 @@ in {
 
       # Notifications
       noti
-      terminal-notifier
 
       # Download & media
       lux
@@ -345,16 +340,15 @@ in {
       exiftool
       imagemagickBig
       optipng
-      pngpaste
 
       # ============================================================================
       # CLI TOOLS
       # ============================================================================
 
-      powershell
-      stripe-cli
+      # powershell
+      # stripe-cli
       # dex2jar
-      hyperfine # cli command benchmarking
+      # hyperfine # cli command benchmarking
 
       # GitHub CLI Tools
       # @see https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md#should-i-use-gh-or-hub
@@ -381,7 +375,19 @@ in {
       blueutil
       mas
       stats
+      mactop
+      osx-cpu-temp
+
       ryubing
+
+      pinentry_mac
+      pam-reattach
+      reattach-to-user-namespace
+
+      ocrBin
+      pngpaste
+      create-dmg
+      terminal-notifier
     ])
     # Linux-only packages
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [

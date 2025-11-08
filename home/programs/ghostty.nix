@@ -69,7 +69,7 @@
       macos-option-as-alt = true;
       keybind = [
         "super+q=quit"
-        "super+n=new_window"
+        # "super+n=new_window"
 
         "super+shift+comma=reload_config"
         "super+shift+p=toggle_command_palette"
@@ -110,7 +110,8 @@
       cursor-style = "block";
       cursor-style-blink = true;
       shell-integration = "zsh";
-      shell-integration-features = "no-cursor,sudo,title";
+      # @see https://ghostty.org/docs/help/terminfo#ssh
+      shell-integration-features = "no-cursor,sudo,title,ssh-terminfo,ssh-env";
       ## End of Cursor & Shell Integration
 
       ## Quick Terminal

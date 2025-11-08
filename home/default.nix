@@ -11,17 +11,19 @@ let
     builtins.filter (f: lib.hasSuffix ".nix" f) (builtins.attrNames (builtins.readDir ./files))
   );
 
-  setWallpaperScript = import ./libs/wallpaper.nix { inherit pkgs; };
+  isDarwin = pkgs.stdenv.isDarwin;
+  isLinux = pkgs.stdenv.isLinux;
+
+  setWallpaperScript = lib.optionals isDarwin (import ./libs/wallpaper.nix { inherit pkgs; });
 in
 rec {
   home.stateVersion = "23.11";
 
   home.username = "ale";
-  home.homeDirectory = "/Users/${home.username}";
+  home.homeDirectory = if isDarwin then "/Users/${home.username}" else "/home/${home.username}";
 
   imports = [
     ./packages/user-packages.nix
-    ./editorconfig.nix
   ]
   ++ programImports
   ++ fileImports;
@@ -32,7 +34,7 @@ rec {
   #
   # @see https://nix-community.github.io/home-manager/options.xhtml#opt-home.sessionPath
   home.sessionPath = [
-    # Note: Homebrew is loaded with `brew shellenv` in `zsh/default.nix`
+    # Note: Homebrew is loaded with `brew shellenv` in `zsh/default.nix` (macOS only)
 
     # Rust
     "${home.homeDirectory}/.cargo/bin"
@@ -40,13 +42,17 @@ rec {
     "${home.homeDirectory}/go/bin"
     # uv tool
     "${home.homeDirectory}/.local/bin"
+  ]
+  ++ lib.optionals isDarwin [
+    # macOS-specific paths
     # Apple
     "/Library/Apple/usr/bin"
     # Wireshark
     "/Applications/Wireshark.app/Contents/MacOS"
   ];
 
-  home.activation = {
+  # macOS-specific activation scripts - skipped for NixOS
+  home.activation = lib.mkIf isDarwin {
     "revealHomeLibraryDirectory" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       /usr/bin/chflags nohidden "$HOME/Library"
     '';

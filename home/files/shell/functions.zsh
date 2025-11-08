@@ -7,7 +7,11 @@ function shrinkvid {
     echo "Usage: shrinkvid <input_file> <output_file> [bitrate]"
     echo "Example: shrinkvid input.mp4 output.mp4 5M"
     echo "Bitrate: 2M-10M recommended, default is 5M (higher = better quality)"
-    echo "Uses hardware acceleration (VideoToolbox) on Apple Silicon"
+    if [[ "$OSTYPE" == darwin* ]]; then
+      echo "Uses hardware acceleration (VideoToolbox) on Apple Silicon"
+    else
+      echo "Uses software encoding (libx264) on Linux"
+    fi
     return 1
   fi
 
@@ -33,8 +37,12 @@ function shrinkvid {
   # Get input file size
   local input_size=$(get_size "$1")
 
-  # Run ffmpeg with hardware acceleration
-  ffmpeg -i "$1" -c:v h264_videotoolbox -b:v "${3:-5M}" -tag:v avc1 -movflags faststart "$2"
+  # Run ffmpeg with hardware acceleration on macOS, software encoding on Linux
+  if [[ "$OSTYPE" == darwin* ]]; then
+    ffmpeg -i "$1" -c:v h264_videotoolbox -b:v "${3:-5M}" -tag:v avc1 -movflags faststart "$2"
+  else
+    ffmpeg -i "$1" -c:v libx264 -b:v "${3:-5M}" -movflags faststart "$2"
+  fi
 
   # Check if ffmpeg succeeded and output file exists
   if [ $? -eq 0 ] && [ -f "$2" ]; then
@@ -59,25 +67,39 @@ function shrinkvid {
 # @example impaste > /tmp/image.png
 # @see https://til.simonwillison.net/macos/impaste
 function impaste {
-   # Generate a unique temporary filename
-   tempfile=$(mktemp -t clipboard.XXXXXXXXXX.png)
-
-   # Save the clipboard image to the temporary file
-   osascript -e 'set theImage to the clipboard as «class PNGf»' \
-     -e "set theFile to open for access POSIX file \"$tempfile\" with write permission" \
-     -e 'write theImage to theFile' \
-     -e 'close access theFile'
-
-   # Output the image data to stdout
-   cat "$tempfile"
-
-   # Delete the temporary file
-   rm "$tempfile"
+  if [[ "$OSTYPE" == darwin* ]]; then
+    # macOS: use osascript
+    tempfile=$(mktemp -t clipboard.XXXXXXXXXX.png)
+    osascript -e 'set theImage to the clipboard as «class PNGf»' \
+      -e "set theFile to open for access POSIX file \"$tempfile\" with write permission" \
+      -e 'write theImage to theFile' \
+      -e 'close access theFile'
+    cat "$tempfile"
+    rm "$tempfile"
+  elif command -v xclip &> /dev/null; then
+    # Linux with X11: use xclip
+    xclip -selection clipboard -t image/png -o
+  elif command -v wl-paste &> /dev/null; then
+    # Linux with Wayland: use wl-paste
+    wl-paste --type image/png
+  else
+    echo "Error: impaste requires osascript (macOS), xclip (X11), or wl-clipboard (Wayland)" >&2
+    return 1
+  fi
 }
 
-# Timer from terminal on macOS, with a notification on completion
+# Timer from terminal with a notification on completion
 function timer {
-  command termdown "$@" && terminal-notifier -message "Time's up" -title "Termdown" -ignoreDnD -group termdown -sound Glass
+  if [[ "$OSTYPE" == darwin* ]]; then
+    # macOS: use terminal-notifier
+    command termdown "$@" && terminal-notifier -message "Time's up" -title "Termdown" -ignoreDnD -group termdown -sound Glass
+  elif command -v notify-send &> /dev/null; then
+    # Linux: use notify-send
+    command termdown "$@" && notify-send -u normal "Termdown" "Time's up"
+  else
+    echo "Error: timer requires terminal-notifier (macOS) or notify-send (Linux)" >&2
+    return 1
+  fi
 }
 
 # Use `llm` to generate a conventional commit draft using cached diff
@@ -155,7 +177,9 @@ function decrypt_pdfs {
     [ -f "$file" ] || continue
 
     # Check if it's encrypted
-    if qpdf --check "$file" 2>&1 | grep -q "is encrypted"; then
+    if qpdf --check "$file" 2>&1 | grep -q "is not encrypted"; then
+      echo "Already decrypted: $file"
+    else
       echo "Decrypting: $file"
       local tmp_file="tmp_decrypted.pdf"
       if qpdf --decrypt --password="$password" "$file" "$tmp_file"; then
@@ -165,8 +189,6 @@ function decrypt_pdfs {
         echo "Failed to decrypt: $file"
         rm -f "$tmp_file"
       fi
-    else
-      echo "Already decrypted: $file"
     fi
   done
 }
@@ -312,8 +334,14 @@ function dirtypdf {
 
   nix-shell --packages 'imagemagickBig' --run "magick -density 90 \"$input_file\" -rotate 0.5 -attenuate 0.2 +noise Multiplicative -colorspace Gray \"$output_file\""
 
-  # open the output file in finder
-  open -R "$output_file"
+  # Open the output file in file manager
+  if [[ "$OSTYPE" == darwin* ]]; then
+    open -R "$output_file"
+  elif command -v xdg-open &> /dev/null; then
+    xdg-open "$(dirname "$output_file")"
+  else
+    echo "Output saved to: $output_file"
+  fi
 }
 
 # `favicon 1.png` will generate 4 sizes of favicon.ico

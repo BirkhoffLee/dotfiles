@@ -513,7 +513,8 @@
         "raycast_hyperKey_state" = {
           enabled = 1;
           includeShiftKey = 1;
-          keyCode = 57;
+          # use Right Option for hyper key
+          keyCode = 230;
         };
         useHyperKeyIcon = 1;
         useSystemInternetProxySettings = 1;

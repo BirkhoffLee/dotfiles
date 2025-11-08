@@ -1,6 +1,23 @@
 {
   description = "birkhoff's dotfiles";
 
+  nixConfig = {
+    # Merged with the system-level substituters.
+    # This config is included to speed up the initial build.
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://helix.cachix.org"
+      "https://birkhoff.cachix.org"
+      "https://mitchellh-nixos-config.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+      "birkhoff.cachix.org-1:m7WmdU7PKc6fsKedC278lhLtiqjz6ZUJ6v2nkVGyJjQ="
+      "mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="
+    ];
+  };
+
   inputs = {
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
@@ -42,25 +59,35 @@
     let
       inherit (inputs.nixpkgs-unstable.lib) attrValues optionalAttrs singleton;
 
+      # Overlays configuration
+      overlaysList =
+        attrValues self.overlays
+        ++ singleton (
+          final: prev:
+          (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+            # Sub in x86 version of packages that don't build on Apple Silicon.
+            inherit (final.pkgs-x86)
+              agda
+              idris2
+              ;
+          })
+          // {
+            # Add other overlays here if needed.
+          }
+        );
+
       nixpkgsDefaults = {
         config = {
           allowUnfree = true;
         };
-        overlays =
-          attrValues self.overlays
-          ++ singleton (
-            final: prev:
-            (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-              # Sub in x86 version of packages that don't build on Apple Silicon.
-              inherit (final.pkgs-x86)
-                agda
-                idris2
-                ;
-            })
-            // {
-              # Add other overlays here if needed.
-            }
-          );
+        overlays = overlaysList;
+      };
+
+      # Helper function to create system configurations
+      mkSystem = import ./lib/mksystem.nix {
+        nixpkgs = inputs.nixpkgs-unstable;
+        overlays = overlaysList;
+        inherit inputs;
       };
     in
     {
@@ -102,10 +129,11 @@
           zj-quit = inputs.zj-quit.packages.${prev.system}.default;
         };
 
-        fonts = _: prev: with _; {
-          berkeley-mono = callPackage ./packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
-          commit-mono-nf = callPackage ./packages/fonts/commit-mono-nf.nix { };
-        };
+        fonts =
+          _: prev: with _; {
+            berkeley-mono = callPackage ./packages/fonts/berkeley-mono.nix { secrets = inputs.secrets; };
+            commit-mono-nf = callPackage ./packages/fonts/commit-mono-nf.nix { };
+          };
 
         tweaks = _: _: {
           # Add temporary overrides here
@@ -113,17 +141,22 @@
       };
 
       darwinConfigurations = {
-        AlexMBP = inputs.nix-darwin.lib.darwinSystem {
+        AlexMBP = mkSystem "AlexMBP" {
           system = "aarch64-darwin";
-          specialArgs = { inherit inputs; };
+          user = "ale";
+          darwin = true;
+        };
+      };
 
-          modules = [
-            ./hosts/AlexMBP
-            { nixpkgs = nixpkgsDefaults; }
-            inputs.home-manager.darwinModules.home-manager
-            inputs.nix-index-database.darwinModules.nix-index
-            { programs.nix-index-database.comma.enable = true; }
-          ];
+      nixosConfigurations = {
+        nixos-vm-aarch64 = mkSystem "nixos-vm-aarch64" {
+          system = "aarch64-linux";
+          user = "ale";
+        };
+
+        nixos-orbstack = mkSystem "nixos-orbstack" {
+          system = "aarch64-linux";
+          user = "ale";
         };
       };
     };

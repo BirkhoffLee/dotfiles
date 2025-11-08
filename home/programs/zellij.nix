@@ -623,7 +623,7 @@
                     border_format   "#[fg=#6C7086]{char}"
                     border_position "top"
 
-                    hide_frame_for_single_pane "true"
+                    hide_frame_for_single_pane "false"
 
                     mode_normal        "#[bg=$green,fg=$bg,bold] NOR#[bg=$bg,fg=$green]█"
                     mode_locked        "#[bg=$red,fg=$bg,bold] #[bg=$bg,fg=$red]█"
