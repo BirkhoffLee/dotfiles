@@ -11,6 +11,10 @@
       ## Set this to true and Atuin will minimize motion in the UI - timers will not update live, etc.
       ## Alternatively, set env NO_MOTION=true
       prefers_reduced_motion = true;
+
+      auto_sync = true;
+      sync_frequency = "5m";
+      sync_address = "https://atuin.hippo-hexatonic.ts.net";
     };
   };
 }

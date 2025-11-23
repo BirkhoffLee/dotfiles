@@ -14,6 +14,9 @@ in
   imports = [
     ../shared-nix-settings.nix
     ./disk-config.nix
+
+    ./services/tailscale
+    ./services/atuin
   ];
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;

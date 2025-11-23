@@ -35,11 +35,15 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Some other packages
+    agenix.url = "github:ryantm/agenix";
+
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    flake-utils.url = "github:numtide/flake-utils";
 
     # _1password-shell-plugins.url = "github:1Password/shell-plugins";
     helix.url = "github:helix-editor/helix/master";
@@ -179,11 +183,39 @@
             inputs.disko.nixosModules.disko
             ./hosts/homelab-nuc
             inputs.nixos-facter-modules.nixosModules.facter
+            inputs.agenix.nixosModules.default
             {
               config.facter.reportPath = ./hosts/homelab-nuc/facter.json;
+            }
+            {
+              nixpkgs = nixpkgsDefaults;
             }
           ];
         };
       };
-    };
+    }
+    // inputs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import inputs.nixpkgs-unstable {
+          inherit system;
+          inherit (nixpkgsDefaults) config;
+        };
+      in
+      {
+        devShells.default = pkgs.mkShellNoCC {
+          packages = with pkgs; [
+            just
+            ssh-copy-id
+            claude-code
+            nh
+            nixfmt-tree
+            nixos-rebuild-ng
+            inputs.agenix.packages.${system}.default
+          ];
+
+          NH_FLAKE = ".";
+        };
+      }
+    );
 }
