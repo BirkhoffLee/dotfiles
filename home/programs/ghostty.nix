@@ -111,7 +111,7 @@
       cursor-style-blink = true;
       shell-integration = "zsh";
       # @see https://ghostty.org/docs/help/terminfo#ssh
-      shell-integration-features = "no-cursor,sudo,title,ssh-terminfo,ssh-env";
+      shell-integration-features = "no-cursor,sudo,title";
       ## End of Cursor & Shell Integration
 
       ## Quick Terminal
