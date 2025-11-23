@@ -278,6 +278,7 @@
       choose # modern cut+awk (https://github.com/theryangeary/choose)
       gnugrep
       sd
+      serpl # global search & replace TUI
       jc # convert output of common cli tools to JSON (https://github.com/kellyjonbrazil/jc?tab=readme-ov-file#parsers)
       jo # generate JSON by simple commands
       yq-go # jq for YAML, JSON, XML, CSV, TOML and properties
