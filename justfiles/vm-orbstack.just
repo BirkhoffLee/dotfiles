@@ -37,5 +37,5 @@ orb-configure:
   @echo "Importing GitHub SSH public key..."
   {{orbctlPath}} run sh -c 'grep -q "github.com ssh-ed25519" $HOME/.ssh/known_hosts 2>/dev/null || echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl" >> $HOME/.ssh/known_hosts'
   @echo "Applying NixOS configuration..."
-  {{orbctlPath}} run {{NH_COMMAND}} os switch --hostname nixos-orbstack {{FLAKES_PATH}} -- --accept-flake-config --impure
+  {{orbctlPath}} run nh os switch --hostname nixos-orbstack {{FLAKES_PATH}} -- --accept-flake-config --impure
   @echo "NixOS configuration completed."

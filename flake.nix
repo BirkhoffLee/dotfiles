@@ -23,6 +23,11 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    # For provisioning NixOS machines with nixos-anywhere
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs-stable";
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+
     nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
@@ -135,6 +140,11 @@
             commit-mono-nf = callPackage ./packages/fonts/commit-mono-nf.nix { };
           };
 
+        custom-packages =
+          _: prev: with _; {
+            ocr = callPackage ./packages/ocr/ocr.nix { };
+          };
+
         tweaks = _: _: {
           # Add temporary overrides here
         };
@@ -157,6 +167,22 @@
         nixos-orbstack = mkSystem "nixos-orbstack" {
           system = "aarch64-linux";
           user = "ale";
+        };
+
+        # FIXME: not using mkSystem because using existing home config
+        # breaks the installation due to too many files error.
+        # This should be fixed in the future when another refactor
+        # is done (re-organizing the packages)
+        homelab-nuc = inputs.nixpkgs-unstable.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            inputs.disko.nixosModules.disko
+            ./hosts/homelab-nuc
+            inputs.nixos-facter-modules.nixosModules.facter
+            {
+              config.facter.reportPath = ./hosts/homelab-nuc/facter.json;
+            }
+          ];
         };
       };
     };

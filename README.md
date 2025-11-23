@@ -1,6 +1,6 @@
 # dotfiles
 
-My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) configuration. Works on Apple Silicon. The daily driver is macOS, however the NixOS VM setups are recently added for experiment.
+My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) configuration. Works on Apple Silicon. The daily driver is macOS, a NixOS homelab setup is in the works, and NixOS VM setups are recently added for experiments.
 
 ## Overview
 
@@ -27,6 +27,25 @@ My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) confi
     * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
 
 ## Usage Instructions
+
+<details>
+
+<summary>Commonly used commands baked into justfile</summary>
+
+```shell
+# Switch darwin configuration
+just switch
+
+# Updates all flake inputs
+just update
+
+# Updates one flake input
+just update-input <flake-input-name>
+
+# For more, run `just` to get all receipes.
+```
+
+</details>
 
 <details>
 
@@ -57,20 +76,31 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexM
 
 </details>
 
-Commonly used commands are already baked into [justfile](justfile):
+<details>
+
+<summary>NixOS Homelab provisioning instructions</summary>
+
+[nixos-anywhere](https://github.com/nix-community/nixos-anywhere/) is used to remotely setup NixOS host. The machine to provision should be running Linux with kexec support, or simply a minimal NixOS installer.
+
+[nixos-facter](https://github.com/nix-community/nixos-facter) is used in conjunction to dynamically determine configurations from hardware.
 
 ```shell
-# Switch darwin configuration
-just switch
-
-# Updates all flake inputs
-just update
-
-# Updates one flake input
-just update-input <flake-input-name>
-
-# For more, run `just` to get all receipes.
+# CAUTION: This IMMEDIATELY erases target host, repartitions it, installs NixOS
+# and applies this flake configuration.
+nix run github:nix-community/nixos-anywhere -- \
+  --generate-hardware-config nixos-facter ./hosts/homelab-nuc/facter.json \
+  --flake .#homelab-nuc \
+  --target-host root@<machine-ip> \
+  --build-on remote
 ```
+
+To apply new flake config, use the just receipe:
+
+```shell
+just switch-homelab
+```
+
+</details>
 
 <details>
 
@@ -80,7 +110,7 @@ During my test, it appears that NAT DHCP in VMWare Fusion 13.6.4 doesn't work; u
 
 Note that a desktop environment is yet to be properly implemented.
 
-My personal settings are hardcoded in the [justfile](https://github.com/BirkhoffLee/dotfiles/blob/2ddd6e468fa073f8aa5a2d49c0063afda89522eb/justfiles/vm-vmware-fusion.just), you should inspect and modify accordingly, otherwise it is going to fail. After that, proceed to follow the instructions on configuring VMWare Fusion, which can be found in [this YouTube video by Mitchell](https://youtu.be/ubDMLoWz76U?si=pgso1-k7lUuGzAEg&t=86). 
+My personal settings are hardcoded in the [justfile](https://github.com/BirkhoffLee/dotfiles/blob/2ddd6e468fa073f8aa5a2d49c0063afda89522eb/justfiles/vm-vmware-fusion.just), you should inspect and modify accordingly, otherwise it is going to fail. After that, proceed to follow the instructions on configuring VMWare Fusion, which can be found in [this YouTube video by Mitchell](https://youtu.be/ubDMLoWz76U?si=pgso1-k7lUuGzAEg&t=86).
 
 After setting the root password, execute the following to bootstrap the VM automatically:
 
@@ -118,7 +148,7 @@ $ just orb-configure
 
 <summary>Repairing the Nix setup on macOS after a major update from Apple</summary>
 
-> The following steps were applicable to installations with upstream Nix installations.  
+> The following steps were applicable to installations with upstream Nix installations.
 > It is unknown whether they are needed to follow for a Determinate Systems installation.
 
 1. Upgrade Xcode CLI tools

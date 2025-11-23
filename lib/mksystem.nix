@@ -10,6 +10,7 @@ name:
   user,
   darwin ? false,
   wsl ? false,
+  nixos-anywhere ? false,
 }:
 
 let
@@ -36,6 +37,25 @@ systemFunc rec {
   specialArgs = { inherit inputs; };
 
   modules = [
+    # Include disko and nixos-facter modules only for nixos-anywhere deployments
+    (if nixos-anywhere then inputs.disko.nixosModules.disko else { })
+    (if nixos-anywhere then inputs.nixos-facter-modules.nixosModules.facter else { })
+    (
+      if nixos-anywhere then
+        {
+          config.facter.reportPath =
+            let
+              facterPath = machineConfig + "/facter.json";
+            in
+            if builtins.pathExists facterPath then
+              facterPath
+            else
+              throw "Have you forgotten to run nixos-anywhere with `--generate-hardware-config nixos-facter ./hosts/${name}/facter.json`?";
+        }
+      else
+        { }
+    )
+
     # Apply our overlays. Overlays are keyed by system type so we have
     # to go through and apply our system type. We do this first so
     # the overlays are available globally.

@@ -32,7 +32,7 @@ vm-sync:
 # nixos-rebuild switch on the VM
 [group('vmware')]
 vm-switch:
-  @NIXUSER=root just _vm-ssh "ulimit -n 65536 && NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 {{NH_COMMAND}} os switch --bypass-root-check --hostname nixos-vm-aarch64 /nix-config -- --accept-flake-config "
+  @NIXUSER=root just _vm-ssh "ulimit -n 65536 && NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nh os switch --bypass-root-check --hostname nixos-vm-aarch64 /nix-config -- --accept-flake-config "
 
 _vm-ssh command='':
   ssh {{SSH_OPTIONS}} -p{{NIXPORT}} {{NIXUSER}}@{{NIXADDR}} -- "{{command}}"

@@ -13,7 +13,11 @@ pkgs.mkShellNoCC {
     just
     ssh-copy-id
     claude-code
+    nh
+    nixfmt-tree
+    nixos-rebuild-ng
   ];
 
   NH_FLAKE = ".";
+  # NIX_CONFIG = "experimental-features = nix-command flakes";
 }
