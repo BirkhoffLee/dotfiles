@@ -123,7 +123,7 @@
 
     NSGlobalDomain = {
       # Automatically switch between light and dark mode
-      AppleInterfaceStyleSwitchesAutomatically = true;
+      AppleInterfaceStyleSwitchesAutomatically = false;
 
       # Trackpad: enable tap to click
       "com.apple.mouse.tapBehavior" = 1;
