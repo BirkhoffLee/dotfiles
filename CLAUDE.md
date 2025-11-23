@@ -10,6 +10,7 @@ This is a cross-platform Nix configuration repository supporting both **macOS** 
 - `AlexMBP`: macOS (M1 Pro, Sequoia) - nix-darwin
 - `nixos-vm-aarch64`: NixOS (aarch64-linux) - VMware Fusion VM
 - `nixos-orbstack`: NixOS (aarch64-linux) - OrbStack VM
+- `homelab-nuc`: NixOS (x86_64-linux) - Physical homelab server
 
 **Current user:** `ale`
 
@@ -95,6 +96,13 @@ The home-manager configuration is **shared across all hosts** and platform-agnos
 - NixOS system configuration for OrbStack
 - Similar to nixos-vm-aarch64 but optimized for OrbStack environment
 
+**homelab-nuc** (`hosts/homelab-nuc/default.nix`):
+- NixOS system configuration for physical homelab server
+- Uses disko for disk partitioning and nixos-facter for hardware detection
+- **Important**: Does NOT use `lib/mksystem.nix` - configured directly in `flake.nix` to avoid home-manager (too many files error)
+- Includes services: tailscale, atuin, docker
+- Uses zramSwap for better memory management
+
 ### Package Management Strategy
 
 **Nix packages** are used for:
@@ -115,10 +123,13 @@ Using `just` (preferred):
 ```bash
 just switch          # Build and switch to new configuration (alias: just s)
 just switch-fast     # Switch without network access (alias: just sf)
+just switch-homelab  # Switch homelab-nuc NixOS configuration remotely
 just update          # Update all flake inputs and commit lock file (alias: just u)
 just update-input <name>  # Update specific flake input (alias: just ui)
-just format          # Format all Nix files using nixfmt-tree
-just clean           # Clean old generations and optimize store
+just format          # Format all Nix files using treefmt
+just optimize        # Clean old generations and optimize store (alias: just o)
+just repair          # Verify and repair Nix store
+just cache-darwin    # Push darwin build artifacts to cachix
 ```
 
 Using `nh` directly:
@@ -188,6 +199,19 @@ Environment variables for VMware VM commands:
 - `NIXPORT`: SSH port (default: 22)
 - `NIXUSER`: SSH user (default: ale)
 
+**Homelab NixOS Provisioning** (using nixos-anywhere):
+```bash
+# CAUTION: This IMMEDIATELY erases target host, repartitions, and installs NixOS
+nix run github:nix-community/nixos-anywhere -- \
+  --generate-hardware-config nixos-facter ./hosts/homelab-nuc/facter.json \
+  --flake .#homelab-nuc \
+  --target-host root@<machine-ip> \
+  --build-on remote
+
+# After initial setup, apply new configurations with:
+just switch-homelab
+```
+
 ## File Organization Patterns
 
 ### Adding New Programs to Home Configuration
@@ -241,10 +265,22 @@ Example:
      darwin = true;
    };
 
-   # For NixOS
+   # For NixOS (standard)
    nixosConfigurations.<hostname> = mkSystem "<hostname>" {
      system = "aarch64-linux";  # or "x86_64-linux"
      user = "ale";
+   };
+
+   # For NixOS with nixos-anywhere (without mkSystem)
+   nixosConfigurations.<hostname> = inputs.nixpkgs-unstable.lib.nixosSystem {
+     system = "x86_64-linux";
+     modules = [
+       inputs.disko.nixosModules.disko
+       ./hosts/<hostname>
+       inputs.nixos-facter-modules.nixosModules.facter
+       { config.facter.reportPath = ./hosts/<hostname>/facter.json; }
+       { nixpkgs = nixpkgsDefaults; }
+     ];
    };
    ```
 
@@ -254,11 +290,19 @@ Example:
 
 The repository uses a modular `justfile` system where the main `justfile` at the root imports specialized recipe files from `justfiles/`:
 
-- Main `justfile`: Core commands (switch, update, format, clean)
+- Main `justfile`: Core commands (switch, update, format, clean, cache)
 - `justfiles/vm-vmware-fusion.just`: VMware Fusion VM management recipes
 - `justfiles/vm-orbstack.just`: OrbStack VM management recipes
 
 When adding new VM-related or specialized commands, create a new `.just` file in `justfiles/` and import it in the main `justfile` using `import 'justfiles/<name>.just'`.
+
+**Justfile groups** organize commands:
+- `darwin`: macOS-specific commands (switch, switch-fast)
+- `homelab`: Homelab server commands (switch-homelab)
+- `flake`: Flake management (update, update-input)
+- `nix-misc`: Nix store maintenance (optimize, repair)
+- `cache`: Cachix operations (cache-darwin)
+- `code-quality`: Code formatting (format)
 
 ### Overlay System
 
@@ -279,6 +323,15 @@ secrets = {
 ```
 
 This is used for sensitive files like proprietary fonts (Berkeley Mono). Access requires proper SSH credentials.
+
+### Homelab-Specific Architecture
+
+The `homelab-nuc` host differs from other NixOS configurations:
+- **Does NOT use home-manager**: Prevents "too many files" error on resource-constrained systems
+- **Uses nixos-anywhere**: Automated remote installation with disk partitioning (disko)
+- **Uses nixos-facter**: Hardware configuration auto-detection
+- **Remote deployment**: Use `just switch-homelab` which uses `nixos-rebuild-ng` (not `nh`)
+- **Hardware config**: Stored in `hosts/homelab-nuc/facter.json`, regenerated during nixos-anywhere deployment
 
 ### Activation Scripts
 
