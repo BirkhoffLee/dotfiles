@@ -51,8 +51,14 @@ just update-input <flake-input-name>
 
 <summary>Installation instructions on a new macOS machine without Nix installed</summary>
 
+Note:
+
+1. Determinate installer for upstream Nix installation **will stop working in 2026**
+2. Full Disk Access need to be granted for the Terminal app of choice (Ghostty), otherwise [some options will fail](https://github.com/nix-darwin/nix-darwin/issues/1049#issuecomment-2323300537)
+
 ```shell
 xcode-select --install
+sudo xcodebuild -license accept
 
 # Clone the dotfiles
 mkdir $HOME/.config
@@ -67,11 +73,21 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confi
 # Source the nix daemon so that the nix command is available immediately
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
-# Build the dotfiles
-nix build "$HOME/.config/dotfiles#darwinConfigurations.AlexMBP.system" --extra-experimental-features "nix-command flakes"
+# Add trusted users so the substituters work (faster initial build)
+sudo sh -c 'echo "trusted-users = ale" >> /etc/nix/nix.custom.conf'
+sudo launchctl kickstart -k org.nixos.nix-daemon
 
-# Apply the dotfiles
-sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexMBP"
+# Temporarily mitigate 'too many open files' issue
+ulimit -n 4096 # https://github.com/NixOS/nix/issues/6557
+
+# Build first instead of switching so nix-darwin doesn't complain about our nix settings
+nix run nixpkgs#nh -- darwin build $HOME/.config/dotfiles --hostname AlexMBP --accept-flake-config
+
+# Remove the custom settings so we can activate using nix-darwin
+sudo mv /etc/nix/nix.custom.conf{,.before-nix-darwin}
+
+# Activate the configuration
+nix run nixpkgs#nh -- darwin switch $HOME/.config/dotfiles --hostname AlexMBP --accept-flake-config
 ```
 
 </details>
