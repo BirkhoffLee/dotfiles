@@ -17,6 +17,12 @@
   system.keyboard.remapCapsLockToControl = true;
 
   system.defaults = {
+    # Accessibility
+    universalaccess = {
+      reduceMotion = true;
+      reduceTransparency = false;
+    };
+
     LaunchServices = {
       # Disable quarantine for downloaded applications.
       LSQuarantine = false;
@@ -215,6 +221,10 @@
       "com.apple.TextInputMenu" = {
         # Show input menu in menu bar
         visible = 1;
+      };
+
+      "com.apple.Accessibility" = {
+        ReduceMotionEnabled = 1;
       };
 
       "com.apple.assistant.support" = {
