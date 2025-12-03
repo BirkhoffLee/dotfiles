@@ -1,3 +1,5 @@
+# Manual one-time setup for sync is required:
+# $ atuin login
 {
   programs.atuin = {
     enable = true;
