@@ -246,6 +246,9 @@
 
         # Ansible (https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-control-node)
         OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES";
+
+        # https://docs.brew.sh/Analytics
+        HOMEBREW_NO_ANALYTICS = "1";
       })
     ];
 
