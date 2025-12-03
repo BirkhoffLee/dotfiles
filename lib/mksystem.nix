@@ -83,6 +83,9 @@ systemFunc rec {
     inputs.nix-index-database.${if darwin then "darwinModules" else "nixosModules"}.nix-index
     { programs.nix-index-database.comma.enable = true; }
 
+    # agenix integration
+    (if darwin then inputs.agenix.darwinModules.default else inputs.agenix.nixosModules.default)
+
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
     {

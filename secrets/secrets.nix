@@ -13,6 +13,12 @@ in
     ];
     armor = true;
   };
+  "armored-ssh-config.age" = {
+    publicKeys = [
+      ale
+    ];
+    armor = true;
+  };
   # "secret2.age".publicKeys = users ++ systems;
   # "armored-secret.age" = {
   #   publicKeys = [ ale ];

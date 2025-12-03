@@ -23,6 +23,7 @@ in
     ./packages/system-packages.nix
     (import ./os-settings.nix ({ inherit hostname; }))
     ./packages/homebrew.nix
+    ./ssh-config.nix
   ];
 
   networking = {
