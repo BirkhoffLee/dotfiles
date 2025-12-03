@@ -55,10 +55,10 @@ Note:
 
 1. Determinate installer for upstream Nix installation **will stop working in 2026**
 2. Full Disk Access need to be granted for the Terminal app of choice (Ghostty), otherwise [some options will fail](https://github.com/nix-darwin/nix-darwin/issues/1049#issuecomment-2323300537)
+3. I currently use macOS Sequoia 15.7.2.
 
 ```shell
 xcode-select --install
-sudo xcodebuild -license accept
 
 # Clone the dotfiles
 mkdir $HOME/.config
@@ -75,7 +75,7 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confi
 
 # Add trusted users so the substituters work (faster initial build)
 sudo sh -c 'echo "trusted-users = ale" >> /etc/nix/nix.custom.conf'
-sudo launchctl kickstart -k org.nixos.nix-daemon
+sudo launchctl kickstart -k system/org.nixos.nix-daemon
 
 # Temporarily mitigate 'too many open files' issue
 ulimit -n 4096 # https://github.com/NixOS/nix/issues/6557
@@ -204,7 +204,6 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake "$HOME/.config/dotfiles#AlexM
 * File completion
   * List directories first like [this](https://github.com/Aloxaf/fzf-tab/pull/518)
   * When completing with fzf-tab, there's the slash in file names which i dont like
-* [Home Manager: dotfiles management](https://gvolpe.com/blog/home-manager-dotfiles-management/)
 * env check https://github.com/marlonrichert/zsh-launchpad/blob/main/.config/zsh/rc.d/04-env.zsh
 * Use [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to ensure consistency across different platforms
 * check https://github.com/zhaofengli/nix-homebrew
