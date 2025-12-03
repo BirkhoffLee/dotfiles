@@ -6,7 +6,7 @@ let
   systems = [ homelab-nuc ];
 in
 {
-  "armored-tailscale-authkey-homelab-nuc.age" = {
+  "armored-tailscale-authkey.age" = {
     publicKeys = [
       ale
       homelab-nuc
