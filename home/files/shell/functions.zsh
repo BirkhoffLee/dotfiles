@@ -263,13 +263,13 @@ function nix-pkgdir {
 # Run a nix package from nixpkgs
 # @example  `nr paho-mqtt-c`
 function nr {
-  nix run "nixpkgs#$1"
+  nix run "nixpkgs#$1" -- "${@:2}"
 }
 
 # Run a nix package from nixpkgs unstable
 # @example  `nru paho-mqtt-c`
 function nru {
-  nix run "github:NixOS/nixpkgs/nixpkgs-unstable#$1"
+  nix run "github:NixOS/nixpkgs/nixpkgs-unstable#$1" -- "${@:2}"
 }
 
 # Get a shell for a nix package from nixpkgs
