@@ -337,6 +337,23 @@
           enabled = 1;
         };
 
+        # Default screenshot shortcuts - disable so we can use Shottr
+        "28" = {
+          enabled = 0;
+        };
+
+        "29" = {
+          enabled = 0;
+        };
+
+        "30" = {
+          enabled = 0;
+        };
+
+        "31" = {
+          enabled = 0;
+        };
+
         # Input Sources (^Space, ^⌥Space)
         "60" = {
           enabled = 1;
