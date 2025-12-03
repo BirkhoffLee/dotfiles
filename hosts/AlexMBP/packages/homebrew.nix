@@ -10,7 +10,6 @@
       "displayplacer"
       "hopenpgp-tools"
       "screenresolution"
-      "borgbackup/tap/borgbackup-fuse"
     ];
 
     casks = [
@@ -21,8 +20,6 @@
       "arc"
       "balenaetcher"
       "betterdisplay"
-      "bloom"
-      "brilliant"
       "claude"
       "cursor"
       "deskpad"
@@ -36,7 +33,6 @@
       "imageoptim"
       "imazing"
       "input-source-pro"
-      "iterm2"
       "jordanbaird-ice"
       "keka"
       "key-codes"
@@ -52,8 +48,6 @@
       "quicklook-csv"
       "quicklook-json"
       "raycast"
-      "reader"
-      "setapp"
       "shottr"
       "spotify"
       "steam"
@@ -75,10 +69,6 @@
       "wireshark-app"
       "zed"
       "zoom"
-    ];
-
-    taps = [
-      "borgbackup/tap"
     ];
 
     masApps = {
