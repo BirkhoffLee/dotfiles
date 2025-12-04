@@ -69,20 +69,57 @@
       macos-option-as-alt = true;
       keybind = [
         "super+q=quit"
-        # "super+n=new_window"
 
         "super+shift+comma=reload_config"
         "super+shift+p=toggle_command_palette"
-        # "global:super+escape=toggle_quick_terminal"
+        "global:super+escape=toggle_quick_terminal"
+
+        "super+n=new_window"
+        "super+t=new_tab"
+        "super+w=close_surface"
 
         "super+c=copy_to_clipboard"
         "super+v=paste_from_clipboard"
 
+        # Moving around terminal buffer
+        "end=scroll_to_bottom"
+        "home=scroll_to_top"
+        "page_down=scroll_page_down"
+        "page_up=scroll_page_up"
+
+        # Resizing splits
+        "super+shift+0=equalize_splits"
+        "super+shift+arrow_down=resize_split:down,50"
+        "super+shift+arrow_left=resize_split:left,50"
+        "super+shift+arrow_right=resize_split:right,50"
+        "super+shift+arrow_up=resize_split:up,50"
+
+        # Moving around splits
+        "super+shift+h=goto_split:left"
+        "super+shift+j=goto_split:down"
+        "super+shift+k=goto_split:up"
+        "super+shift+l=goto_split:right"
+
+        # Manipulating tabs
+        "super+d=new_split:right"
+        "super+shift+d=new_split:down"
+        "super+shift+enter=toggle_split_zoom"
+
+        # Moving around tabs
+        "super+option+arrow_left=previous_tab"
+        "super+option+arrow_right=next_tab"
+        "super+1=goto_tab:1"
+        "super+2=goto_tab:2"
+        "super+3=goto_tab:3"
+        "super+4=goto_tab:4"
+        "super+5=goto_tab:5"
+
+        # Moving around in shell
         "super+left=text:\\x01"
         "super+right=text:\\x05"
 
-        "alt+left=esc:b"
-        "alt+right=esc:f"
+        "option+left=esc:b"
+        "option+right=esc:f"
 
         "super+backspace=text:\\x15"
 
