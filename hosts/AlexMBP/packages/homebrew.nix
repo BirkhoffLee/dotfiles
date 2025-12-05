@@ -27,6 +27,7 @@
       "figma"
       "ghostty"
       "google-chrome"
+      "heptabase"
       "handbrake-app"
       "heynote"
       "iina"
