@@ -42,6 +42,9 @@
           cursor-line = "warning"; # show warnings and errors on the cursorline inline
         };
 
+        # Show hidden files in File Picker
+        file-picker.hidden = false;
+
         auto-save = {
           focus-lost = true;
         };
