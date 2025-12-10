@@ -22,6 +22,8 @@ rec {
   home.username = "ale";
   home.homeDirectory = if isDarwin then "/Users/${home.username}" else "/home/${home.username}";
 
+  xdg.enable = true;
+
   imports = [
     ./packages/user-packages.nix
   ]
