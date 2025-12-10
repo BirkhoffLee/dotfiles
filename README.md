@@ -1,6 +1,10 @@
 # dotfiles
 
-My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) configuration. Works on Apple Silicon. The daily driver is macOS, a NixOS homelab setup is in the works, and NixOS VM setups are recently added for experiments.
+My [nix-darwin](https://github.com/nix-darwin/nix-darwin) / NixOS configuration. Works on Apple Silicon.
+
+The daily driver is macOS, a NixOS homelab setup is in the works, and NixOS VM setups are recently added for experiments.
+
+![Screenshot of fastfetch on M1 Pro running macOS Sequoia](./assets/screenshot-alexmbp-fastfetch.png)
 
 ## Overview
 
@@ -8,23 +12,101 @@ My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) confi
 * On macOS, [nix-darwin](https://github.com/LnL7/nix-darwin) sets up the system configuration.
 * [home-manager](https://github.com/nix-community/home-manager) manages most of the user environment, including Homebrew packages.
 
-## Features
+## Highlights
 
-* [Ghostty](https://ghostty.org/) as the terminal emulator
+* [Ghostty](https://ghostty.org/) as the terminal emulator of choice
 * On macOS, [it sets](home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
 * Shell configuration:
   * Zsh with a customized [Pure prompt](https://starship.rs/presets/pure-preset#pure-preset) using [Starship](https://starship.rs)
-  * Terminal Multiplexer: [Zellij](https://zellij.dev/) Unlock-First (non-colliding) preset with [minor customization](home/programs/zellij.nix)
   * A number of handy [aliases](home/programs/zsh.nix) and [functions](home/files/shell/functions.zsh)
-  * [Automatically propagated](home/files/shell/proxy.zsh) shell proxy settings
-  * Some third-party shell integrations:
-    * [Atuin](https://github.com/ellie/atuin) for interactive shell history search
+  * [Automatic](home/files/shell/proxy.zsh) shell proxy propagation from macOS settings
+  * Some shell integrations:
+    * [Atuin](https://github.com/atuinsh/atuin) for interactive shell history search
     * [fzf shell integration](home/programs/fzf.nix)
       * CTRL-T - Paste the path of selected files and directories onto the command-line
       * ALT-C - cd into the selected directory
     * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for fuzzy-searching zsh completion results, including a [smart preview window](home/files/shell/fzf.zsh)
     * [lazygit](https://github.com/jesseduffield/lazygit) ([a quick starter video](https://www.youtube.com/watch?v=CPLdltN7wgE))
     * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
+
+## Custom Shell Shortcuts & Functions
+
+### Keybindings
+
+Custom Zsh keybindings are configured in [`home/files/shell/keys.zsh`](home/files/shell/keys.zsh).
+
+This is designed to work with default Ghostty macOS keybindings, or the iTerm2 Natural Text Editing keymappings preset.
+
+| Key Combo | Description |
+|-----------|-------------|
+| `Ctrl+U` | Delete everything to the left of the cursor |
+| `Ctrl+X` then `Delete` | Delete entire line to the left of cursor |
+| `Ctrl+B` | Jump to beginning of line |
+| `Alt+Q` | Push aside current command line to type a new one (re-inserted on next prompt) |
+| `Ctrl+X` then `Ctrl+_` | Redo last undone edit |
+| `Ctrl+X` then `Ctrl+E` | Edit current command line in `$EDITOR` |
+| `Alt+V` | Show next key combo's terminal code and description |
+| `Alt+Shift+S` | Prefix current/previous command with `sudo` |
+
+### Custom Functions
+
+Shell functions are defined in [`home/files/shell/functions.zsh`](home/files/shell/functions.zsh).
+
+A non-exhaustive list:
+
+<details>
+<summary>Video & Media</summary>
+
+- `burnsrt <input.mp4> <input.srt> <output.mp4>` - Burn SRT subtitles into MP4 video
+- `shrinkvid <input> <output> [bitrate]` - Compress video (uses hardware acceleration on macOS)
+- `impaste > file.png` - Output clipboard image data to stdout
+- `favicon <input.png>` - Generate multi-size favicon.ico from an image
+- `dirtypdf <input.pdf> <output.pdf>` - Apply scanner effect to a PDF
+
+</details>
+
+<details>
+<summary>Development & Git</summary>
+
+- `gg <repo-url>` - Clone repo and cd into it
+- `aic` - Generate AI-powered conventional commit message from staged changes
+- `e [file]` - Edit file with `$VISUAL`, or open current directory if no argument
+- `s <pattern>` - Search in files with fzf preview using bat
+
+</details>
+
+<details>
+<summary>Directory & File Management</summary>
+
+- `take <dir>` - Create directory and cd into it (equivalent to `mkdir -p && cd`)
+- `tt` - Create and cd into a temporary directory
+- `cdls <dir>` - Change to directory and list its contents
+- `decrypt_pdfs <password>` - Decrypt all PDFs in current directory
+
+</details>
+
+<details>
+<summary>Network & Diagnostics</summary>
+
+- `t <host>` - Traceroute with [Trippy](https://trippy.rs/) (auto-updates GeoIP database)
+- `tu <host>` - UDP traceroute with Trippy
+- `https <domain> [port]` - Show TLS certificate details (default port: 443)
+- `ttfb <url>` - Measure Time To First Byte with curl
+- `listening [pattern]` - List all processes listening on TCP ports
+- `pingu <host>` - Ping until success or cancelled
+- `lip <ip>` - Lookup IP address details
+- `dns <domain>` - Lookup IP address of domain's A record
+
+</details>
+
+<details>
+<summary>Nix Utilities</summary>
+
+- `nix-pkgdir <package>` - Get the Nix store path for a package
+- `nr <package> [args...]` - Run a package from nixpkgs-unstable without installing
+- `ns <pkg1> [pkg2...]` - Start a shell with packages from nixpkgs-unstable
+
+</details>
 
 ## Usage Instructions
 
@@ -53,9 +135,8 @@ just update-input <flake-input-name>
 
 Note:
 
-1. Determinate installer for upstream Nix installation **will stop working in 2026**
-2. Full Disk Access need to be granted for the Terminal app of choice (Ghostty), otherwise [some options will fail](https://github.com/nix-darwin/nix-darwin/issues/1049#issuecomment-2323300537)
-3. I currently use macOS Sequoia 15.7.2.
+1. Full Disk Access need to be granted for the Terminal app of choice (Ghostty), otherwise [some options will fail](https://github.com/nix-darwin/nix-darwin/issues/1049#issuecomment-2323300537)
+2. I currently use macOS Sequoia 15.7.2.
 
 ```shell
 xcode-select --install
@@ -64,11 +145,10 @@ xcode-select --install
 mkdir $HOME/.config
 git clone https://github.com/birkhofflee/dotfiles $HOME/.config/dotfiles
 
-# Install nix with Determinate Systems installer
-# Choose "no" to use the upstream nix instead of their own one
-# @see https://determinate.systems/blog/installer-dropping-upstream/
-# @see https://github.com/NixOS/experimental-nix-installer
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm --prefer-upstream-nix
+# Install nix
+# @see https://github.com/nix-darwin/nix-darwin/issues/1588
+curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | \
+  sh -s -- install --no-confirm
 
 # Source the nix daemon so that the nix command is available immediately
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -78,9 +158,10 @@ sudo sh -c 'echo "trusted-users = ale" >> /etc/nix/nix.custom.conf'
 sudo launchctl kickstart -k system/org.nixos.nix-daemon
 
 # Temporarily mitigate 'too many open files' issue
-ulimit -n 4096 # https://github.com/NixOS/nix/issues/6557
+# @see https://github.com/NixOS/nix/issues/6557
+ulimit -n 4096
 
-# Build first instead of switching so nix-darwin doesn't complain about our nix settings
+# Build first instead of switching so nix-darwin doesn't complain about our nix settings above
 nix run nixpkgs#nh -- darwin build $HOME/.config/dotfiles --hostname AlexMBP --accept-flake-config
 
 # Remove the custom settings so we can activate using nix-darwin
