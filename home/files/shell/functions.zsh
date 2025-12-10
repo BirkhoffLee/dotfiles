@@ -294,27 +294,6 @@ function ns {
   extension=""
 
   for pkg in "$@"; do
-    extension="$extension nixpkgs\#$pkg"
-  done
-
-  cmd="nix shell$extension"
-
-  # Print the actual command in bold
-  printf "\033[1m%s\033[0m\n" "$cmd"
-  eval "$cmd"
-}
-
-# Get a shell for a nix package from nixpkgs unstable
-# @example  `nsu paho-mqtt-c`
-function nsu {
-  if [ $# -eq 0 ]; then
-    echo "Usage: ns package1 package2 package3 ..."
-    return 1
-  fi
-
-  extension=""
-
-  for pkg in "$@"; do
     extension="$extension github:NixOS/nixpkgs/nixpkgs-unstable\#$pkg"
   done
 
