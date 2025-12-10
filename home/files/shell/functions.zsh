@@ -206,14 +206,34 @@ function decrypt_pdfs {
   done
 }
 
-# Traceroute with Trippy
-function t {
-  # Update geoip.mmdb if it's older than 30 days
+# Update geoip.mmdb if it's older than 30 days
+function _update_geoip {
   if [ ! -f $HOME/.cache/geoip.mmdb ] || [ $(find $HOME/.cache/geoip.mmdb -mtime +30 2>/dev/null | wc -l) -gt 0 ]; then
     wget -O $HOME/.cache/geoip.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
   fi
+}
 
-  sudo trip $1 -r google -z --geoip-mmdb-file $HOME/.cache/geoip.mmdb --tui-geoip-mode short --tui-address-mode both --tui-as-mode name
+# Traceroute with Trippy
+function t {
+  _update_geoip
+
+  # Config is managed by home-manager
+  sudo trip -c $XDG_CONFIG_HOME/trippy/trippy.toml "$@"
+}
+
+# UDP Traceroute with Trippy
+# @see https://trippy.rs/guides/recommendation/#udpdublin-with-fixed-target-port-and-variable-source-port
+function tu {
+  _update_geoip
+
+  # Config is managed by home-manager
+  sudo trip \
+    -c $XDG_CONFIG_HOME/trippy/trippy.toml \
+    --udp \
+    --multipath-strategy dublin \
+    --target-port 33434 \
+    --tui-custom-columns holavbwdtSPQ \
+    "$@"
 }
 
 # Show TLS certificate details for a given domain

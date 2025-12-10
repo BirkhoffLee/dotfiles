@@ -1,0 +1,439 @@
+{ config, ... }:
+{
+  programs.trippy = {
+    enable = true;
+
+    settings = {
+      # All sections and all items within each section are non-mandatory.
+
+      #
+      # General Trippy configuration.
+      #
+      trippy = {
+        # The Trippy mode.
+        #
+        # Allowed values are:
+        #   tui         - Display interactive Tui [default]
+        #   stream      - Display a continuous stream of tracing data
+        #   pretty      - Generate a pretty text table report for N cycles
+        #   markdown    - Generate a Markdown text table report for N cycles
+        #   csv         - Generate a CSV report for N cycles
+        #   json        - Generate a JSON report for N cycles
+        #   dot         - Generate a Graphviz DOT report for N cycles
+        #   flows       - Display all flows for N cycles
+        #   silent      - Do not generate any output for N cycles
+        #
+        # Note: the dot and flows modes are only allowed with paris or dublin
+        # multipath strategy.
+        mode = "tui";
+
+        # Trace without requiring elevated privileges [default: false]
+        #
+        # Enabling will cause IPPROTO_ICMP sockets to be used.
+        #
+        # Note: not supported on all platforms.
+        unprivileged = false;
+
+        # How to format log data.
+        #
+        # Allowed values are:
+        #  compact      - Display log data in a compact format
+        #  pretty       - Display log data in a pretty format [default]
+        #  json         - Display log data in a json format
+        #  chrome       - Display log data in Chrome trace format
+        log-format = "pretty";
+
+        # The debug log filter [default: trippy=debug]
+        log-filter = "trippy=debug";
+
+        # How to log event spans.
+        #
+        # Allowed values are:
+        #  off          - Do not display event spans [default]
+        #  active       - Display enter and exit event spans
+        #  full         - Display all event spans
+        log-span-events = "off";
+      };
+
+      #
+      # Tracing strategy configuration.
+      #
+      strategy = {
+        # The tracing protocol.
+        #
+        # Allowed values are:
+        #   icmp [default]
+        #   udp
+        #   tcp
+        protocol = "icmp";
+
+        # The address family.
+        #
+        # Allowed values are:
+        #   ipv4            - Lookup IPv4 only
+        #   ipv6            - Lookup IPv6 only
+        #   ipv6-then-ipv4  - Lookup IPv6 with a fallback to IPv4
+        #   ipv4-then-ipv6  - Lookup IPv4 with a fallback to IPv6 [default]
+        #   system          - If the OS resolver is being used then use the first IP address returned,
+        #                     otherwise lookup IPv6 with a fallback to IPv4.
+        addr-family = "ipv4-then-ipv6";
+
+        # The target port (TCP & UDP only) [default: 80]
+        #
+        # Applicable for TCP and UDP protocols only.
+        # target-port = 80;
+
+        # The source port (TCP & UDP only) [default: auto]
+        #
+        # Applicable for TCP and UDP protocols only.
+        # source-port = 1234;
+
+        # The source IP address [default: auto]
+        #
+        # If unspecified the source address will be chosen automatically based on the tracing target.
+        # source-address = "1.2.3.4";
+
+        # The network interface [default: auto]
+        #
+        # If not specified the interface is chosen based on the source-address.
+        # interface = "en0";
+
+        # The minimum duration of every round [default: 1s]
+        #
+        # The minimum time that must elapse before a tracing round is considered
+        # complete, regardless of whether the target is discovered or not.
+        min-round-duration = "1s";
+
+        # The maximum duration of every round [default: 1s]
+        #
+        # The maximum time that may elapse before a tracing round is considered
+        # complete, regardless of whether the target is discovered or not.
+        max-round-duration = "1s";
+
+        # The round grace period [default: 100ms]
+        #
+        # The period of time to wait for additional probe responses after the target
+        # has responded.
+        grace-duration = "100ms";
+
+        # The initial sequence number [default: 33434]
+        initial-sequence = 33434;
+
+        # The Equal-cost Multi-Path routing strategy (UDP only)
+        #
+        # Allowed value are:
+        #   classic - The src or dest port is used to store the sequence number [default]
+        #   paris   - The UDP `checksum` field is used to store the sequence number
+        #   dublin  - The IP `identifier` field is used to store the sequence number
+        #
+        # See https://github.com/fujiapple852/trippy/issues/274 for more details.
+        multipath-strategy = "classic";
+
+        # The maximum number of in-flight ICMP echo requests [default: 24]
+        #
+        # The tracing strategy operates a sliding window protocol and will allow a
+        # maximum number of probes to be inflight (sent, and not received or lost)
+        # at any given time.
+        max-inflight = 24;
+
+        # The TTL to start from [default: 1]
+        first-ttl = 1;
+
+        # The maximum number of TTL hops [default: 64]
+        max-ttl = 64;
+
+        # The size of IP packet to send [default: 84]
+        #
+        # For icmp this is the sum of the IP header, ICMP header and the payload.
+        # Trippy will adjust the size of the payload to fill up to the packet size.
+        packet-size = 84;
+
+        # The repeating pattern in the payload of the ICMP packet [default: 0]
+        payload-pattern = 0;
+
+        # The TOS IP header value (IPv4 only) [default: 0]
+        #
+        # This is also known as DSCP+ECN.
+        tos = 0;
+
+        # Whether to parse ICMP extensions.
+        #
+        # If enabled, all extensions attached to incoming ICMP TimeExceeded and DestinationUnavailable messages will be parsed
+        # and provided as part of the trace response data.
+        #
+        # The following ICMP Extension Object Classes are supported:
+        #   1 - MPLS Label Stack Class (RFC4950)
+        #
+        # Extension objects with an unknown class will be parsed to capture generic information including the class, subtype,
+        # length and payload bytes.
+        icmp-extensions = false;
+
+        # The socket read timeout [default: 10ms]
+        read-timeout = "10ms";
+
+        # The maximum number of samples to record per hop [default: 256]
+        max-samples = 256;
+
+        # The maximum number of flows to record [default: 64]
+        max-flows = 64;
+      };
+
+      #
+      # DNS configuration.
+      #
+      dns = {
+        # How DNS queries are resolved
+        #
+        # Allowed values are:
+        #   system      - Resolve using the OS resolver [default]
+        #                 @caveat do not support AS lookup
+        #   resolv      - Resolve using the `/etc/resolv.conf` DNS configuration
+        #   google      - Resolve using the Google `8.8.8.8` DNS service
+        #   cloudflare  - Resolve using the Cloudflare `1.1.1.1` DNS service
+        dns-resolve-method = "resolv";
+
+        # Trace to all IPs resolved from DNS lookup (ICMP only) [default: false]
+        #
+        # When set to true a trace will be started for all IPs resolved for all given targets.
+        # When set to false a trace will be started for one arbitrarily chosen IP per given target.
+        dns-resolve-all = false;
+
+        # Whether to lookup AS information [default: false]
+        #
+        # If enabled, AS (autonomous system) information is retrieved during DNS
+        # queries.
+        dns-lookup-as-info = true;
+
+        # The maximum time to wait to perform DNS queries [default: 5s]
+        dns-timeout = "5s";
+
+        # The time-to-live (TTL) for DNS entries [default: 300s]
+        dns-ttl = "300s";
+      };
+
+      #
+      # Report generation configuration.
+      #
+      report = {
+        # The number of report cycles to run [default: 10]
+        #
+        # Only applicable for modes pretty, markdown, csv and json.
+        report-cycles = 10;
+      };
+
+      #
+      # General Tui Configuration.
+      #
+      tui = {
+        # How to render addresses.
+        #
+        # Allowed values are:
+        #   ip - Show IP address only
+        #   host - Show reverse-lookup DNS hostname only [default]
+        #   both - Show both IP address and reverse-lookup DNS hostname
+        tui-address-mode = "both";
+
+        # How to render autonomous system (AS) information.
+        #
+        # Allowed values are:
+        #   asn             - Show the ASN [default]
+        #   prefix          - Display the AS prefix
+        #   country-code    - Display the country code
+        #   registry        - Display the registry name
+        #   allocated       - Display the allocated date
+        #   name            - Display the AS name
+        tui-as-mode = "name";
+
+        # Custom columns to be displayed in the TUI hops table.
+        #
+        # Default values:
+        #
+        #   h - Ttl
+        #   o - Hostname
+        #   l - Loss %
+        #   s - Probes sent
+        #   r - Responses received
+        #   a - Last RTT
+        #   v - Average RTT
+        #   b - Best RTT
+        #   w - Worst RTT
+        #   d - Stddev
+        #   t - Status
+        #
+        # Also available:
+        #
+        #   j - Jitter
+        #   g - Jitter average
+        #   x - Jitter max
+        #   i - Jitter intra
+        #   Q - Last probe sequence number
+        #   S - Last probe source port
+        #   P - Last probe destination port
+        #   T - Last icmp packet type
+        #   C - Last icmp packet code
+        #   N - Last NAT status
+        #   f - Probes failed
+        #   F = Forward loss
+        #   B = Backward loss
+        #   D = Forward loss %
+        #   K = Differentiated Services Code Point (DSCP) of the Original Datagram
+        #   M = Explicit Congestion Notification (ECN) of the Original Datagram
+        #
+        # The columns will be shown in the order specified.
+        tui-custom-columns = "holavbwdt";
+
+        # How to render ICMP extensions.
+        #
+        #   off             - Do not show icmp extensions [default]
+        #   mpls            - Show MPLS label(s) only
+        #   full            - Show full icmp extension data for all known extensions
+        #   all             - Show full icmp extension data for all classes
+        tui-icmp-extension-mode = "off";
+
+        # The mmdb file to use GeoIp lookup [default: none]
+        #
+        # Supported mmdb formats:
+        #   MaxMind "GeoLite2 City"
+        #   IPinfo "IP to Country + ASN Database"
+        #   IPinfo "IP to Geolocation Extended Database"
+        geoip-mmdb-file = "${config.home.homeDirectory}/.cache/geoip.mmdb";
+
+        # How to render GeoIp information.
+        #
+        # Allowed values are:
+        #   off - Do not show GeoIp information [default]
+        #   short - Show short format GeoIp information
+        #           Prints: city, subdivision_code, country_code
+        #           Example: [San Francisco, CA, US]
+        #   long - Show long format GeoIp information
+        #          Prints: city, subdivision, country, continent
+        #          Example: [San Francisco, California, United States, North America]
+        #   location - Show latitude and Longitude format GeoIp information
+        #              Prints: latitude, longitude (~accuracy_radius km)
+        #              Example: [37.7749, -122.4194 (~10km)]
+        #
+        # Note this value is ignored unless a valid geoip-mmdb-file value is also provided.
+        tui-geoip-mode = "short";
+
+        # The maximum number of addresses to show per hop [default: auto]
+        #
+        # Use a zero value for `auto`.
+        tui-max-addrs = 0;
+
+        # Whether to preserve the screen on exit [default: false]
+        tui-preserve-screen = false;
+
+        # The Tui refresh rate [default: 100ms]
+        tui-refresh-rate = "100ms";
+
+        # The maximum ttl of hops which will be masked for privacy [default: none]
+        # tui-privacy-max-ttl = 0;
+
+        # The locale to use for Tui [default: auto]
+        # tui-locale = "en-US";
+
+        # The timezone for displaying dates and time [default: auto]
+        #
+        # The timezone must be a valid IANA timezone identifier.
+        # tui-timezone = "UTC";
+      };
+
+      # Tui color theme configuration.
+      #
+      # The supported ANSI color values are:
+      #   Black, Red, Green, Yellow, Blue, Magenta, Cyan, Gray, DarkGray, LightRed,
+      #   LightGreen, LightYellow, LightBlue, LightMagenta, LightCyan, White
+      #
+      # In addition, CSS named colors (i.e. SkyBlue) and raw hex values (i.e. ffffff)
+      # may be used but note that these are only supported on some platforms and
+      # terminals and may not render correctly elsewhere.
+      #
+      # Color names are case-insensitive and may contain dashes.
+      #
+      # See https://github.com/fujiapple852/trippy#theme-reference for details.
+      theme-colors = {
+        bg-color = "282a36";
+        border-color = "686868";
+        text-color = "eff0eb";
+        tab-text-color = "5af78e";
+        hops-table-header-bg-color = "f1f1f0";
+        hops-table-header-text-color = "282a36";
+        hops-table-row-active-text-color = "eff0eb";
+        hops-table-row-inactive-text-color = "686868";
+        hops-chart-selected-color = "5af78e";
+        hops-chart-unselected-color = "686868";
+        hops-chart-axis-color = "686868";
+        frequency-chart-bar-color = "5af78e";
+        frequency-chart-text-color = "eff0eb";
+        flows-chart-bar-selected-color = "5af78e";
+        flows-chart-bar-unselected-color = "686868";
+        flows-chart-text-current-color = "5af78e";
+        flows-chart-text-non-current-color = "f1f1f0";
+        samples-chart-color = "f3f99d";
+        samples-chart-lost-color = "ff5c57";
+        help-dialog-bg-color = "57c7ff";
+        help-dialog-text-color = "eff0eb";
+        settings-dialog-bg-color = "57c7ff";
+        settings-tab-text-color = "5af78e";
+        settings-table-header-text-color = "282a36";
+        settings-table-header-bg-color = "f1f1f0";
+        settings-table-row-text-color = "eff0eb";
+        map-world-color = "f1f1f0";
+        map-radius-color = "f3f99d";
+        map-selected-color = "5af78e";
+        map-info-panel-border-color = "686868";
+        map-info-panel-bg-color = "282a36";
+        map-info-panel-text-color = "eff0eb";
+        info-bar-bg-color = "f1f1f0";
+        info-bar-text-color = "282a36";
+      };
+
+      # Tui key bindings Configuration.
+      #
+      # The supported modifiers are: shift, ctrl, alt, super, hyper & meta. Multiple
+      # modifiers may be specified, for example ctrl+shift+b.
+      #
+      # See https://github.com/fujiapple852/trippy#key-bindings-reference for details.
+      bindings = {
+        toggle-help = "h";
+        toggle-help-alt = "?";
+        toggle-settings = "s";
+        toggle-settings-tui = "1";
+        toggle-settings-trace = "2";
+        toggle-settings-dns = "3";
+        toggle-settings-geoip = "4";
+        toggle-settings-bindings = "5";
+        toggle-settings-theme = "6";
+        toggle-settings-columns = "7";
+        next-hop = "down";
+        previous-hop = "up";
+        next-trace = "right";
+        previous-trace = "left";
+        next-hop-address = ".";
+        previous-hop-address = ",";
+        address-mode-ip = "i";
+        address-mode-host = "n";
+        address-mode-both = "b";
+        toggle-freeze = "ctrl+f";
+        toggle-chart = "c";
+        toggle-map = "m";
+        toggle-flows = "f";
+        expand-privacy = "p";
+        contract-privacy = "o";
+        expand-hosts = "]";
+        expand-hosts-max = "}";
+        contract-hosts = "[";
+        contract-hosts-min = "{";
+        chart-zoom-in = "=";
+        chart-zoom-out = "-";
+        clear-trace-data = "ctrl+r";
+        clear-dns-cache = "ctrl+k";
+        clear-selection = "esc";
+        toggle-as-info = "z";
+        toggle-hop-details = "d";
+        quit = "q";
+        quit-preserve-screen = "shift+q";
+      };
+    };
+  };
+}
