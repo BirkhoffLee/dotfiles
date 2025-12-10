@@ -22,6 +22,11 @@ bindkey '^[q' push-line-or-edit
 # Adds redo to 0x18 0x1f
 bindkey "^X^_" redo
 
+# Edit command line in EDITOR
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # Alt-V: Show the next key combo's terminal code and state what it does.
 bindkey '^[v' describe-key-briefly
 
