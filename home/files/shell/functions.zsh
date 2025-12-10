@@ -115,6 +115,11 @@ function timer {
   fi
 }
 
+# Clone repo and cd into it
+function gg {
+  git clone --depth 1 "$1" && cd "$(basename "$1" .git)"
+}
+
 # Use `llm` to generate a conventional commit draft using cached diff
 function aic {
   echo "Working..."
