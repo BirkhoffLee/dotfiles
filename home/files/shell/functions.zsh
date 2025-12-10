@@ -385,13 +385,3 @@ function s {
     (code -g "$file":$line || $VISUAL "$file" +$line)
 }
 
-function pyclean {
-  # Cleans py[cod] and __pychache__ dirs in the current tree:
-  find . | grep -E "(__pycache__|\.py[cod]$)" | xargs rm -rf
-}
-
-function pipenv-shell {
-  # pipenv shell breaks sometimes. This does not.
-  source "$(pipenv --venv)/bin/activate"
-}
-
