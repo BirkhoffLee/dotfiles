@@ -41,14 +41,18 @@ in
     zsh
   ];
 
-  nix.settings = {
-    # https://github.com/NixOS/nix/issues/7273
-    auto-optimise-store = false;
+  nix = {
+    channel.enable = false;
 
-    extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    settings = {
+      # https://github.com/NixOS/nix/issues/7273
+      auto-optimise-store = false;
+
+      extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
   };
 
   # Load nix-darwin in /etc/zshrc.
