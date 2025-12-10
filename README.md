@@ -26,6 +26,85 @@ My cross-platform NixOS / [nix-darwin](https://github.com/LnL7/nix-darwin) confi
     * [lazygit](https://github.com/jesseduffield/lazygit) ([a quick starter video](https://www.youtube.com/watch?v=CPLdltN7wgE))
     * [nix-index-database](https://github.com/nix-community/nix-index-database) to locate the Nix package of a command, and [comma](https://github.com/nix-community/comma) to run the command without installing it.
 
+## Custom Shell Shortcuts & Functions
+
+### Keybindings
+
+Custom Zsh keybindings are configured in [`home/files/shell/keys.zsh`](home/files/shell/keys.zsh).
+
+This is designed to work with default Ghostty macOS keybindings, or the iTerm2 Natural Text Editing keymappings preset.
+
+| Key Combo | Description |
+|-----------|-------------|
+| `Ctrl+U` | Delete everything to the left of the cursor |
+| `Ctrl+X` then `Delete` | Delete entire line to the left of cursor |
+| `Ctrl+B` | Jump to beginning of line |
+| `Alt+Q` | Push aside current command line to type a new one (re-inserted on next prompt) |
+| `Ctrl+X` then `Ctrl+_` | Redo last undone edit |
+| `Ctrl+X` then `Ctrl+E` | Edit current command line in `$EDITOR` |
+| `Alt+V` | Show next key combo's terminal code and description |
+| `Alt+Shift+S` | Prefix current/previous command with `sudo` |
+
+### Custom Functions
+
+Shell functions are defined in [`home/files/shell/functions.zsh`](home/files/shell/functions.zsh).
+
+A non-exhaustive list:
+
+<details>
+<summary>Video & Media</summary>
+
+- `burnsrt <input.mp4> <input.srt> <output.mp4>` - Burn SRT subtitles into MP4 video
+- `shrinkvid <input> <output> [bitrate]` - Compress video (uses hardware acceleration on macOS)
+- `impaste > file.png` - Output clipboard image data to stdout
+- `favicon <input.png>` - Generate multi-size favicon.ico from an image
+- `dirtypdf <input.pdf> <output.pdf>` - Apply scanner effect to a PDF
+
+</details>
+
+<details>
+<summary>Development & Git</summary>
+
+- `gg <repo-url>` - Clone repo and cd into it
+- `aic` - Generate AI-powered conventional commit message from staged changes
+- `e [file]` - Edit file with `$VISUAL`, or open current directory if no argument
+- `s <pattern>` - Search in files with fzf preview using bat
+
+</details>
+
+<details>
+<summary>Directory & File Management</summary>
+
+- `take <dir>` - Create directory and cd into it (equivalent to `mkdir -p && cd`)
+- `tt` - Create and cd into a temporary directory
+- `cdls <dir>` - Change to directory and list its contents
+- `decrypt_pdfs <password>` - Decrypt all PDFs in current directory
+
+</details>
+
+<details>
+<summary>Network & Diagnostics</summary>
+
+- `t <host>` - Traceroute with [Trippy](https://trippy.rs/) (auto-updates GeoIP database)
+- `tu <host>` - UDP traceroute with Trippy
+- `https <domain> [port]` - Show TLS certificate details (default port: 443)
+- `ttfb <url>` - Measure Time To First Byte with curl
+- `listening [pattern]` - List all processes listening on TCP ports
+- `pingu <host>` - Ping until success or cancelled
+- `lip <ip>` - Lookup IP address details
+- `dns <domain>` - Lookup IP address of domain's A record
+
+</details>
+
+<details>
+<summary>Nix Utilities</summary>
+
+- `nix-pkgdir <package>` - Get the Nix store path for a package
+- `nr <package> [args...]` - Run a package from nixpkgs-unstable without installing
+- `nsu <pkg1> [pkg2...]` - Start a shell with packages from nixpkgs-unstable
+
+</details>
+
 ## Usage Instructions
 
 <details>
