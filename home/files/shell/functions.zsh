@@ -120,6 +120,18 @@ function gg {
   git clone --depth 1 "$1" && cd "$(basename "$1" .git)"
 }
 
+# Wrapper around https://github.com/simonw/llm
+function _llm {
+  # uvx --with llm-anthropic llm -m claude-3.5-haiku 'fun facts about skunks'
+  with_llm uvx --with llm-openrouter llm
+}
+
+# Render the Markdown output with glow (https://github.com/charmbracelet/glow)
+# This has no streaming support (have to wait until the model finishes generating)
+function llm {
+  _llm "$@" | glow -
+}
+
 # Use `llm` to generate a conventional commit draft using cached diff
 function aic {
   echo "Working..."
