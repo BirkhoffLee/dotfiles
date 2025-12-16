@@ -222,7 +222,7 @@ function tu {
 # @example  `https google.com 443`
 function https {
   local port=${2:-443}
-  echo | openssl s_client -showcerts -servername $1 -connect $1:$port 2>/dev/null | openssl x509 -inform pem -noout -text | less
+  echo | openssl s_client -showcerts -servername $1 -connect $1:$port 2>/dev/null | openssl x509 -inform pem -noout -text
 }
 
 # Measure TTFB (Time To First Byte)
