@@ -82,21 +82,39 @@ function shrinkvid {
 function impaste {
   if [[ "$OSTYPE" == darwin* ]]; then
     # macOS: use osascript
-    tempfile=$(mktemp -t clipboard.XXXXXXXXXX.png)
-    osascript -e 'set theImage to the clipboard as «class PNGf»' \
-      -e "set theFile to open for access POSIX file \"$tempfile\" with write permission" \
-      -e 'write theImage to theFile' \
-      -e 'close access theFile'
-    cat "$tempfile"
-    rm "$tempfile"
+    local tempfile=$(mktemp -t clipboard.XXXXXXXXXX.png)
+    {
+      if osascript -e 'set theImage to the clipboard as «class PNGf»' \
+        -e "set theFile to open for access POSIX file \"$tempfile\" with write permission" \
+        -e 'write theImage to theFile' \
+        -e 'close access theFile' 2>/dev/null; then
+        cat "$tempfile"
+        return 0
+      else
+        echo "image read failed" >&2
+        return 1
+      fi
+    } always {
+      rm -f "$tempfile"
+    }
   elif command -v xclip &> /dev/null; then
     # Linux with X11: use xclip
-    xclip -selection clipboard -t image/png -o
+    if xclip -selection clipboard -t image/png -o 2>/dev/null; then
+      return 0
+    else
+      echo "image read failed" >&2
+      return 1
+    fi
   elif command -v wl-paste &> /dev/null; then
     # Linux with Wayland: use wl-paste
-    wl-paste --type image/png
+    if wl-paste --type image/png 2>/dev/null; then
+      return 0
+    else
+      echo "image read failed" >&2
+      return 1
+    fi
   else
-    echo "Error: impaste requires osascript (macOS), xclip (X11), or wl-clipboard (Wayland)" >&2
+    echo "image read failed" >&2
     return 1
   fi
 }
