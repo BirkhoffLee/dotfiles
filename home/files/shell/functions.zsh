@@ -150,6 +150,47 @@ function llm {
   _llm "$@" | glow -
 }
 
+# Read the image from clipboard, convert it to Markdown using
+# a system prompt template, and copy the Markdown result
+# while rendering it to the terminal.
+#
+# @see https://gist.github.com/BirkhoffLee/45f6dab957557469a5bef19be236dc65
+function md {
+  emulate -L zsh
+  setopt LOCAL_OPTIONS PIPE_FAIL
+
+  # Use a temporary file to preserve binary data
+  local temp_file=$(mktemp)
+  trap "rm -f '$temp_file'" EXIT
+
+  # Get input and save to temp file
+  if ! impaste > "$temp_file"; then
+    echo "Error: Failed to get clipboard image" >&2
+    return 1
+  fi
+
+  if [[ ! -s "$temp_file" ]]; then
+    echo "Error: No input image received from clipboard" >&2
+    return 1
+  fi
+
+  # Process through LLM and display
+  if ! cat "$temp_file" | _llm --template md -a - | tee >(pbcopy) >(glow -) > /dev/null; then
+    echo "Error: Conversion failed" >&2
+    return 1
+  fi
+
+  # Success notification
+  terminal-notifier \
+    -message "Conversion Complete" \
+    -title "md" \
+    -ignoreDnD \
+    -group md \
+    -sound Hero
+
+  return 0
+}
+
 # Use `llm` to generate a conventional commit draft using cached diff
 function aic {
   echo "Working..."
