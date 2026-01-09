@@ -138,7 +138,6 @@
           # LLM
           mods = "with_llm mods"; # @see https://github.com/charmbracelet/mods
           chat = "_llm chat";
-          md = "_llm --no-stream --template md -a"; # convert image to markdown
           files-to-prompt = "uvx files-to-prompt";
           crush = "with_llm crush";
 
