@@ -72,11 +72,8 @@ rec {
         "cfprefsd" \
         "ControlStrip" \
         "Dock" \
-        "Finder" \
-        "Mail" \
         "Photos" \
         "replayd" \
-        "Safari" \
         "SystemUIServer" \
         "TextInputMenuAgent" \
         "WindowManager"; do
