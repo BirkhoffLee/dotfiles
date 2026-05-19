@@ -24,7 +24,6 @@ My daily driver is macOS because I prefer the Apple desktop environment. There a
 
 * Terminal: [Ghostty](https://ghostty.org/), using its built-in splits and tabs instead of a multiplexer
 * Font: [Berkeley Mono™ Typeface](https://usgraphics.com/products/berkeley-mono)
-* On macOS, [it sets](home/libs/wallpaper.nix) a beautiful wallpaper from [Raycast](https://www.raycast.com/wallpapers)
 * General zsh configuration:
   * Prompt: [Starship](https://starship.rs) with a customized [Pure prompt](https://starship.rs/presets/pure-preset#pure-preset)
   * Theme: [Catppuccin Macchiato](https://catppuccin.com/) (Blue accent wherever available)
