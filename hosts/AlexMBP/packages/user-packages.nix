@@ -91,7 +91,7 @@ in
       ssh-copy-id # https://www.openssh.com
 
       # Cloud providers
-      # awscli2
+      awscli2
       # azure-cli
       # oci-cli
       # aws-vault
@@ -215,9 +215,12 @@ in
       dust # https://github.com/bootandy/dust (du in rust)
       qpdf # https://github.com/qpdf/qpdf
       html-tidy # https://github.com/htacg/tidy-html5
-      gnutar # https://www.gnu.org/software/tar
       gnused # https://www.gnu.org/software/sed
+
+      # Archive utilities
+      gnutar # https://www.gnu.org/software/tar
       xz # https://tukaani.org/xz
+      p7zip
 
       # Diff
       difftastic # https://github.com/Wilfred/difftastic
