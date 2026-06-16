@@ -75,7 +75,6 @@ in
     shellAliases =
       let
         macAliases = lib.mkIf (pkgs.stdenv.isDarwin) {
-          aws = "op plugin run -- aws";
           mtr = "sudo mtr";
           pbc = "pbcopy"; # Copy to clipboard
           pbp = "pbpaste"; # Paste from clipboard
