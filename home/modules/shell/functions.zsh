@@ -285,10 +285,12 @@ function get {
   # Check if URL looks like a media site yt-dlp handles well
   if command -v yt-dlp > /dev/null && [[ "$url" =~ (youtube\.com|youtu\.be|vimeo\.com|twitch\.tv|twitter\.com|instagram\.com|tiktok\.com) ]]; then
     yt-dlp --continue --progress "$@"
+  elif command -v curl > /dev/null; then
+    curl --continue-at - --location --progress-bar --remote-name --remote-time "$@"
   elif command -v wget > /dev/null; then
     wget --continue --progress=bar --timestamping "$@"
   else
-    curl --continue-at - --location --progress-bar --remote-name --remote-time "$@"
+    echo "curl/wget not found"
   fi
 }
 
