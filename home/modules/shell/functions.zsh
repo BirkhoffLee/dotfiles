@@ -311,3 +311,49 @@ function s {
   rg --json -C 5 $1 | delta
 }
 
+# Upload a file to B2 and return a presigned URL via download.birkhoff.me
+function b2upload() {
+  if [[ -z "$1" ]]; then
+    echo "usage: b2upload <file> [expiry: 1h, 2h, ..., 1d, ..., 7d]" >&2
+    return 1
+  fi
+
+  if [[ ! -f "$1" ]]; then
+    echo "b2upload: not a file: $1" >&2
+    return 1
+  fi
+
+  local EXPIRY="${2:-1h}"
+  local EXPIRY_SECONDS
+  if [[ "$EXPIRY" =~ '^([0-9]+)([hd])$' ]]; then
+    local num="${match[1]}" unit="${match[2]}"
+    if [[ "$unit" == "h" ]]; then
+      EXPIRY_SECONDS=$(( num * 3600 ))
+    else
+      if (( num < 1 || num > 7 )); then
+        echo "b2upload: days must be 1–7" >&2
+        return 1
+      fi
+      EXPIRY_SECONDS=$(( num * 86400 ))
+    fi
+  else
+    echo "b2upload: invalid expiry '$EXPIRY' (use e.g. 1h, 2h, 1d, 7d)" >&2
+    return 1
+  fi
+
+  local -x AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_ENDPOINT_URL AWS_DEFAULT_REGION
+  AWS_ACCESS_KEY_ID=$(op read "op://Private/B2 Application Key/keyID") || return 1
+  AWS_SECRET_ACCESS_KEY=$(op read "op://Private/B2 Application Key/applicationKey") || return 1
+  AWS_ENDPOINT_URL=https://s3.us-west-002.backblazeb2.com
+  AWS_DEFAULT_REGION=us-west-002
+
+  local BUCKET_NAME=assets-birkhoff-private
+  local FILENAME=$(basename "$1")
+
+  command aws s3 cp "$1" "s3://$BUCKET_NAME/$FILENAME" || return 1
+
+  URL=$(command aws s3 presign "s3://$BUCKET_NAME/$FILENAME" --expires-in "$EXPIRY_SECONDS")
+
+  echo "${URL/$BUCKET_NAME.s3.us-west-002.backblazeb2.com/download.birkhoff.me}"
+}
+
