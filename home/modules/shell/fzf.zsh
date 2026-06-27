@@ -86,6 +86,7 @@ export FZF_DEFAULT_OPTS="
 # -t: sort by modification time
 exclude_list=(
   "--exclude .git"
+  "--exclude .direnv"
   "--exclude node_modules"
   "--exclude .DS_Store"
 )
