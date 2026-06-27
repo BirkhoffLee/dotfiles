@@ -136,7 +136,6 @@
             (
               python-final: _:
               {
-                llm-cmd-comp = python-final.callPackage ./packages/llm-cmd-comp.nix { };
               }
               // prev.lib.optionalAttrs prev.stdenv.isDarwin {
                 llm-mlx = python-final.callPackage ./packages/llm-mlx.nix { };

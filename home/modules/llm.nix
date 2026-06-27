@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   defaultModel = "openrouter/google/gemini-3.5-flash";
 in
@@ -11,7 +16,6 @@ in
         llm-openrouter = true;
         llm-gguf = true;
         llm-jq = true;
-        llm-cmd-comp = true;
         socksio = true;
       }
       // lib.optionalAttrs pkgs.stdenv.isDarwin {
