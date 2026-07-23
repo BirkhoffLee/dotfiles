@@ -160,11 +160,12 @@ function e {
   fi
 }
 
-# Update geoip.mmdb if it's older than 30 days
+# Update geoip.mmdb if it's older than 7 days
+# @see https://github.com/Loyalsoldier/geoip#maxmind-mmdb-下载地址
 function _update_geoip {
   local _geoip_cache="${XDG_CACHE_HOME:-$HOME/.cache}/geoip.mmdb"
-  if [ ! -f "$_geoip_cache" ] || [ $(find "$_geoip_cache" -mtime +30 2>/dev/null | wc -l) -gt 0 ]; then
-    wget -O "$_geoip_cache" https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
+  if [ ! -f "$_geoip_cache" ] || [ $(find "$_geoip_cache" -mtime +7 2>/dev/null | wc -l) -gt 0 ]; then
+    wget -O "$_geoip_cache" https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-without-asn.mmdb
   fi
 }
 
