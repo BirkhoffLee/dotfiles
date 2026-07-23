@@ -8,6 +8,8 @@
   home.file.".ansible.cfg" = {
     text = ''
       [defaults]
+      deprecation_warnings = False
+      interpreter_python = auto_silent
       nocows = 1
       timeout = 25
       forks = 25
