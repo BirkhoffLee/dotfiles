@@ -106,8 +106,7 @@
     nh # Nix helper
 
     # ── Documentation & misc ──────────────────────────────────────────────
-    tldr
-    cht-sh
+    tlrc
     fastfetch # system info
   ];
 }

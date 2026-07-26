@@ -292,7 +292,6 @@ in
 
       # Documentation & help
       cht-sh # https://github.com/chubin/cheat.sh
-      tldr # https://github.com/tldr-pages/tldr
 
       # Notifications
       noti # https://github.com/variadico/noti

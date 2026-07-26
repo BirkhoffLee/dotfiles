@@ -174,7 +174,7 @@ in
           oggi = "echo -n \"$(date '+%Y-%m-%d')\"";
           ds-destroy = "${pkgs.fd}/bin/fd -H '^\.DS_Store$' -tf -X rm";
           clear_history = "> $ZDOTDIR/.zsh_history ; exec $SHELL -l";
-          help = "${pkgs.cht-sh}/bin/cht.sh";
+          help = "${pkgs.tlrc}/bin/tldr";
           du = "${pkgs.ncdu}/bin/ncdu --color dark -rr -x --exclude .git --exclude node_modules";
           gist = "${pkgs.gh}/bin/gh gist create";
 
