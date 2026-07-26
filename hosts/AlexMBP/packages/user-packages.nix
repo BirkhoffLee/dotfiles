@@ -122,17 +122,12 @@ in
       # ============================================================================
 
       # HTTP clients & file transfer
-      xh # https://github.com/ducaale/xh (modern curl/httpie)
       croc # https://github.com/schollz/croc (p2p file transfer)
       # curlie  # redundant: xh covers this
       # curl    # redundant: use system curl or xh
       # httpie  # redundant: xh covers this
       # magic-wormhole  # redundant: croc covers p2p file transfer
       # putty
-
-      # Remote access
-      mosh # https://mosh.org
-      autossh # https://www.harding.motd.ca/autossh
 
       # TLS & credentials
       mkcert # https://github.com/FiloSottile/mkcert
@@ -143,23 +138,16 @@ in
       # yubico-piv-tool
 
       # Network analysis & tools
-      knot-dns # https://www.knot-dns.cz
-      bandwhich # https://github.com/imsnif/bandwhich
       doggo # https://github.com/mr-karan/doggo (modern dig)
       hey # https://github.com/rakyll/hey (HTTP load generator)
-      iperf # https://github.com/esnet/iperf
       ipcalc # https://gitlab.com/ipcalc/ipcalc (IPv4/IPv6 address calculator)
       mitmproxy # https://mitmproxy.org
       nali # https://github.com/zu1k/nali (IP geolocation lookup)
       nexttrace # https://github.com/nxtrace/NTrace-core (visual traceroute)
-      nmap # https://nmap.org
       rtmpdump # https://rtmpdump.mplayerhq.hu
-      socat # http://www.dest-unreach.org/socat
-      sslscan # https://github.com/rbsec/sslscan
       stress # https://people.seas.harvard.edu/~apw/stress
       tcpflow # https://github.com/simsong/tcpflow
       ookla-speedtest # https://www.speedtest.net/apps/cli
-      tcping-go # https://github.com/cloverstd/tcping
       tcpreplay # https://tcpreplay.appneta.com
       tcptraceroute # https://github.com/mct/tcptraceroute
       wakeonlan # https://github.com/jpoliv/wakeonlan
@@ -169,9 +157,7 @@ in
 
       # VPN & security testing
       wireguard-go # https://github.com/WireGuard/wireguard-go
-      wireguard-tools # https://www.wireguard.com
       sqlmap # https://github.com/sqlmapproject/sqlmap
-      testssl # https://github.com/drwetter/testssl.sh
       # thc-hydra
 
       # ============================================================================
@@ -189,16 +175,11 @@ in
       # TERMINAL & SHELL
       # ============================================================================
 
-      tmux # https://github.com/tmux/tmux
       viddy # https://github.com/sachaos/viddy (modern watch)
-      lesspipe # https://github.com/wofr06/lesspipe
       glow # https://github.com/charmbracelet/glow (markdown in terminal)
       termdown # https://github.com/trehn/termdown (countdown timer)
       pop # https://github.com/charmbracelet/pop (email from terminal)
-      moreutils # https://joeyh.name/code/moreutils
       getopt # https://frodo.looijaard.name/project/getopt
-      progress # https://github.com/Xfennec/progress (coreutils progress watcher)
-      pv # https://www.ivarch.com/programs/pv.shtml (progress bar for pipes)
       # gotop  # redundant: htop/bottom cover this
       # procs  # redundant: htop/bottom cover this
       # emojify # https://github.com/mrowa44/emojify
@@ -207,12 +188,7 @@ in
       # FILE UTILITIES
       # ============================================================================
 
-      entr # https://github.com/eradman/entr (run commands on file change)
-      hexyl # https://github.com/sharkdp/hexyl (hex viewer)
       coreutils-prefixed # https://www.gnu.org/software/coreutils
-      eza # https://github.com/eza-community/eza (modern ls)
-      rsync # https://rsync.samba.org
-      dust # https://github.com/bootandy/dust (du in rust)
       qpdf # https://github.com/qpdf/qpdf
       html-tidy # https://github.com/htacg/tidy-html5
       gnused # https://www.gnu.org/software/sed
@@ -223,48 +199,28 @@ in
       p7zip
 
       # Diff
-      difftastic # https://github.com/Wilfred/difftastic
       vbindiff # https://www.cjmweb.net/vbindiff (visual binary diff in hex & ASCII)
 
       # Search
-      fd # https://github.com/sharkdp/fd
-      ripgrep # https://github.com/BurntSushi/ripgrep
       pdfgrep # https://pdfgrep.org
 
-      vivid # https://github.com/sharkdp/vivid (LS_COLORS generator)
 
       # ============================================================================
       # DATA & TEXT PROCESSING
       # ============================================================================
 
       # JSON / YAML / structured data
-      jq # https://jqlang.github.io/jq
-      yq-go # https://github.com/mikefarah/yq (jq for YAML, JSON, XML, CSV, TOML)
-      fx # https://github.com/antonmedv/fx (terminal JSON viewer)
       jc # https://github.com/kellyjonbrazil/jc (convert CLI tool output to JSON)
-      jo # https://github.com/jpmens/jo (generate JSON from shell commands)
       htmlq # https://github.com/mgdm/htmlq (jq for HTML)
-      gron # https://github.com/tomnomnom/gron (greppable JSON)
 
       # CSV / tabular data
       xan # https://github.com/medialab/xan (CSV processing)
       qsv # https://github.com/dathere/qsv (CSV manipulation)
       visidata # https://www.visidata.org (interactive tabular data TUI)
-      miller # https://github.com/johnkerl/miller (awk/sed/cut/join/sort for CSV, TSV, JSON)
 
       # Text manipulation
       up # https://github.com/akavel/up (interactive pipe builder)
-      choose # https://github.com/theryangeary/choose (modern cut + awk)
-      gnugrep # https://www.gnu.org/software/grep
-      sd # https://github.com/chmln/sd (modern sed)
       serpl # https://github.com/yassinebridi/serpl (global search & replace TUI)
-
-      # ============================================================================
-      # SYSTEM MONITORING
-      # ============================================================================
-
-      duf # https://github.com/muesli/duf (modern df)
-      glances # https://github.com/nicolargo/glances
 
       # ============================================================================
       # MEDIA & DOWNLOAD
@@ -297,7 +253,6 @@ in
       noti # https://github.com/variadico/noti
 
       # Misc
-      fastfetch # https://github.com/fastfetch-cli/fastfetch
       # cowsay
       # lolcat
 
@@ -308,7 +263,6 @@ in
       # @see https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md#should-i-use-gh-or-hub
       gh # https://cli.github.com
 
-      nh # https://github.com/nix-community/nh
       cachix # https://cachix.org
 
       # powershell
