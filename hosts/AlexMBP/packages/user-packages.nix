@@ -204,7 +204,6 @@ in
       # Search
       pdfgrep # https://pdfgrep.org
 
-
       # ============================================================================
       # DATA & TEXT PROCESSING
       # ============================================================================
@@ -245,9 +244,6 @@ in
       # Recording & presentation
       asciinema # https://asciinema.org
       # slides
-
-      # Documentation & help
-      cht-sh # https://github.com/chubin/cheat.sh
 
       # Notifications
       noti # https://github.com/variadico/noti
