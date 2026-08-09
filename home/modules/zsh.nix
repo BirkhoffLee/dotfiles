@@ -227,6 +227,7 @@ in
         GH_TELEMETRY = "false"; # GitHub CLI
         DO_NOT_TRACK = 1;
         DOTNET_CLI_TELEMETRY_OPTOUT = 1;
+        WRANGLER_SEND_METRICS = "false"; # Cloudflare Wrangler
 
         # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
         PYTHONIOENCODING = "utf-8";
