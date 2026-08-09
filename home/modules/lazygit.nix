@@ -6,13 +6,16 @@
       git = {
         overrideGpg = true;
 
-        pagers = [
+        diffRenderers = [
           {
-            pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+            command = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
             colorArg = "always";
           }
-          { externalDiffCommand = "${pkgs.difftastic}/bin/difft --color=always"; }
-          { pager = "${pkgs.diff-so-fancy}/bin/diff-so-fancy"; }
+          {
+            command = "${pkgs.difftastic}/bin/difft --color=always";
+            type = "extDiff";
+          }
+          { command = "${pkgs.diff-so-fancy}/bin/diff-so-fancy"; }
         ];
 
         commit = {
