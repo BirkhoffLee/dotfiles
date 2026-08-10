@@ -27,24 +27,24 @@ My daily driver is macOS because I prefer the Apple desktop environment. There a
 * General zsh configuration:
   * Prompt: [Starship](https://starship.rs) with a customized [Pure prompt](https://starship.rs/presets/pure-preset#pure-preset)
   * Theme: [Catppuccin Macchiato](https://catppuccin.com/) (Blue accent wherever available)
-  * A number of handy [aliases](home/programs/zsh.nix) and [functions](home/files/shell/functions.zsh) and [shell scripts](home/files/shell/utilities)
-  * [Automatic](home/files/shell/proxy.zsh) shell proxy propagation from macOS settings
+  * A number of handy [aliases](home/modules/zsh.nix) and [functions](home/modules/shell/functions.zsh) and [shell scripts](home/modules/shell/utilities)
+  * [Automatic](home/modules/shell/proxy.zsh) shell proxy propagation from macOS settings
 * CLI apps of choice:
   * Editor: [Helix](https://helix-editor.com/)
   * Shell History: [Atuin](https://github.com/atuinsh/atuin)
   * Git TUI: [lazygit](https://github.com/jesseduffield/lazygit) ([a quick starter video](https://www.youtube.com/watch?v=CPLdltN7wgE))
   * File Manager: [Yazi](https://yazi-rs.github.io/) (invoke with `y` for shell integration)
   * Directory Navigation: [zoxide](https://github.com/ajeetdsouza/zoxide)
-  * [fzf shell integration](home/programs/fzf.nix)
+  * [fzf shell integration](home/modules/fzf.nix)
     * CTRL-T - Paste the path of selected files and directories
     * ALT-C - cd into the selected directory
-  * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for fuzzy-searching zsh completion results, including a [smart preview window](home/files/shell/fzf.zsh)
+  * [fzf-tab](https://github.com/Aloxaf/fzf-tab) for fuzzy-searching zsh completion results, including a [smart preview window](home/modules/shell/fzf.zsh)
 
 ## Custom Shell Shortcuts & Functions
 
 ### Keybindings
 
-Custom Zsh keybindings are configured in [`home/files/shell/keys.zsh`](home/files/shell/keys.zsh).
+Custom Zsh keybindings are configured in [`home/modules/shell/keys.zsh`](home/modules/shell/keys.zsh).
 
 This is designed to work with default Ghostty macOS keybindings, or the iTerm2 Natural Text Editing keymappings preset.
 
@@ -66,7 +66,7 @@ This is designed to work with default Ghostty macOS keybindings, or the iTerm2 N
 
 ### Custom Functions
 
-Shell functions are defined in [`home/files/shell/functions.zsh`](home/files/shell/functions.zsh).
+Shell functions are defined in [`home/modules/shell/functions.zsh`](home/modules/shell/functions.zsh).
 
 A non-exhaustive list:
 
@@ -140,7 +140,7 @@ just update
 # Updates one flake input
 just update-input <flake-input-name>
 
-# For more, run `just` to get all receipes.
+# For more, run `just` to get all recipes.
 ```
 
 </details>
