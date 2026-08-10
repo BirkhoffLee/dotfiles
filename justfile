@@ -9,6 +9,13 @@ FLAKES_PATH := justfile_directory()
 SSH_OPTIONS := "-o PubkeyAuthentication=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 CACHIX_COMMAND := "op plugin run -- cachix"
 
+# birkhoff.cachix.org is world-readable, so anything pushed to it is published. These are the
+# store path name fragments built from the private `secrets` input — Berkeley Mono is a paid,
+# licensed font and supercharge is private — and they must never be pushed. "berkeley-mono"
+# also covers berkeley-mono-variable. commit-mono-nf is deliberately absent: it is OFL and
+# fetched from a public GitHub release.
+PRIVATE_PATHS := "berkeley-mono|supercharge"
+
 import 'justfiles/vm-vmware-fusion.just'
 import 'justfiles/vm-orbstack.just'
 
@@ -123,11 +130,18 @@ edit-secret secret_file:
 rekey:
   op read 'op://Private/id_ed25519/private key?ssh-format=openssh' > /tmp/k && agenix -r --identity /tmp/k && rm -f /tmp/k
 
-# Push darwin build artifacts to cachix (pushes full closure, not just newly-built paths)
+# Push darwin build artifacts to cachix, minus anything from the private `secrets` input
 [group('cache')]
 cache-darwin:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  # Pushes the full closure, not just newly-built paths, with {{PRIVATE_PATHS}} filtered out.
+  # Consequence: cachix refuses to serve a narinfo whose closure is incomplete, so the toplevel
+  # and the home profile (which reference the fonts) will not be servable. That is intended —
+  # the value here is the individual package paths, which still substitute normally.
   nix build '.#darwinConfigurations.AlexMBP.config.system.build.toplevel' --print-out-paths --no-link \
     | xargs nix path-info --recursive \
+    | grep -vE '{{PRIVATE_PATHS}}' \
     | {{CACHIX_COMMAND}} push birkhoff
 
 # Build Determinate Nix for x86_64-linux on nixos-server-01 and push it to cachix
