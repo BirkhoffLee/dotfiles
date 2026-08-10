@@ -79,6 +79,9 @@
 
     i915-sriov-dkms.url = "github:strongtz/i915-sriov-dkms";
     i915-sriov-dkms.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    machinereport.url = "github:birkhofflee/machinereport";
+    machinereport.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
@@ -111,6 +114,11 @@
         nur = inputs.nur.overlays.default;
 
         claude-code = inputs.claude-code-nix.overlays.default;
+
+        # Linux-only; the attribute is lazy so Darwin configs simply never touch it.
+        machinereport = _: prev: {
+          machinereport = inputs.machinereport.packages.${prev.stdenv.hostPlatform.system}.default;
+        };
 
         zellij-plugins = _: prev: {
           zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;

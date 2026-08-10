@@ -504,6 +504,26 @@
         "type": "github"
       }
     },
+    "machinereport": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786326471,
+        "narHash": "sha256-AXm30TN+a1vm5uNYu/HTBmaUdbbxwIj6RWKyjOG31k4=",
+        "owner": "birkhofflee",
+        "repo": "machinereport",
+        "rev": "f7f08929728ef3cb40f6eaded7ccbd0ce68e3b89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "birkhofflee",
+        "repo": "machinereport",
+        "type": "github"
+      }
+    },
     "nix": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -886,6 +906,7 @@
         "helix": "helix",
         "home-manager": "home-manager_2",
         "i915-sriov-dkms": "i915-sriov-dkms",
+        "machinereport": "machinereport",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
         "nixos-anywhere": "nixos-anywhere",
