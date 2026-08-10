@@ -16,6 +16,22 @@ CACHIX_COMMAND := "op plugin run -- cachix"
 # fetched from a public GitHub release.
 PRIVATE_PATHS := "berkeley-mono|supercharge"
 
+# nh injects `-o ControlMaster=auto -o ControlPath=/tmp/nh-ssh-<pid>/ssh-%n
+# -o ControlPersist=60` into NIX_SSHOPTS for every `--build-host` run. Its
+# `nix copy --to` and the remote build establish and then reuse that master,
+# and by the time `nix copy --from` runs, reading the multiplexed channel
+# yields the wrong stream: nix takes the first 8 bytes as the daemon magic
+# number, gets `started\n`, and dies with
+#
+#   error: cannot open connection to remote store 'ssh-ng://nixos-server-01':
+#   error: protocol mismatch, got 'started
+#
+# It is deterministic, not a flake, and it aborts the deploy after the remote
+# build has already succeeded. Turning multiplexing off avoids it: nh prepends
+# whatever NIX_SSHOPTS already contains to its own flags, and ssh uses the
+# first occurrence of any given option, so these win.
+NO_SSH_MUX := "NIX_SSHOPTS='-o ControlMaster=no -o ControlPath=none'"
+
 import 'justfiles/vm-vmware-fusion.just'
 import 'justfiles/vm-orbstack.just'
 
@@ -43,15 +59,15 @@ switch:
 
 [group('homelab')]
 switch-nixos-server:
-  nh os switch -H nixos-server-01 --accept-flake-config --target-host nixos-server-01 --build-host nixos-server-01 -e passwordless
+  {{NO_SSH_MUX}} nh os switch -H nixos-server-01 --accept-flake-config --target-host nixos-server-01 --build-host nixos-server-01 -e passwordless
 
 [group('homelab')]
 switch-nixos-desktop:
-  nh os switch -H nixos-desktop-01 --accept-flake-config --target-host root@nixos-desktop-01 --build-host nixos-server-01 -e passwordless
+  {{NO_SSH_MUX}} nh os switch -H nixos-desktop-01 --accept-flake-config --target-host root@nixos-desktop-01 --build-host nixos-server-01 -e passwordless
 
 [group('homelab')]
 switch-nixos-vps-tw:
-  nh os switch -H nixos-vps-tw-01 --accept-flake-config --target-host root@nixos-vps-tw-01 --build-host nixos-server-01 -e passwordless
+  {{NO_SSH_MUX}} nh os switch -H nixos-vps-tw-01 --accept-flake-config --target-host root@nixos-vps-tw-01 --build-host nixos-server-01 -e passwordless
 
 # Deploy nixos-server-01 via deploy-rs (remote build, magic rollback), then cache Determinate Nix
 [group('homelab')]
