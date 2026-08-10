@@ -197,6 +197,15 @@
       packages.x86_64-linux.nixos-desktop-01-image =
         self.nixosConfigurations.nixos-desktop-01.config.system.build.VMA;
 
+      # `remoteBuild = true` means "build on the target node": deploy-rs copies
+      # the .drv over and runs `nix build --store ssh://<node>`, so the node's
+      # own daemon does the work. deploy-rs has no build-host concept, and the
+      # only alternative (`false`) builds on whichever machine invoked `deploy`
+      # and then copies the closure over — which would drag every deploy through
+      # the Mac. Instead the *nodes* decide where their builds land:
+      # nixos-desktop-01 forwards them to nixos-server-01 via `nix.buildMachines`
+      # (see hosts/nixos-desktop-01/remote-builder.nix), so the Mac only ever
+      # evaluates and orchestrates.
       deploy.nodes =
         let
           mkNode = hostname: {

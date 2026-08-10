@@ -24,6 +24,7 @@
     ./networking.nix
     ./desktop.nix
     ./users.nix
+    ./remote-builder.nix
     ./programs/1password.nix
   ];
 

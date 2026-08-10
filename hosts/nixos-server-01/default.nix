@@ -76,6 +76,14 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0762tms0QT6kCQ7tTgoOdm+ry29ImKgDk09hXurEfM"
+
+    # nixos-desktop-01's Nix daemon. That host runs with max-jobs = 0 and
+    # forwards every build here; it authenticates with its own SSH host key
+    # rather than a separate keypair, so there is nothing extra to provision.
+    # Not restricted with `command=`: ssh-ng runs `nix daemon --stdio` while the
+    # older ssh protocol runs `nix-store --serve --write`, and pinning one breaks
+    # the other. See hosts/nixos-desktop-01/remote-builder.nix.
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJIzDz6of9lrchRhiMfr3yChjJrv6LZ5hhpwmDkAa37o root@nixos-desktop-01"
   ];
 
   # User configuration
