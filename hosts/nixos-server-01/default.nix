@@ -59,6 +59,13 @@ in
   # Periodic TRIM for thin-provisioned PVE storage (pairs with discard=on on scsi0)
   services.fstrim.enable = true;
 
+  environment.systemPackages = [ pkgs.cachix ];
+  age.secrets.cachix-token = {
+    file = ../../secrets/cachix-token.age;
+    owner = username;
+    mode = "0400";
+  };
+
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   programs.zsh.enable = true; # Enable zsh system-wide

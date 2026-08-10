@@ -46,10 +46,11 @@ switch-nixos-desktop:
 switch-nixos-vps-tw:
   nh os switch -H nixos-vps-tw-01 --accept-flake-config --target-host root@nixos-vps-tw-01 --build-host nixos-server-01 -e passwordless
 
-# Deploy nixos-server-01 via deploy-rs (remote build, magic rollback)
+# Deploy nixos-server-01 via deploy-rs (remote build, magic rollback), then cache Determinate Nix
 [group('homelab')]
 deploy-server:
   deploy .#nixos-server-01
+  just cache-determinate
 
 # Deploy nixos-desktop-01 via deploy-rs (remote build, magic rollback)
 [group('homelab')]
@@ -128,4 +129,37 @@ cache-darwin:
   nix build '.#darwinConfigurations.AlexMBP.config.system.build.toplevel' --print-out-paths --no-link \
     | xargs nix path-info --recursive \
     | {{CACHIX_COMMAND}} push birkhoff
+
+# Build Determinate Nix for x86_64-linux on nixos-server-01 and push it to cachix
+[group('cache')]
+cache-determinate:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  # The Determinate NixOS module sets nix.package to a nix-src flake output that is on
+  # neither cache.nixos.org nor install.determinate.systems — only on the paid FlakeHub
+  # Cache. Without this, every NixOS host recompiles Nix (~130 MiB closure) whenever the
+  # `determinate` input is bumped. `deploy-server` runs this automatically, so the desktop
+  # and the VPS substitute it from birkhoff.cachix.org instead of recompiling. All three
+  # NixOS hosts are x86_64-linux, so one build covers them all.
+  #
+  # Builds and pushes entirely on nixos-server-01: the cachix token is an agenix secret at
+  # /run/agenix/cachix-token (declared in hosts/nixos-server-01/default.nix, owned by ale), so
+  # it is read into the environment on the far side and never crosses the wire. After the
+  # first run this is nearly a no-op — cachix skips paths it already has.
+  src=$(jq -r '.nodes.nix.locked.url' {{FLAKES_PATH}}/flake.lock)
+  case "$src" in
+    *nix-src*) ;;
+    *) echo "error: flake.lock node 'nix' is not nix-src (got: $src)" >&2; exit 1 ;;
+  esac
+  echo "Building determinate-nix (x86_64-linux) and pushing from nixos-server-01 ..."
+  # No `-u` on the far side: NixOS's /etc/bashrc is not set -u clean and gets sourced here.
+  ssh nixos-server-01 -- "bash -eo pipefail -c '
+    if [ ! -r /run/agenix/cachix-token ]; then
+      echo \"error: /run/agenix/cachix-token not readable — deploy the host first\" >&2; exit 1
+    fi
+    export CACHIX_AUTH_TOKEN=\$(cat /run/agenix/cachix-token)
+    nix build --no-link --print-out-paths \"$src#packages.x86_64-linux.default\" \
+      | xargs nix path-info --recursive \
+      | cachix push birkhoff
+  '"
 

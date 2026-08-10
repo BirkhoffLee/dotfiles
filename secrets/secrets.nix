@@ -36,6 +36,10 @@ in
     publicKeys = withHomelab;
     armor = true;
   };
+  "cachix-token.age" = {
+    publicKeys = withHomelab;
+    armor = true;
+  };
   "ssh-config.age" = {
     publicKeys = [
       ale
