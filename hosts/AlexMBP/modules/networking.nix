@@ -4,6 +4,9 @@
   networking = {
     computerName = "${currentSystemName}";
     hostName = "${currentSystemName}";
+    # Pin the Bonjour name too: macOS appends "-2" on a .local collision, and nh
+    # derives the flake attribute from LocalHostName.
+    localHostName = "${currentSystemName}";
 
     applicationFirewall = {
       enable = true;
