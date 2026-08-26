@@ -237,6 +237,11 @@ function lip {
   xhs -b api.birkhoff.me/v3/ip/$1
 }
 
+# Lookup certificate transparency logs for an apex domain
+function crt-lookup {
+  xhs "https://crt.name/v1/search?apex=$1"
+}
+
 # Lookup IP address of an A record of a domain
 function dns {
   lip $(kdig @8.8.4.4 +short $1 | tail -n1)
