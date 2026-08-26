@@ -71,7 +71,6 @@
 
     claude-code-nix.url = "github:sadjow/claude-code-nix";
     claude-code-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    claude-code-nix.inputs.flake-utils.follows = "flake-utils";
 
     apex-discord-bot.url = "github:birkhofflee/apex-discord-bot";
     apex-discord-bot.inputs.nixpkgs.follows = "nixpkgs-unstable";
