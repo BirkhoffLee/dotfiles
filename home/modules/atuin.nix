@@ -33,7 +33,7 @@
 
       auto_sync = true;
       sync_frequency = "5m";
-      sync_address = "http://atuin"; # Tailscale Services
+      sync_address = "http://atuin.hippo-hexatonic.ts.net";
 
       theme.name = "catppuccin-macchiato-blue";
     };
