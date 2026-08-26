@@ -44,7 +44,7 @@ This is a cross-platform Nix configuration repository supporting both **macOS** 
 │   │   ├── disk-config.nix   # disko BTRFS layout
 │   │   ├── facter.json       # nixos-facter hardware report (pre-committed)
 │   │   ├── home.nix          # Host-specific home config
-│   │   └── services/         # tailscale, atuin, rybbit, caddy, cloudflared
+│   │   └── services/         # tailscale, atuin, rybbit, caddy, cloudflared, apex-discord-bot, jupyter
 │   ├── nixos-desktop-01/ # Proxmox VM (GUI desktop)
 │   │   ├── default.nix   # Entry point: imports sub-modules + sets stateVersion
 │   │   ├── hardware.nix  # Boot, proxmox VM config, zramSwap, enableHardwareAccel option
@@ -62,9 +62,14 @@ This is a cross-platform Nix configuration repository supporting both **macOS** 
 │   └── modules/           # All home-manager modules (programs + config files)
 │       ├── shell/         # Zsh shell scripts (functions.zsh, keys.zsh, fzf.zsh, etc.)
 │       └── *.nix          # Per-program configs (git, helix, zsh, atuin, etc.)
-├── packages/              # Custom Nix derivations (exposed via custom-packages overlay)
+├── packages/              # Custom Nix derivations (exposed via custom-packages / python-llm-plugins overlays)
 │   ├── age-with-plugins.nix           # age + age-plugin-1p wrapper with umask fix
-│   └── nixos-anywhere-patched.nix     # nixos-anywhere with local patches
+│   ├── nixos-anywhere-patched.nix     # nixos-anywhere with local patches (see patches/)
+│   ├── llm-mlx.nix                    # llm-mlx python package (Darwin only)
+│   ├── fonts/                         # berkeley-mono(-variable), commit-mono-nf (secrets-sourced)
+│   ├── impbcopy/                      # macOS ObjC tool: copy images to clipboard (used by impaste)
+│   ├── ocr/                           # macOS Swift Vision-framework OCR CLI
+│   └── patches/                       # Patch files applied by the derivations above
 ├── secrets/               # agenix-encrypted secrets
 │   ├── secrets.nix        # Public key declarations for each secret
 │   └── *.age              # Encrypted secret files
@@ -78,13 +83,17 @@ This is a cross-platform Nix configuration repository supporting both **macOS** 
 The repository uses a flake-based architecture defined in `flake.nix`:
 
 - **Multiple nixpkgs channels**: `nixpkgs-stable` (25.05-darwin) and `nixpkgs-unstable` (default)
-- **Overlays system**: Provides access to different package versions and custom packages
+- **Overlays system** (all defined in `flake.nix`, applied via `overlaysList` in `mkSystem`): Provides access to different package versions and custom packages
   - `pkgs-stable`, `pkgs-unstable`: Different nixpkgs versions
+  - `nur`: Nix User Repository
+  - `claude-code`: `claude-code-nix` overlay (tracks latest Claude Code)
   - `zellij-plugins`: Custom Zellij plugins (zjstatus, zjstatus-hints, zj-quit)
-  - `custom-packages`: Local derivations in `packages/` (`age-with-plugins`, `nixos-anywhere` patched)
-  - `tweaks`: Temporary per-package overrides (e.g., pinned `mactop` version)
+  - `custom-packages`: Local derivations in `packages/` — `age-with-plugins`, `nixos-anywhere` (patched), the fonts (`berkeley-mono`, `berkeley-mono-variable`, `commit-mono-nf`), and `supercharge` (from the `secrets` input)
+  - `python-llm-plugins`: Extends `pythonPackagesExtensions` with `llm-mlx` (Darwin only)
+  - `tweaks`: Temporary per-package overrides (currently empty — the place to pin/patch a package short-term)
 - **lib/mksystem.nix**: Helper function that simplifies creating system configurations for both Darwin and NixOS
-- **devShells.default**: Available via `nix develop` - provides `just`, `nh`, `agenix`, `nixfmt-tree`, `nixos-anywhere`, `ssh-copy-id`, and sets `NH_FLAKE="."`
+- **devShells.default**: Available via `nix develop` - provides `just`, `nh`, `agenix`, `nixos-anywhere`, `ssh-copy-id`, `deploy-rs`, and the treefmt wrapper; sets `NH_FLAKE="."`
+- **Formatting**: `nix fmt` (and `just format`) run a treefmt-nix wrapper that formats the **whole repo** (not just Nix). `checks.formatting` enforces it in CI/`nix flake check`.
 
 ### Configuration Philosophy
 
@@ -107,7 +116,7 @@ The `home/` directory provides a **shared base** that every host's `home.nix` im
 - `home/default.nix`: Explicitly imports each shared module from `home/modules/` (not auto-scanned)
 - `home/modules/`: All home-manager modules — program configs (e.g., `zsh.nix`, `helix.nix`) and config files live here (previously split between `home/programs/` and `home/files/`)
 - `home/modules/shell/`: Zsh shell scripts sourced by `zsh.nix`
-- Platform-specific settings use `pkgs.stdenv.isDarwin` / `pkgs.stdenv.isLinux` within modules
+- Platform-specific settings use `pkgs.stdenv.hostPlatform.isDarwin` / `pkgs.stdenv.hostPlatform.isLinux` within modules
 - macOS activation scripts (Library visibility, restart system services) live in `hosts/AlexMBP/home.nix`
 - `hasDesktop` is passed as an extra arg to home-manager (use it to gate GUI-specific config)
 
@@ -130,9 +139,9 @@ The `home/` directory provides a **shared base** that every host's `home.nix` im
 **nixos-server-01** (`hosts/nixos-server-01/default.nix`):
 - NixOS system configuration for a Proxmox VM running on the `homelab-nuc` PVE host
 - Uses `mkSystem` with `nixos-anywhere = true` (enables disko and nixos-facter modules)
-- Uses a custom home config at `hosts/nixos-server-01/home.nix` (not the shared `home/`)
-- Services: tailscale, atuin, rybbit (analytics), caddy (reverse proxy), cloudflared (tunnel)
-- Containers (Podman): rybbit-backend, rybbit-client, rybbit-postgres, rybbit-clickhouse
+- Home config at `hosts/nixos-server-01/home.nix` imports the shared `../../home` base and adds a few extras (glow, just, git-open, gh, nil, yaml-language-server)
+- Services: tailscale, atuin, rybbit (analytics), caddy (reverse proxy), cloudflared (tunnel), apex-discord-bot (from the `apex-discord-bot` flake input), jupyter
+- Containers (Podman): rybbit-backend, rybbit-client, rybbit-postgres, rybbit-clickhouse, jupyter (scipy-notebook)
 - Uses zramSwap for better memory management
 
 **nixos-desktop-01** (`hosts/nixos-desktop-01/default.nix`):
@@ -159,6 +168,46 @@ The `home/` directory provides a **shared base** that every host's `home.nix` im
 - Mac App Store apps (via `mas`)
 - Some specialized tools (displayplacer, borgbackup-fuse)
 
+### Binary Caches
+
+Substituters are declared in three places, and which ones apply depends on **where the build runs**:
+
+1. `flake.nix` `nixConfig.extra-substituters` — nix-community, helix, birkhoff, claude-code. Only honoured by the invoking (local) Nix, and only with `--accept-flake-config` + the user in `trusted-users`.
+2. `hosts/shared-nix-settings.nix` — the same four. Imported by every NixOS host, so this is what the **remote daemon** uses.
+3. `hosts/AlexMBP/default.nix` `determinateNix.customSettings` — nix-community, helix, birkhoff (`nix.settings` is ignored when `determinateNix.enable = true`).
+
+All use `extra-*` so `cache.nixos.org` is preserved.
+
+Keep sets 1 and 2 in sync. `just deploy-*` (deploy-rs `remoteBuild = true`) and `just switch-nixos-*` (`--build-host`) build on the target/build host, and a flake's `nixConfig` does **not** propagate over SSH to the remote daemon — only `shared-nix-settings.nix` applies there. Adding a cache to `flake.nix` alone has no effect on remote builds.
+
+`just cache-darwin` pushes to `birkhoff.cachix.org`, and pushes **darwin** closures only — Linux hosts get no benefit from it.
+
+**`birkhoff.cachix.org` is world-readable and this repo is public.** Anything pushed is published, so pushes must be filtered: the `PRIVATE_PATHS` variable in the `justfile` excludes store paths built from the private `secrets` input (`berkeley-mono`, which is a paid licensed font, and `supercharge`). `commit-mono-nf` is not excluded — it is OFL and fetched from a public GitHub release. Add to `PRIVATE_PATHS` when adding anything else sourced from `secrets`.
+
+Cachix will not serve a narinfo whose closure is incomplete, so filtering makes the toplevel and the home profile unservable while the individual package paths still substitute normally. Also note Cachix has **no CLI or API for deleting store paths** — `cachix remove` only edits nix.conf. Deletion is web-UI-only at app.cachix.org, so treat a push as irreversible.
+
+Decrypted agenix secrets are never at risk here: they live in `/run/agenix` at activation time, not in the store. What *is* in a NixOS toplevel is `users-groups.json` containing `hashedPassword`.
+
+### Determinate Nix
+
+`flake.nix` tracks the `determinate/3` semver range, so `just update` always moves to the latest 3.x release. How that release reaches each host differs by platform:
+
+**macOS** — the nix-darwin module sets `nix.enable = lib.mkForce false`; it never builds Nix. The running Nix is the installer-managed binary, upgraded imperatively with `sudo determinate-nixd upgrade` (prebuilt download, no compile). The flake input does not control the Mac's Nix version.
+
+**NixOS** — the module sets `nix.package` to the `nix-src` flake output (`modules/nixos.nix:31`). That store path is on neither `cache.nixos.org` nor the public `https://install.determinate.systems` cache (verified with `nix path-info --store`, for both the current and the previously-shipping version — that cache serves installer artifacts, not nix-src flake outputs). The only upstream source is FlakeHub Cache (`https://cache.flakehub.com`), which is **paid and needs imperative per-machine auth** (`determinate-nixd login`; hosts are `logged-out`, and there is no declarative equivalent).
+
+So on NixOS Nix would otherwise be recompiled per host per bump. The workaround is **`just cache-determinate`**: build it once on nixos-server-01 and push the ~130 MiB closure to `birkhoff.cachix.org`, which every host already trusts. All three NixOS hosts are x86_64-linux, so one build covers them all.
+
+**`just deploy-server` runs `just cache-determinate` automatically as its last step**, so the normal workflow (`just update` → `just deploy-server` → deploy the others) never recompiles Nix more than once. Deploy the server first: `deploy-desktop` / `deploy-vps-tw` build on the target (deploy-rs `remoteBuild = true`) and would otherwise each recompile it. The `switch-nixos-*` recipes use `--build-host nixos-server-01` and already share one build.
+
+The build and the push both run on nixos-server-01 — nothing is copied back to the Mac. The cachix token is the agenix secret `secrets/cachix-token.age`, declared in `hosts/nixos-server-01/default.nix` (owner `ale`, mode `0400`, mounted at `/run/agenix/cachix-token`), and `pkgs.cachix` is in that host's `systemPackages`. The recipe reads the token into `CACHIX_AUTH_TOKEN` on the far side, so it never crosses the wire. Because the push is now server-side, extending it to whole system closures is just a matter of changing what gets piped into `cachix push`.
+
+The remote command runs `bash -eo pipefail` without `-u`: NixOS's `/etc/bashrc` is sourced for non-interactive shells and is not `set -u` clean.
+
+Do not add `inputs.determinate.inputs.nixpkgs.follows` — upstream warns it causes cache misses for FlakeHub Cache artifacts.
+
+Note that on NixOS the Determinate module retargets the generated `nix.conf` to `/etc/nix/nix.custom.conf` (`modules/nixos.nix:77`), which determinate-nixd includes — so `nix.settings` from `shared-nix-settings.nix` does still take effect.
+
 ## Common Development Commands
 
 ### Building and Switching Configurations
@@ -176,7 +225,7 @@ just deploy-all             # Deploy all NixOS hosts via deploy-rs
 just build-desktop-image    # Build Proxmox VMA for nixos-desktop-01 (runs on nixos-server-01)
 just update                 # Update all flake inputs and commit lock file (alias: just u)
 just update-input <name>    # Update specific flake input (alias: just ui)
-just format                 # Format all Nix files using nix fmt
+just format                 # Format the whole repo via treefmt-nix (nix fmt)
 just optimize               # Clean old generations and optimize store (alias: just o)
 just repair                 # Verify and repair Nix store
 just cache-darwin           # Push darwin build artifacts to cachix
@@ -270,7 +319,7 @@ just switch-nixos-server
 1. Create `home/modules/<program>.nix`
 2. Add the import explicitly to `home/default.nix` (imports are not auto-scanned)
 3. For programs that only belong on specific hosts (e.g., GUI apps), add the import to `hosts/<hostname>/home.nix` instead of the shared `home/default.nix`
-4. Use `pkgs.stdenv.isDarwin` / `pkgs.stdenv.isLinux` within the module for platform-specific settings, or use `hasDesktop` (passed as `extraSpecialArgs`) to gate desktop-only config
+4. Use `pkgs.stdenv.hostPlatform.isDarwin` / `pkgs.stdenv.hostPlatform.isLinux` within the module for platform-specific settings, or use `hasDesktop` (passed as `extraSpecialArgs`) to gate desktop-only config
 
 Example shared module:
 ```nix
@@ -278,7 +327,7 @@ Example shared module:
 {
   programs.myprogram = {
     enable = true;
-  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+  } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     # macOS-specific settings
   };
 }
@@ -384,7 +433,7 @@ A private `dotfiles.secret` flake input is also referenced for sensitive files r
 ### Homelab-Specific Architecture
 
 The `nixos-server-01` host is a Proxmox VM on the `homelab-nuc` PVE host. It uses `mkSystem` with `nixos-anywhere = true`:
-- **Custom home config**: Uses `hosts/nixos-server-01/home.nix` instead of the shared `home/`
+- **Home config**: `hosts/nixos-server-01/home.nix` imports the shared `home/` base plus a small set of host extras
 - **Uses nixos-anywhere**: Automated remote installation with disk partitioning (disko)
 - **Uses nixos-facter**: Hardware config via `hosts/nixos-server-01/facter.json` (pre-committed; do not regenerate unless hardware changes)
 - **Remote deployment**: `just switch-nixos-server` uses `nh os switch` targeting `nixos-server-01` via Tailscale

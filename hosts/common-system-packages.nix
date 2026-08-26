@@ -18,7 +18,7 @@
       wget
       zsh
     ]
-    ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
       ghostty.terminfo # TODO https://github.com/nix-darwin/nix-darwin/issues/1790
     ];
 }

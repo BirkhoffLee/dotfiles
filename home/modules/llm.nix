@@ -18,7 +18,7 @@ in
         llm-jq = true;
         socksio = true;
       }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
         llm-mlx = true;
       }
     ))

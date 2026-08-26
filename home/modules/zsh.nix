@@ -74,7 +74,7 @@ in
 
     shellAliases =
       let
-        macAliases = lib.mkIf (pkgs.stdenv.isDarwin) {
+        macAliases = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
           mtr = "sudo mtr";
           pbc = "pbcopy"; # Copy to clipboard
           pbp = "pbpaste"; # Paste from clipboard
@@ -235,7 +235,7 @@ in
         # Erlang and Elixir shell history
         ERL_AFLAGS = "-kernel shell_history enabled";
       }
-      (lib.optionalAttrs pkgs.stdenv.isDarwin {
+      (lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
         # https://docs.brew.sh/Analytics
         HOMEBREW_NO_ANALYTICS = "1";
 
@@ -246,7 +246,7 @@ in
     ];
 
     profileExtra = ''
-      ${lib.optionalString pkgs.stdenv.isDarwin ''
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
         # Hardcoded from: /opt/homebrew/bin/brew shellenv (saves ~44ms per login shell)
         # PATH is handled via `home.sessionPath` instead
         export HOMEBREW_PREFIX="/opt/homebrew"
@@ -311,7 +311,7 @@ in
           source "${config.home.homeDirectory}/.shell/functions.zsh"
           source "${config.home.homeDirectory}/.shell/op.zsh"
 
-          ${lib.optionalString pkgs.stdenv.isDarwin ''
+          ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
             source "${config.home.homeDirectory}/.shell/proxy.zsh"
           ''}
 

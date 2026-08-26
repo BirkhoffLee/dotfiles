@@ -3,7 +3,7 @@
 pkgs.runCommand "ocr-1.0.0"
   {
     # Disable sandbox to access Xcode/Swift tools on macOS
-    __noChroot = pkgs.stdenv.isDarwin;
+    __noChroot = pkgs.stdenv.hostPlatform.isDarwin;
   }
   ''
     # Copy source file to build directory

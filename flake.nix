@@ -144,7 +144,7 @@
               python-final: _:
               {
               }
-              // prev.lib.optionalAttrs prev.stdenv.isDarwin {
+              // prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
                 llm-mlx = python-final.callPackage ./packages/llm-mlx.nix { };
               }
             )

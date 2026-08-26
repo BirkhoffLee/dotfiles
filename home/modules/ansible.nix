@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   # https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-control-node
-  home.sessionVariables = lib.optionalAttrs pkgs.stdenv.isDarwin {
+  home.sessionVariables = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES";
   };
 

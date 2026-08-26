@@ -6,7 +6,7 @@
 
 pkgs.runCommand "impbcopy-1.0.0"
   {
-    __noChroot = pkgs.stdenv.isDarwin;
+    __noChroot = pkgs.stdenv.hostPlatform.isDarwin;
   }
   ''
     cp ${./impbcopy.m} impbcopy.m

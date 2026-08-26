@@ -49,7 +49,7 @@
   home.stateVersion = "25.05";
   home.username = currentSystemUser;
   home.homeDirectory =
-    if pkgs.stdenv.isDarwin then "/Users/${currentSystemUser}" else "/home/${currentSystemUser}";
+    if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${currentSystemUser}" else "/home/${currentSystemUser}";
 
   home.packages = with pkgs; [
     # ── Networking & security ──────────────────────────────────────────────

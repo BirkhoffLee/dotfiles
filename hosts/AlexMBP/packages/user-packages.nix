@@ -279,7 +279,7 @@ in
       sarasa-gothic # https://github.com/be5invis/Sarasa-Gothic
     ]
     # macOS-only packages
-    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+    ++ (pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
 
       m-cli # https://github.com/rgcr/m-cli
       blueutil # https://github.com/toy/blueutil
@@ -300,7 +300,7 @@ in
       terminal-notifier # https://github.com/julienXX/terminal-notifier
     ])
     # Linux-only packages
-    ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
+    ++ (pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
 
       plocate # https://plocate.sesse.net (very fast locate)
 

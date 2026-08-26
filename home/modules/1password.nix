@@ -7,7 +7,7 @@
 {
   # SSH agent socket — used by git, ssh, and other tools
   home.sessionVariables.SSH_AUTH_SOCK =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     else
       "${config.home.homeDirectory}/.1password/agent.sock";
@@ -17,7 +17,7 @@
     gpg = {
       format = "ssh";
       ssh.program =
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
         else
           "/run/current-system/sw/bin/op-ssh-sign";

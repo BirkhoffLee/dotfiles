@@ -14,8 +14,8 @@
 
   programs.ghostty = {
     enable = true;
-    package = lib.mkIf pkgs.stdenv.isDarwin null; # broken on Darwin; use real package on Linux
-    systemd.enable = pkgs.stdenv.isLinux; # D-Bus activation: ~20ms window open vs ~300ms
+    package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin null; # broken on Darwin; use real package on Linux
+    systemd.enable = pkgs.stdenv.hostPlatform.isLinux; # D-Bus activation: ~20ms window open vs ~300ms
 
     # Clear the default keybinds so we have super
     # key (i.e. Command) key available to terminal
@@ -70,7 +70,7 @@
       font-variation = [
         "wdth=100" # it's fixed at 100. Purchase of "Master Fonts" is required for other options
         # On macOS, font-thicken is used instead.
-        (if pkgs.stdenv.isDarwin then "wght=400" else "wght=450")
+        (if pkgs.stdenv.hostPlatform.isDarwin then "wght=400" else "wght=450")
       ];
       # CJK character mapping
       font-codepoint-map = [
@@ -97,8 +97,8 @@
       # This also apparently make texts brighter.
       # @see https://developer.apple.com/documentation/coregraphics/cgcontext/setshouldsmoothfonts(_:)?changes=_3_11&language=objc
       # @see https://github.com/ghostty-org/ghostty/blob/d3bd224081d3c7c5ee54df6815e44f0b5d25357b/src/font/face/coretext.zig#L478-L483
-      font-thicken = lib.mkIf pkgs.stdenv.isDarwin true;
-      font-thicken-strength = lib.mkIf pkgs.stdenv.isDarwin 64;
+      font-thicken = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin true;
+      font-thicken-strength = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin 64;
 
       # =========================
       # COMPATIBILITY
