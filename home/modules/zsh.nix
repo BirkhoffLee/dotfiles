@@ -225,6 +225,7 @@ in
 
         # Telemetry opt-out
         GH_TELEMETRY = "false"; # GitHub CLI
+        VERCEL_TELEMETRY_DISABLED = 1; # Vercel CLI
         DO_NOT_TRACK = 1;
         DOTNET_CLI_TELEMETRY_OPTOUT = 1;
         WRANGLER_SEND_METRICS = "false"; # Cloudflare Wrangler
