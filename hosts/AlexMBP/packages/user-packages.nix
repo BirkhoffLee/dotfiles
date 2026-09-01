@@ -76,6 +76,7 @@ in
       # VERSION CONTROL
       # ============================================================================
 
+      git-absorb # https://github.com/tummychow/git-absorb (`git absorb` — auto-fixup staged changes)
       git-open # https://github.com/paulirish/git-open (`git open` — open GitHub page for repo)
       git-recent # https://github.com/paulirish/git-recent (`git recent` — browse local branches)
       bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner
