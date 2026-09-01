@@ -47,7 +47,8 @@ in
       };
 
       merge = {
-        conflictstyle = "zdiff3";
+        # mkForce: programs.mergiraf's git integration sets this to "diff3".
+        conflictStyle = lib.mkForce "zdiff3";
       };
 
       # reuse recorded resolution

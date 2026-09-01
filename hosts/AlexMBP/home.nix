@@ -14,6 +14,7 @@
     ../../home
     ../../home/modules/1password.nix
     ../../home/modules/ghostty.nix
+    ../../home/modules/mergiraf.nix
     ./packages/user-packages.nix
   ];
 
